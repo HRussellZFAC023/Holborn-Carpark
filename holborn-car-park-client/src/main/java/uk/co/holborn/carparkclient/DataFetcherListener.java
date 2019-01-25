@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 import javafx.collections.ObservableList;
 
 public interface  DataFetcherListener<T>{

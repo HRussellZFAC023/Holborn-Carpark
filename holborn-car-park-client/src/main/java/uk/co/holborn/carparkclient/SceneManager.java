@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

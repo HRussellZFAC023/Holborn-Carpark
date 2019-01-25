@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 import java.util.Date;
 
 public class Notification {
@@ -67,7 +69,7 @@ public class Notification {
 
     @Override
     public String toString() {
-        return "Notification{" +
+        return "uk.co.holborn.carparkclient.Notification{" +
                 "_id='" + _id + '\'' +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +

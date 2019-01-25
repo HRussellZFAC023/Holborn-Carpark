@@ -1,7 +1,8 @@
+package uk.co.holborn.carparkclient;
+
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 public class DataFetcher<T> {
     ObservableList<T> observableList;

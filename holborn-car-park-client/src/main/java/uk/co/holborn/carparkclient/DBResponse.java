@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 public class DBResponse {
     private int responseCode;
     private String body;
@@ -18,7 +20,7 @@ public class DBResponse {
 
     @Override
     public String toString() {
-        return "DBResponse{" +
+        return "uk.co.holborn.carparkclient.DBResponse{" +
                 "responseCode=" + responseCode +
                 ", body='" + body + '\'' +
                 '}';

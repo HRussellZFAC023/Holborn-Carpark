@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpResponse;

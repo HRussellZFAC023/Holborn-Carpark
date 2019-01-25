@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 public class GlobalVariables {
     public static String car_park_name = "Egham Car Park";
 //    public static String db_domain = "https://notification-service-test-run.localtunnel.me";

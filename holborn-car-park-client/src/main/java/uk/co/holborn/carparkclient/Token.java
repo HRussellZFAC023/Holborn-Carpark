@@ -1,3 +1,5 @@
+package uk.co.holborn.carparkclient;
+
 public class Token {
     private boolean auth;
     private String token;
@@ -34,7 +36,7 @@ public class Token {
 
     @Override
     public String toString() {
-        return "Token{" +
+        return "uk.co.holborn.carparkclient.Token{" +
                 "auth=" + auth +
                 ", token='" + token + '\'' +
                 '}';
