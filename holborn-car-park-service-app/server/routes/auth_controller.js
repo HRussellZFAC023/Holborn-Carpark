@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../public/data_model/User');
-var jwt = require('jsonwebtoken');
-var global_var = require('../public/javascripts/gloval_variables');
-var VerifyToken = require('../public/javascripts/VerifyToken');
-var VerifyAdmin = require('../public/javascripts/VerifyAdmin');
+const express = require('express');
+const router = express.Router();
+const User = require('../data_model/User');
+const jwt = require('jsonwebtoken');
+const global_var = require('../javascripts/gloval_variables');
+const VerifyToken = require('../javascripts/VerifyToken');
+const VerifyAdmin = require('../javascripts/VerifyAdmin');
+
+
 /* GET home page. */
 router.get('/me', VerifyToken, function(req, res) {
     User.findById(req.userID, { password: 0 }, function (err, user) {
@@ -14,6 +16,7 @@ router.get('/me', VerifyToken, function(req, res) {
         res.status(200).send(user);
     });
 });
+
 router.get('/meadmin', VerifyAdmin, function(req, res) {
         res.status(200).send("You have access");
 });

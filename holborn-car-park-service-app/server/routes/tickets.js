@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Tickets = require('../public/data_model/Tickets');
+var Tickets = require('../data_model/Tickets');
 
 
 router.get('/', function(req, res) {

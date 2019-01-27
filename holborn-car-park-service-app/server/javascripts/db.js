@@ -27,20 +27,23 @@
 //         })
 //     }
 // };
-let global_vars = require('../javascripts/gloval_variables');
+const global_vars = require('./gloval_variables');
 //var User = require("/public/data_model/User");
 //var fs = require('fs');
-var mongoose = require('mongoose');
-var mongoUri = global_vars.databaseUri;
+const mongoose = require('mongoose');
+const mongoUri = global_vars.databaseUri;
 //configuring mongoose
-var mongoOpt = {
-            useNewUrlParser: true,
-            ssl: false,
-            sslValidate: false,
-            //sslKey: fs.readFileSync(global_vars.sslKey),
-            //sslCert: fs.readFileSync(global_vars.sslCert),
-            //sslCa: fs.readFileSync('/Users/vladalboiu/Certificates/mongodb-cert.crt')
-    };
+
+const mongoOpt = {
+    useNewUrlParser: true,
+    ssl: false,
+    sslValidate: false,
+    //sslKey: fs.readFileSync(global_vars.sslKey),
+    //sslCert: fs.readFileSync(global_vars.sslCert),
+    //sslCa: fs.readFileSync('/Users/vladalboiu/Certificates/mongodb-cert.crt')
+};
+
+
 mongoose.connect(mongoUri, mongoOpt, function (err) {
     if(err) throw err;
     console.log("Connected successfully to the database!");
@@ -60,6 +63,8 @@ mongoose.connect(mongoUri, mongoOpt, function (err) {
     // });
 
 });
+
+
 mongoose.set('useCreateIndex', true);
 //
 // var db = mongoose.connection;
