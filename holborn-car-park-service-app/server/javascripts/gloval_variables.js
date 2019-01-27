@@ -1,6 +1,6 @@
 // config.js
 const dotenv = require('dotenv');
-dotenv.config({path: 'global_var.env'});
+dotenv.config({path: './server/global_var.env'});
 module.exports = {
   sslCert: process.env.SSL_CERT,
   sslKey: process.env.SSL_KEY,
