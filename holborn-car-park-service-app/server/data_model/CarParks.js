@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
-var carParksSchema = new  Schema({
+const carParksSchema = new Schema({
     name: {type: String, required: true},
     price: Schema.Types.Double,
 });
 
-var CarParks = mongoose.model('CarParks', carParksSchema);
+const CarParks = mongoose.model('CarParks', carParksSchema);
 module.exports = CarParks;

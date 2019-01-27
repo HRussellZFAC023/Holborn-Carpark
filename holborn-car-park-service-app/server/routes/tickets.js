@@ -1,9 +1,7 @@
-
-
-var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var Tickets = require('../data_model/Tickets');
+const express = require('express');
+const router = express.Router();
+const mongoose = require('mongoose');
+const Tickets = require('../data_model/Tickets');
 
 
 router.get('/', function(req, res) {

@@ -1,6 +1,6 @@
-var VerifyToken = require('./VerifyToken');
-var global_var = require('./gloval_variables');
-var User = require('../data_model/User');
+const VerifyToken = require('./VerifyToken');
+const global_var = require('./gloval_variables');
+const User = require('../data_model/User');
 
 function verifyAdmin(req, res, next) {
     VerifyToken(req, res, function(){
