@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Tickets = require('../data_model/Tickets');
 
 
-router.get('/', function(req, res) {
+router.get('/create', function(req, res) {
     // Tickets.findOne({}, function(err, tickets){
     //     if (err) return res.status(500).send('Error on the server.');
     //     res.status(200).send(tickets)
