@@ -1,8 +1,8 @@
-var jwt = require('jsonwebtoken');
-var global_var = require('./gloval_variables');
+const jwt = require('jsonwebtoken');
+const global_var = require('./gloval_variables');
 
 function verifyToken(req, res, next) {
-    var token = req.headers["x-access-token"];
+    const token = req.headers["x-access-token"];
     if (!token) return res.status(401).send({auth: false, message: 'No token provided.'});
 
     jwt.verify(token, global_var.secret_key, function (err, decoded) {
