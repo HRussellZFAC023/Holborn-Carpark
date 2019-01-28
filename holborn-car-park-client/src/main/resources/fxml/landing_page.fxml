@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" stylesheets="@../css/main_view.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.co.holborn.carparkclient.LandingPageController">
+   <children>
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="377.3333435058594" minHeight="140.0" prefHeight="140.0" valignment="BOTTOM" vgrow="NEVER" />
+          <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="661.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="1043.0" text="Welcome to Egham Car Park!" textAlignment="CENTER" textFill="#5e5e5e" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="Avenir Roman" size="37.0" />
+               </font>
+            </Label>
+            <GridPane GridPane.rowIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="561.0" minWidth="100.0" percentWidth="50.0" prefWidth="475.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="515.0" minWidth="100.0" percentWidth="50.0" prefWidth="444.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="600.0" minHeight="100.0" percentHeight="100.0" prefHeight="476.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#begin" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Validate My Ticket" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                     <graphic>
+                        <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/validate_ticket_comp/validate_ticket.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Avenir Heavy" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="100.0" left="100.0" right="100.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Ticket Lost" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1">
+                     <graphic>
+                        <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/lost_ticket.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Avenir Heavy" size="27.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets bottom="100.0" left="100.0" right="100.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
