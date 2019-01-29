@@ -4,7 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const db_connection = require('./server/javascripts/db_connection');
 //main routes declaration
-const indexRouter = require('./server/routes/index');
 
 
 //API routes declaration
@@ -20,7 +19,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //main routes
-app.use('/', indexRouter);
+app.use('/',function(req, res){
+    res.sendFile(__dirname + '/public/HTML/index.html');
+});
 
 //API routes
 const api_name = '/api';
