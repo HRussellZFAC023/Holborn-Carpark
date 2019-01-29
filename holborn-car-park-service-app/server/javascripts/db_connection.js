@@ -1,4 +1,4 @@
-const global_vars = require('../javascripts/gloval_variables');
+let global_vars = require('../javascripts/gloval_variables');
 //var fs = require('fs'); //for file certificate
 
 const mongoose = require('mongoose');

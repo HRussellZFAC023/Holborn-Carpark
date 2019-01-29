@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CarParks = require('../../data_model/CarParks');
+const CarParks = require('../../data model/CarParks');
 const Verify = require('../../javascripts/verify');
 
 //Display all the car parks
