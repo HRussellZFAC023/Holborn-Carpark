@@ -14,26 +14,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static javafx.scene.layout.AnchorPane.*;
+
 public class SceneManager {
     private AnchorPane scenePane;
     private HashMap<String, String> scenes;
     private boolean animationFinished ;
     private ArrayList<String> pastStages;
 
-     SceneManager(AnchorPane scenePane, HashMap<String, String> scenes) {
+     public SceneManager(AnchorPane scenePane, HashMap<String, String> scenes) {
         this.scenePane = scenePane;
         this.scenes = scenes;
         pastStages = new ArrayList<>();
         animationFinished = true;
     }
 
-     void switchToScene(String sceneKey){
+     public void switchToScene(String sceneKey){
         if(animationFinished){
             switchTo(sceneKey);
             animateFadeInOut(false);
         }
     }
-     void goBack(){
+     public void goBack(){
         if(animationFinished && pastStages.size() >=2){
             switchTo(pastStages.get(pastStages.size()-2));
             animateFadeInOut(true);
@@ -44,11 +46,11 @@ public class SceneManager {
         try {
             if (scenes.get(sceneKey) != null) {
                 AnchorPane root = FXMLLoader.load(getClass().getResource(scenes.get(sceneKey)));
-                scenePane.setBottomAnchor(root, 0.0);
-                scenePane.setRightAnchor(root, 0.0);
-                scenePane.setLeftAnchor(root, 0.0);
-                scenePane.setTopAnchor(root, 0.0);
-               addSceneToBackQueue(sceneKey);
+                setBottomAnchor(root, 0.0);
+                setRightAnchor(root, 0.0);
+                setLeftAnchor(root, 0.0);
+                setTopAnchor(root, 0.0);
+                addSceneToBackQueue(sceneKey);
                 scenePane.getChildren().add(root);
 
             } else {
@@ -58,7 +60,6 @@ public class SceneManager {
             e.printStackTrace();
         }
     }
-
     public void clearSceneQueue(){
          pastStages.clear();
     }
