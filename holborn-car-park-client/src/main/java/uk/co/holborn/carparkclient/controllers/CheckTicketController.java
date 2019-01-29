@@ -1,4 +1,4 @@
-package uk.co.holborn.carparkclient;
+package uk.co.holborn.carparkclient.controllers;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
@@ -44,8 +43,8 @@ public class CheckTicketController implements Initializable {
         mc = MainViewController.getInstance();
         checkTicketField.clear();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue)->{
-            if(newValue.length() == 12){
-                if(newValue.equals("TESTTICKET")){
+            if(newValue.length() == 24){
+                if(newValue.equals("5c4e4332d6a2be0a91f3872d")){
                     displayInfo("Searching...");
                     displayTicketPane("12 minutes", "£6.20");
 
@@ -63,7 +62,7 @@ public class CheckTicketController implements Initializable {
 
     @FXML
     private void goToPayment(){
-        mc.sceneManager.switchToScene("Payment");
+        mc.sceneManager.switchToScene("PaymentMethod");
     }
     @FXML
     private void back(){

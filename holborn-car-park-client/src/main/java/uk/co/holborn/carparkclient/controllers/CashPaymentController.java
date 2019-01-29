@@ -1,4 +1,4 @@
-package uk.co.holborn.carparkclient;
+package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PaymentController implements Initializable {
+public class CashPaymentController implements Initializable {
 
     @FXML Label amountPaid;
     @FXML Label amountDue;

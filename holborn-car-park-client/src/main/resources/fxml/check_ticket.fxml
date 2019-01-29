@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1252.0" stylesheets="@../css/main_view.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.co.holborn.carparkclient.CheckTicketController">
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" stylesheets="@../css/main_view.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uk.co.holborn.carparkclient.controllers.CheckTicketController">
    <children>
       <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -61,7 +61,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextField fx:id="checkTicketField" alignment="CENTER" prefHeight="103.0" prefWidth="835.0" style="-fx-background-radius: 30;" styleClass="custom_text_field" text="ASDSJAHJDSK12364" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                  <TextField fx:id="checkTicketField" alignment="CENTER" prefHeight="103.0" prefWidth="835.0" style="-fx-background-radius: 30;" styleClass="custom_text_field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                      <font>
                         <Font size="27.0" />
                      </font>
