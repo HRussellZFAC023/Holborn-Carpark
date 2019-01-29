@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const User = require('/server/data_model/User');
-const jwt = require('jsonwebtoken');
-const global_var = require('/server/javascripts/gloval_variables');
-const VerifyToken = require('/server/javascripts/verify_token');
-const VerifyAdmin = require('/server/javascripts/verify_admin');
+var express = require('express');
+var router = express.Router();
+var User = require('../public/data_model/User');
+var jwt = require('jsonwebtoken');
+var global_var = require('../../public/javascripts/gloval_variables');
+var VerifyToken = require('../../public/javascripts/verify_token');
+var VerifyAdmin = require('../../public/javascripts/verify_admin');
 /* GET home page. */
 router.get('/me', VerifyToken, function(req, res) {
     User.findById(req.userID, { password: 0 }, function (err, user) {

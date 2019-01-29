@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const global_var = require('./gloval_variables');
+var jwt = require('jsonwebtoken');
+var global_var = require('./gloval_variables');
 
 function verify_token(req, res, next) {
     var token = req.headers["x-access-token"];

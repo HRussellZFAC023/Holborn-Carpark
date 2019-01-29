@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Tickets = require('../../data_model/Tickets');
+const Tickets = require('../../data model/Tickets');
 const verify = require('../../javascripts/verify');
 
 router.get('/get_all', function(req, res) {

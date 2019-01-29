@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const CarParks = require('../data_model/CarParks');
+const CarParks = require('../../server/data model/CarParks');
 
 exports.VerifyCarPark = function (req, resp, next) {
     CarParks.findOne({_id: req.body._id_carPark},function (err, carPark) {
@@ -8,3 +8,20 @@ exports.VerifyCarPark = function (req, resp, next) {
         next();
     });
 };
+exports.VerifyClientAuth = function(_id_carPark, callback){
+    CarParks.findOne({_id: _id_carPark},function (err, carPark) {
+        let err_code, err_desc;
+        if(err){
+            err_code = 505;
+            err_desc = err;
+            callback(err_code, err_desc);
+            return;
+        }
+        if(!carPark) {
+            callback(404, "Unauthorised access!");
+            return;
+        }
+        callback(200, 'Authorised!');
+        return;
+    });
+}
