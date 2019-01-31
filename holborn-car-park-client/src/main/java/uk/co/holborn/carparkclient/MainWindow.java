@@ -5,6 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import uk.co.holborn.carparkclient.controllers.MainViewController;
+
+
 
 /**
  * Creates the main application window
@@ -13,6 +18,8 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Logger log =   LogManager.getLogger(getClass().getName());
+        log.info("-----------Application start------------");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.main_window_name);
         primaryStage.setFullScreen(true);
@@ -23,6 +30,12 @@ public class MainWindow extends Application {
         primaryStage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        MainViewController mc = MainViewController.getInstance();
+        System.exit(0);
+        mc.getSocket().close();
+    }
 
     public static void main(String[] args) {
         launch(args);

@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.ConnectionPopUp;
 import uk.co.holborn.carparkclient.GlobalVariables;
 import uk.co.holborn.carparkclient.SceneManager;
@@ -41,10 +43,12 @@ public class MainViewController implements Initializable {
     GlobalVariables globalVariables;
     ConnectionPopUp popup;
     Ticket ticket;
+    Logger logger;
 
 
     public MainViewController() {
         globalVariables = new GlobalVariables();
+        logger = LogManager.getLogger(getClass().getName());
         instance = this;
     }
 
@@ -59,12 +63,10 @@ public class MainViewController implements Initializable {
 
 
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
         popup = new ConnectionPopUp(mainAnchor, blurrAnchor);
-
         HashMap<String, String> scenes = new HashMap<>();
         scenes.put("HappyHour", "/fxml/happy_hour_view.fxml");
         scenes.put("Start", "/fxml/landing_page.fxml");
@@ -80,25 +82,34 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
 
+
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
-            System.out.println("Connected to the web service");
-            popup.show("Connected");
-            socket.emit("authorise", GlobalVariables.car_park_id);
-            popup.removePopUp();
+            logger.info("Connected to the web server. Authorising...");
+            socket.emit("authorisation", GlobalVariables.car_park_id);
+            socket.on("authorised", args_auth->{
+                if(args_auth[0].equals(200)){
+                    popup.show("Connected");
+                    popup.removePopUp();
+                    logger.info("Authorised!");
+                }else{
+                    logger.error("Unauthorised access! Please check that the information from the config file are correct.");
+                    System.exit(0);
+                }
+            });
         });
         socket.on(Socket.EVENT_CONNECTING, args_cni -> {
             popup.show("Connecting...");
-            System.out.println("Connecting...");
+            logger.info("Connecting...");
         });
         socket.on(Socket.EVENT_RECONNECTING, args_cni -> {
             popup.show("Reconnecting...");
-            System.out.println("Reconnecting...");
+            logger.info("Reconnecting...");
         });
         socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> {
             System.out.println("Err" + args_cni[0]);
         });
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
-            System.out.println("Disconnected from the web service");
+            logger.info("Disconnected");
             popup.show("Disconnected");
         });
         socket.connect();
@@ -121,7 +132,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void switchTicketCheck(ActionEvent event) {
-        sceneManager.switchToScene("TicketCheck");
+        socket.emit("hi");sceneManager.switchToScene("TicketCheck");
     }
 
     @FXML
@@ -129,7 +140,7 @@ public class MainViewController implements Initializable {
         sceneManager.goBack();
     }
 
-    Socket getSocket() {
+    public Socket getSocket() {
         return socket;
     }
 

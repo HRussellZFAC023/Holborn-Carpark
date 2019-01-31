@@ -5,4 +5,5 @@
 <entry key="car_park_id">5c4e397ee23c000a27a94720</entry>
 <entry key="car_park_name">Egham Car Park</entry>
 <entry key="webservice">http://localhost:80</entry>
+<entry key="finish_screen_delay">5000</entry>
 </properties>

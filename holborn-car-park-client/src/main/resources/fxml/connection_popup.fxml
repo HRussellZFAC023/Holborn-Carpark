@@ -30,11 +30,11 @@
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="179.66665649414062" minHeight="10.0" prefHeight="154.66665649414062" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="145.16665649414062" minHeight="10.0" prefHeight="141.33334350585938" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="179.66665649414062" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="190.5" minHeight="10.0" prefHeight="147.5" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER" prefHeight="105.0" prefWidth="847.0" styleClass="scene_top_title" text="Waiting for connection..." textFill="#6b6a6a" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="169.0" prefWidth="413.0" styleClass="scene_top_title" text="Waiting for connection..." textAlignment="CENTER" textFill="#6b6a6a" wrapText="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Avenir Roman" size="34.0" />
                            </font>
