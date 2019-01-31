@@ -1,5 +1,6 @@
 package uk.co.holborn.carparkclient.controllers;
 
+import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import javafx.application.Platform;
@@ -16,6 +17,7 @@ import uk.co.holborn.carparkclient.GlobalVariables;
 import uk.co.holborn.carparkclient.SceneManager;
 import uk.co.holborn.carparkclient.Ticket;
 
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -85,9 +87,8 @@ public class MainViewController implements Initializable {
 
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
-            socket.emit("authorisation", GlobalVariables.car_park_id);
-            socket.on("authorised", args_auth->{
-                if(args_auth[0].equals(200)){
+            socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
+                if(objects[0].equals(200)){
                     popup.show("Connected");
                     popup.removePopUp();
                     logger.info("Authorised!");

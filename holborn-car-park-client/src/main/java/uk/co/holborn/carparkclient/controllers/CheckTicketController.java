@@ -1,5 +1,7 @@
 package uk.co.holborn.carparkclient.controllers;
 
+import io.socket.client.Ack;
+import io.socket.client.Socket;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -41,9 +43,14 @@ public class CheckTicketController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
+        Socket socket = mc.getSocket();
         checkTicketField.clear();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue)->{
             if(newValue.length() == 24){
+                socket.emit("fetch-ticket", newValue, (Ack) objects -> {
+                    System.out.println(objects[0]);
+                    System.out.println(objects[1]);
+                });
                 if(newValue.equals("5c4e4332d6a2be0a91f3872d")){
                     displayInfo("Searching...");
                     displayTicketPane("12 minutes", "£6.20");
