@@ -11,7 +11,7 @@ router.get('/get_all', function(req, res) {
 });
 
 //Verifies if the car park exists and then it creates an new ticket
-router.post('/generate', verify.VerifyCarPark, function(req, res) {
+router.post('/generate', verify.verifyCarPark, function(req, res) {
    Tickets.create({
        date_in: Date.now(),
        date_out: null,
@@ -23,7 +23,7 @@ router.post('/generate', verify.VerifyCarPark, function(req, res) {
 });
 
 //Verifies if the car park exists and marks the ticket as paid
-router.post('/get_one', verify.VerifyCarPark, function(req, res) {
+router.post('/get_one', verify.verifyCarPark, function(req, res) {
     Tickets.findOne({_id : req.body._id}, function(err, ticket){
         if (err) return res.status(500).send('Error on the server:' + err);
         if(!ticket) return res.status(404).send('Ticket not found');
@@ -33,7 +33,7 @@ router.post('/get_one', verify.VerifyCarPark, function(req, res) {
 });
 
 //Sets whether or not the ticket has been paid
-router.post('/set_paid', verify.VerifyCarPark, function(req, res) {
+router.post('/set_paid', verify.verifyCarPark, function(req, res) {
     Tickets.findOneAndUpdate(
         {_id : req.body._id },
         {paid: req.body.paid},
@@ -45,7 +45,7 @@ router.post('/set_paid', verify.VerifyCarPark, function(req, res) {
 });
 
 //Validates the ticket. After validation, the ticket can't be used anymore
-router.post('/validate', verify.VerifyCarPark, function(req, res) {
+router.post('/validate', verify.verifyCarPark, function(req, res) {
     Tickets.findOneAndUpdate({_id : req.body._id },{valid: false}, function(err, ticket){
         if (err) return res.status(500).send('Error on the server:' + err);
         if(!ticket) return res.status(404).send('Ticket not found');
@@ -55,6 +55,4 @@ router.post('/validate', verify.VerifyCarPark, function(req, res) {
         res.status(200).send("Ticket valid. You can pass!")
     });
 });
-
-
 module.exports = router;

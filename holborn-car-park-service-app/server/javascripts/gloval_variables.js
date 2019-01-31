@@ -1,4 +1,3 @@
-// config.js
 const dotenv = require('dotenv');
 dotenv.config({path: 'server/global_var.env'});
 module.exports = {
