@@ -22,6 +22,8 @@ public class ConnectionPopUp {
     private AnchorPane root;
     private ConnectionPopUpController connectionPopUpController;
     private boolean alreadyOn;
+    private boolean debug_mode = false;
+    private double blurrRadius = 20;
 
     public ConnectionPopUp(AnchorPane mainAnchor, AnchorPane blurrAnchor) {
         this.mainAnchor = mainAnchor;
@@ -38,57 +40,59 @@ public class ConnectionPopUp {
     }
 
     public void show(String message) {
-        if (!alreadyOn) {
-            setBottomAnchor(root, 0.0);
-            setRightAnchor(root, 0.0);
-            setLeftAnchor(root, 0.0);
-            setTopAnchor(root, 0.0);
-            GaussianBlur gb = new GaussianBlur();
-            gb.setRadius(0);
-            blurrAnchor.setEffect(gb);
-            root.setTranslateY(40);
-            root.setOpacity(0);
-            Platform.runLater(() -> {
-                connectionPopUpController.setText(message);
-                mainAnchor.getChildren().add(root);
-                Timeline timeline = new Timeline();
-                timeline.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(1), new KeyValue(gb.radiusProperty(), 40, Interpolator.EASE_BOTH)),
-                        new KeyFrame(Duration.seconds(1.5), new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_BOTH)),
-                        new KeyFrame(Duration.seconds(1.5), new KeyValue(root.opacityProperty(), 1, Interpolator.EASE_BOTH))
-                );
-                timeline.play();
-            });
-            alreadyOn = true;
-        } else {
-            Platform.runLater(() -> {
-                connectionPopUpController.setText(message);
-            });
-        }
+        if (!debug_mode)
+            if (!alreadyOn) {
+                setBottomAnchor(root, 0.0);
+                setRightAnchor(root, 0.0);
+                setLeftAnchor(root, 0.0);
+                setTopAnchor(root, 0.0);
+                GaussianBlur gb = new GaussianBlur();
+                gb.setRadius(0);
+                blurrAnchor.setEffect(gb);
+                root.setTranslateY(40);
+                root.setOpacity(0);
+                Platform.runLater(() -> {
+                    connectionPopUpController.setText(message);
+                    mainAnchor.getChildren().add(root);
+                    Timeline timeline = new Timeline();
+                    timeline.getKeyFrames().addAll(
+                            new KeyFrame(Duration.seconds(0.5), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_BOTH)),
+                            new KeyFrame(Duration.seconds(1), new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_BOTH)),
+                            new KeyFrame(Duration.seconds(1), new KeyValue(root.opacityProperty(), 1, Interpolator.EASE_BOTH))
+                    );
+                    timeline.play();
+                });
+                alreadyOn = true;
+            } else {
+                Platform.runLater(() -> {
+                    connectionPopUpController.setText(message);
+                });
+            }
 
 
     }
 
     public void removePopUp() {
-        if (alreadyOn) {
-            GaussianBlur gb = new GaussianBlur();
-            gb.setRadius(40);
-            blurrAnchor.setEffect(gb);
-            root.setTranslateY(0);
-            root.setOpacity(1);
-            Timeline timeline = new Timeline();
-            Platform.runLater(() -> {
-                timeline.getKeyFrames().addAll(
-                        new KeyFrame(Duration.seconds(1), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_BOTH)),
-                        new KeyFrame(Duration.seconds(1.5), new KeyValue(root.translateYProperty(), 40, Interpolator.EASE_BOTH)),
-                        new KeyFrame(Duration.seconds(1.5), new KeyValue(root.opacityProperty(), 0, Interpolator.EASE_BOTH))
-                );
-                timeline.play();
-                timeline.setOnFinished(t -> {
-                    mainAnchor.getChildren().remove(root);
-                    alreadyOn = false;
+        if (!debug_mode)
+            if (alreadyOn) {
+                GaussianBlur gb = new GaussianBlur();
+                gb.setRadius(blurrRadius);
+                blurrAnchor.setEffect(gb);
+                root.setTranslateY(0);
+                root.setOpacity(1);
+                Timeline timeline = new Timeline();
+                Platform.runLater(() -> {
+                    timeline.getKeyFrames().addAll(
+                            new KeyFrame(Duration.seconds(0.5), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_BOTH)),
+                            new KeyFrame(Duration.seconds(1.5), new KeyValue(root.translateYProperty(), 40, Interpolator.EASE_BOTH)),
+                            new KeyFrame(Duration.seconds(1), new KeyValue(root.opacityProperty(), 0, Interpolator.EASE_BOTH))
+                    );
+                    timeline.play();
+                    timeline.setOnFinished(t -> {
+                        mainAnchor.getChildren().remove(root);
+                        alreadyOn = false;
+                    });
                 });
-            });
-        }
+            }
     }
 }
