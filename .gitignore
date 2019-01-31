@@ -1,5 +1,6 @@
 #Folders to exclude
 holborn-car-park-client/target/
+holborn-car-park-client/logs/
 holborn-car-park-client/.idea/*
 holborn-car-park-service-app/node_modules/
 holborn-car-park-service-app/.idea/*
