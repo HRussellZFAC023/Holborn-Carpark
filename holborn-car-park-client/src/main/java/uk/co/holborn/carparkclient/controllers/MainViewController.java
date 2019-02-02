@@ -17,7 +17,6 @@ import uk.co.holborn.carparkclient.GlobalVariables;
 import uk.co.holborn.carparkclient.SceneManager;
 import uk.co.holborn.carparkclient.Ticket;
 
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -44,7 +43,7 @@ public class MainViewController implements Initializable {
     Socket socket;
     GlobalVariables globalVariables;
     ConnectionPopUp popup;
-    Ticket ticket;
+    public Ticket ticket;
     Logger logger;
 
 
@@ -65,6 +64,7 @@ public class MainViewController implements Initializable {
 
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
@@ -72,7 +72,7 @@ public class MainViewController implements Initializable {
         HashMap<String, String> scenes = new HashMap<>();
         scenes.put("HappyHour", "/fxml/happy_hour_view.fxml");
         scenes.put("Start", "/fxml/landing_page.fxml");
-        scenes.put("TicketCheck", "/fxml/check_ticket.fxml");
+        scenes.put("TicketCheck", "/fxml/ticket_checkl.fxml");
         scenes.put("PaymentMethod", "/fxml/payment_methods.fxml");
         scenes.put("Payment", "/fxml/payment_method_cash.fxml");
         sceneManager = new SceneManager(sceneAnchor, scenes);
@@ -88,12 +88,12 @@ public class MainViewController implements Initializable {
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
-                if(objects[0].equals(200)){
+                if (objects[0].equals(200)) {
                     popup.show("Connected");
                     popup.removePopUp();
                     logger.info("Authorised!");
-                }else{
-                    logger.error("Unauthorised access! Please check that the information from the config file are correct.");
+                } else {
+                    logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     System.exit(0);
                 }
             });
@@ -104,13 +104,12 @@ public class MainViewController implements Initializable {
         });
         socket.on(Socket.EVENT_RECONNECTING, args_cni -> {
             popup.show("Reconnecting...");
-            logger.info("Reconnecting...");
         });
         socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> {
             System.out.println("Err" + args_cni[0]);
         });
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
-            logger.info("Disconnected");
+            logger.warn("Disconnected");
             popup.show("Disconnected");
         });
         socket.connect();
@@ -133,7 +132,8 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void switchTicketCheck(ActionEvent event) {
-        socket.emit("hi");sceneManager.switchToScene("TicketCheck");
+        socket.emit("hi");
+        sceneManager.switchToScene("TicketCheck");
     }
 
     @FXML

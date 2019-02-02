@@ -10,9 +10,10 @@ import java.util.ResourceBundle;
 
 public class LandingPageController implements Initializable {
 
-   private MainViewController mc;
+    private MainViewController mc;
     @FXML
     Label welcome;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
@@ -21,7 +22,7 @@ public class LandingPageController implements Initializable {
     }
 
     @FXML
-    public void begin(){
+    public void begin() {
         mc.sceneManager.switchToScene("TicketCheck");
     }
 

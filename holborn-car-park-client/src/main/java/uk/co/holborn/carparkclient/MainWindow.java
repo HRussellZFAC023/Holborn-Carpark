@@ -15,10 +15,10 @@ import uk.co.holborn.carparkclient.controllers.MainViewController;
  * Creates the main application window
  */
 public class MainWindow extends Application {
-
+    Logger log;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Logger log =   LogManager.getLogger(getClass().getName());
+        log =   LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.main_window_name);
@@ -33,6 +33,7 @@ public class MainWindow extends Application {
     @Override
     public void stop() throws Exception {
         MainViewController mc = MainViewController.getInstance();
+        log.info("-----------Application end------------");
         System.exit(0);
         mc.getSocket().close();
     }
