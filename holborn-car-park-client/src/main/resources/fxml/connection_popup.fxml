@@ -23,7 +23,7 @@
           <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <AnchorPane prefHeight="312.0" prefWidth="528.0" styleClass="custom_text_field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <AnchorPane prefHeight="312.0" prefWidth="528.0" styleClass="connection_card" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <GridPane layoutX="4.0" layoutY="4.0" prefHeight="406.0" prefWidth="413.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>

@@ -6,6 +6,8 @@ const carParksSchema = new  Schema({
     name: {type: String, required: true},
     hourly_price: Number,
     address: String,
+    parking_places: Number,
+    current_parking_places : Number,
     postcode: String
 });
 

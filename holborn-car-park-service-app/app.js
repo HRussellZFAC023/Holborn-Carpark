@@ -18,6 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//main routes
+// app.use('/',function(req, res){
+// //     res.sendFile(__dirname + '/public/HTML/index.html');
+// // });
+
 //API routes
 const api_name = '/api';
 app.use(api_name + '/carparks', carParksRoute);

@@ -19,7 +19,7 @@ sockets.init = function (server) {
         });
 
         socket.on('fetch-ticket', function (_id, callback) {
-            Tickets.findOneAndUpdate({_id : _id, _id_carPark : carpark_id}).populate('_id_carPark', 'hourly_price').exec(function(err, ticket) {
+            Tickets.findOne({_id : _id, _id_carPark : carpark_id}).populate('_id_carPark', 'hourly_price').exec(function(err, ticket) {
                 if (err)
                     return callback(500, "Error on server");
                 if (!ticket)
@@ -27,11 +27,11 @@ sockets.init = function (server) {
                 if (!ticket.valid) return callback(406, "Ticket is invalid");
                 const now = moment();
                 const duration = moment.duration(now.diff(ticket.date_in));
-                const hours = duration.asHours();
-                ticket.duration = hours.toFixed(2);
+                const minutes = duration.asMinutes();
+                ticket.duration = minutes.toFixed(2);
                 const date = new Date();
                 ticket.date_check_out =  date.toISOString();
-                ticket.price = (ticket._id_carPark.hourly_price * hours).toFixed(2);
+                ticket.price = (ticket._id_carPark.hourly_price * duration.asHours().toFixed(2)).toFixed(2);
                 ticket.save(function (err) {
                     if(err) throw  err;
                 });

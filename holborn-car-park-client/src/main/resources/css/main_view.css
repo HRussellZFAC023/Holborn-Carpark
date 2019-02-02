@@ -68,6 +68,26 @@
     -fx-border-color: #4E4C4D;
     -fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 1);
 }
+.button_close{
+    -fx-background-color: #ff4050;
+    -fx-text-fill: white;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 60;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    /*-fx-effect: dropshadow(two-pass-box, #979797, 5, 0, 0, 4);*/
+}
+.button_close:pressed{
+    -fx-background-color: #bd3140;
+    -fx-text-fill: white;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 60;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    /*-fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 1);*/
+}
 .button_retry{
     -fx-background-color: #9a9a9a;
     -fx-text-fill: white;
@@ -99,4 +119,33 @@
 .connection_progress_indicator {
     -fx-progress-color: #5c66f2;
     -fx-effect: dropshadow(two-pass-box, #6a6a6a, 50, 0.0, 0, 10);
+}
+.landing_page_info_card{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    fx-font: 32px "Avenir Light";
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 0);
+}
+.landing_page_info_container {
+    -fx-background-color: transparent;
+    /*-fx-background-radius: 10;*/
+    /*-fx-border-width: 2;*/
+    /*-fx-border-radius: 10;*/
+    /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+}
+.connection_card{
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 30;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 0);
+}
+
+.ticket_detail_info_label{
+    -fx-font: 24 "Avenir Book";
+    -fx-fill: blue;
 }
