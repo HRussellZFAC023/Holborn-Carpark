@@ -15,12 +15,13 @@ var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 //main routes
-app.use('', noApiRoutes);
+app.use(express.static(path.join(__dirname, 'public/stylesheets'))); //serve stylesheets first
+app.use(noApiRoutes);
 
 //API routes
 const api_name = '/api';
