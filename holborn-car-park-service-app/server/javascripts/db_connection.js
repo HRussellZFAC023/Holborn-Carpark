@@ -1,4 +1,5 @@
 let global_vars = require('../javascripts/gloval_variables');
+const debug = require('debug')('holborn-car-park-service-app: mongo');
 //var fs = require('fs'); //for file certificate
 
 const mongoose = require('mongoose');
@@ -19,6 +20,6 @@ mongoose.set('useFindAndModify', false);
 
 //start a database connection
 mongoose.connect(mongoUri, mongoOpt).then(
-    () => { console.log("Connected successfully to the database!"); },
+    () => { debug("Connected successfully to the database!"); },
     err => { throw err;}
 );

@@ -1,26 +1,25 @@
 const express = require('express');
-const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const db_connection = require('./server/javascripts/db_connection');
+
+//Database
+require('./server/javascripts/db_connection');
+const db = require('./server/javascripts/pg_conn');
 
 //main routes declaration
-const noApiRoutes = require("./server/routes/noapi");
+const noApiRoutes = require('./server/routes/noapi');
 
 //API routes declaration
 const carParksRoute = require('./server/routes/api/carparks');
 const ticketsRoute = require('./server/routes/api/tickets');
 
-var app = express();
+const app = express();
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
 
 //main routes
-app.use(express.static(path.join(__dirname, 'public/stylesheets'))); //serve stylesheets first
+app.use(express.static(__dirname + '/public/stylesheets/')); //serve stylesheets first
 app.use(noApiRoutes);
 
 //API routes
