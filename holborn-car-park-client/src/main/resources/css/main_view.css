@@ -149,3 +149,7 @@
     -fx-font: 24 "Avenir Book";
     -fx-fill: blue;
 }
+.ticket_detail_info_label_bigger{
+    -fx-font: 36 "Avenir Book";
+    -fx-fill: blue;
+}

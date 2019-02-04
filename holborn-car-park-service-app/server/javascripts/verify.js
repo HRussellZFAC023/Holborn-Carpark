@@ -11,7 +11,7 @@ exports.verifyClientAuth = function(_id_carPark, callback){
             return;
         }
         if(!carPark) {
-            callback(404, "Unauthorised access!");
+            callback(403, "Unauthorised access!");
             return;
         }
         callback(200, 'Authorised!');

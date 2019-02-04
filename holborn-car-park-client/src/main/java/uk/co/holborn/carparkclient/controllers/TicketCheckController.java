@@ -11,10 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import uk.co.holborn.carparkclient.Animator;
 import uk.co.holborn.carparkclient.Ticket;
 import uk.co.holborn.carparkclient.TicketDetailsPopUp;
 
@@ -29,19 +31,13 @@ public class TicketCheckController implements Initializable {
     @FXML
     Label infoText;
     @FXML
-    Label timeLabel;
-    @FXML
-    Label priceLabel;
-    @FXML
-    GridPane ticketInfoPane;
-    @FXML
-    Button payButton;
-    @FXML
     ImageView ticket_image_bg;
     @FXML
     ImageView ticket_image_ticket;
     @FXML
     ImageView ticket_image_laser_beam;
+    @FXML
+    ImageView ticket_image_validated;
     @FXML
     AnchorPane mainAnchorPane;
     @FXML
@@ -54,34 +50,35 @@ public class TicketCheckController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
+        setMessage("Please insert your ticket");
         Socket socket = mc.getSocket();
         checkTicketField.clear();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() >= 24) {
-                checkTicketField.setEditable(false);
-               // checkTicketField.clear();
-                socket.emit("fetch-ticket", newValue.substring(0,24), (Ack) objects -> {
+                setMessage("Please wait...");
+                validationUI(true);
+                socket.emit("fetch-ticket", newValue.substring(0, 24), (Ack) objects -> {
                     Object err = objects[0];
                     Object description = objects[1];
                     if (err.equals(200)) {
+                        animateImageValidate(true);
+                        setMessage("Your ticket is valid!");
                         gson = new Gson();
                         mc.ticket = gson.fromJson(description.toString(), Ticket.class);
                         TicketDetailsPopUp tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         tp.show(mc.ticket);
-                        Platform.runLater(() -> {
-                        });
                     } else {
-                        checkTicketField.clear();
-                        checkTicketField.setEditable(true);
-                        displayInfo("Invalid ticket");
+                        animateImageValidate(false);
+                        setMessage("Invalid ticket! Please seek assistance from a member of staff.");
                     }
                 });
-            } else {
-                setInfoTextVisible(false);
             }
         });
-        setInfoTextVisible(false);
-        setTicketInfoPaneVisible(false);
         animateImageShow();
     }
 
@@ -95,12 +92,22 @@ public class TicketCheckController implements Initializable {
         mc.sceneManager.goBack();
     }
 
+    private void validationUI(boolean validate){
+        Platform.runLater(()->{
+            checkTicketField.setDisable(validate);
+            checkTicketField.clear();
+        });
+    }
     private void animateImageShow() {
         Timeline timeline = new Timeline();
         ticket_image_bg.setOpacity(0);
         ticket_image_bg.setTranslateY(-10);
         ticket_image_ticket.setOpacity(0);
         ticket_image_laser_beam.setOpacity(0);
+        ticket_image_validated.setOpacity(0);
+        ticket_image_validated.setTranslateY(40);
+        ticket_image_validated.setScaleX(0);
+        ticket_image_validated.setScaleY(0);
 
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(1), new KeyValue(ticket_image_bg.opacityProperty(), 1, Interpolator.EASE_OUT)),
@@ -134,27 +141,37 @@ public class TicketCheckController implements Initializable {
 
     }
 
-    private void setInfoTextVisible(boolean visible) {
-        infoText.setVisible(visible);
+    private void animateImageValidate(boolean valid) {
+        String imgURl;
+        doScanAnim = false;
+        if (valid) {
+            imgURl = ("/img/checkmark.png");
+        } else {
+            imgURl = ("/img/x mark.png");
+        }
+        ticket_image_validated.setImage(new Image(imgURl));
+        ticket_image_validated.setOpacity(0);
+        ticket_image_validated.setTranslateY(-50);
+        ticket_image_validated.setScaleX(0);
+        ticket_image_validated.setScaleY(0);
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.opacityProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.translateYProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.scaleYProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.scaleXProperty(), 1, Interpolator.EASE_IN))
+        );
+        timeline.setOnFinished(t -> {
+        });
+        timeline.play();
     }
 
-    private void setTicketInfoPaneVisible(boolean visible) {
-        ticketInfoPane.setVisible(visible);
-        payButton.setVisible(visible);
+    private void setMessage(String message) {
+        Platform.runLater(()->{
+            Animator.nodeFade(infoText,false);
+            infoText.setText(message);
+            Animator.nodeFade(infoText,true);
+        });
     }
-
-    private void displayTicketPane(String time, String price) {
-        setInfoTextVisible(false);
-        timeLabel.setText(time);
-        priceLabel.setText(price);
-        setTicketInfoPaneVisible(true);
-
-    }
-
-    private void displayInfo(String message) {
-        setInfoTextVisible(true);
-        infoText.setText(message);
-    }
-
 
 }
