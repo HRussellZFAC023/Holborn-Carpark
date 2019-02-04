@@ -50,7 +50,7 @@ public class TicketDetailsPopUp {
                 GaussianBlur gb = new GaussianBlur();
                 gb.setRadius(0);
                 blurrAnchor.setEffect(gb);
-                root.setTranslateY(40);
+                root.setTranslateY(20);
                 root.setOpacity(0);
                 Platform.runLater(() -> {
                    tc.setTicket(ticket);
@@ -65,36 +65,8 @@ public class TicketDetailsPopUp {
                     timeline.play();
                 });
                 alreadyOn = true;
-            } else {
-                Platform.runLater(() -> {
-                   // connectionPopUpController.setText(message);
-                });
             }
 
 
-    }
-
-    public void removePopUp() {
-        if (!debug_mode)
-            if (alreadyOn) {
-                GaussianBlur gb = new GaussianBlur();
-                gb.setRadius(blurrRadius);
-                blurrAnchor.setEffect(gb);
-                root.setTranslateY(0);
-                root.setOpacity(1);
-                Timeline timeline = new Timeline();
-                Platform.runLater(() -> {
-                    timeline.getKeyFrames().addAll(
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_BOTH)),
-                            new KeyFrame(Duration.seconds(1.5), new KeyValue(root.translateYProperty(), 40, Interpolator.EASE_BOTH)),
-                            new KeyFrame(Duration.seconds(1), new KeyValue(root.opacityProperty(), 0, Interpolator.EASE_BOTH))
-                    );
-                    timeline.play();
-                    timeline.setOnFinished(t -> {
-                        mainAnchor.getChildren().remove(root);
-                        alreadyOn = false;
-                    });
-                });
-            }
     }
 }

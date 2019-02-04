@@ -44,12 +44,20 @@ public class MainViewController implements Initializable {
     GlobalVariables globalVariables;
     ConnectionPopUp popup;
     public Ticket ticket;
+    public String hourly_price;
+    public String parking_spaces;
     Logger logger;
+    public boolean happyHour = false;
 
 
     public MainViewController() {
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
+        try {
+            socket = IO.socket(GlobalVariables.webservice_socket);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         instance = this;
     }
 
@@ -77,14 +85,6 @@ public class MainViewController implements Initializable {
         scenes.put("Payment", "/fxml/payment_method_cash.fxml");
         sceneManager = new SceneManager(sceneAnchor, scenes);
 
-        sceneManager.switchToScene("Start");
-        try {
-            socket = IO.socket(GlobalVariables.webservice_socket);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
@@ -92,6 +92,7 @@ public class MainViewController implements Initializable {
                     popup.show("Connected");
                     popup.removePopUp();
                     logger.info("Authorised!");
+                    sceneManager.switchToScene("Start");
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     System.exit(0);

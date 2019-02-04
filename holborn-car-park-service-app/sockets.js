@@ -2,6 +2,7 @@ const verif = require("./server/javascripts/verify");
 const moment = require('moment');
 const sockets = {};
 const Tickets = require("./server/data model/Tickets");
+const CarParks = require("./server/data model/CarParks");
 const Global_Variables = require("./server/javascripts/gloval_variables");
 
 sockets.init = function (server) {
@@ -39,7 +40,19 @@ sockets.init = function (server) {
 
             },);
         });
-
+        socket.on('fetch-carpark-details', function(callback){
+            CarParks.findOne({_id : carpark_id}, function (err, carpark) {
+                if(err) throw err;
+                Tickets.countDocuments({valid : true}, function (err, count){
+                    if(err) throw err;
+                  carpark.current_parking_places = carpark.parking_places - count;
+                  carpark.save(function (err) {
+                      if(err) throw  err;
+                  });
+                  return callback(carpark.current_parking_places, carpark.hourly_price);
+                });
+            })
+        })
     });
 
 };

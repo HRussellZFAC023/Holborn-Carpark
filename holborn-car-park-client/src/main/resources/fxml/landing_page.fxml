@@ -100,7 +100,7 @@
                                   <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="88.5860595703125" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="200" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <Label fx:id="parking_spaces" text="200" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font name="Avenir Book" size="32.0" />
                                        </font>
@@ -137,7 +137,7 @@
                                     <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="92.40292358398438" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="£2.50" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <Label fx:id="price" text="£2.50" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font name="Avenir Book" size="32.0" />
                                        </font>
@@ -174,7 +174,7 @@
                                     <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="86.6226806640625" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="16:00 - 18:00" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                    <Label fx:id="happy_hour" text="16:00 - 18:00" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                        <font>
                                           <Font name="Avenir Book" size="32.0" />
                                        </font>

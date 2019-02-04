@@ -59,9 +59,9 @@
                                  <font>
                                     <Font name="Avenir Next Bold" size="13.0" />
                                  </font></Label>
-                              <Label styleClass="ticket_detail_info_label" text="Price:" textFill="#6f5ac6" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                              <Label styleClass="ticket_detail_info_label_bigger" text="Price:" textFill="#6f5ac6" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                                  <font>
-                                    <Font name="Avenir Next Bold" size="13.0" />
+                                    <Font name="Avenir Next Bold" size="24.0" />
                                  </font></Label>
                               <Label fx:id="date_in" styleClass="ticket_detail_info_label" text="_date_in" textFill="#6b6b6b" GridPane.columnIndex="1">
                                  <font>
@@ -78,7 +78,7 @@
                                     <Font name="Avenir Next Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="price" styleClass="ticket_detail_info_label" text="_price" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="_price" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Avenir Next Bold" size="13.0" />
                                  </font>

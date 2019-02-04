@@ -4,6 +4,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -31,8 +32,10 @@ public class SceneManager {
 
      public void switchToScene(String sceneKey){
         if(animationFinished){
-            switchTo(sceneKey);
-            animateFadeInOut(false);
+            Platform.runLater(()->{
+                switchTo(sceneKey);
+                animateFadeInOut(false);
+            });
         }
     }
      public void goBack(){
