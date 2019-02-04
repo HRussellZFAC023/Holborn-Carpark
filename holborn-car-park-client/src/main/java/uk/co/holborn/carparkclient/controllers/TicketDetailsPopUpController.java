@@ -35,7 +35,7 @@ public class TicketDetailsPopUpController implements Initializable {
         if (ticket.getDuration() < 60) dr = ticket.getDuration() + " minutes";
         else
             dr = (int) (ticket.getDuration() / 60.0) + " hours and " + (int) (ticket.getDuration() % 60.0) + " minutes";
-        date_check_out.setText(dateFormat.format(ticket.getDate_check_out()));
+        date_check_out.setText(dateFormat.format(ticket.getDate_out()));
         duration.setText(dr);
         price.setText("£"+ ticket.getPrice());
     }
