@@ -54,10 +54,10 @@ public class TicketCheckController implements Initializable {
         Socket socket = mc.getSocket();
         checkTicketField.clear();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() >= 24) {
+            if (newValue.length() >= 36) {
                 setMessage("Please wait...");
                 validationUI(true);
-                socket.emit("fetch-ticket", newValue.substring(0, 24), (Ack) objects -> {
+                socket.emit("fetch-ticket", newValue.substring(0, 36), (Ack) objects -> {
                     Object err = objects[0];
                     Object description = objects[1];
                     if (err.equals(200)) {

@@ -5,7 +5,7 @@ import java.util.Date;
 public class Ticket {
     private String _id;
     private Date date_in;
-    private Date date_check_out;
+    private Date date_out;
     private double price;
     private double duration;
 
@@ -22,7 +22,7 @@ public class Ticket {
         return "Ticket{" +
                 "_id='" + _id + '\'' +
                 ", date_in=" + date_in +
-                ", date_check_out=" + date_check_out +
+                ", date_out=" + date_out +
                 ", price=" + price +
                 ", duration=" + duration +
                 '}';
@@ -44,12 +44,12 @@ public class Ticket {
         this.date_in = date_in;
     }
 
-    public Date getDate_check_out() {
-        return date_check_out;
+    public Date getDate_out() {
+        return date_out;
     }
 
-    public void setDate_check_out(Date date_check_out) {
-        this.date_check_out = date_check_out;
+    public void setDate_out(Date date_check_out) {
+        this.date_out = date_check_out;
     }
 
     public double getPrice() {
