@@ -5,7 +5,6 @@ const debug = require('debug')('holborn-car-park-service-app: DB');
 const UUID = require('uuid/v4');
 const query = require('../../javascripts/queries');
 
-
 const uuid_regex = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 
@@ -106,6 +105,15 @@ router.put('/' + uuid_regex, function (req, res) {
         });
     }else if (typeof req.body.parking_places !== 'undefined') {
         db.query(query.api.carparks.update.parking_places, [c_id, req.body.parking_places], function (db_err, db_res) {
+            if (db_err) {
+                debug(db_err);
+                return res.status(500).send('Error on the server:' + db_err);
+            }
+
+            res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
+        });
+    }else if (typeof req.body.duration !== 'undefined') {
+        db.query(query.api.carparks.update.duration, [c_id, req.body.duration], function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
