@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Tickets = require('../../data model/Tickets');
-const verify = require('../../javascripts/verify');
 const db = require('../../javascripts/pg_conn');
 const debug = require('debug')('holborn-car-park-service-app: DB');
 const UUID = require('uuid/v4');
@@ -29,7 +27,7 @@ router.delete('/', function (req, res) {
             return res.status(500).send('Error on the server:' + db_err);
         }
 
-        res.status(200).send("All tickets deleted");
+        res.status(200).send('All tickets deleted');
     });
 });
 
@@ -63,7 +61,7 @@ router.post('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{
             return res.status(500).send('Error on the server:' + db_err);
         }
 
-        res.status(200).send("Success! Ticket with id  " + t_id + "  created at carpark " + c_id);
+        res.status(200).send('Success! Ticket with id  ' + t_id + '  created at car park ' + c_id);
     });
 });
 
@@ -78,7 +76,7 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
                 return res.status(500).send('Error on the server:' + db_err);
             }
 
-            res.status(200).send("Updated! Ticket with id  " + t_id + "  updated");
+            res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         });
     }else if (typeof req.body.paid !== 'undefined') {
         db.query('UPDATE tickets SET paid = $2 WHERE _id = $1', [t_id, req.body.paid], function (db_err, db_res) {
@@ -87,7 +85,7 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
                 return res.status(500).send('Error on the server:' + db_err);
             }
 
-            res.status(200).send("Updated! Ticket with id  " + t_id + "  updated");
+            res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         });
     }else if (typeof req.body.valid !== 'undefined') {
         db.query('UPDATE tickets SET valid = $2) WHERE _id = $1', [t_id, req.body.valid], function (db_err, db_res) {
@@ -96,10 +94,10 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
                 return res.status(500).send('Error on the server:' + db_err);
             }
 
-            res.status(200).send("Updated! Ticket with id  " + t_id + "  updated");
+            res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         });
     }else{
-        res.status(500).send("Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)");
+        res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
     }
 });
 
@@ -114,7 +112,7 @@ router.delete('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z
             return res.status(500).send('Error on the server:' + db_err);
         }
 
-        res.status(200).send("Deleted! Ticket with id  " + t_id + "  deleted");
+        res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
     });
 });
 
