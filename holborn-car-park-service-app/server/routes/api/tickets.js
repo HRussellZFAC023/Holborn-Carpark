@@ -3,13 +3,14 @@ const router = express.Router();
 const db = require('../../javascripts/pg_conn');
 const debug = require('debug')('holborn-car-park-service-app: DB');
 const UUID = require('uuid/v4');
+const query = require('../../javascripts/queries');
 
-
+const uuid_regex = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 
 //Get all tickets
 router.get('/', function (req, res) {
-    db.query('SELECT * FROM tickets', function (db_err, db_res) {
+    db.query(query.api.tickets.get_all, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
@@ -21,7 +22,7 @@ router.get('/', function (req, res) {
 
 //Delete all tickets
 router.delete('/', function (req, res) {
-    db.query('DELETE FROM tickets', function (db_err, db_res) {
+    db.query(query.api.tickets.delete_all, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
@@ -35,11 +36,11 @@ router.delete('/', function (req, res) {
 
 
 //Gets a specific ticket
-router.get('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}', function (req, res) {
+router.get('/' + uuid_regex, function (req, res) {
     let t_id = req.path.replace(/\//g, '');
     const params = [t_id];
 
-    db.query('SELECT * FROM tickets WHERE _id = $1', params, function (db_err, db_res) {
+    db.query(query.api.tickets.get_one, params, function (db_err, db_res) {
          if (db_err) {
              debug(db_err);
              return res.status(500).send('Error on the server:' + db_err);
@@ -50,12 +51,12 @@ router.get('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
 });
 
 //Create a ticket (attached to a carpark id)
-router.post('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}', function (req, res) {
+router.post('/' + uuid_regex, function (req, res) {
     let t_id = UUID();
     let c_id = req.path.replace(/\//g, '');
     const params = [t_id, Date.now(), false, true, c_id];
 
-    db.query('INSERT INTO tickets VALUES ($1, to_timestamp($2 / 1000.0), null, $3, $4, $5)', params, function (db_err, db_res) {
+    db.query(query.api.tickets.create, params, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
@@ -66,11 +67,11 @@ router.post('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{
 });
 
 //Update a ticket
-router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}', function (req, res) {
+router.put('/' + uuid_regex, function (req, res) {
     let t_id = req.path.replace(/\//g, '');
 
     if (typeof req.body.date_out !== 'undefined') {
-        db.query('UPDATE tickets SET date_out = to_timestamp($2 / 1000.0) WHERE _id = $1', [t_id, Date.now()], function (db_err, db_res) {
+        db.query(query.api.tickets.update.date_out, [t_id, Date.now()], function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
@@ -79,7 +80,7 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
             res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         });
     }else if (typeof req.body.paid !== 'undefined') {
-        db.query('UPDATE tickets SET paid = $2 WHERE _id = $1', [t_id, req.body.paid], function (db_err, db_res) {
+        db.query(query.api.tickets.update.paid, [t_id, req.body.paid], function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
@@ -88,7 +89,7 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
             res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         });
     }else if (typeof req.body.valid !== 'undefined') {
-        db.query('UPDATE tickets SET valid = $2) WHERE _id = $1', [t_id, req.body.valid], function (db_err, db_res) {
+        db.query(query.api.tickets.update.paid, [t_id, req.body.valid], function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
@@ -102,11 +103,11 @@ router.put('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3
 });
 
 //Delete a ticket
-router.delete('/[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}', function (req, res) {
+router.delete('/' + uuid_regex, function (req, res) {
     let t_id = req.path.replace(/\//g, '');
     const params = [t_id];
 
-    db.query('DELETE FROM tickets WHERE _id = $1', params, function (db_err, db_res) {
+    db.query(query.api.tickets.delete_one, params, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
@@ -124,7 +125,7 @@ router.post('/validate', function (req, res) {
     const params = [t_id];
 
 
-    db.query('SELECT * FROM tickets WHERE _id = $1', params, function (db_err, db_res) {
+    db.query(query.api.tickets.validate, params, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
