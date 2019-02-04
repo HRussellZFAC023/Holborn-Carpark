@@ -17,8 +17,6 @@ const pool = new pg.Pool(db_config);
 pool.query('SELECT NOW()', (err, res) => {
     if (err) debug(err);
     else debug('Connected to the database successfully!');
-
-    pool.end();
 });
 
 
