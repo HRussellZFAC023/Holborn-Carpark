@@ -17,9 +17,4 @@ router.get('/Admin', function (req, res) {
     res.sendFile('Admin.html', {root: 'public/HTML/'});
 });
 
-//catch 404s
-router.get('*', function (req, res) {
-    res.sendFile('404.html', {root: 'public/HTML/'});
-});
-
 module.exports = router;

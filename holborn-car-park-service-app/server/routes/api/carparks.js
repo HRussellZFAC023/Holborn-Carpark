@@ -26,7 +26,7 @@ router.post('/create', function(req, resp){
     }));
 });
 
-router.post('/get_one', Verify.verifyCarPark, function(req, resp){
+router.post('/get_one', function(req, resp){
     CarParks.findOne({_id: req.body._id_carPark},function (err, carPark) {
         return  resp.status(200).send(carPark);
     });
