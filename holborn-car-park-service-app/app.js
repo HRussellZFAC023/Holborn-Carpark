@@ -3,7 +3,6 @@ const socket_io = require("socket.io");
 const cookieParser = require('cookie-parser');
 const socket_functions = require('./server/sockets/socket_functions');
 //Database
-require('./server/javascripts/db_connection');
 const db = require('./server/databases/carpark_db_conn');
 
 const app = express();
