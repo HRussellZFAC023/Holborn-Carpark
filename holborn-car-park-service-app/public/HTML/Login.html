@@ -30,13 +30,14 @@
             <div class="content has-text-grey is-medium">
                 Please login to proceed.
             </div>
-            <form>
+            <form method="post">
               <div class="field">
                 <div class="control">
                   <input
                     class="input is-large"
-                    type="email"
-                    placeholder="Your Email"
+                    type="text"
+                    name="username"
+                    placeholder="Your Username"
                     autofocus=""
                   />
                 </div>
@@ -47,6 +48,7 @@
                   <input
                     class="input is-large"
                     type="password"
+                    name="password"
                     placeholder="Your Password"
                   />
                 </div>

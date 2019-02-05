@@ -3,7 +3,7 @@ const cookieParser = require('cookie-parser');
 
 //Database
 require('./server/javascripts/db_connection');
-const db = require('./server/javascripts/pg_conn');
+const db = require('./server/databases/carpark_db_conn');
 
 //main routes declaration
 const noApiRoutes = require('./server/routes/noapi');

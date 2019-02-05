@@ -1,5 +1,5 @@
 const pg = require('pg');
-const debug = require('debug')('holborn-car-park-service-app: DB');
+const debug = require('debug')('holborn-car-park-service-app: carpark_db');
 
 
 const db_config = {

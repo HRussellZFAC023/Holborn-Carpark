@@ -3,10 +3,10 @@ const moment = require('moment');
 const sockets = {};
 const Tickets = require("./server/data model/Tickets");
 const CarParks = require("./server/data model/CarParks");
-const Global_Variables = require("./server/javascripts/gloval_variables");
+const Global_Variables = require("./server/javascripts/global_variables");
 const debug = require('debug')('holborn-car-park-service-app: socket');
-const db = require ('./server/javascripts/pg_conn');
-const queries = require('./server/javascripts/queries');
+const db = require ('./server/databases/carpark_db_conn');
+const queries = require('./server/databases/queries');
 
 sockets.init = function (server) {
     // socket.io setup
@@ -24,8 +24,7 @@ sockets.init = function (server) {
 
         socket.on('fetch-ticket', function (_id, callback) {
             const params = [_id];
-            //db.query('SELECT * FROM tickets INNER JOIN carparks ON tickets._carpark_id=carparks._id WHERE tickets._id = $1')
-            db.query(queries.sockets.ticket_details, params,function(db_err, db_res){
+            db.query(queries.sockets.ticket_details, params, function(db_err, db_res){
                 if(db_err){
                     console.log(db_err);
                     return callback(500, db_err);
@@ -46,12 +45,12 @@ sockets.init = function (server) {
                     const now = moment();
                     const duration = moment.duration(now.diff(ticket.date_in));
                     const minutes = duration.asMinutes();
-                     const date = new Date();
-                     ticket.duration = minutes.toFixed(2);
-                     ticket.date_out =  date.toISOString();
-                     ticket.price = (db_res.rows[0].hour_rate * duration.asHours().toFixed(2)).toFixed(2);
-                     debug(ticket);
-                     return callback(200, ticket);
+                    const date = new Date();
+                    ticket.duration = minutes.toFixed(2);
+                    ticket.date_out =  date.toISOString();
+                    ticket.price = (db_res.rows[0].hour_rate * duration.asHours().toFixed(2)).toFixed(2);
+                    debug(ticket);
+                    return callback(200, ticket);
 
             });
             // Tickets.findOne({_id : _id, _id_carPark : carpark_id}).populate('_id_carPark', 'hourly_price').exec(function(err, ticket) {

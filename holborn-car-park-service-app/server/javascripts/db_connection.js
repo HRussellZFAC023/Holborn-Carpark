@@ -1,4 +1,4 @@
-let global_vars = require('../javascripts/gloval_variables');
+let global_vars = require('./global_variables');
 const debug = require('debug')('holborn-car-park-service-app: mongo');
 //var fs = require('fs'); //for file certificate
 
