@@ -1,8 +1,9 @@
-const verif = require("../javascripts/verify");
 const moment = require('moment');
+const verif = require('../javascripts/verify');
 const debug = require('debug')('holborn-car-park-service-app: socket');
 const db = require ('../databases/carpark_db_conn');
 const queries = require('../databases/queries');
+const socket_functions = require('./socket_functions');
 module.exports = function (io) {
 
     io.sockets.on('connection', function (socket) {
@@ -51,18 +52,7 @@ module.exports = function (io) {
             });
         });
         socket.on('fetch-carpark-details', function(callback){
-            db.query(queries.sockets.ticket_valid_count,[carpark_id],function(db_err, db_res_t){
-                if(db_err){
-                    console.log(db_err);
-                }
-                db.query(queries.sockets.carpark_details, [carpark_id],function(db_err, db_res_cp) {
-                    if (db_err) {
-                        console.log(db_err);
-                    }
-                    const current_parking_places = db_res_cp.rows[0].parking_places - db_res_t.rows[0].count;
-                    return callback(current_parking_places, db_res_cp.rows[0].hour_rate);
-                });
-            });
+           socket_functions.carpark_details_modified(carpark_id, callback)
         })
     });
 
