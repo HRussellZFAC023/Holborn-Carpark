@@ -3,7 +3,6 @@ const socket_io = require("socket.io");
 const cookieParser = require('cookie-parser');
 
 //Database
-require('./server/javascripts/db_connection');
 const db = require('./server/databases/carpark_db_conn');
 
 //main routes declaration

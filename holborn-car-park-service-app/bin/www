@@ -1,25 +1,33 @@
 #!/usr/bin/env node
-
-/**
- * Module dependencies.
- */
-
 const app = require('../app');
 const debug = require('debug')('holborn-car-park-service-app: server');
-const http = require('http');
-const sockets = require('../server/sockets/base');
+//const https = require('https');
+const http = require('https');
+const fs = require('fs');
+
 
 /**
  * Get port from environment and store in Express.
  */
-
-let port = normalizePort(process.env.PORT || '80');
+let port = normalizePort('80');
 app.set('port', port);
 
 /**
  * Create HTTP server.
+
+ const privateKey = fs.readFileSync( 'server/SSL/priv.pem' );
+ const certificate = fs.readFileSync( 'server/SSL/cert.pem' );
+ const intermediate = fs.readFileSync('server/SSL/ca.pem');
+
+ const server = exports.server = https.createServer({
+    key: privateKey,
+    cert: certificate,
+    ca: intermediate
+}, app);
+
  */
 const server = exports.server = http.createServer(app);
+
 
 /**
  * Listen on provided port, on all network interfaces.

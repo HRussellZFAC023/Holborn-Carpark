@@ -32,7 +32,6 @@ router.post('/login', function (req, res) {
     let uname = req.body.username;
     let passw = req.body.password;
 
-    console.log(req)
     const params = [uname];
 
     db.query(query.noapi.login, params, function (db_err, db_res) {
