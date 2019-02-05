@@ -40,7 +40,9 @@ public class LandingPageController implements Initializable {
 
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
-        socket.on("updated-carpark-details", this::update);
+        socket.on("update-carpark-details" , objects -> {
+            socket.emit("fetch-carpark-details", (Ack) this::update);
+        });
     }
 
     private void update( Object[] objects){
@@ -52,15 +54,17 @@ public class LandingPageController implements Initializable {
     private void updateTextParkingSpaces( String message){
         if(!mc.parking_spaces.equals(message)){
             mc.parking_spaces = message;
-            Animator.nodeFade(parking_spaces, true);
+            Animator.nodeFade(parking_spaces, false);
             parking_spaces.setText(message);
+            Animator.nodeFade(parking_spaces, true);
         }
     }
     private void updateTextPrice( String message){
         if(!mc.hourly_price.equals(message)) {
             mc.hourly_price = message;
-            Animator.nodeFade(parking_spaces, true);
+            Animator.nodeFade(parking_spaces, false);
             price.setText(message);
+            Animator.nodeFade(parking_spaces, true);
         }
     }
     @FXML

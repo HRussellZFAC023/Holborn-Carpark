@@ -14,6 +14,12 @@ public class Animator {
         if(!in) {
             opacityStart = 1;
             opacityEnd = 0;
+            node.setScaleX(1);
+            node.setScaleY(1);
+            timeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_IN))
+            );
         }else {
             opacityStart = 0;
             opacityEnd = 1;

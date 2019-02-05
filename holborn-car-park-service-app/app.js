@@ -1,23 +1,23 @@
 const express = require('express');
 const socket_io = require("socket.io");
 const cookieParser = require('cookie-parser');
-
+const socket_functions = require('./server/sockets/socket_functions');
 //Database
 require('./server/javascripts/db_connection');
 const db = require('./server/databases/carpark_db_conn');
-
-//main routes declaration
-const noApiRoutes = require('./server/routes/noapi');
-
-//API routes declaration
-const carParksRoute = require('./server/routes/api/carparks');
-const ticketsRoute = require('./server/routes/api/tickets');
 
 const app = express();
 // Socket.io
 const io = socket_io();
 app.io = io;
 require('./server/sockets/base')(io);
+
+//main routes declaration
+const noApiRoutes = require('./server/routes/noapi');
+
+//API routes declaration
+const carParksRoute = require('./server/routes/api/carparks');
+const ticketsRoute = require('./server/routes/api/tickets')(io);
 
 app.use(express.json());
 app.use(cookieParser());
