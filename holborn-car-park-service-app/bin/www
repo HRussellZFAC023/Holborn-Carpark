@@ -2,7 +2,7 @@
 const app = require('../app');
 const debug = require('debug')('holborn-car-park-service-app: server');
 //const https = require('https');
-const http = require('https');
+const http = require('http');
 const fs = require('fs');
 
 
