@@ -1,4 +1,5 @@
 const express = require('express');
+const socket_io = require("socket.io");
 const cookieParser = require('cookie-parser');
 
 //Database
@@ -13,6 +14,10 @@ const carParksRoute = require('./server/routes/api/carparks');
 const ticketsRoute = require('./server/routes/api/tickets');
 
 const app = express();
+// Socket.io
+const io = socket_io();
+app.io = io;
+require('./server/sockets/base')(io);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -30,23 +35,23 @@ app.use(api_resource + '/carparks', carParksRoute);
 app.use(api_resource + '/tickets', ticketsRoute);
 
 //handle 404 res codes
-app.use(function(req, res){
+app.use(function (req, res) {
     res.status(404);
 
     res.format({
-        'text/plain': function(){
+        'text/plain': function () {
             res.send('404 nothing to show here.');
         },
 
-        'text/html': function(){
+        'text/html': function () {
             res.sendFile('404.html', {root: 'public/HTML/'});
         },
 
-        'application/json': function(){
-            res.send({ message: '404 nothing to show here.' });
+        'application/json': function () {
+            res.send({message: '404 nothing to show here.'});
         },
 
-        'default': function() {
+        'default': function () {
             res.status(406).send('Not Acceptable');
         }
     });

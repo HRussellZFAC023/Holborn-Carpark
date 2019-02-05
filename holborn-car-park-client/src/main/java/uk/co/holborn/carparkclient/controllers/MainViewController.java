@@ -51,6 +51,8 @@ public class MainViewController implements Initializable {
 
 
     public MainViewController() {
+        hourly_price = "";
+        parking_spaces = "";
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
@@ -93,6 +95,7 @@ public class MainViewController implements Initializable {
                     popup.removePopUp();
                     logger.info("Authorised!");
                     sceneManager.switchToScene("Start");
+                    sceneManager.clearSceneQueue();
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     System.exit(0);

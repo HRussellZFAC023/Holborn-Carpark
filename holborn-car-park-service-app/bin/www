@@ -7,7 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('holborn-car-park-service-app: server');
 const http = require('http');
-const sockets = require('../sockets');
+const sockets = require('../server/sockets/base');
 
 /**
  * Get port from environment and store in Express.
@@ -19,8 +19,7 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
- const server = http.createServer(app);
+const server = exports.server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -91,7 +90,7 @@ function onListening() {
 }
 
 /**
- *Creating socket io server
+ * Socket.io
  */
-sockets.init(server);
-
+const io     = app.io;
+io.attach( server );
