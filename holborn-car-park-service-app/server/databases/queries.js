@@ -2,7 +2,7 @@ exports.sockets = {
    ticket_details: `SELECT     tickets._id, date_in, paid, valid, duration, date_out, hour_rate 
                     FROM       tickets 
                     INNER JOIN carparks 
-                    ON         _carpark_id = carparks._id WHERE tickets._id = $1`,
+                    ON         tickets._carpark_id = carparks._id WHERE tickets._id = $1 AND tickets._carpark_id = $2`,
    ticket_details_update: `UPDATE  tickets
                      SET duration = $2, date_out =$3 
                      WHERE tickets._id = $1`,
