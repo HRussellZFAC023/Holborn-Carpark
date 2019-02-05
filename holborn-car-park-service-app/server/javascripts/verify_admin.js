@@ -1,5 +1,5 @@
 const VerifyToken = require('./verify_token');
-const global_var = require('./gloval_variables');
+const global_var = require('./global_variables');
 const User = require('../data model/User');
 
 function verify_admin(req, res, next) {

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../javascripts/pg_conn');
+const db = require('../../databases/carpark_db_conn');
 const debug = require('debug')('holborn-car-park-service-app: DB');
 const UUID = require('uuid/v4');
-const query = require('../../javascripts/queries');
+const query = require('../../databases/queries');
 
 const uuid_regex = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
