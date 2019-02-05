@@ -1,8 +1,8 @@
 const verif = require("../javascripts/verify");
 const moment = require('moment');
 const debug = require('debug')('holborn-car-park-service-app: socket');
-const db = require ('../javascripts/pg_conn');
-const queries = require('../javascripts/queries');
+const db = require ('../databases/carpark_db_conn');
+const queries = require('../databases/queries');
 module.exports = function (io) {
 
     io.sockets.on('connection', function (socket) {

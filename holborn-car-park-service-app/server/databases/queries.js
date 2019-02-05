@@ -1,9 +1,21 @@
 exports.sockets = {
-   ticket_details: `SELECT       tickets._id, date_in, paid, valid, duration, date_out, hour_rate 
-                    FROM         tickets 
-                    INNER JOIN   carparks 
-                    ON           _carpark_id = carparks._id 
-                    WHERE        tickets._id = $1`
+   ticket_details: `SELECT     tickets._id, date_in, paid, valid, duration, date_out, hour_rate 
+                    FROM       tickets 
+                    INNER JOIN carparks 
+                    ON         _carpark_id = carparks._id WHERE tickets._id = $1`,
+   ticket_details_update: `UPDATE  tickets
+                     SET duration = $2, date_out =$3 
+                     WHERE tickets._id = $1`,
+   ticket_valid_count: `SELECT COUNT (*) 
+                        AS count
+                        FROM tickets 
+                        WHERE valid = true
+                        AND _carpark_id = $1`,
+   carpark_details :`SELECT carparks.hour_rate, carparks.parking_places 
+                     FROM carparks 
+                     WHERE carparks._id =$1`,
+
+
 };
 
 exports.api = {
