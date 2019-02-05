@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-const CarParks = require('../../server/data model/CarParks');
 const db = require ('../databases/carpark_db_conn');
 const debug = require('debug')('holborn-car-park-service-app: socket');
 

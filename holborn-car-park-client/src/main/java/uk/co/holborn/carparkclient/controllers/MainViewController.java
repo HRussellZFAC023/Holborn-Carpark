@@ -46,6 +46,7 @@ public class MainViewController implements Initializable {
     public Ticket ticket;
     public String hourly_price;
     public String parking_spaces;
+    public String happy_hour_time;
     Logger logger;
     public boolean happyHour = false;
 
@@ -53,6 +54,7 @@ public class MainViewController implements Initializable {
     public MainViewController() {
         hourly_price = "";
         parking_spaces = "";
+        happy_hour_time ="";
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
@@ -72,9 +74,7 @@ public class MainViewController implements Initializable {
             alert.showAndWait();
         });
 
-
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
@@ -135,9 +135,7 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    public void switchTicketCheck(ActionEvent event) {
-        socket.emit("hi");
-        sceneManager.switchToScene("TicketCheck");
+    public void switchTicketCheck(ActionEvent event) { sceneManager.switchToScene("TicketCheck");
     }
 
     @FXML

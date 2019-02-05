@@ -2,6 +2,7 @@ const express = require('express');
 const socket_io = require("socket.io");
 const cookieParser = require('cookie-parser');
 const socket_functions = require('./server/sockets/socket_functions');
+
 //Database
 const db = require('./server/databases/carpark_db_conn');
 
@@ -15,7 +16,7 @@ require('./server/sockets/base')(io);
 const noApiRoutes = require('./server/routes/noapi');
 
 //API routes declaration
-const carParksRoute = require('./server/routes/api/carparks');
+const carParksRoute = require('./server/routes/api/carparks')(io);
 const ticketsRoute = require('./server/routes/api/tickets')(io);
 
 app.use(express.json());

@@ -11,7 +11,7 @@ exports.sockets = {
                         FROM tickets 
                         WHERE valid = true
                         AND _carpark_id = $1`,
-   carpark_details :`SELECT carparks.hour_rate, carparks.parking_places 
+   carpark_details :`SELECT *
                      FROM carparks 
                      WHERE carparks._id =$1`,
 

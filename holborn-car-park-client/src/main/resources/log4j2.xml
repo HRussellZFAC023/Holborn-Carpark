@@ -3,7 +3,7 @@
 
     <!-- Logging Properties -->
     <Properties>
-        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c{1} - %m%n</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %c - %m%n</Property>
         <Property name="APP_LOG_ROOT">logs</Property>
     </Properties>
 
