@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import uk.co.holborn.carparkclient.controllers.ConnectionPopUpController;
 import uk.co.holborn.carparkclient.controllers.TicketDetailsPopUpController;
 
 import java.io.IOException;
