@@ -2,7 +2,7 @@ package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import uk.co.holborn.carparkclient.controllers.MainViewController;
+import uk.co.holborn.carparkclient.Scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,7 +19,7 @@ public class StartController implements Initializable {
 
     @FXML
     public void begin(){
-        mc.sceneManager.switchToScene("TicketCheck");
+        mc.sceneManager.switchToScene(Scenes.TICKET_CHECK);
     }
 
 

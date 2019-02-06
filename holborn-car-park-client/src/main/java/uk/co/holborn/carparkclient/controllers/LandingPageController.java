@@ -6,15 +6,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.Animator;
 import uk.co.holborn.carparkclient.GlobalVariables;
+import uk.co.holborn.carparkclient.Scenes;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class LandingPageController implements Initializable {
@@ -46,7 +44,7 @@ public class LandingPageController implements Initializable {
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
         socket.on("update-carpark-details", objects -> {
-            System.out.println("got on event: id: " + System.identityHashCode(this));
+            System.out.println("got on event: id: " + System.identityHashCode(this) + " " + this);
             socket.emit("fetch-carpark-details", (Ack) this::update);
         });
     }
@@ -89,7 +87,7 @@ public class LandingPageController implements Initializable {
 
     @FXML
     public void begin() {
-        mc.sceneManager.switchToScene("TicketCheck");
+        mc.sceneManager.switchToScene(Scenes.TICKET_CHECK);
     }
 
 }

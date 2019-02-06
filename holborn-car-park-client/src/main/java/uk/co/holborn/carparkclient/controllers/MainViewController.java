@@ -12,10 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.co.holborn.carparkclient.ConnectionPopUp;
-import uk.co.holborn.carparkclient.GlobalVariables;
-import uk.co.holborn.carparkclient.SceneManager;
-import uk.co.holborn.carparkclient.Ticket;
+import uk.co.holborn.carparkclient.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -54,7 +51,7 @@ public class MainViewController implements Initializable {
     public MainViewController() {
         hourly_price = "";
         parking_spaces = "";
-        happy_hour_time ="";
+        happy_hour_time = "";
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
@@ -75,17 +72,13 @@ public class MainViewController implements Initializable {
         });
 
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
         popup = new ConnectionPopUp(mainAnchor, blurrAnchor);
-        HashMap<String, String> scenes = new HashMap<>();
-        scenes.put("HappyHour", "/fxml/happy_hour_view.fxml");
-        scenes.put("Start", "/fxml/landing_page.fxml");
-        scenes.put("TicketCheck", "/fxml/ticket_checkl.fxml");
-        scenes.put("PaymentMethod", "/fxml/payment_methods.fxml");
-        scenes.put("Payment", "/fxml/payment_method_cash.fxml");
-        sceneManager = new SceneManager(sceneAnchor, scenes);
+        sceneManager = new SceneManager(sceneAnchor);
+
 
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
@@ -94,7 +87,7 @@ public class MainViewController implements Initializable {
                     popup.show("Connected");
                     popup.removePopUp();
                     logger.info("Authorised!");
-                    sceneManager.switchToScene("Start");
+                    sceneManager.switchToScene(Scenes.LANDING);
                     sceneManager.clearSceneQueue();
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
@@ -126,16 +119,17 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void switchHappyHour(ActionEvent event) {
-        sceneManager.switchToScene("HappyHour");
+//        sceneManager.switchToScene("HappyHour");
     }
 
     @FXML
     public void switchStart(ActionEvent event) {
-        sceneManager.switchToScene("Start");
+//        sceneManager.switchToScene("Start");
     }
 
     @FXML
-    public void switchTicketCheck(ActionEvent event) { sceneManager.switchToScene("TicketCheck");
+    public void switchTicketCheck(ActionEvent event) {
+        sceneManager.switchToScene(Scenes.TICKET_CHECK);
     }
 
     @FXML

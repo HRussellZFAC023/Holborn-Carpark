@@ -32,8 +32,9 @@ public class ConnectionPopUp {
         root = new AnchorPane();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
         try {
+            connectionPopUpController = new ConnectionPopUpController();
+            loader.setController(connectionPopUpController);
             root = loader.load();
-            connectionPopUpController = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
