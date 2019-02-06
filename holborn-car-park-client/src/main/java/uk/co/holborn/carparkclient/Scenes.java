@@ -9,6 +9,9 @@ import uk.co.holborn.carparkclient.controllers.TicketCheckController;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Scenes contains all of the scenes windows
+ */
 public enum Scenes {
     LANDING {
         LandingPageController controller = new LandingPageController();
