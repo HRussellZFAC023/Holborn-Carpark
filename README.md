@@ -6,19 +6,21 @@ $ git checkout -b [name_of_branch]           //create a new branch and switch to
 
  --Code, make changes, etc          
 
-$ git add .			                    //stage all file	                      
+$ git add .			                    //stage all files                   
 
 //create a commit (make as many of those as possible)
 
 //if there are conflicts follow on-screen instructions or ask me
 
-$ git commit -m "[name_of_commit]"      
+$ git commit -m "[name_of_commit]"    
 
-$ git checkout master 		 	     //switch to master branch
+$ git rebase master                //rebase your changes ONTO master branch
 
-$ git rebase [name_of_branch] 			     //rebase your changes ONTO master branch
+$ git checkout master 		 	         //switch to master branch (not neccessary unless you get "Current branch is up to date")
 
-$ git branch -d [name_of_branch]	     //delete your branch
+$ git merge [name_of_branch]		     //merge your branch onto master (not neccessary unless you get "Current branch is up to date")
+
+$ git branch -d [name_of_branch]	  //delete your branch
 
 
 
