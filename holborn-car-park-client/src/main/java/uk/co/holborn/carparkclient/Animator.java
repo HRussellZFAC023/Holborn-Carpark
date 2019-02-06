@@ -23,8 +23,8 @@ public class Animator {
         }else {
             opacityStart = 0;
             opacityEnd = 1;
-            node.setScaleX(0.5);
-            node.setScaleY(0.5);
+            node.setScaleX(0);
+            node.setScaleY(0);
             timeline.getKeyFrames().addAll(
                     new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
                     new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))

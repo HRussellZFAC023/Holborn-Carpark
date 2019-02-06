@@ -1,9 +1,9 @@
 package uk.co.holborn.carparkclient;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import uk.co.holborn.carparkclient.controllers.LandingPageController;
+import uk.co.holborn.carparkclient.controllers.PaymentMethodsController;
 import uk.co.holborn.carparkclient.controllers.TicketCheckController;
 
 import java.io.IOException;
@@ -13,100 +13,99 @@ public enum Scenes {
     LANDING {
         LandingPageController controller = new LandingPageController();
         AnchorPane root;
+
         @Override
-        URL getURLPath() {return getClass().getResource("/fxml/landing_page.fxml");
+        String getFXMLLocation() {
+            return "/fxml/landing_page.fxml";
+        }
+
+        @Override
+        Object getController() {
+            return controller;
         }
         @Override
-        Object getController() { return controller; }
+        AnchorPane getRootPane() {
+            if (root == null) root = getPaneFromFXMLLoader();
+            return root;
+        }
+
         @Override
-        public AnchorPane getRootPane() { if (root == null) root = getPaneFromFXMLLoader();return root; }
+        void initialisation() {
+        }
 
     },
     TICKET_CHECK {
         TicketCheckController controller = new TicketCheckController();
         AnchorPane root;
+
         @Override
-        URL getURLPath() {return getClass().getResource("/fxml/ticket_check.fxml");
+        String getFXMLLocation() {
+            return "/fxml/ticket_check.fxml";
         }
+
         @Override
-        Object getController() { return controller; }
+        public AnchorPane getRootPane() {
+            if (root == null) root = getPaneFromFXMLLoader();
+            return root;
+        }
+
         @Override
-        public AnchorPane getRootPane() { if (root == null) root = getPaneFromFXMLLoader();return root; }
+        Object getController() {
+            return controller;
+        }
+
+        @Override
+        void initialisation() {
+
+        }
     },
     PAYMENT_METHODS {
-        LandingPageController controller = new LandingPageController();
+        PaymentMethodsController controller = new PaymentMethodsController();
         AnchorPane root;
 
         @Override
-        URL getURLPath() {
-            return getClass().getResource("/fxml/landing_page.fxml");
-
-        }
-
-        @Override
-        Object getController() {
-            return null;
+        String getFXMLLocation() {
+            return "/fxml/payment_methods.fxml";
         }
 
         @Override
         public AnchorPane getRootPane() {
-            FXMLLoader loader = new FXMLLoader(getURLPath());
-            // controller = new LandingPageController();
-            loader.setController(controller);
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            if (root == null) root = getPaneFromFXMLLoader();
             return root;
-        }
-    },
-    PAYMENT_METHOD_CASH {
-        LandingPageController controller = new LandingPageController();
-        AnchorPane root;
-
-        @Override
-        URL getURLPath() {
-            return getClass().getResource("/fxml/landing_page.fxml");
-
         }
 
         @Override
         Object getController() {
-            return null;
+            return controller;
         }
 
         @Override
-        public AnchorPane getRootPane() {
-            FXMLLoader loader = new FXMLLoader(getURLPath());
-            // controller = new LandingPageController();
-            loader.setController(controller);
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return root;
+        void initialisation() {
+
         }
-
-
     };
 
-    abstract URL getURLPath();
+    abstract String getFXMLLocation();
+
+    abstract AnchorPane getRootPane();
 
     abstract Object getController();
 
-    public abstract AnchorPane getRootPane();
+    abstract void initialisation();
 
-    public AnchorPane getPaneFromFXMLLoader() {
+    protected URL getURLResource() {
+        return getClass().getResource(getFXMLLocation());
+    }
+    protected AnchorPane getPaneFromFXMLLoader() {
         AnchorPane root = null;
-        FXMLLoader loader = new FXMLLoader(getURLPath());
+        FXMLLoader loader = new FXMLLoader(getURLResource());
         loader.setController(getController());
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        initialisation();
         return root;
     }
 

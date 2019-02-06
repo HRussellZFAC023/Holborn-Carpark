@@ -22,7 +22,6 @@ import static javafx.scene.layout.AnchorPane.*;
 public class SceneManager {
     private Logger logger;
     private AnchorPane scenePane;
-    private HashMap<String, AnchorPane> scenesInstance;
     private boolean animationFinished;
     private ArrayList<Scenes> pastStages;
     AnchorPane sc;
