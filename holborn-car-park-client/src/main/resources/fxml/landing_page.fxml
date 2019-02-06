@@ -52,7 +52,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" prefHeight="600.0" prefWidth="600.0" styleClass="button_card" text="Ticket Lost" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                  <Button contentDisplay="TOP" disable="true" graphicTextGap="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" prefHeight="600.0" prefWidth="600.0" styleClass="button_card" text="Ticket Lost" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                      <graphic>
                         <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                            <image>
