@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Animator {
-    static void nodeFade(Node node, boolean in, double time) {
+    public static void nodeFade(Node node, boolean in, double keyFrameTime) {
         double opacityEnd, opacityStart;
         Timeline timeline = new Timeline();
         if (!in) {
@@ -21,8 +21,8 @@ public class Animator {
             node.setScaleX(1);
             node.setScaleY(1);
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_IN))
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_IN))
             );
         } else {
             opacityStart = 0;
@@ -30,13 +30,13 @@ public class Animator {
             node.setScaleX(0);
             node.setScaleY(0);
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(time), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))
             );
         }
         node.setOpacity(opacityStart);
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(time), new KeyValue(node.opacityProperty(), opacityEnd, Interpolator.EASE_IN))
+                new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.opacityProperty(), opacityEnd, Interpolator.EASE_IN))
         );
         timeline.play();
     }
@@ -44,8 +44,16 @@ public class Animator {
     public static void nodeFade(Node node, boolean in) {
         nodeFade(node, in, 0.5);
     }
+    public static void nodeBlurr(Node node, double blurrRadius, double keyFrameTime) {
+            Timeline timeline = new Timeline();
+            timeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))
+            );
 
-    static void nodePopIn_keyframes(Node node, Timeline timeline) {
+    }
+
+    public static void nodePopIn_keyframes(Node node, Timeline timeline) {
         node.setOpacity(0);
         node.setScaleX(0.5);
         node.setScaleY(0.5);
@@ -58,7 +66,7 @@ public class Animator {
         );
     }
 
-    static void nodePushOut_KeyFrames(Node node, Timeline timeline) {
+    public static void nodePushOut_KeyFrames(Node node, Timeline timeline) {
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);
@@ -69,7 +77,7 @@ public class Animator {
         );
     }
 
-    static void nodeThrowIn_Keyframes(Node node, Timeline timeline) {
+    public static void nodeThrowIn_Keyframes(Node node, Timeline timeline) {
         node.setOpacity(0);
         node.setScaleX(1.5);
         node.setScaleY(1.5);
@@ -82,7 +90,7 @@ public class Animator {
         );
     }
 
-    static void nodeBringOut_KeyFrames(Node node, Timeline timeline) {
+    public static void nodeBringOut_KeyFrames(Node node, Timeline timeline) {
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);
