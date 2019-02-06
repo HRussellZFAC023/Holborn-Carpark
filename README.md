@@ -10,7 +10,7 @@
 
 ```$ git commit -m "[name_of_commit]"``` //create a commit (make as many of those as possible), if there are conflicts follow on-screen instructions or ask me
 
-```$ git rebase master``` //rebase your changes ONTO master branch
+```$ git pull --rebase origin master``` //rebase your changes ONTO master branch
 
 ```$ git checkout master``` //switch to master branch
 
