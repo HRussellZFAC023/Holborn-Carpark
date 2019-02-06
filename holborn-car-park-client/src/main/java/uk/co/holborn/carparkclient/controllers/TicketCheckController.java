@@ -149,15 +149,16 @@ public class TicketCheckController implements Initializable {
         }
         ticket_image_validated.setImage(new Image(imgURl));
         ticket_image_validated.setOpacity(0);
-        ticket_image_validated.setTranslateY(-50);
+        ticket_image_validated.setTranslateY(0);
         ticket_image_validated.setScaleX(0);
         ticket_image_validated.setScaleY(0);
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.opacityProperty(), 1, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.translateYProperty(), 0, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.scaleYProperty(), 1, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.5), new KeyValue(ticket_image_validated.scaleXProperty(), 1, Interpolator.EASE_IN))
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.opacityProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.scaleYProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.scaleXProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleYProperty(), 0.9, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleXProperty(), 0.9, Interpolator.EASE_IN))
         );
         timeline.setOnFinished(t -> {
         });
