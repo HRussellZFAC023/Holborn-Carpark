@@ -1,8 +1,11 @@
 const express = require('express');
 const socket_io = require("socket.io");
 const cl_sessions = require('client-sessions');
+const debug = require('debug')('holborn-car-park-service-app: env');
 
 const G = require('./server/javascripts/global_variables');
+
+debug(G.env);
 
 //Database
 const db = require('./server/databases/carpark_db_conn');
@@ -22,15 +25,21 @@ const ticketsRoute = require('./server/routes/api/tickets')(io);
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cl_sessions({
+
+
+const cl_sessions_opt = {
     cookieName: 'session',
     secret: G.cookie_secret,
     duration: 30 * 60 * 1000,
     activeDuration: 5 * 60 * 1000,
     httpOnly: true,
-    secure: false, //change when in production
     ephemeral: true
-}));
+};
+
+if(G.env === 'dev') cl_sessions_opt.secure = false;
+else cl_sessions_opt.secure = false;
+
+app.use(cl_sessions(cl_sessions_opt));
 
 //main routes
 app.use(express.static(__dirname + '/public/stylesheets/')); //serve stylesheets first
