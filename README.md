@@ -12,13 +12,11 @@ $ git add .			                    //stage all file
 
 //if there are conflicts follow on-screen instructions or ask me
 
-$ git commit -m "[name_of_commit]"        
-
-$ git rebase master 			     //rebase your changes ONTO master branch
+$ git commit -m "[name_of_commit]"      
 
 $ git checkout master 		 	     //switch to master branch
 
-$ git merge [name_of_branch]		     //merge your branch onto master
+$ git rebase [name_of_branch] 			     //rebase your changes ONTO master branch
 
 $ git branch -d [name_of_branch]	     //delete your branch
 
