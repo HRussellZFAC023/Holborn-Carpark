@@ -26,14 +26,19 @@ public enum Scenes {
         Object getController() {
             return controller;
         }
+
         @Override
-        AnchorPane getRootPane() {
-            if (root == null) root = getPaneFromFXMLLoader();
+        AnchorPane getRootAnchor() {
             return root;
         }
 
         @Override
-        void initialisation() {
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
         }
 
     },
@@ -47,18 +52,22 @@ public enum Scenes {
         }
 
         @Override
-        public AnchorPane getRootPane() {
-            if (root == null) root = getPaneFromFXMLLoader();
-            return root;
-        }
-
-        @Override
         Object getController() {
             return controller;
         }
 
         @Override
-        void initialisation() {
+        AnchorPane getRootAnchor() {
+            return root;
+        }
+
+        @Override
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
 
         }
     },
@@ -72,44 +81,54 @@ public enum Scenes {
         }
 
         @Override
-        public AnchorPane getRootPane() {
-            if (root == null) root = getPaneFromFXMLLoader();
-            return root;
-        }
-
-        @Override
         Object getController() {
             return controller;
         }
 
         @Override
-        void initialisation() {
+        AnchorPane getRootAnchor() {
+            return root;
+        }
+
+        @Override
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
 
         }
     };
 
-    abstract String getFXMLLocation();
 
-    abstract AnchorPane getRootPane();
+    abstract String getFXMLLocation();
 
     abstract Object getController();
 
-    abstract void initialisation();
+    abstract AnchorPane getRootAnchor();
+
+    abstract void setRootAnchor(AnchorPane root);
+
+    abstract void initialise();
 
     protected URL getURLResource() {
         return getClass().getResource(getFXMLLocation());
     }
-    protected AnchorPane getPaneFromFXMLLoader() {
-        AnchorPane root = null;
-        FXMLLoader loader = new FXMLLoader(getURLResource());
-        loader.setController(getController());
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+    public AnchorPane getScene() {
+        if (getRootAnchor() == null) {
+            FXMLLoader loader = new FXMLLoader(getURLResource());
+            loader.setController(getController());
+            try {
+                setRootAnchor(loader.load());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            initialise();
         }
-        initialisation();
-        return root;
+        return getRootAnchor();
     }
 
 }

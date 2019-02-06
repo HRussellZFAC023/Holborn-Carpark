@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static javafx.scene.layout.AnchorPane.*;
 
@@ -24,9 +23,9 @@ public class SceneManager {
     private AnchorPane scenePane;
     private boolean animationFinished;
     private ArrayList<Scenes> pastStages;
-    AnchorPane sc;
+    private AnchorPane sc;
     public SceneManager(AnchorPane scenePane) {
-        logger = logger = LogManager.getLogger(getClass().getName());
+        logger = LogManager.getLogger(getClass().getName());
         this.scenePane = scenePane;
         pastStages = new ArrayList<>();
         animationFinished = true;
@@ -57,7 +56,7 @@ public class SceneManager {
 //            } catch (IOException e) {
 //                logger.trace(e.getStackTrace());
 //            }
-            sc = scene.getRootPane();
+            sc = scene.getScene();
 
             setBottomAnchor(sc, 0.0);
             setRightAnchor(sc, 0.0);
@@ -167,9 +166,7 @@ public class SceneManager {
         KeyValue kv1 = new KeyValue(scenePane.getChildren().get(0).translateXProperty(), -ap.getPrefWidth(), Interpolator.EASE_OUT);
         KeyFrame kf1 = new KeyFrame(Duration.seconds(0.3), kv1);
         timeline.getKeyFrames().addAll(kf, kf1);
-        timeline.setOnFinished(t -> {
-            scenePane.getChildren().remove(0);
-        });
+        timeline.setOnFinished(t -> scenePane.getChildren().remove(0));
         timeline.play();
 
     }
