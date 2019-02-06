@@ -1,12 +1,13 @@
-const express = require('express');
-const router = express.Router();
-const db = require('../../databases/carpark_db_conn');
-const debug = require('debug')('holborn-car-park-service-app: DB');
-const UUID = require('uuid/v4');
-const query = require('../../databases/queries');
-const socket_functions = require('../../sockets/socket_functions');
+const express           = require('express');
+const router            = express.Router();
+const db                = require('../../databases/carpark_db_conn');
+const debug             = require('debug')('holborn-car-park-service-app: DB');
+const UUID              = require('uuid/v4');
+const query             = require('../../databases/queries');
+const socket_functions  = require('../../sockets/socket_functions');
 
-const uuid_regex = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
+
+const uuid_regex        = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 module.exports = function (io) {
     //Get all tickets
@@ -21,7 +22,7 @@ module.exports = function (io) {
         });
     });
 
-//Delete all tickets
+    //Delete all tickets
     router.delete('/', function (req, res) {
         db.query(query.api.tickets.delete_all, function (db_err, db_res) {
             if (db_err) {
@@ -34,8 +35,7 @@ module.exports = function (io) {
         });
     });
 
-
-//Gets a specific ticket
+    //Gets a specific ticket
     router.get('/' + uuid_regex, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
@@ -50,7 +50,7 @@ module.exports = function (io) {
         });
     });
 
-//Create a ticket (attached to a carpark id)
+    //Create a ticket (attached to a carpark id)
     router.post('/' + uuid_regex, function (req, res) {
         let t_id = UUID();
         let c_id = req.path.replace(/\//g, '');
@@ -66,7 +66,7 @@ module.exports = function (io) {
         });
     });
 
-//Update a ticket
+    //Update a ticket
     router.put('/' + uuid_regex, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
@@ -111,7 +111,7 @@ module.exports = function (io) {
         }
     });
 
-//Delete a ticket
+    //Delete a ticket
     router.delete('/' + uuid_regex, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
@@ -127,7 +127,7 @@ module.exports = function (io) {
     });
 
 
-//Validates the ticket. After validation, the ticket can't be used anymore
+    //Validates the ticket. After validation, the ticket can't be used anymore
     router.post('/validate', function (req, res) {
         let t_id = req.body._id;
         let c_id = req.body._carpark_id; //provided by the carpark requesting validation
@@ -147,5 +147,6 @@ module.exports = function (io) {
             res.status(200).send("Ticket valid. You can pass!");
         });
     });
+
     return router;
 };

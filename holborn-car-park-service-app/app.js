@@ -1,16 +1,14 @@
-const express = require('express');
-const socket_io = require("socket.io");
-const cl_sessions = require('client-sessions');
-const debug = require('debug')('holborn-car-park-service-app: env');
+const express       = require('express');
+const socket_io     = require("socket.io");
+const cl_sessions   = require('client-sessions');
+const debug         = require('debug')('holborn-car-park-service-app: env');
+const G             = require('./server/javascripts/global_variables');
 
-const G = require('./server/javascripts/global_variables');
 
 debug(G.env);
 
-//Database
-const db = require('./server/databases/carpark_db_conn');
-
 const app = express();
+
 // Socket.io
 const io = socket_io();
 app.io = io;
@@ -23,9 +21,9 @@ const noApiRoutes = require('./server/routes/noapi');
 const carParksRoute = require('./server/routes/api/carparks')(io);
 const ticketsRoute = require('./server/routes/api/tickets')(io);
 
+
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 
 const cl_sessions_opt = {
     cookieName: 'session',

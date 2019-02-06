@@ -1,11 +1,11 @@
-const moment = require('moment');
-const verif = require('../javascripts/verify');
-const debug = require('debug')('holborn-car-park-service-app: socket');
-const db = require('../databases/carpark_db_conn');
-const queries = require('../databases/queries');
-const socket_functions = require('./socket_functions');
-module.exports = function (io) {
+const moment            = require('moment');
+const debug             = require('debug')('holborn-car-park-service-app: socket');
+const db                = require('../databases/carpark_db_conn');
+const queries           = require('../databases/queries');
+const socket_functions  = require('./socket_functions');
 
+
+module.exports = function (io) {
     io.on('connection', function (socket) {
         var carpark_id = null;
         debug('Socket connected: ' + socket.handshake.address);

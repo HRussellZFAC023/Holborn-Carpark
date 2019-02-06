@@ -1,5 +1,6 @@
-const db = require ('../databases/carpark_db_conn');
+const db    = require ('../databases/carpark_db_conn');
 const debug = require('debug')('holborn-car-park-service-app: socket');
+
 
 exports.verifyClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];

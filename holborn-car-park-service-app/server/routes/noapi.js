@@ -1,13 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const crypto = require('crypto');
-const UUID = require('uuid/v4');
-const query = require('../databases/queries');
-const db = require('../databases/auth_db_conn');
-const G = require('../javascripts/global_variables');
-const debug = require('debug')('holborn-car-park-service-app: auth');
-
-
+const express   = require('express');
+const router    = express.Router();
+const crypto    = require('crypto');
+const UUID      = require('uuid/v4');
+const query     = require('../databases/queries');
+const db        = require('../databases/auth_db_conn');
+const G         = require('../javascripts/global_variables');
+const debug     = require('debug')('holborn-car-park-service-app: auth');
 
 
 router.get('/', function (req, res) {
@@ -26,8 +24,6 @@ router.get('/manager', function (req, res) {
     if(req.session && req.session.user) res.sendFile('manager.html', {root: 'public/HTML/'});
     else res.redirect('/login');
 });
-
-
 
 router.post('/login', function (req, res) {
     let uname = req.body.username;
