@@ -1,33 +1,19 @@
-# CS1813_2019_05
+# ReadMe
 
-#The Holy Grail
+## The Holy Grail
 
-$ git checkout -b [name_of_branch]           //create a new branch and switch to it
+```$ git checkout -b [name_of_branch]``` //create a new branch and switch to it
 
- --Code, make changes, etc          
+-- Code, make changes, etc
 
-$ git add .			                    //stage all files                   
+```$ git add .``` //stage all files
 
-//create a commit (make as many of those as possible)
+```$ git commit -m "[name_of_commit]"``` //create a commit (make as many of those as possible), if there are conflicts follow on-screen instructions or ask me
 
-//if there are conflicts follow on-screen instructions or ask me
+```$ git rebase master``` //rebase your changes ONTO master branch
 
-$ git commit -m "[name_of_commit]"    
+```$ git checkout master``` //switch to master branch (not neccessary unless you get "Current branch is up to date")
 
-$ git rebase master                //rebase your changes ONTO master branch
+```$ git merge [name_of_branch]``` //merge your branch onto master (not neccessary unless you get "Current branch is up to date")
 
-$ git checkout master 		 	         //switch to master branch (not neccessary unless you get "Current branch is up to date")
-
-$ git merge [name_of_branch]		     //merge your branch onto master (not neccessary unless you get "Current branch is up to date")
-
-$ git branch -d [name_of_branch]	  //delete your branch
-
-
-
-If you want to delete already existing folders open up git bash and do:
-
-$ git rm -r --cached .
-
-$ git add .
-
-$ git commit -am "Reason for commit"
+```$ git branch -d [name_of_branch]``` //delete your branch
