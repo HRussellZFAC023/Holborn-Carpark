@@ -4,19 +4,15 @@
 
 $ git checkout -b [name_of_branch]           //create a new branch and switch to it
 
-> > > > > > > > > > > > > > > > > > > >
 
-ʌ  --Code, make changes, etc          v
+ --Code, make changes, etc          
 
-ʌ                                     v
 
-ʌ  $ git add .			              v      //stage all files
+$ git add .			                    //stage all file	                      
 
-ʌ				                      v
-
-ʌ  $ git commit -m "[name_of_commit]" v      //create a commite (make as many of those as possible)
-
-< < < < < < < < < < < < < < < < < < < <      //if there are conflicts follow on-screen instructions or ask me
+//create a commit (make as many of those as possible)
+//if there are conflicts follow on-screen instructions or ask me
+$ git commit -m "[name_of_commit]"        
 
 $ git rebase master 			     //rebase your changes ONTO master branch
 
