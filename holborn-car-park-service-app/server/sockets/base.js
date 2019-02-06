@@ -11,7 +11,8 @@ module.exports = function (io) {
         debug('Socket connected: ' + socket.handshake.address);
         socket_functions.authorise(socket, function (carparkid) {
             carpark_id = carparkid;
-            socket.join(carpark_id)
+            socket.join(carpark_id);
+            debug("joined in : " + carpark_id);
         });
         socket.on('fetch-ticket', function (_id, callback) {
             const params = [_id, carpark_id];

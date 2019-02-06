@@ -4,19 +4,17 @@ import com.google.gson.Gson;
 import io.socket.client.Ack;
 import io.socket.client.Socket;
 import javafx.animation.*;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import uk.co.holborn.carparkclient.Animator;
+import uk.co.holborn.carparkclient.Scenes;
 import uk.co.holborn.carparkclient.Ticket;
 import uk.co.holborn.carparkclient.TicketDetailsPopUp;
 
@@ -84,7 +82,7 @@ public class TicketCheckController implements Initializable {
 
     @FXML
     private void goToPayment() {
-        mc.sceneManager.switchToScene("PaymentMethod");
+        mc.sceneManager.switchToScene(Scenes.TICKET_CHECK);
     }
 
     @FXML

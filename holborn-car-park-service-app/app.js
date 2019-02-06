@@ -1,8 +1,10 @@
 const express = require('express');
 const socket_io = require("socket.io");
-const cl_sessions = require('client-sessions');
+const cookieParser = require('cookie-parser');
+const socket_functions = require('./server/sockets/socket_functions');
 
-const G = require('./server/javascripts/global_variables');
+//Database
+const db = require('./server/databases/carpark_db_conn');
 
 const app = express();
 // Socket.io
@@ -18,15 +20,9 @@ const carParksRoute = require('./server/routes/api/carparks')(io);
 const ticketsRoute = require('./server/routes/api/tickets')(io);
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cl_sessions({
-    cookieName: 'session',
-    secret: G.cookie_secret,
-    duration: 30 * 60 * 1000,
-    activeDuration: 5 * 60 * 1000,
-    httpOnly: true,
-    secure: false, //change when in production
-    ephemeral: true
+app.use(cookieParser());
+app.use(express.urlencoded({
+    extended: true
 }));
 
 //main routes

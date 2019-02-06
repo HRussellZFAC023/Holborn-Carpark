@@ -3,6 +3,7 @@ package uk.co.holborn.carparkclient.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import uk.co.holborn.carparkclient.Scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,7 +41,7 @@ public class CashPaymentController implements Initializable {
         if(due<=0) {
             change = Math.abs(due);
             System.out.println("Here's your change: " + change);
-            mc.sceneManager.switchToScene("Start");
+            mc.sceneManager.switchToScene(Scenes.LANDING);
         }
     }
     public void updateFields(){

@@ -12,7 +12,7 @@ exports.carpark_details_modified = function (_id, callback){
                 console.log(db_err);
             }
             const current_parking_places = db_res_cp.rows[0].parking_places - db_res_t.rows[0].count;
-            return callback(current_parking_places, db_res_cp.rows[0].hour_rate);
+            return callback(current_parking_places, db_res_cp.rows[0].hour_rate, db_res_cp.rows[0].happy_hour_start,db_res_cp.rows[0].happy_hour_end);
         });
     });
 };
@@ -30,7 +30,7 @@ exports.authorise = function  (socket, carparkid_cb) {
         });
     });
 };
-exports.emit_update = function(io, _id){
+exports.emit_update= function(io, _id){
     io.sockets.in(_id).emit('update-carpark-details');
 };
 exports.emit_update = function(io){

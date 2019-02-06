@@ -5,81 +5,94 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static javafx.scene.layout.AnchorPane.*;
 
+/**
+ * Scene manager handles the UI changes
+ */
 public class SceneManager {
+    private Logger logger;
     private AnchorPane scenePane;
-    private HashMap<String, String> scenes;
-    private boolean animationFinished ;
-    private ArrayList<String> pastStages;
-
-     public SceneManager(AnchorPane scenePane, HashMap<String, String> scenes) {
+    private HashMap<String, AnchorPane> scenesInstance;
+    private boolean animationFinished;
+    private ArrayList<Scenes> pastStages;
+    AnchorPane sc;
+    public SceneManager(AnchorPane scenePane) {
+        logger = logger = LogManager.getLogger(getClass().getName());
         this.scenePane = scenePane;
-        this.scenes = scenes;
         pastStages = new ArrayList<>();
         animationFinished = true;
     }
 
-     public void switchToScene(String sceneKey){
-        if(animationFinished){
-            Platform.runLater(()->{
-                switchTo(sceneKey);
+    public void switchToScene(Scenes scene) {
+        if (animationFinished) {
+            Platform.runLater(() -> {
+                switchTo(scene);
                 animateFadeInOut(false);
             });
         }
     }
-     public void goBack(){
-        if(animationFinished && pastStages.size() >=2){
-            switchTo(pastStages.get(pastStages.size()-2));
+
+    public void goBack() {
+        if (animationFinished && pastStages.size() >= 2) {
+            switchTo(pastStages.get(pastStages.size() - 2));
             animateFadeInOut(true);
-            pastStages.remove(pastStages.size()-1);
+            pastStages.remove(pastStages.size() - 1);
         }
     }
-    private void switchTo(String sceneKey) {
-        try {
-            if (scenes.get(sceneKey) != null) {
-                AnchorPane root = FXMLLoader.load(getClass().getResource(scenes.get(sceneKey)));
-                setBottomAnchor(root, 0.0);
-                setRightAnchor(root, 0.0);
-                setLeftAnchor(root, 0.0);
-                setTopAnchor(root, 0.0);
-                addSceneToBackQueue(sceneKey);
-                scenePane.getChildren().add(root);
 
-            } else {
-                System.err.println("There is no object for the given key");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void switchTo(Scenes scene) {
+        if (scene != null) {
+//            try {
+//                scenesInstance.put(sceneKey, null);
+//              scene =  FXMLLoader.load(getClass().getResource(scenes.get(sceneKey)));
+//            } catch (IOException e) {
+//                logger.trace(e.getStackTrace());
+//            }
+            sc = scene.getRootPane();
+
+            setBottomAnchor(sc, 0.0);
+            setRightAnchor(sc, 0.0);
+            setLeftAnchor(sc, 0.0);
+            setTopAnchor(sc, 0.0);
+//            scenesInstance.put(sceneKey, root);
+            scenePane.getChildren().add(sc);
+            addSceneToBackQueue(scene);
+
+        } else {
+            System.err.println("There is no object for the given key");
         }
+
     }
-    public void clearSceneQueue(){
-         pastStages.clear();
+
+    public void clearSceneQueue() {
+        pastStages.clear();
     }
-    private void addSceneToBackQueue(String sceneKey){
-         if(pastStages.size()<2) pastStages.add(sceneKey);
-         else {
-             if(!pastStages.get(pastStages.size()-2).equals(sceneKey))
-                 pastStages.add(sceneKey);
-         }
+
+    private void addSceneToBackQueue(Scenes scene) {
+        if (pastStages.size() < 2) pastStages.add(scene);
+        else {
+            if (!pastStages.get(pastStages.size() - 2).equals(scene))
+                pastStages.add(scene);
+        }
 
 
     }
+
     private void animateFadeInOut(boolean reverse) {
-        if(scenePane.getChildren().size()>=2){
+        if (scenePane.getChildren().size() >= 2) {
             animationFinished = false;
             double duration = 0.3;
-            double first_initial_ScaleXY, second_initial_ScaleXY, first_initial_Opacity, second_initial_Opacity, first_end_ScaleXY, second_end_ScaleXY, seconf_final_Opacity,first_final_Opacity;
+            double first_initial_ScaleXY, second_initial_ScaleXY, first_initial_Opacity, second_initial_Opacity, first_end_ScaleXY, second_end_ScaleXY, seconf_final_Opacity, first_final_Opacity;
             first_initial_Opacity = 1;
             first_final_Opacity = 0;
             second_initial_Opacity = 0;
@@ -134,7 +147,9 @@ public class SceneManager {
                         secondScene_ScaleYKeyframe);
                 timeline.setOnFinished(t -> {
                     scenePane.getChildren().remove(0);
-                    animationFinished=true;
+                    sc = null;
+                    System.gc();
+                    animationFinished = true;
                 });
                 timeline.play();
             }

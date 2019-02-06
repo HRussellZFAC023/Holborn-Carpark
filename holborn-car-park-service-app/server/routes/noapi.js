@@ -7,6 +7,9 @@ const db = require('../databases/auth_db_conn');
 const G = require('../javascripts/global_variables');
 const debug = require('debug')('holborn-car-park-service-app: auth');
 
+
+
+
 router.get('/', function (req, res) {
     res.sendFile('index.html', {root: 'public/HTML/'});
 });
@@ -20,8 +23,7 @@ router.get('/register', function (req, res) {
 });
 
 router.get('/manager', function (req, res) {
-    if(req.session && req.session.user) res.sendFile('Manager.html', {root: 'public/HTML/'});
-    else res.redirect('/login');
+    res.sendFile('Manager.html', {root: 'public/HTML/'});
 });
 
 
@@ -38,16 +40,13 @@ router.post('/login', function (req, res) {
             return res.status(500).send('Error on the server:' + db_err);
         }
 
-        if(!db_res.rowCount) return res.status(403).send('No such user');
-
         crypto.pbkdf2(passw, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
             if (err) debug(err);
 
             if(db_res.rows[0].pwd_hash.toString('hex') !== hash.toString('hex'))
                 return res.status(403).send("Wrong password! Try again");
 
-            req.session.user = uname;
-            res.redirect('/manager');
+            res.status(200).send('Success! User with id ' + db_res.rows[0]._id + ' logged in');
             //res.redirect('127.0.0.1/manager');
         });
     });

@@ -76,17 +76,15 @@ module.exports = function(io) {
                     debug(db_err);
                     return res.status(500).send('Error on the server:' + db_err);
                 }
-
                 res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
             });
         } else if (typeof req.body.hour_rate !== 'undefined') {
             db.query(query.api.carparks.update.hour_rate, [c_id, req.body.hour_rate], function (db_err, db_res) {
                 if (db_err) {
                     debug(db_err);
-                    socket_functions.emit_update(io, c_id);
                     return res.status(500).send('Error on the server:' + db_err);
                 }
-
+                socket_functions.emit_update(io, c_id);
                 res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
             });
         } else if (typeof req.body.postcode !== 'undefined') {
@@ -100,15 +98,6 @@ module.exports = function(io) {
             });
         } else if (typeof req.body.parking_places !== 'undefined') {
             db.query(query.api.carparks.update.parking_places, [c_id, req.body.parking_places], function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).send('Error on the server:' + db_err);
-                }
-
-                res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
-            });
-        } else if (typeof req.body.duration !== 'undefined') {
-            db.query(query.api.carparks.update.duration, [c_id, req.body.duration], function (db_err, db_res) {
                 if (db_err) {
                     debug(db_err);
                     return res.status(500).send('Error on the server:' + db_err);
