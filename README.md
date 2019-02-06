@@ -12,8 +12,8 @@
 
 ```$ git rebase master``` //rebase your changes ONTO master branch
 
-```$ git checkout master``` //switch to master branch (not neccessary unless you get "Current branch is up to date")
+```$ git checkout master``` //switch to master branch
 
-```$ git merge [name_of_branch]``` //merge your branch onto master (not neccessary unless you get "Current branch is up to date")
+```$ git merge [name_of_branch]``` //merge your branch onto master
 
 ```$ git branch -d [name_of_branch]``` //delete your branch
