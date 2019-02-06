@@ -15,15 +15,15 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-    res.sendFile('Login.html', {root: 'public/HTML/'});
+    res.sendFile('login.html', {root: 'public/HTML/'});
 });
 
 router.get('/register', function (req, res) {
-    res.sendFile('Register.html', {root: 'public/HTML/'});
+    res.sendFile('register.html', {root: 'public/HTML/'});
 });
 
 router.get('/manager', function (req, res) {
-    if(req.session && req.session.user) res.sendFile('Manager.html', {root: 'public/HTML/'});
+    if(req.session && req.session.user) res.sendFile('manager.html', {root: 'public/HTML/'});
     else res.redirect('/login');
 });
 
