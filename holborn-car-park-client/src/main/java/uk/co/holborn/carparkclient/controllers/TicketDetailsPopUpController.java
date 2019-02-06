@@ -3,6 +3,7 @@ package uk.co.holborn.carparkclient.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import uk.co.holborn.carparkclient.Scenes;
 import uk.co.holborn.carparkclient.Ticket;
 
 import java.net.URL;
@@ -41,7 +42,7 @@ public class TicketDetailsPopUpController implements Initializable {
     }
 
     public void goToPayment() {
-        mc.sceneManager.switchToScene("PaymentMethod");
+        mc.sceneManager.switchToScene(Scenes.PAYMENT_METHODS);
     }
 
     public void back() {

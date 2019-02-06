@@ -32,8 +32,9 @@ public class TicketDetailsPopUp {
         root = new AnchorPane();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
         try {
+            tc = new TicketDetailsPopUpController();
+            loader.setController(tc);
             root = loader.load();
-            tc = loader.getController();
         } catch (IOException e) {
             e.printStackTrace();
         }
