@@ -1,33 +1,36 @@
 #!/usr/bin/env node
-const app       = require('../app');
-const debug     = require('debug')('holborn-car-park-service-app: server');
-//const https   = require('https');
-const http      = require('http');
-const fs        = require('fs');
+const app    = require('../app');
+const debug  = require('debug')('holborn-car-park-service-app: server');
+const G      = require('../server/javascripts/global_variables');
 
 
-/**
- * Get port from environment and store in Express.
- */
-let port = normalizePort('80');
+let server = null;
+let port = null;
+
+if(G.env === 'dev'){
+    const http = require('http');
+
+    port = normalizePort('80');
+    server = exports.server = http.createServer(app);
+}
+else{
+    const https = require('https');
+    const fs    = require('fs');
+
+    const privateKey = fs.readFileSync( 'server/SSL/priv.pem' );
+    const certificate = fs.readFileSync( 'server/SSL/cert.pem' );
+    const intermediate = fs.readFileSync('server/SSL/ca.pem');
+
+    port = normalizePort('443');
+
+    server = exports.server = https.createServer({
+        key: privateKey,
+        cert: certificate,
+        ca: intermediate
+    }, app);
+}
+
 app.set('port', port);
-
-/**
- * Create HTTP server.
-
- const privateKey = fs.readFileSync( 'server/SSL/priv.pem' );
- const certificate = fs.readFileSync( 'server/SSL/cert.pem' );
- const intermediate = fs.readFileSync('server/SSL/ca.pem');
-
- const server = exports.server = https.createServer({
-    key: privateKey,
-    cert: certificate,
-    ca: intermediate
-}, app);
-
- */
-const server = exports.server = http.createServer(app);
-
 
 /**
  * Listen on provided port, on all network interfaces.
