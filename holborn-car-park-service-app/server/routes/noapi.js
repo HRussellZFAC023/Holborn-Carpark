@@ -23,7 +23,8 @@ router.get('/register', function (req, res) {
 });
 
 router.get('/manager', function (req, res) {
-    res.sendFile('Manager.html', {root: 'public/HTML/'});
+    if(req.session && req.session.user) res.sendFile('Manager.html', {root: 'public/HTML/'});
+    else res.redirect('/login');
 });
 
 
@@ -40,14 +41,16 @@ router.post('/login', function (req, res) {
             return res.status(500).send('Error on the server:' + db_err);
         }
 
+        if(!db_res.rowCount) return res.status(403).send('No such user');
+
         crypto.pbkdf2(passw, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
             if (err) debug(err);
 
             if(db_res.rows[0].pwd_hash.toString('hex') !== hash.toString('hex'))
                 return res.status(403).send("Wrong password! Try again");
 
-            res.status(200).send('Success! User with id ' + db_res.rows[0]._id + ' logged in');
-            //res.redirect('127.0.0.1/manager');
+            req.session.user = uname;
+            res.redirect('/manager');
         });
     });
 });
@@ -82,6 +85,11 @@ router.post('/register', function (req, res) {
             });
         });
     });
+});
+
+router.post('/register', function (req, res) {
+    req.session.reset();
+    res.redirect('/login');
 });
 
 const genRandomString = function(length = 16){
