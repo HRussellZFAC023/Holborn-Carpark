@@ -82,12 +82,13 @@ public class MainViewController implements Initializable {
 
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
+            popup.show("Connected! Authorising...");
             socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
                 if (objects[0].equals(200)) {
-                    popup.show("Connected");
+                    popup.show("Authorised");
                     popup.removePopUp();
                     logger.info("Authorised!");
-                    sceneManager.switchToScene(Scenes.LANDING);
+                    sceneManager.changeTo(Scenes.LANDING);
                     sceneManager.clearSceneQueue();
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
@@ -129,7 +130,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     public void switchTicketCheck(ActionEvent event) {
-        sceneManager.switchToScene(Scenes.TICKET_CHECK);
+        sceneManager.changeTo(Scenes.TICKET_CHECK);
     }
 
     @FXML

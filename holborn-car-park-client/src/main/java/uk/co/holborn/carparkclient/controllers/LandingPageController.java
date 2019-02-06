@@ -87,7 +87,7 @@ public class LandingPageController implements Initializable {
 
     @FXML
     public void begin() {
-        mc.sceneManager.switchToScene(Scenes.TICKET_CHECK);
+        mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
     }
 
 }

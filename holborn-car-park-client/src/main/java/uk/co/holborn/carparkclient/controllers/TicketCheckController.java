@@ -43,7 +43,7 @@ public class TicketCheckController implements Initializable {
 
     private MainViewController mc;
     private Gson gson;
-    boolean doScanAnim = true;
+    private boolean doScanAnim = true;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,7 +82,7 @@ public class TicketCheckController implements Initializable {
 
     @FXML
     private void goToPayment() {
-        mc.sceneManager.switchToScene(Scenes.TICKET_CHECK);
+        mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
     }
 
     @FXML

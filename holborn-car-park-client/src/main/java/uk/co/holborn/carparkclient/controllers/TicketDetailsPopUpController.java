@@ -21,7 +21,6 @@ public class TicketDetailsPopUpController implements Initializable {
     Label price;
     @FXML
     Label duration;
-    ;
     MainViewController mc;
 
     @Override
@@ -42,7 +41,7 @@ public class TicketDetailsPopUpController implements Initializable {
     }
 
     public void goToPayment() {
-        mc.sceneManager.switchToScene(Scenes.PAYMENT_METHODS);
+        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS);
     }
 
     public void back() {

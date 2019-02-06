@@ -10,12 +10,14 @@ import java.util.ResourceBundle;
 
 public class CashPaymentController implements Initializable {
 
-    @FXML Label amountPaid;
-    @FXML Label amountDue;
+    @FXML
+    Label amountPaid;
+    @FXML
+    Label amountDue;
     private MainViewController mc;
-    double due = 6.50;
-    double paid = 0.00;
-    double change = 0.00;
+    private double due = 6.50;
+    private double paid = 0.00;
+    private double change = 0.00;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -24,33 +26,34 @@ public class CashPaymentController implements Initializable {
     }
 
     @FXML
-    public  void  add1Pound(){
+    public void add1Pound() {
         addValue(1.0);
     }
+
     @FXML
-    public  void  add50Pence(){
+    public void add50Pence() {
         addValue(0.50);
     }
-    public void addValue(double amount){
-        paid+=amount;
+
+    private void addValue(double amount) {
+        paid += amount;
         due -= amount;
         updateFields();
         verifyPayment();
     }
-    public void verifyPayment(){
-        if(due<=0) {
+
+    private void verifyPayment() {
+        if (due <= 0) {
             change = Math.abs(due);
             System.out.println("Here's your change: " + change);
-            mc.sceneManager.switchToScene(Scenes.LANDING);
+            mc.sceneManager.changeTo(Scenes.LANDING);
         }
     }
-    public void updateFields(){
+
+    private void updateFields() {
         amountPaid.setText("£" + paid);
         amountDue.setText("£" + due);
     }
-
-
-
 
 
 }
