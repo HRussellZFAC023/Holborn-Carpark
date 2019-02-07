@@ -67,7 +67,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <GridPane styleClass="landing_page_info_container" vgap="10.0" GridPane.columnIndex="2">
+                        <GridPane styleClass="landing_page_info_container" vgap="16.0" GridPane.columnIndex="2">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
@@ -189,6 +189,9 @@
                                     </children>
                                 </GridPane>
                             </children>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
                         </GridPane>
                     </children>
                     <GridPane.margin>
