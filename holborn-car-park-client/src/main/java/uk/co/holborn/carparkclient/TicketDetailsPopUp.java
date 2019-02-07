@@ -28,17 +28,23 @@ public class TicketDetailsPopUp {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
-        root = new AnchorPane();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
         try {
-            tc = new TicketDetailsPopUpController();
-            loader.setController(tc);
-            root = loader.load();
+            if(root == null){
+                tc = new TicketDetailsPopUpController();
+                loader.setController(tc);
+                root = loader.load();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public  void remove (){
+        blurrAnchor.setEffect(null);
+        alreadyOn = false;
+        if(mainAnchor.getChildren().size()>1) mainAnchor.getChildren().remove(1);
+    }
     public void show(Ticket ticket) {
         if (!debug_mode)
             if (!alreadyOn) {

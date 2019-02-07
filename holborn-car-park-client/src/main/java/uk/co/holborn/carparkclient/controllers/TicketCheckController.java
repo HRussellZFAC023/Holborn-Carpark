@@ -40,7 +40,8 @@ public class TicketCheckController implements Initializable {
     AnchorPane mainAnchorPane;
     @FXML
     AnchorPane blurrAnchorPane;
-
+    Socket socket;
+    TicketDetailsPopUp tp;
     private MainViewController mc;
     private Gson gson;
     private boolean doScanAnim = true;
@@ -48,9 +49,9 @@ public class TicketCheckController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
-        setMessage("Please insert your ticket");
-        Socket socket = mc.getSocket();
-        checkTicketField.clear();
+        socket = mc.getSocket();
+        tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
+        setup();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() >= 36) {
                 setMessage("Please wait...");
@@ -63,7 +64,6 @@ public class TicketCheckController implements Initializable {
                         setMessage("Your ticket is valid!");
                         gson = new Gson();
                         mc.ticket = gson.fromJson(description.toString(), Ticket.class);
-                        TicketDetailsPopUp tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -77,9 +77,16 @@ public class TicketCheckController implements Initializable {
                 });
             }
         });
-        animateImageShow();
+
     }
 
+    public  void setup(){
+        setMessage("Please insert your ticket");
+        checkTicketField.clear();
+        checkTicketField.setDisable(false);
+        tp.remove();
+        animateImageShow();
+    }
     @FXML
     private void goToPayment() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
