@@ -19,6 +19,7 @@ public class Animator {
     public static void nodeFade(Node node, boolean in, double keyFrameTime) {
         double opacityEnd, opacityStart;
         Timeline timeline = new Timeline();
+        double fadeInPopOffset = 0.2;
         if (!in) {
             opacityStart = 1;
             opacityEnd = 0;
@@ -34,6 +35,8 @@ public class Animator {
             node.setScaleX(0);
             node.setScaleY(0);
             timeline.getKeyFrames().addAll(
+                    new KeyFrame(Duration.seconds(keyFrameTime-fadeInPopOffset), new KeyValue(node.scaleXProperty(), 1.1, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime-fadeInPopOffset), new KeyValue(node.scaleYProperty(), 1.1, Interpolator.EASE_IN)),
                     new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
                     new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))
             );
