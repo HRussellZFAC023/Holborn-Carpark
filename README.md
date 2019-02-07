@@ -1,21 +1,49 @@
-# ReadMe
+ ReadMe
+========
 
-## The Holy Grail
+Documentations
+--------------
+- [Assignment details (what we need to have)](https://drive.google.com/open?id=1B0uanI_a_d9wvjlDerG6kn7LTfcYqbw2)
 
-```$ git checkout -b [name_of_branch]``` //create a new branch and switch to it
+- [Initial discussion with Holborn](https://drive.google.com/open?id=1SKLDoqnbvnZxvsjOqNzOq1PjUkX-dWRz)
 
--- Code, make changes, etc
+- [Requirements](https://drive.google.com/open?id=1UE5TXIrp9WK-IEVEzV0EYQYNr6p3yvSz)
 
-```$ git add .``` //stage all files
+- [Design](https://drive.google.com/open?id=1P8Z27j32Phr6LnlBHQ7ZJJdhj6QmMQ0S)
 
-```$ git commit -m "[name_of_commit]"``` //create a commit (make as many of those as possible), if there are conflicts follow on-screen instructions or ask me
+- [Group report writeup](https://drive.google.com/open?id=1B0uanI_a_d9wvjlDerG6kn7LTfcYqbw2)
 
-```$ git pull --rebase origin master``` //rebase your changes ONTO master branch
+- [Group report writeup](https://docs.google.com/document/d/1Vk6iX0BysQidZeoMgF_f7MXtQpuimcAJj-XgpePxWF0/edit?usp=sharing)
 
-```$ git checkout master``` //switch to master branch
+- [Group final presentation](https://docs.google.com/presentation/d/1rHr7iDwA-wuzsfoC_S-Do-imc_da0u5B0UlQuy09KUk/edit?usp=sharing)
 
-```$ git merge [name_of_branch]``` //merge your branch onto master
+The Holy Grail
+--------------
+1. Create a new branch and switch to it.
 
-```$ git branch -d [name_of_branch]``` //delete your branch
+`$ git checkout -b [name_of_branch]`
 
-```$ git push``` //push branch to remote master
+2. Code, make changes, etc
+- Stage all files.
+
+`$ git add .`
+
+- create a commit (make as many of those as possible), if there are conflicts follow on-screen instructions or ask me.
+
+`$ git commit -m "[name_of_commit]"`
+
+3. Rebase your changes ONTO master branch.
+
+`$ git pull --rebase origin master`
+
+4. Switch to master branch.
+
+`$ git checkout master`
+
+5. Merge your branch onto master.
+
+`$ git merge [name_of_branch]`
+
+6. delete your branch.
+
+`$ git branch -d [name_of_branch]`
