@@ -1,0 +1,18 @@
+html,
+body {
+  height: 100%;
+}
+
+.is-70{
+  margin: auto;
+  padding-top: 25px;
+  max-width: 33%;
+}
+
+.up {
+  margin: -5vh;
+}
+
+.center{
+  margin: auto;
+}

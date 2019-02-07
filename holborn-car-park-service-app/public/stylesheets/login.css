@@ -1,9 +1,18 @@
 html,
 body {
   height: 100%;
-  overflow: hidden;
 }
-#center {
-  position: absolute;
+
+.is-70{
+  margin: auto;
+  padding-top: 25px;
+  max-width: 33%;
+}
+
+.up {
+  margin: -5vh;
+}
+
+.center{
   margin: auto;
 }
