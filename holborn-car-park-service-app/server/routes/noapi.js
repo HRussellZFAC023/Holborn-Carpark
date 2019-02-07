@@ -6,22 +6,23 @@ const query     = require('../databases/queries');
 const db        = require('../databases/auth_db_conn');
 const G         = require('../javascripts/global_variables');
 const debug     = require('debug')('holborn-car-park-service-app: auth');
+const path      = require('path');
 
 
 router.get('/', function (req, res) {
-    res.sendFile('index.html', {root: 'public/HTML/'});
+    res.sendFile('index.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
 router.get('/login', function (req, res) {
-    res.sendFile('login.html', {root: 'public/HTML/'});
+    res.sendFile('login.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
 router.get('/register', function (req, res) {
-    res.sendFile('register.html', {root: 'public/HTML/'});
+    res.sendFile('register.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
 router.get('/manager', function (req, res) {
-    if(req.session && req.session.user) res.sendFile('manager.html', {root: 'public/HTML/'});
+    if(req.session && req.session.user) res.sendFile('manager.html', {root: path.join('public', 'protected', 'HTML')});
     else res.redirect('/login');
 });
 

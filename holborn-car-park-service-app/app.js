@@ -41,7 +41,9 @@ else cl_sessions_opt.secure = false;
 app.use(cl_sessions(cl_sessions_opt));
 
 //main routes
-app.use(express.static(path.join(__dirname, 'public'))); //serve stylesheets first
+app.use(express.static(path.join(__dirname, 'public', 'js')));
+app.use(express.static(path.join(__dirname, 'public', 'resources')));
+app.use(express.static(path.join(__dirname, 'public', 'stylesheets')));
 app.use(noApiRoutes);
 
 //API routes
@@ -59,7 +61,7 @@ app.use(function (req, res) {
         },
 
         'text/html': function () {
-            res.sendFile('404.html', {root: 'public/HTML/'});
+            res.sendFile('404.html', {root: path.join('public', 'protected', 'HTML')});
         },
 
         'application/json': function () {
