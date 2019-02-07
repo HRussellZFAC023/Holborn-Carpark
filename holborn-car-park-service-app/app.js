@@ -3,6 +3,7 @@ const socket_io     = require("socket.io");
 const cl_sessions   = require('client-sessions');
 const debug         = require('debug')('holborn-car-park-service-app: env');
 const G             = require('./server/javascripts/global_variables');
+const path          = require('path');
 
 
 debug(G.env);
@@ -40,7 +41,7 @@ else cl_sessions_opt.secure = false;
 app.use(cl_sessions(cl_sessions_opt));
 
 //main routes
-app.use(express.static(__dirname + '/public/stylesheets/')); //serve stylesheets first
+app.use(express.static(path.join(__dirname, 'public'))); //serve stylesheets first
 app.use(noApiRoutes);
 
 //API routes
