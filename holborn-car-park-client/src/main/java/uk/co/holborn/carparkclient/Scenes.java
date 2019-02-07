@@ -27,7 +27,7 @@ public enum Scenes {
         }
 
         @Override
-        Object getController() {
+        public Object getController() {
             return controller;
         }
 
@@ -56,7 +56,7 @@ public enum Scenes {
         }
 
         @Override
-        Object getController() {
+        public Object getController() {
             return controller;
         }
 
@@ -85,7 +85,7 @@ public enum Scenes {
         }
 
         @Override
-        Object getController() {
+        public Object getController() {
             return controller;
         }
 
@@ -123,7 +123,7 @@ public enum Scenes {
      *
      * @return the controller object
      */
-    abstract Object getController();
+    public abstract Object getController();
 
     /**
      * Abstraction of a method that returns an Anchor Pane

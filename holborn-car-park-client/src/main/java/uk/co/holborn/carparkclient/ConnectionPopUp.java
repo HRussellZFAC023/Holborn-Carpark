@@ -1,34 +1,30 @@
 package uk.co.holborn.carparkclient;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import uk.co.holborn.carparkclient.controllers.ConnectionPopUpController;
-import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 import java.io.IOException;
 
 import static javafx.scene.layout.AnchorPane.*;
-import static javafx.scene.layout.AnchorPane.setTopAnchor;
 
 public class ConnectionPopUp {
-    private AnchorPane blurrAnchor;
+   // private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
     private AnchorPane root;
     private ConnectionPopUpController connectionPopUpController;
     private boolean alreadyOn;
     private boolean debug_mode = false;
     private double blurrRadius = 20;
+    private EventHandler<ActionEvent> eventHandler;
 
-    public ConnectionPopUp(AnchorPane mainAnchor, AnchorPane blurrAnchor) {
+    public ConnectionPopUp(AnchorPane mainAnchor) {
         this.mainAnchor = mainAnchor;
-        this.blurrAnchor = blurrAnchor;
+       // this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
@@ -42,7 +38,6 @@ public class ConnectionPopUp {
         }
 
     }
-
     public void show(String message) {
         if (!debug_mode)
             if (!alreadyOn) {
@@ -53,7 +48,9 @@ public class ConnectionPopUp {
                 Platform.runLater(() -> {
                     connectionPopUpController.setText(message);
                     mainAnchor.getChildren().add(root);
-                    Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor, root, null);
+                    Timeline t = new Timeline();
+                    Animator.nodeThrowIn_Keyframes(root,t);
+                    t.play();
                 });
                 alreadyOn = true;
             } else {
@@ -69,13 +66,13 @@ public class ConnectionPopUp {
         if (!debug_mode)
             if (alreadyOn) {
                 Platform.runLater(() -> {
-                    Animator.nodeReverseBlurrBackgroundAndHidePopup(blurrAnchor, root, t -> {
-                        SceneManager sm = MainViewController.getInstance().sceneManager;
-                        sm.changeTo(Scenes.LANDING);
-                        sm.clearSceneQueue();
+                    Timeline t = new Timeline();
+                    Animator.nodeBringOut_KeyFrames(root,t);
+                    t.setOnFinished(ev->{
                         mainAnchor.getChildren().remove(root);
                         alreadyOn = false;
                     });
+                    t.play();
                 });
             }
     }

@@ -22,6 +22,7 @@ import java.util.*;
 
 public class MainViewController implements Initializable {
 
+    private long CONNECTION_TIME_MS = 1000;
     private static MainViewController instance = null;
 
     @FXML
@@ -46,6 +47,7 @@ public class MainViewController implements Initializable {
     public String happy_hour_time;
     Logger logger;
     public boolean happyHour = false;
+    long time_connection_starting, time_connected;
 
 
     public MainViewController() {
@@ -56,6 +58,7 @@ public class MainViewController implements Initializable {
         logger = LogManager.getLogger(getClass().getName());
         try {
             socket = IO.socket(GlobalVariables.webservice_socket);
+            time_connection_starting = System.currentTimeMillis();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -76,18 +79,22 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
-        popup = new ConnectionPopUp(mainAnchor, blurrAnchor);
+        popup = new ConnectionPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
-
+        sceneManager.changeTo(Scenes.LANDING);
 
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             popup.show("Connected! Authorising...");
+            disconnectedUI(true);
             socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
                 if (objects[0].equals(200)) {
                     popup.show("Authorised");
                     popup.removePopUp();
                     logger.info("Authorised!");
+                    LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();
+                    Platform.runLater(lc::enableFetching);
+                    disconnectedUI(false);
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     System.exit(0);
@@ -96,16 +103,19 @@ public class MainViewController implements Initializable {
         });
         socket.on(Socket.EVENT_CONNECTING, args_cni -> {
             popup.show("Connecting...");
-            logger.info("Connecting...");
+            disconnectedUI(true);
+            // logger.info("Connecting...");
         });
         socket.on(Socket.EVENT_RECONNECTING, args_cni -> {
             popup.show("Reconnecting...");
+            disconnectedUI(true);
         });
         socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> {
             System.out.println("Err" + args_cni[0]);
         });
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
             logger.warn("Disconnected");
+            disconnectedUI(true);
             popup.show("Disconnected");
         });
         socket.connect();
@@ -139,6 +149,9 @@ public class MainViewController implements Initializable {
     public Socket getSocket() {
         return socket;
     }
+    public void disconnectedUI(boolean enabled){
+        sceneAnchor.setDisable(enabled);
+    }
 
     /**
      * Update the date and time on screen
@@ -170,6 +183,5 @@ public class MainViewController implements Initializable {
         updater.setDaemon(true);
         updater.start();
     }
-
 
 }

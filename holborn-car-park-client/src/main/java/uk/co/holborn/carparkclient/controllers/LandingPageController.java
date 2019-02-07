@@ -32,6 +32,12 @@ public class LandingPageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
         logger = LogManager.getLogger(getClass().getName());
+
+        welcome.setText(GlobalVariables.landing_page_welcome);
+        Animator.nodeFade(welcome, true);
+    }
+
+    public void enableFetching(){
         String fetching = "Fetching...";
         if (mc.parking_spaces.isEmpty()) updateTextParkingSpaces(fetching);
         else parking_spaces.setText(mc.parking_spaces);
@@ -39,16 +45,12 @@ public class LandingPageController implements Initializable {
         else price.setText(mc.hourly_price);
         if (mc.happy_hour_time.isEmpty()) updateHappyHour(fetching);
         else happy_hour.setText(mc.happy_hour_time);
-        welcome.setText(GlobalVariables.landing_page_welcome);
-        Animator.nodeFade(welcome, true);
-
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
         socket.on("update-carpark-details", objects -> {
             socket.emit("fetch-carpark-details", (Ack) this::update);
         });
     }
-
     private void update(Object[] objects) {
         Platform.runLater(() -> {
             updateTextParkingSpaces(objects[0] + "");

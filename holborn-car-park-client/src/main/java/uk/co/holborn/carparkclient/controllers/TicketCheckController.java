@@ -51,7 +51,7 @@ public class TicketCheckController implements Initializable {
     private MainViewController mc;
     private Gson gson;
     private boolean doScanAnim = true;
-
+    Timeline timeline;
     public TicketCheckController() {
         logger = LogManager.getLogger(getClass().getName());
         mc = MainViewController.getInstance();
@@ -97,6 +97,7 @@ public class TicketCheckController implements Initializable {
     public void setup() {
         setMessage("Please insert your ticket");
         validationUI(false);
+        timeline = new Timeline();
         checkTicketField.clear();
         tp.remove();
         animateImageShow();
@@ -118,7 +119,6 @@ public class TicketCheckController implements Initializable {
     }
 
     private void animateImageShow() {
-        Timeline timeline = new Timeline();
         ticket_image_bg.setOpacity(0);
         ticket_image_bg.setTranslateY(-10);
         ticket_image_ticket.setOpacity(0);
@@ -143,7 +143,6 @@ public class TicketCheckController implements Initializable {
     private void animateImageScan() {
         ticket_image_ticket.setTranslateY(40);
         ticket_image_ticket.setOpacity(0);
-        Timeline timeline = new Timeline();
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(1), new KeyValue(ticket_image_ticket.opacityProperty(), 1, Interpolator.EASE_IN)),
                 new KeyFrame(Duration.seconds(1), new KeyValue(ticket_image_ticket.translateYProperty(), 0, Interpolator.EASE_IN)),
@@ -152,9 +151,7 @@ public class TicketCheckController implements Initializable {
                 new KeyFrame(Duration.seconds(3), new KeyValue(ticket_image_ticket.translateYProperty(), 40, Interpolator.EASE_BOTH)),
                 new KeyFrame(Duration.seconds(3), new KeyValue(ticket_image_ticket.opacityProperty(), 0, Interpolator.EASE_BOTH))
         );
-        timeline.setOnFinished(t -> {
-            if (doScanAnim) animateImageScan();
-        });
+        timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
 
@@ -181,8 +178,6 @@ public class TicketCheckController implements Initializable {
                 new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleYProperty(), 1, Interpolator.EASE_IN)),
                 new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleXProperty(), 1, Interpolator.EASE_IN))
         );
-        timeline.setOnFinished(t -> {
-        });
         timeline.play();
     }
 

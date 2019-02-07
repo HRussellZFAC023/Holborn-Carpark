@@ -4,16 +4,11 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
 import javafx.util.Duration;
-
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Animator {
     public static void nodeFade(Node node, boolean in, double keyFrameTime) {
@@ -107,8 +102,8 @@ public class Animator {
         node.setOpacity(0);
         node.setScaleX(0);
         node.setScaleY(0);
-        double startOffset = 0.5;
-        double bounceOffset = startOffset + 0.3;
+        double startOffset = 0.3;
+        double bounceOffset = startOffset + 0.2;
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
                 new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_BOTH)),
@@ -125,18 +120,16 @@ public class Animator {
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);
-        double startOffset = 0.5;
+        double startOffset = 0.3;
         double bounceOffset = startOffset + 0.3;
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH))
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 1.1, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 1.1, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH))
         );
     }
 
