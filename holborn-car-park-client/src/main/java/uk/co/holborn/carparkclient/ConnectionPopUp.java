@@ -30,15 +30,17 @@ public class ConnectionPopUp {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
-        root = new AnchorPane();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
-        try {
-            connectionPopUpController = new ConnectionPopUpController();
-            loader.setController(connectionPopUpController);
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(root == null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
+            try {
+                connectionPopUpController = new ConnectionPopUpController();
+                loader.setController(connectionPopUpController);
+                root = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     public void show(String message) {

@@ -28,15 +28,16 @@ public class TicketDetailsPopUp {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
-        try {
-            if(root == null){
+        if(root == null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
+            try {
                 tc = new TicketDetailsPopUpController();
                 loader.setController(tc);
                 root = loader.load();
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
