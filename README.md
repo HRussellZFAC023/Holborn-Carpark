@@ -17,3 +17,5 @@
 ```$ git merge [name_of_branch]``` //merge your branch onto master
 
 ```$ git branch -d [name_of_branch]``` //delete your branch
+
+```$ git push``` //push branch to remote master
