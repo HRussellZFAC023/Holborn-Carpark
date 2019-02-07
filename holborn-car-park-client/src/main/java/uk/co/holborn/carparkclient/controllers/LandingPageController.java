@@ -45,7 +45,6 @@ public class LandingPageController implements Initializable {
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
         socket.on("update-carpark-details", objects -> {
-            System.out.println("got on event: id: " + System.identityHashCode(this) + " " + this);
             socket.emit("fetch-carpark-details", (Ack) this::update);
         });
     }
