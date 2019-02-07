@@ -129,7 +129,7 @@
 
 .scene_top_title{
      -fx-font: 34 "Avenir";
-     -fx-fill: #6b6a6a;
+     -fx-fill: #494848;
  }
 .scene_info_text{
     -fx-font: 24 "Avenir";
@@ -158,9 +158,9 @@
 }
 .connection_card{
     -fx-background-color: #f9f9f9;
-    -fx-background-radius: 20;
+    -fx-background-radius: 30;
     -fx-border-radius: 20;
-    -fx-border-width: 10;
+    -fx-border-width: 14;
     -fx-border-color: linear-gradient(to bottom right, #6a88ce, #7283c2, #818bf2, #9882f7, #9841f8);
     -fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 0);
 }
