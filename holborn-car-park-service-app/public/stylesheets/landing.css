@@ -1,7 +1,13 @@
 html {
-  background: url('https://upload.wikimedia.org/wikipedia/commons/4/40/Source_London_Siemens_electric_car_charging_point_Oakwood_tube_station_car_park_01.jpg')
-    no-repeat center center fixed;
-  background-size: cover;
-  height: 100%;
   overflow: hidden;
+}
+
+.is-70{
+  margin: auto;
+  padding-top: 25px;
+  max-width: 50%;
+}
+
+.foot {
+  padding-bottom: 50px;
 }
