@@ -157,8 +157,8 @@ public class TicketCheckController implements Initializable {
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.opacityProperty(), 1, Interpolator.EASE_IN)),
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.scaleYProperty(), 1.2, Interpolator.EASE_IN)),
                 new KeyFrame(Duration.seconds(0.2), new KeyValue(ticket_image_validated.scaleXProperty(), 1.2, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleYProperty(), 0.9, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleXProperty(), 0.9, Interpolator.EASE_IN))
+                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleYProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(0.4), new KeyValue(ticket_image_validated.scaleXProperty(), 1, Interpolator.EASE_IN))
         );
         timeline.setOnFinished(t -> {
         });
