@@ -43,17 +43,18 @@ public class SceneManager {
     }
 
     private void displayScene(Scenes scene, boolean reversed) {
-        if (currentScene == null || currentScene != scene) currentScene = scene;
-        sc = scene.getScene();
-        setBottomAnchor(sc, 0.0);
-        setRightAnchor(sc, 0.0);
-        setLeftAnchor(sc, 0.0);
-        setTopAnchor(sc, 0.0);
-        Platform.runLater(() -> {
-            scenePane.getChildren().add(sc);
-            animateShowIn(reversed);
-        });
-
+        if (currentScene == null || currentScene != scene){
+            currentScene = scene;
+            sc = scene.getScene();
+            setBottomAnchor(sc, 0.0);
+            setRightAnchor(sc, 0.0);
+            setLeftAnchor(sc, 0.0);
+            setTopAnchor(sc, 0.0);
+            Platform.runLater(() -> {
+                scenePane.getChildren().add(sc);
+                animateShowIn(reversed);
+            });
+        }
     }
 
     public void goBack() {
