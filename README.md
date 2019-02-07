@@ -11,8 +11,6 @@ Documentations
 
 - [Design](https://drive.google.com/open?id=1P8Z27j32Phr6LnlBHQ7ZJJdhj6QmMQ0S)
 
-- [Group report writeup](https://drive.google.com/open?id=1B0uanI_a_d9wvjlDerG6kn7LTfcYqbw2)
-
 - [Group report writeup](https://docs.google.com/document/d/1Vk6iX0BysQidZeoMgF_f7MXtQpuimcAJj-XgpePxWF0/edit?usp=sharing)
 
 - [Group final presentation](https://docs.google.com/presentation/d/1rHr7iDwA-wuzsfoC_S-Do-imc_da0u5B0UlQuy09KUk/edit?usp=sharing)
