@@ -47,3 +47,7 @@ The Holy Grail
 6. delete your branch.
 
 `$ git branch -d [name_of_branch]`
+
+7. push branch to remote master
+
+`$ git push`
