@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.Animator;
 import uk.co.holborn.carparkclient.Scenes;
 import uk.co.holborn.carparkclient.Ticket;
@@ -45,13 +47,18 @@ public class TicketCheckController implements Initializable {
     Button backButton;
     Socket socket;
     TicketDetailsPopUp tp;
+    private Logger logger;
     private MainViewController mc;
     private Gson gson;
     private boolean doScanAnim = true;
 
+    public TicketCheckController() {
+        logger = LogManager.getLogger(getClass().getName());
+        mc = MainViewController.getInstance();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mc = MainViewController.getInstance();
         socket = mc.getSocket();
         tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
         setup();
@@ -62,11 +69,13 @@ public class TicketCheckController implements Initializable {
                 socket.emit("fetch-ticket", newValue.substring(0, 36), (Ack) objects -> {
                     Object err = objects[0];
                     Object description = objects[1];
+                    logger.info(err + " " +  description);
                     if (err.equals(200)) {
                         animateImageValidate(true);
                         setMessage("Your ticket is valid!");
+                      //  Object ticket = objects[2];
                         gson = new Gson();
-                        mc.ticket = gson.fromJson(description.toString(), Ticket.class);
+                        mc.ticket = gson.fromJson(objects[2].toString(), Ticket.class);
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -76,7 +85,8 @@ public class TicketCheckController implements Initializable {
                     } else {
                         animateImageValidate(false);
                         setMessage("Invalid ticket! Please seek assistance from a member of staff.");
-                       backButton.setVisible(true);
+                        Platform.runLater(()->backButton.setVisible(true));
+
                     }
                 });
             }
@@ -84,12 +94,14 @@ public class TicketCheckController implements Initializable {
 
     }
 
-    public  void setup(){
+    public void setup() {
         setMessage("Please insert your ticket");
-       validationUI(false);
+        validationUI(false);
+        checkTicketField.clear();
         tp.remove();
         animateImageShow();
     }
+
     @FXML
     private void goToPayment() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
@@ -100,11 +112,11 @@ public class TicketCheckController implements Initializable {
         mc.sceneManager.goBack();
     }
 
-    private void validationUI(boolean show){
-            backButton.setVisible(!show);
-            checkTicketField.setVisible(!show);
-            checkTicketField.clear();
+    private void validationUI(boolean show) {
+        backButton.setVisible(!show);
+        checkTicketField.setVisible(!show);
     }
+
     private void animateImageShow() {
         Timeline timeline = new Timeline();
         ticket_image_bg.setOpacity(0);
@@ -175,10 +187,10 @@ public class TicketCheckController implements Initializable {
     }
 
     private void setMessage(String message) {
-        Platform.runLater(()->{
-            Animator.nodeFade(infoText,false);
+        Platform.runLater(() -> {
+            Animator.nodeFade(infoText, false);
             infoText.setText(message);
-            Animator.nodeFade(infoText,true);
+            Animator.nodeFade(infoText, true);
         });
     }
 
