@@ -1,10 +1,6 @@
  ReadMe
 ========
 
-Website
---------
-www.holborncarpark.com
-
 Documentations
 --------------
 - [Assignment details (what we need to have)](https://drive.google.com/open?id=1B0uanI_a_d9wvjlDerG6kn7LTfcYqbw2)
@@ -14,6 +10,8 @@ Documentations
 - [Requirements](https://drive.google.com/open?id=1UE5TXIrp9WK-IEVEzV0EYQYNr6p3yvSz)
 
 - [Design](https://drive.google.com/open?id=1P8Z27j32Phr6LnlBHQ7ZJJdhj6QmMQ0S)
+
+- [Group report writeup](https://drive.google.com/open?id=1B0uanI_a_d9wvjlDerG6kn7LTfcYqbw2)
 
 - [Group report writeup](https://docs.google.com/document/d/1Vk6iX0BysQidZeoMgF_f7MXtQpuimcAJj-XgpePxWF0/edit?usp=sharing)
 
@@ -49,7 +47,10 @@ The Holy Grail
 6. delete your branch.
 
 `$ git branch -d [name_of_branch]`
+<<<<<<< HEAD
 
 7. push branch to remote master
 
 `$ git push`
+=======
+>>>>>>> 0154613... fea - added url to documentation in the readme
