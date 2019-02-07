@@ -9,19 +9,17 @@ import java.util.ResourceBundle;
 
 public class ConnectionPopUpController implements Initializable {
 
-    @FXML Label info;
+    @FXML
+    Label info;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    public void setText(String message){
+
+    public void setText(String message) {
         info.setText(message);
     }
-
-
-
-
 
 
 }

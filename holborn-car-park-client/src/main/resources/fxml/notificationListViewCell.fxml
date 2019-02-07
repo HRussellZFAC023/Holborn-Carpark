@@ -8,39 +8,67 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0" stylesheets="@../css/notificationListViewCell.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <GridPane prefHeight="24.0" prefWidth="351.0" styleClass="background_card_title" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.495361328125" minWidth="10.0" prefWidth="26.710580825805664" />
-            <ColumnConstraints hgrow="ALWAYS" maxWidth="89.70127868652344" minWidth="10.0" prefWidth="72.28941917419434" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.70127868652344" minWidth="10.0" prefWidth="42.22450256347656" />
-          <ColumnConstraints hgrow="ALWAYS" maxWidth="131.17718505859375" minWidth="10.0" prefWidth="119.2801513671875" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.86581420898438" minWidth="10.0" prefWidth="56.7198486328125" />
-            <ColumnConstraints hgrow="NEVER" maxWidth="96.495361328125" minWidth="10.0" prefWidth="68.9443359375" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="ID:" GridPane.valignment="CENTER" />
-            <Label fx:id="id" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="assdassda" GridPane.columnIndex="1" />
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="Title:" GridPane.columnIndex="2" />
-            <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="68.0" text="Created:" GridPane.columnIndex="4" />
-            <Label fx:id="dateCreated" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="date_here:" GridPane.columnIndex="5" />
-            <Label fx:id="title" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="assdassda" GridPane.columnIndex="3" />
-         </children>
-      </GridPane>
-      <AnchorPane layoutX="-111.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="385.0" stylesheets="@../css/notificationListViewCell.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane layoutX="6.0" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="381.0" snapToPixel="false" styleClass="background_card" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
-               <children>
-                  <Button fx:id="deleteButton" layoutX="287.0" layoutY="8.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="70.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Delete" textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="10.0" />
-                  <Button fx:id="saveButton" layoutX="213.0" layoutY="8.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="70.0" style="-fx-background-radius: 20; -fx-background-color: white;" text="Save" textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="90.0" />
-                  <TextFlow fx:id="description" layoutX="18.0" layoutY="28.0" prefHeight="114.0" prefWidth="340.0" styleClass="background_card_text_area" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="28.0" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-   </children>
+<AnchorPane fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="44.0" prefWidth="385.0"
+            stylesheets="@../css/notificationListViewCell.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane prefHeight="24.0" prefWidth="351.0" styleClass="background_card_title" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="59.495361328125" minWidth="10.0"
+                                   prefWidth="26.710580825805664"/>
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="89.70127868652344" minWidth="10.0"
+                                   prefWidth="72.28941917419434"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="89.70127868652344" minWidth="10.0"
+                                   prefWidth="42.22450256347656"/>
+                <ColumnConstraints hgrow="ALWAYS" maxWidth="131.17718505859375" minWidth="10.0"
+                                   prefWidth="119.2801513671875"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.86581420898438" minWidth="10.0"
+                                   prefWidth="56.7198486328125"/>
+                <ColumnConstraints hgrow="NEVER" maxWidth="96.495361328125" minWidth="10.0" prefWidth="68.9443359375"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="ID:"
+                       GridPane.valignment="CENTER"/>
+                <Label fx:id="id" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="assdassda"
+                       GridPane.columnIndex="1"/>
+                <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="Title:"
+                       GridPane.columnIndex="2"/>
+                <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="68.0" text="Created:"
+                       GridPane.columnIndex="4"/>
+                <Label fx:id="dateCreated" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="date_here:"
+                       GridPane.columnIndex="5"/>
+                <Label fx:id="title" alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="95.0" text="assdassda"
+                       GridPane.columnIndex="3"/>
+            </children>
+        </GridPane>
+        <AnchorPane layoutX="-111.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="86.0" prefWidth="385.0"
+                    stylesheets="@../css/notificationListViewCell.css" visible="false" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane layoutX="6.0" layoutY="33.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0"
+                            prefWidth="381.0" snapToPixel="false" styleClass="background_card"
+                            AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0"
+                            AnchorPane.topAnchor="2.0">
+                    <children>
+                        <Button fx:id="deleteButton" layoutX="287.0" layoutY="8.0" mnemonicParsing="false"
+                                prefHeight="9.0" prefWidth="70.0"
+                                style="-fx-background-radius: 20; -fx-background-color: white;" text="Delete"
+                                textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="10.0"/>
+                        <Button fx:id="saveButton" layoutX="213.0" layoutY="8.0" mnemonicParsing="false"
+                                prefHeight="9.0" prefWidth="70.0"
+                                style="-fx-background-radius: 20; -fx-background-color: white;" text="Save"
+                                textAlignment="CENTER" visible="false" AnchorPane.rightAnchor="90.0"/>
+                        <TextFlow fx:id="description" layoutX="18.0" layoutY="28.0" prefHeight="114.0" prefWidth="340.0"
+                                  styleClass="background_card_text_area" AnchorPane.bottomAnchor="4.0"
+                                  AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"
+                                  AnchorPane.topAnchor="28.0"/>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>

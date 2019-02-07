@@ -29,7 +29,7 @@ public class TicketDetailsPopUpController implements Initializable {
     }
 
     public void setTicket(Ticket ticket) {
-        SimpleDateFormat dateFormat= new SimpleDateFormat("EEEEEE d, MMMMM yyyy\nHH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEEEE d, MMMMM yyyy\nHH:mm");
         date_in.setText(dateFormat.format(ticket.getDate_in()));
         String dr;
         if (ticket.getDuration() < 60) dr = ticket.getDuration() + " minutes";
@@ -37,7 +37,7 @@ public class TicketDetailsPopUpController implements Initializable {
             dr = (int) (ticket.getDuration() / 60.0) + " hours and " + (int) (ticket.getDuration() % 60.0) + " minutes";
         date_check_out.setText(dateFormat.format(ticket.getDate_out()));
         duration.setText(dr);
-        price.setText("£"+ ticket.getPrice());
+        price.setText("£" + ticket.getPrice());
     }
 
     public void goToPayment() {

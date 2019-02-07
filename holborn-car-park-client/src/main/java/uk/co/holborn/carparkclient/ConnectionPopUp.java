@@ -30,7 +30,7 @@ public class ConnectionPopUp {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
-        if(root == null){
+        if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
             try {
                 connectionPopUpController = new ConnectionPopUpController();
@@ -53,7 +53,7 @@ public class ConnectionPopUp {
                 Platform.runLater(() -> {
                     connectionPopUpController.setText(message);
                     mainAnchor.getChildren().add(root);
-                    Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor,root,null);
+                    Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor, root, null);
                 });
                 alreadyOn = true;
             } else {
@@ -69,7 +69,7 @@ public class ConnectionPopUp {
         if (!debug_mode)
             if (alreadyOn) {
                 Platform.runLater(() -> {
-                    Animator.nodeReverseBlurrBackgroundAndHidePopup(blurrAnchor, root, t->{
+                    Animator.nodeReverseBlurrBackgroundAndHidePopup(blurrAnchor, root, t -> {
                         SceneManager sm = MainViewController.getInstance().sceneManager;
                         sm.changeTo(Scenes.LANDING);
                         sm.clearSceneQueue();

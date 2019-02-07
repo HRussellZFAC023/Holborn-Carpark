@@ -18,11 +18,9 @@ public class StartController implements Initializable {
     }
 
     @FXML
-    public void begin(){
+    public void begin() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
     }
-
-
 
 
 }

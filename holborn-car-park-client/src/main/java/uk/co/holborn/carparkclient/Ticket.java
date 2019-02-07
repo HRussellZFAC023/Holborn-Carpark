@@ -9,8 +9,9 @@ public class Ticket {
     private double price;
     private double duration;
 
-    public Ticket(){
+    public Ticket() {
     }
+
     public Ticket(String _id, Date date_in, double price) {
         this._id = _id;
         this.date_in = date_in;

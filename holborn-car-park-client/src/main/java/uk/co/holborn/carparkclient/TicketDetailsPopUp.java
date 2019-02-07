@@ -28,7 +28,7 @@ public class TicketDetailsPopUp {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
-        if(root == null) {
+        if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
             try {
                 tc = new TicketDetailsPopUpController();
@@ -41,11 +41,12 @@ public class TicketDetailsPopUp {
         }
     }
 
-    public  void remove (){
+    public void remove() {
         blurrAnchor.setEffect(null);
         alreadyOn = false;
-        if(mainAnchor.getChildren().size()>1) mainAnchor.getChildren().remove(1);
+        if (mainAnchor.getChildren().size() > 1) mainAnchor.getChildren().remove(1);
     }
+
     public void show(Ticket ticket) {
         if (!debug_mode)
             if (!alreadyOn) {

@@ -10,15 +10,15 @@ import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 
-
 /**
  * Creates the main application window
  */
 public class MainWindow extends Application {
     Logger log;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        log =   LogManager.getLogger(getClass().getName());
+    public void start(Stage primaryStage) throws Exception {
+        log = LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.main_window_name);

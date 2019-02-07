@@ -43,7 +43,7 @@ public class SceneManager {
     }
 
     private void displayScene(Scenes scene, boolean reversed) {
-        if (currentScene == null || currentScene != scene){
+        if (currentScene == null || currentScene != scene) {
             currentScene = scene;
             sc = scene.getScene();
             setBottomAnchor(sc, 0.0);
@@ -86,6 +86,7 @@ public class SceneManager {
         });
         timeline.play();
     }
+
     public void clearSceneQueue() {
         sceneStack.clear();
     }

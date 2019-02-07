@@ -55,7 +55,7 @@ public class Animator {
 
     public static void nodeBlurr(Node node, double blurrRadius, double keyFrameTime) {
         Timeline timeline = new Timeline();
-        blurr_keyframes(node, blurrRadius, keyFrameTime,  timeline);
+        blurr_keyframes(node, blurrRadius, keyFrameTime, timeline);
         timeline.play();
 
     }
@@ -65,7 +65,7 @@ public class Animator {
         Timeline timeline = new Timeline();
         double blurrEndKey = 0.4;
         blurr_keyframes(background, 60, blurrEndKey, timeline);
-        nodePopInCard_keyframes(popup, blurrEndKey+0.3, timeline);
+        nodePopInCard_keyframes(popup, blurrEndKey + 0.3, timeline);
         timeline.setOnFinished(eventEventHandler);
         timeline.play();
     }
@@ -74,7 +74,7 @@ public class Animator {
         Timeline timeline = new Timeline();
         double blurrEndKey = 0.4;
         nodePushOutCard_keyframes(popup, blurrEndKey, timeline);
-        reverseBlurr_keyframes(background, 60, blurrEndKey+0.3, timeline);
+        reverseBlurr_keyframes(background, 60, blurrEndKey + 0.3, timeline);
         timeline.setOnFinished(eventEventHandler);
         timeline.play();
     }
@@ -87,6 +87,7 @@ public class Animator {
                 new KeyFrame(Duration.seconds(keyFrame), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_IN))
         );
     }
+
     public static void reverseBlurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
         GaussianBlur gb = new GaussianBlur();
         double blurrFadeThreshold = 0.4;

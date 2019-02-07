@@ -20,7 +20,7 @@
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
@@ -30,45 +30,45 @@
             <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
         <RollingFile name="infoLog" fileName="${APP_LOG_ROOT}/info.log"
-                     filePattern="${APP_LOG_ROOT}/info-%d{yyyy-MM-dd}-%i.log" >
+                     filePattern="${APP_LOG_ROOT}/info-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
         <RollingFile name="errorLog" fileName="${APP_LOG_ROOT}/error.log"
-                     filePattern="${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log" >
+                     filePattern="${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
         <RollingFile name="perfLog" fileName="${APP_LOG_ROOT}/perf.log"
-                     filePattern="${APP_LOG_ROOT}/perf-%d{yyyy-MM-dd}-%i.log" >
+                     filePattern="${APP_LOG_ROOT}/perf-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>
 
         <RollingFile name="traceLog" fileName="${APP_LOG_ROOT}/trace.log"
-                     filePattern="${APP_LOG_ROOT}/trace-%d{yyyy-MM-dd}-%i.log" >
+                     filePattern="${APP_LOG_ROOT}/trace-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
-                <SizeBasedTriggeringPolicy size="19500KB" />
+                <SizeBasedTriggeringPolicy size="19500KB"/>
             </Policies>
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>
@@ -78,11 +78,11 @@
     <Loggers>
 
         <Logger name="uk.co.holborn.carparkclient" additivity="false" level="trace">
-            <AppenderRef ref="traceLog" />
-            <AppenderRef ref="debugLog" />
-            <AppenderRef ref="infoLog"  />
-            <AppenderRef ref="errorLog" />
-            <AppenderRef ref="Console"  />
+            <AppenderRef ref="traceLog"/>
+            <AppenderRef ref="debugLog"/>
+            <AppenderRef ref="infoLog"/>
+            <AppenderRef ref="errorLog"/>
+            <AppenderRef ref="Console"/>
         </Logger>
 
         <Root level="warn">
