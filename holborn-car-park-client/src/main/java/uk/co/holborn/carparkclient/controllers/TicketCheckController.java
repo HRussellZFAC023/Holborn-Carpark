@@ -7,6 +7,7 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -40,6 +41,8 @@ public class TicketCheckController implements Initializable {
     AnchorPane mainAnchorPane;
     @FXML
     AnchorPane blurrAnchorPane;
+    @FXML
+    Button backButton;
     Socket socket;
     TicketDetailsPopUp tp;
     private MainViewController mc;
@@ -73,6 +76,7 @@ public class TicketCheckController implements Initializable {
                     } else {
                         animateImageValidate(false);
                         setMessage("Invalid ticket! Please seek assistance from a member of staff.");
+                       backButton.setVisible(true);
                     }
                 });
             }
@@ -82,8 +86,7 @@ public class TicketCheckController implements Initializable {
 
     public  void setup(){
         setMessage("Please insert your ticket");
-        checkTicketField.clear();
-        checkTicketField.setDisable(false);
+       validationUI(false);
         tp.remove();
         animateImageShow();
     }
@@ -97,11 +100,10 @@ public class TicketCheckController implements Initializable {
         mc.sceneManager.goBack();
     }
 
-    private void validationUI(boolean validate){
-        Platform.runLater(()->{
-            checkTicketField.setDisable(validate);
+    private void validationUI(boolean show){
+            backButton.setVisible(!show);
+            checkTicketField.setVisible(!show);
             checkTicketField.clear();
-        });
     }
     private void animateImageShow() {
         Timeline timeline = new Timeline();
