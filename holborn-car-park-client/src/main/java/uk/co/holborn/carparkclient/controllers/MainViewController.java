@@ -88,8 +88,6 @@ public class MainViewController implements Initializable {
                     popup.show("Authorised");
                     popup.removePopUp();
                     logger.info("Authorised!");
-                    sceneManager.changeTo(Scenes.LANDING);
-                    sceneManager.clearSceneQueue();
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     System.exit(0);

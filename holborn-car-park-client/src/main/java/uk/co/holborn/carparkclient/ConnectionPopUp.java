@@ -10,6 +10,7 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import uk.co.holborn.carparkclient.controllers.ConnectionPopUpController;
+import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 import java.io.IOException;
 
@@ -67,6 +68,9 @@ public class ConnectionPopUp {
             if (alreadyOn) {
                 Platform.runLater(() -> {
                     Animator.nodeReverseBlurrBackgroundAndHidePopup(blurrAnchor, root, t->{
+                        SceneManager sm = MainViewController.getInstance().sceneManager;
+                        sm.changeTo(Scenes.LANDING);
+                        sm.clearSceneQueue();
                         mainAnchor.getChildren().remove(root);
                         alreadyOn = false;
                     });
