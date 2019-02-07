@@ -20,10 +20,9 @@ public class TicketDetailsPopUp {
     private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
     private AnchorPane root;
-    private TicketDetailsPopUpController tc ;
+    private TicketDetailsPopUpController tc;
     private boolean alreadyOn;
     private boolean debug_mode = false;
-    private double blurrRadius = 20;
 
     public TicketDetailsPopUp(AnchorPane mainAnchor, AnchorPane blurrAnchor) {
         this.mainAnchor = mainAnchor;
@@ -47,22 +46,10 @@ public class TicketDetailsPopUp {
                 setRightAnchor(root, 0.0);
                 setLeftAnchor(root, 0.0);
                 setTopAnchor(root, 0.0);
-                GaussianBlur gb = new GaussianBlur();
-                gb.setRadius(0);
-                blurrAnchor.setEffect(gb);
-                root.setTranslateY(20);
-                root.setOpacity(0);
                 Platform.runLater(() -> {
-                   tc.setTicket(ticket);
+                    tc.setTicket(ticket);
                     mainAnchor.getChildren().add(root);
-                    Timeline timeline = new Timeline();
-                    timeline.getKeyFrames().addAll(
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_BOTH)),
-                            new KeyFrame(Duration.seconds(1), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_BOTH)),
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_BOTH)),
-                            new KeyFrame(Duration.seconds(0.5), new KeyValue(root.opacityProperty(), 1, Interpolator.EASE_BOTH))
-                    );
-                    timeline.play();
+                    Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor, root, null);
                 });
                 alreadyOn = true;
             }
