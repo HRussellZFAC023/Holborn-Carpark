@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchor" prefHeight="768.0" prefWidth="1280.0" stylesheets="@../css/main_view.css"
+<AnchorPane fx:id="mainAnchor" prefHeight="768.0" prefWidth="1280.0" stylesheets="@../css/application.css"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="uk.co.holborn.carparkclient.controllers.MainViewController">
     <children>
