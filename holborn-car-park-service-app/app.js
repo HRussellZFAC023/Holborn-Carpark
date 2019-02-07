@@ -12,7 +12,7 @@ const app = express();
 // Socket.io
 const io = socket_io();
 app.io = io;
-require('./server/sockets/base')(io);
+require('./server/sockets/socket')(io);
 
 //main routes declaration
 const noApiRoutes = require('./server/routes/noapi');
