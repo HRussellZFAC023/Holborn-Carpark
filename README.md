@@ -47,10 +47,7 @@ The Holy Grail
 6. delete your branch.
 
 `$ git branch -d [name_of_branch]`
-<<<<<<< HEAD
 
 7. push branch to remote master
 
 `$ git push`
-=======
->>>>>>> 0154613... fea - added url to documentation in the readme
