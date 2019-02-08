@@ -6,13 +6,15 @@ const UUID              = require('uuid/v4');
 const db                = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
+const verify            = require('../../javascripts/verify');
+
 
 
 const uuid_regex        = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 module.exports = function (io) {
     //Get all tickets
-    router.get('/', function (req, res) {
+    router.get('/', verify.UserAuth, function (req, res) {
         db.query(query.api.tickets.get_all, function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
@@ -24,7 +26,7 @@ module.exports = function (io) {
     });
 
     //Delete all tickets
-    router.delete('/', function (req, res) {
+    router.delete('/', verify.UserAuth, function (req, res) {
         db.query(query.api.tickets.delete_all, function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
@@ -37,7 +39,7 @@ module.exports = function (io) {
     });
 
     //Gets a specific ticket
-    router.get('/' + uuid_regex, function (req, res) {
+    router.get('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 
@@ -52,7 +54,7 @@ module.exports = function (io) {
     });
 
     //Create a ticket (attached to a carpark id)
-    router.post('/' + uuid_regex, function (req, res) {
+    router.post('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = UUID();
         let c_id = req.path.replace(/\//g, '');
         const params = [t_id, Date.now(), false, true, c_id];
@@ -68,7 +70,7 @@ module.exports = function (io) {
     });
 
     //Update a ticket
-    router.put('/' + uuid_regex, function (req, res) {
+    router.put('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
         if (typeof req.body.date_out !== 'undefined') {
@@ -113,7 +115,7 @@ module.exports = function (io) {
     });
 
     //Delete a ticket
-    router.delete('/' + uuid_regex, function (req, res) {
+    router.delete('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 
@@ -129,7 +131,7 @@ module.exports = function (io) {
 
 
     //Validates the ticket. After validation, the ticket can't be used anymore
-    router.post('/validate', function (req, res) {
+    router.post('/validate', verify.UserAuth, function (req, res) {
         let t_id = req.body._id;
         let c_id = req.body._carpark_id; //provided by the carpark requesting validation
         const params = [t_id];
