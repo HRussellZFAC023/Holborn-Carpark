@@ -10,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.effect.GaussianBlur;
 import javafx.util.Duration;
 
+import java.util.List;
+
 public class Animator {
     public static void nodeFade(Node node, boolean in, double keyFrameTime) {
         double opacityEnd, opacityStart;
@@ -30,8 +32,8 @@ public class Animator {
             node.setScaleX(0);
             node.setScaleY(0);
             timeline.getKeyFrames().addAll(
-                    new KeyFrame(Duration.seconds(keyFrameTime-fadeInPopOffset), new KeyValue(node.scaleXProperty(), 1.1, Interpolator.EASE_IN)),
-                    new KeyFrame(Duration.seconds(keyFrameTime-fadeInPopOffset), new KeyValue(node.scaleYProperty(), 1.1, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime - fadeInPopOffset), new KeyValue(node.scaleXProperty(), 1.1, Interpolator.EASE_IN)),
+                    new KeyFrame(Duration.seconds(keyFrameTime - fadeInPopOffset), new KeyValue(node.scaleYProperty(), 1.1, Interpolator.EASE_IN)),
                     new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN)),
                     new KeyFrame(Duration.seconds(keyFrameTime), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN))
             );
@@ -57,7 +59,6 @@ public class Animator {
         timeline.play();
 
     }
-
 
     public static void nodeBlurrBackgroundAndShowPopUp(Node background, Node popup, EventHandler<ActionEvent> eventEventHandler) {
         Timeline timeline = new Timeline();
@@ -96,7 +97,6 @@ public class Animator {
                 new KeyFrame(Duration.seconds(keyFrame + blurrFadeThreshold), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_IN))
         );
     }
-
 
     public static void nodePopInCard_keyframes(Node node, double endKeyframe, Timeline timeline) {
         node.setOpacity(0);
@@ -146,15 +146,13 @@ public class Animator {
         );
     }
 
-    public static void nodePushOut_KeyFrames(Node node, Timeline timeline) {
+    public static void nodePushOut(Node node) {
+        Timeline timeline  = new Timeline();
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);
-        timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(0.2), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_BOTH))
-        );
+        nodePushOut_KeyFrames(node, timeline);
+        timeline.play();
     }
 
     public static void nodeThrowIn_Keyframes(Node node, Timeline timeline) {
@@ -179,5 +177,67 @@ public class Animator {
                 new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleXProperty(), 1.5, Interpolator.EASE_BOTH)),
                 new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleYProperty(), 1.5, Interpolator.EASE_BOTH))
         );
+    }
+
+    public static void nodePopIn(Node node) {
+        nodePopIn(node, 0.2);
+    }
+
+    public static void nodePushOut_KeyFrames(Node node, Timeline timeline) {
+        node.setOpacity(1);
+        node.setScaleX(1);
+        node.setScaleY(1);
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(0.2), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_BOTH))
+        );
+    }
+    public static void nodePopIn(Node node, double startframe) {
+        Timeline timeline = new Timeline();
+        node.setOpacity(0);
+        node.setScaleX(0);
+        node.setScaleY(0);
+        double frameOffset = 0.2;
+        timeline = new Timeline();
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(startframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe + frameOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe + frameOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe + frameOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe + frameOffset + 0.2), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startframe + frameOffset + 0.2), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN))
+        );
+        timeline.play();
+    }
+    public static void nodeTranslateY(Node node, double startY, double endY, double startFrame, double endAfter){
+        Timeline timeline = new Timeline();
+        node.setTranslateY(startY);
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(startFrame), new KeyValue(node.translateYProperty(), startY, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startFrame + endAfter), new KeyValue(node.translateYProperty(), endY, Interpolator.EASE_IN))
+        );
+        timeline.play();
+    }
+    public static void nodeOpacityChange(Node node, double startOp, double endOP, double startFrame, double endAfter){
+        Timeline timeline = new Timeline();
+        node.setOpacity(startOp);
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(startFrame), new KeyValue(node.opacityProperty(), startOp, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(startFrame + endAfter), new KeyValue(node.opacityProperty(), endOP, Interpolator.EASE_IN))
+        );
+        timeline.play();
+    }
+    public static void animation_ticket_check(List<Node> nodes) {
+        nodes.get(0).setOpacity(0);
+        nodes.get(1).setOpacity(0);
+        nodes.get(1).setTranslateY(40);
+        nodes.get(2).setOpacity(0);
+        nodePopIn(nodes.get(0), 0.5);
+        nodePopIn(nodes.get(1), 0.9);
+        nodeOpacityChange(nodes.get(2),0,1,0.9, 0.4);
+        nodeTranslateY(nodes.get(1),40,0,1.4, 0.9 );
     }
 }

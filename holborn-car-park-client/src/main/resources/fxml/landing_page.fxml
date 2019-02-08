@@ -18,8 +18,8 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="377.3333435058594" minHeight="140.0" prefHeight="140.0" valignment="BOTTOM" vgrow="NEVER" />
-                <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="661.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="377.3333435058594" minHeight="140.0" prefHeight="183.0" valignment="BOTTOM" vgrow="NEVER" />
+                <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="585.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="1043.0" text="Welcome !" textAlignment="CENTER" textFill="#5e5e5e" GridPane.halignment="CENTER" GridPane.valignment="CENTER">

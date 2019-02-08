@@ -69,7 +69,6 @@ public class LandingPageController implements Initializable {
     }
 
     private void updateTextPrice(String message) {
-        logger.debug(mc.hourly_price + "  -    " + message);
         if (!mc.hourly_price.equals(message)) {
             mc.hourly_price = message;
             Animator.nodeFade(price, false);
