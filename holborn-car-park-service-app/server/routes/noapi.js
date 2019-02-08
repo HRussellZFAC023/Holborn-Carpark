@@ -14,6 +14,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
+    if(req.session && req.session.user) res.redirect('/manager');
     res.sendFile('login.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
