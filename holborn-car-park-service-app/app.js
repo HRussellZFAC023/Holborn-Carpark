@@ -4,6 +4,9 @@ const cl_sessions   = require('express-session');
 const debug         = require('debug')('holborn-car-park-service-app: env');
 const G             = require('./server/javascripts/global_variables');
 const path          = require('path');
+const pgSession     = require('connect-pg-simple')(cl_sessions);
+
+const db            = require('./server/databases/auth_db_conn');
 
 
 debug(G.env);
@@ -22,7 +25,6 @@ const noApiRoutes = require('./server/routes/noapi');
 const carParksRoute = require('./server/routes/api/carparks')(io);
 const ticketsRoute = require('./server/routes/api/tickets')(io);
 
-
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
@@ -30,11 +32,16 @@ const cl_sessions_opt = {
     name: 'session',
     secret: G.cookie_secret,
     resave: false,
+    rolling: true,
     saveUninitialized: false,
     cookie: {
-        httpOnly: true, //this actually sets if cookie accessible through JS
-        maxAge: 30 * 60 * 1000
-    }
+        httpOnly: true,                 //this actually sets if cookie accessible through JS
+        maxAge: 5 * 60 * 1000
+    },
+    store: new pgSession({
+        pool : db,                      // Connection pool
+        tableName : 'user_sessions'     // Use another table-name than the default "session" one
+    }),
 };
 
 if(G.env === 'dev') cl_sessions_opt.cookie.secure = false;
