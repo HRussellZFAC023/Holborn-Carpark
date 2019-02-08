@@ -48,7 +48,9 @@ router.post('/login', function (req, res) {
                 return res.status(403).send("Wrong password! Try again");
 
             req.session.user = uname;
-            res.redirect('/manager');
+            req.session.save(function () {
+                res.redirect('/manager');
+            })
         });
     });
 });
@@ -86,8 +88,9 @@ router.post('/register', function (req, res) {
 });
 
 router.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect('/login');
+    req.session.destroy(function () {
+        res.redirect('/login');
+    });
 });
 
 const genRandomString = function(length = 16){
