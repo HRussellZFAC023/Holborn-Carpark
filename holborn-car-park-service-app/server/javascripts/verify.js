@@ -1,9 +1,10 @@
 const debug = require('debug')('holborn-car-park-service-app: socket');
 
-const db    = require ('../databases/carpark_db_conn');
+const db      = require ('../databases/carpark_db_conn');
+const db_auth = require ('../databases/auth_db_conn');
 
 
-exports.verifyClientAuth = function(_carpark_id, callback){
+exports.ClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];
     db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
         let err_code, err_desc;

@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const db = require('../databases/carpark_db_conn');
-const verif = require('../javascripts/verify');
+const verify = require('../javascripts/verify');
 const queries = require('../databases/queries');
 
 exports.carpark_details_modified = function (_id, callback) {
@@ -61,7 +61,7 @@ exports.fetch_ticket_details = function (_id, carpark_id, callback) {
 };
 
 exports.authorise1 = function (_idCarPark, callback) {
-    verif.verifyClientAuth(_idCarPark, function (code, desc) {
+    verify.ClientAuth(_idCarPark, function (code, desc) {
         callback(code, desc);
     });
     return _idCarPark;
@@ -69,7 +69,7 @@ exports.authorise1 = function (_idCarPark, callback) {
 
 exports.authorise = function (socket, carparkid_cb) {
     socket.on('authorisation', function (_idCarPark, callback) {
-        verif.verifyClientAuth(_idCarPark, function (code, desc) {
+        verify.ClientAuth(_idCarPark, function (code, desc) {
             callback(code, desc);
             carparkid_cb(_idCarPark);
         });
