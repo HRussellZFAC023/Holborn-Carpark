@@ -23,9 +23,9 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="195.08627319335938" minHeight="10.0" prefHeight="128.27056884765625" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="236.31124114990234" minHeight="10.0" prefHeight="233.33334350585938" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="238.40586853027344" minHeight="10.0" prefHeight="98.66665649414062" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="222.02740478515625" minHeight="10.0" prefHeight="197.33331298828125" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="341.5" minHeight="10.0" prefHeight="268.5" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="238.40586853027344" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="222.02740478515625" minHeight="10.0" prefHeight="108.5" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="252.853515625" minHeight="2.66668701171875" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="69.33331298828125" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -64,22 +64,22 @@
                                 </TextField>
                             </children>
                         </GridPane>
-                        <ImageView fx:id="ticket_image_bg" fitHeight="219.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ticket_image_bg" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
                                 <Image url="@../img/validate_ticket_comp/background.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="ticket_image_ticket" fitHeight="219.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ticket_image_ticket" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
                                 <Image url="@../img/validate_ticket_comp/ticket.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="ticket_image_laser_beam" fitHeight="219.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ticket_image_laser_beam" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
                                 <Image url="@../img/validate_ticket_comp/laser_beam.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="ticket_image_validated" fitHeight="219.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <ImageView fx:id="ticket_image_validated" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <image>
                                 <Image url="@../img/checkmark.png" />
                             </image>
