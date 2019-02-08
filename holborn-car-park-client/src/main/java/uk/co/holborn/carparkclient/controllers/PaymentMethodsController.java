@@ -2,7 +2,6 @@ package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
