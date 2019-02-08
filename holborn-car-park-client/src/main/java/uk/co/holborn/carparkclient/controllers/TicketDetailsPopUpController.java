@@ -8,7 +8,6 @@ import uk.co.holborn.carparkclient.Ticket;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class TicketDetailsPopUpController implements Initializable {
@@ -21,6 +20,8 @@ public class TicketDetailsPopUpController implements Initializable {
     Label price;
     @FXML
     Label duration;
+    @FXML
+    Label duration_paying_for;
     MainViewController mc;
 
     @Override
@@ -37,6 +38,10 @@ public class TicketDetailsPopUpController implements Initializable {
             dr = (int) (ticket.getDuration() / 60.0) + " hours and " + (int) (ticket.getDuration() % 60.0) + " minutes";
         date_check_out.setText(dateFormat.format(ticket.getDate_out()));
         duration.setText(dr);
+        String hours;
+
+            hours = ticket.getDuration_paying_for()==1 ? " hour": " hours";
+        duration_paying_for.setText((ticket.getDuration_paying_for())+ hours);
         price.setText("£" + ticket.getPrice());
     }
 

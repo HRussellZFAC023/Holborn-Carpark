@@ -34,21 +34,25 @@ exports.fetch_ticket_details = function (_id, carpark_id, callback) {
             date_in: db_res.rows[0].date_in,
             date_out: db_res.rows[0].date_out,
             price: db_res.rows[0].price,
-            duration: db_res.rows[0].duration
+            duration: db_res.rows[0].duration,
+            duration_paying_for: 0
         };
         const now = moment();
         const duration = moment.duration(now.diff(ticket.date_in));
         const minutes = duration.asMinutes();
         const date = new Date();
-        ticket.duration = minutes.toFixed(2);
+        ticket.duration = minutes.toFixed(0);
         ticket.date_out = date.toISOString();
-        ticket.price = (db_res.rows[0].hour_rate * duration.asHours().toFixed(2)).toFixed(2);
+        ticket.duration_paying_for = Math.ceil(duration.asHours()).toFixed(0);
+        ticket.price = (db_res.rows[0].hour_rate * Math.ceil(duration.asHours())).toFixed(2);
         console.log("minutes:" + ticket.duration);
-        console.log("minutes:" + ticket.duration);
+        console.log("rounded hours to half:" + Math.ceil(duration.asHours()));
+        console.log("rounded hours to half:" + Math.ceil(duration.asHours())*60);
+        console.log("hours:" + duration.asHours());
         const params = [_id, ticket.duration, ticket.date_out];
-        db.query(queries.sockets.ticket_details_update, params, function (db_err) {
-            if (db_err) debug(db_err);
-        });
+        // db.query(queries.sockets.ticket_details_update, params, function (db_err) {
+        //     if (db_err) debug(db_err);
+        // });
         return callback(200, "Ticket is valid: " + _id, ticket);
 
     });

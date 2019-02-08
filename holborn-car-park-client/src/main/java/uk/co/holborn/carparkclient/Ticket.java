@@ -8,8 +8,17 @@ public class Ticket {
     private Date date_out;
     private double price;
     private double duration;
+    private int duration_paying_for;
 
     public Ticket() {
+    }
+
+    public int getDuration_paying_for() {
+        return duration_paying_for;
+    }
+
+    public void setDuration_paying_for(int duration_paying_for) {
+        this.duration_paying_for = duration_paying_for;
     }
 
     public Ticket(String _id, Date date_in, double price) {
