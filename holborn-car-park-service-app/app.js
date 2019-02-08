@@ -1,6 +1,6 @@
 const express       = require('express');
 const socket_io     = require("socket.io");
-const cl_sessions   = require('client-sessions');
+const cl_sessions   = require('express-session');
 const debug         = require('debug')('holborn-car-park-service-app: env');
 const G             = require('./server/javascripts/global_variables');
 const path          = require('path');
@@ -27,16 +27,18 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 const cl_sessions_opt = {
-    cookieName: 'session',
+    name: 'session',
     secret: G.cookie_secret,
-    duration: 30 * 60 * 1000,
-    activeDuration: 5 * 60 * 1000,
-    httpOnly: true,
-    ephemeral: true
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        httpOnly: true, //this actually sets if cookie accessible through JS
+        maxAge: 30 * 60 * 1000
+    }
 };
 
-if(G.env === 'dev') cl_sessions_opt.secure = false;
-else cl_sessions_opt.secure = false;
+if(G.env === 'dev') cl_sessions_opt.cookie.secure = false;
+else cl_sessions_opt.cookie.secure = true;
 
 app.use(cl_sessions(cl_sessions_opt));
 

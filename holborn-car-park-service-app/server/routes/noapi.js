@@ -85,7 +85,7 @@ router.post('/register', function (req, res) {
 });
 
 router.post('/register', function (req, res) {
-    req.session.reset();
+    req.session.destroy();
     res.redirect('/login');
 });
 

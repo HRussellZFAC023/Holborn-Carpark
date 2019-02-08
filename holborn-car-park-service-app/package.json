@@ -8,7 +8,8 @@
   "dependencies": {
     "client-sessions": "^0.8.0",
     "debug": "git+https://github.com/NaNraptor/debug.git",
-    "express": "4.16.4",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "moment": "2.24.0",
