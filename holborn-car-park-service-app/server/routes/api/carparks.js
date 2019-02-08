@@ -6,13 +6,14 @@ const UUID              = require('uuid/v4');
 const query             = require('../../databases/queries');
 const db                = require('../../databases/carpark_db_conn');
 const socket_functions  = require('../../sockets/socket_functions');
+const verify            = require('../../javascripts/verify');
 
 
 const uuid_regex        = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 module.exports = function(io) {
     //Get all tickets
-    router.get('/', function (req, res) {
+    router.get('/', verify.UserAuth, function (req, res) {
         db.query(query.api.carparks.get_all, function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
@@ -24,7 +25,7 @@ module.exports = function(io) {
     });
 
     //Delete all tickets
-    router.delete('/', function (req, res) {
+    router.delete('/', verify.UserAuth, function (req, res) {
         db.query(query.api.carparks.delete_all, function (db_err, db_res) {
             if (db_err) {
                 debug(db_err);
@@ -37,7 +38,7 @@ module.exports = function(io) {
 
 
     //Gets a specific ticket
-    router.get('/' + uuid_regex, function (req, res) {
+    router.get('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let c_id = req.path.replace(/\//g, '');
         const params = [c_id];
 
@@ -52,7 +53,7 @@ module.exports = function(io) {
     });
 
     //Create a ticket (attached to a carpark id)
-    router.post('/', function (req, res) {
+    router.post('/', verify.UserAuth, function (req, res) {
         let c_id = UUID();
         let name = req.body.name;
         let hour_rate = req.body.hour_rate;
@@ -71,7 +72,7 @@ module.exports = function(io) {
     });
 
     //Update a ticket
-    router.put('/' + uuid_regex, function (req, res) {
+    router.put('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let c_id = req.path.replace(/\//g, '');
 
         if (typeof req.body.name !== 'undefined') {
@@ -119,7 +120,7 @@ module.exports = function(io) {
     });
 
     //Delete a ticket
-    router.delete('/' + uuid_regex, function (req, res) {
+    router.delete('/' + uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 
