@@ -4,10 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
-import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 import uk.co.holborn.carparkclient.controllers.MainViewController;
 
@@ -33,7 +33,7 @@ public static MainViewController mc;
         stage.toFront();
     }
 
-    @After
+    @AfterEach
     public void after() throws TimeoutException {
         mc.sceneManager.changeTo(Scenes.LANDING);
     }
