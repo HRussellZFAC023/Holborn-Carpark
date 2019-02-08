@@ -7,12 +7,9 @@ const db_auth = require ('../databases/auth_db_conn');
 exports.ClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];
     db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
-        let err_code, err_desc;
         if(db_err){
             debug(db_err);
-            err_code = 505;
-            err_desc = db_err;
-            return callback(err_code, err_desc);
+            return callback(505, db_err);
         }
         if(db_res.rowCount === 0) {
              return callback(403, "Unauthorised access!");
