@@ -85,7 +85,7 @@ router.post('/register', function (req, res) {
     });
 });
 
-router.post('/register', function (req, res) {
+router.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/login');
 });
