@@ -40,7 +40,7 @@ const cl_sessions_opt = {
     },
     store: new pgSession({
         pool : db,                      // Connection pool
-        tableName : 'user_sessions'     // Use another table-name than the default "session" one
+        tableName : 'user_sessions'
     }),
 };
 
