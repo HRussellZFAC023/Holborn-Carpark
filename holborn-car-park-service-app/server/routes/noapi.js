@@ -8,6 +8,8 @@ const path      = require('path');
 const query     = require('../databases/queries');
 const db        = require('../databases/auth_db_conn');
 const G         = require('../javascripts/global_variables');
+const verify    = require('../javascripts/verify');
+
 
 
 router.get('/', function (req, res) {
@@ -23,9 +25,8 @@ router.get('/register', function (req, res) {
     res.sendFile('register.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
-router.get('/manager', function (req, res) {
-    if(req.session && req.session.user) res.sendFile('manager.html', {root: path.join('public', 'protected', 'HTML')});
-    else res.redirect('/login');
+router.get('/manager', verify.UserAuth, function (req, res) {
+    res.sendFile('manager.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
 router.post('/login', function (req, res) {
