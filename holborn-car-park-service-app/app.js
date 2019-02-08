@@ -2,11 +2,11 @@ const express       = require('express');
 const socket_io     = require("socket.io");
 const cl_sessions   = require('express-session');
 const debug         = require('debug')('holborn-car-park-service-app: env');
-const G             = require('./server/javascripts/global_variables');
 const path          = require('path');
 const pgSession     = require('connect-pg-simple')(cl_sessions);
 
 const db            = require('./server/databases/auth_db_conn');
+const G             = require('./server/javascripts/global_variables');
 
 
 debug(G.env);
@@ -35,7 +35,7 @@ const cl_sessions_opt = {
     rolling: true,
     saveUninitialized: false,
     cookie: {
-        httpOnly: true,                 //this actually sets if cookie accessible through JS
+        httpOnly: true,                 //this actually sets if cookie is accessible through JS
         maxAge: 5 * 60 * 1000
     },
     store: new pgSession({

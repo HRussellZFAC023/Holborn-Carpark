@@ -2,11 +2,12 @@ const express   = require('express');
 const router    = express.Router();
 const crypto    = require('crypto');
 const UUID      = require('uuid/v4');
+const debug     = require('debug')('holborn-car-park-service-app: auth');
+const path      = require('path');
+
 const query     = require('../databases/queries');
 const db        = require('../databases/auth_db_conn');
 const G         = require('../javascripts/global_variables');
-const debug     = require('debug')('holborn-car-park-service-app: auth');
-const path      = require('path');
 
 
 router.get('/', function (req, res) {

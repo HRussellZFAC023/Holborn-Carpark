@@ -1,8 +1,9 @@
 const express           = require('express');
 const router            = express.Router();
-const db                = require('../../databases/carpark_db_conn');
 const debug             = require('debug')('holborn-car-park-service-app: DB');
 const UUID              = require('uuid/v4');
+
+const db                = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
 

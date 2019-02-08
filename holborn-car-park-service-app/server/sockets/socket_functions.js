@@ -1,7 +1,8 @@
+const moment = require('moment');
+
 const db = require('../databases/carpark_db_conn');
 const verif = require('../javascripts/verify');
 const queries = require('../databases/queries');
-const moment = require('moment');
 
 exports.carpark_details_modified = function (_id, callback) {
     db.query(queries.sockets.ticket_valid_count, [_id], function (db_err, db_res_t) {
@@ -17,6 +18,7 @@ exports.carpark_details_modified = function (_id, callback) {
         });
     });
 };
+
 exports.fetch_ticket_details = function (_id, carpark_id, callback) {
     const params = [_id, carpark_id];
     db.query(queries.sockets.ticket_details, params, function (db_err, db_res) {
