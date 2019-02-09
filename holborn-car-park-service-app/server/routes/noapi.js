@@ -38,20 +38,20 @@ router.post('/login', function (req, res) {
     db.query(query.noapi.login, params, function (db_err, db_res) {
         if (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
         }
 
-        if(!db_res.rowCount) return res.status(403).send('No such user');
+        if(!db_res.rowCount) return res.status(403).json({type: 'user', message: 'No such user.'});
 
         crypto.pbkdf2(passw, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
             if (err) debug(err);
 
             if(db_res.rows[0].pwd_hash.toString('hex') !== hash.toString('hex'))
-                return res.status(403).send("Wrong password! Try again");
+                return res.status(403).json({type: 'pwd', message: 'Wrong password.'});
 
             req.session.user = uname;
             req.session.save(function () {
-                res.redirect('/manager');
+                res.status(200).json({type: 'redirect', redirect: '/manager'});
             })
         });
     });

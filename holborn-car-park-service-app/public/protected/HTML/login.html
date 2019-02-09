@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>Login</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+            type="text/javascript">
+    </script>
     <link
-            rel="stylesheet"
-            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
-            rel="stylesheet"
-    />
-    <link
-            rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+            rel="stylesheet"
     />
-    <link rel="stylesheet" type="text/css" href="login.css" />
+
+    <link href="login.css" rel="stylesheet" type="text/css"/>
+
     <script src="login.js"></script>
 </head>
 
@@ -26,7 +24,7 @@
     <div class="hero-head">
         <div class="container has-text-centered">
             <figure class="image is-inline-block is-70">
-                <img src="img/logo.png" alt="Holborn">
+                <img alt="Holborn" src="img/logo.png">
             </figure>
         </div>
     </div>
@@ -35,43 +33,43 @@
             <div class="column is-two-fifths center">
                 <div class="up"></div>
 
-                <div class="box">
+                <div class="box" id="box">
                     <div class="content has-text-grey is-medium">
                         Please login to proceed.
                     </div>
-                    <form method="post">
-                        <div class="field">
-                            <div class="control">
-                                <input
-                                        class="input is-large"
-                                        type="text"
-                                        name="username"
-                                        placeholder="Your Username"
-                                        autofocus=""
-                                />
-                            </div>
+                    <div class="field">
+                        <div class="control" id="ctrl_username">
+                            <input
+                                    autofocus=""
+                                    class="input is-large"
+                                    id="fld_username"
+                                    name="username"
+                                    placeholder="Your Username"
+                                    type="text"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control" id="ctrl_password">
+                            <input
+                                    class="input is-large"
+                                    id="fld_password"
+                                    name="password"
+                                    placeholder="Your Password"
+                                    type="password"
+                            />
                         </div>
 
-                        <div class="field">
-                            <div class="control">
-                                <input
-                                        class="input is-large"
-                                        type="password"
-                                        name="password"
-                                        placeholder="Your Password"
-                                />
-                            </div>
-
-                        </div>
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox" /> Remember me
-                            </label>
-                        </div>
-                        <button class="button is-block is-info is-large is-fullwidth">
-                            Login
-                        </button>
-                    </form>
+                    </div>
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox"/> Remember me
+                        </label>
+                    </div>
+                    <div class="button is-block is-info is-large is-fullwidth" id="btn_login">
+                        Login
+                    </div>
                 </div>
                 <p class="has-text-grey">
                     <a href="/register">Sign Up</a> &nbsp;·&nbsp;
