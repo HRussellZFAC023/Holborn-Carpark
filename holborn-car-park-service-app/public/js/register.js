@@ -22,8 +22,7 @@ function validate() {
         },
         success: function (res, status, xhr) {
             if (res && res.redirect) {
-                console.log(res)
-                //window.location.replace(window.location.protocol + '//' + window.location.host + res.redirect);
+                window.location.replace(window.location.protocol + '//' + window.location.host + res.redirect);
             }
         },
         error: function (xhr, status, err) {
