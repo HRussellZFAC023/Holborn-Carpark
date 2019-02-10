@@ -24,14 +24,17 @@ function validate() {
             }
         },
         error: function (xhr, status, err) {
-            if(xhr.responseJSON.type === 'internal'){
-                internalError(xhr.responseJSON.message)
+            let type = xhr.responseJSON.type;
+            let message = xhr.responseJSON.message;
+
+            if(type === 'internal'){
+                internalError(message)
             }
-            else if(xhr.responseJSON.type === 'user'){
-                noSuchUser(xhr.responseJSON.message)
+            else if(type === 'user'){
+                noSuchUser(message)
             }
-            else if(xhr.responseJSON.type === 'pwd'){
-                wrongPwd(xhr.responseJSON.message)
+            else if(type === 'pwd'){
+                wrongPwd(message)
             }
         }
     });
