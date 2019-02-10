@@ -41,7 +41,7 @@ exports.api = {
 };
 
 exports.noapi = {
-   register:    `INSERT   INTO users VALUES ($1, $2, $3, $4, $5, 0)`,
+   register:    `INSERT   INTO users VALUES ($1, $2, $3, $4, $5, 0, null, false)`,
    login:       `SELECT * FROM users WHERE username = $1`,
    check_name:  `SELECT * FROM users WHERE username = $1`
 };
