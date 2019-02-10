@@ -26,53 +26,56 @@ function validate() {
             }
         },
         error: function (xhr, status, err) {
+            let type = xhr.responseJSON.type;
+            let message = xhr.responseJSON.message;
+
             if (type === 'internal') {
-                internalError(xhr.responseJSON.type, xhr.responseJSON.message);
+                internalError(message);
             }
             else if (type === 'invalid name' || type === 'space in name' || type === 'taken name' || type === 'long name') {
-                nameError(xhr.responseJSON.type, xhr.responseJSON.message);
+                nameError(message);
             }
             else if (type === 'invalid email') {
-                emailError(xhr.responseJSON.type, xhr.responseJSON.message);
+                emailError(message);
             }
             else if (type === 'invalid pwd' || type === 'short pwd' || type === 'disallowed pwd' || type === 'weak pwd') {
-                passwordError(xhr.responseJSON.type, xhr.responseJSON.message);
+                passwordError(message);
             }
             else if (type === 'match pwd') {
-                pwdConfirmError(xhr.responseJSON.type, xhr.responseJSON.message)
+                pwdConfirmError(message)
             }
         }
     });
 }
 
-function internalError(type, message) {
+function internalError(message) {
     if (!$('#internal_error').length) {
         $('#box').append("<p id='internal_error' class='help is-large is-danger'>" + message + "</p>");
     }
 }
 
-function nameError(type, message) {
+function nameError(message) {
     if (!$('#name_error').length) {
         $('#fld_username').addClass('is-danger');
         $('#ctrl_username').append("<p id='name_error' class='help is-danger'>" + message + "</p>");
     }
 }
 
-function emailError(type, message) {
+function emailError(message) {
     if (!$('#email_error').length) {
         $('#fld_email').addClass('is-danger');
         $('#ctrl_email').append("<p id='email_error' class='help is-danger'>" + message + "</p>");
     }
 }
 
-function passwordError(type, message) {
+function passwordError(message) {
     if (!$('#pwd_error').length) {
         $('#fld_password').addClass('is-danger');
         $('#ctrl_password').append("<p id='pwd_error' class='help is-danger'>" + message + "</p>");
     }
 }
 
-function pwdConfirmError(type, message) {
+function pwdConfirmError(message) {
     if (!$('#pwd_confirm_error').length) {
         $('#fld_pwd_confirm').addClass('is-danger');
         $('#ctrl_pwd_confirm').append("<p id='pwd_confirm_error' class='help is-danger'>" + message + "</p>");
