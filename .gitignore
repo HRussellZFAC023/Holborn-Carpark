@@ -4,7 +4,9 @@ holborn-car-park-client/logs/
 holborn-car-park-client/.idea/*
 holborn-car-park-service-app/node_modules/
 holborn-car-park-service-app/.idea/*
+holborn-car-park-service-app/public/protected/react/
 holborn-car-park-barriers/.idea/*
+holborn-car-park-barriers/target/
 
 #Files to exclude
 .DS_Store
