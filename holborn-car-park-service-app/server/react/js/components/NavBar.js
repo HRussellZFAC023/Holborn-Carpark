@@ -7,12 +7,14 @@ class NavBar extends Component {
   render() {
     return(
       <nav className="navbar" role="navigation" aria-label="main navigation">
-        <NavItem></NavItem>
-        <NavItem></NavItem>
-        <NavItem></NavItem>
-      </div>
+        <a className="navbar-item">
+          Home
+        </a>
+        {/*<NavItem></NavItem>*/}
+        {/*<NavItem></NavItem>*/}
+        {/*<NavItem></NavItem>*/}
+      </nav>
     )
   }
 }
-
-ReactDOM.render(<NavBar/>, document.getElementById('NavBar'));
+export default NavBar;
