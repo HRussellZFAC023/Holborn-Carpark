@@ -51,8 +51,13 @@ public class SceneManager {
             setLeftAnchor(sc, 0.0);
             setTopAnchor(sc, 0.0);
             Platform.runLater(() -> {
-                scenePane.getChildren().add(sc);
-                animateShowIn(reversed);
+                try{
+                    scenePane.getChildren().add(sc);
+                    animateShowIn(reversed);
+                }catch (java.lang.IllegalArgumentException e){
+                    logger.error("Tried to add duplicate pane!");
+                }
+
             });
         }
     }
@@ -85,6 +90,10 @@ public class SceneManager {
             animationFinished = true;
         });
         timeline.play();
+    }
+
+    public Scenes getCurrentScene() {
+        return currentScene;
     }
 
     public void clearSceneQueue() {

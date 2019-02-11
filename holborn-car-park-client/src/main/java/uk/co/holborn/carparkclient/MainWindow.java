@@ -21,7 +21,7 @@ public class MainWindow extends Application {
         log = LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
-        primaryStage.setTitle(GlobalVariables.main_window_name);
+        primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         primaryStage.setScene(new Scene(root, 1280, 768));

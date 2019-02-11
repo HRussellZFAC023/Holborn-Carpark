@@ -21,7 +21,7 @@ public static Scene scene;
 public static MainViewController mc;
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle(GlobalVariables.main_window_name);
+        stage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         if(scene == null) {
             FXMLLoader loader =new FXMLLoader(getClass().getResource("/fxml/main_view.fxml"));
             root = loader.load();

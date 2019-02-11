@@ -33,7 +33,7 @@ public class LandingPageController implements Initializable {
         mc = MainViewController.getInstance();
         logger = LogManager.getLogger(getClass().getName());
 
-        welcome.setText(GlobalVariables.landing_page_welcome);
+        welcome.setText(GlobalVariables.LANDING_PAGE_WELCOME);
         Animator.nodeFade(welcome, true);
     }
 
@@ -89,6 +89,7 @@ public class LandingPageController implements Initializable {
     @FXML
     public void begin() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
+        mc.sessionTimeOut();
     }
 
 }

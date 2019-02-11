@@ -27,7 +27,7 @@ public class InfoPopUp {
         // this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/info_popup.fxml"));
             try {
                 infoPopUpController = new InfoPopUpController();
                 loader.setController(infoPopUpController);

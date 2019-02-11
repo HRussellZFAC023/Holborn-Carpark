@@ -24,7 +24,13 @@ public class InfoPopUpController implements Initializable {
         info.setText(message);
     }
     public void setIndicatorVisible(boolean visible) {
-        indicator.setVisible(visible);
+        if(visible) {
+            indicator.setPrefHeight(200);
+            indicator.setPrefWidth(120);
+        }else{
+            indicator.setPrefHeight(0);
+            indicator.setPrefWidth(0);
+        }
     }
 
 

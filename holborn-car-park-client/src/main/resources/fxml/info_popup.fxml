@@ -28,14 +28,14 @@
                     <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="169.0" prefWidth="413.0" styleClass="scene_top_title" text="Waiting for connection..." textAlignment="CENTER" textFill="#6b6a6a" wrapText="true">
+                        <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="169.0" prefWidth="413.0" styleClass="scene_top_title" text="Session timed out" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true">
                            <font>
                               <Font name="Avenir Roman" size="34.0" />
                            </font>
                         </Label>
-                        <ProgressIndicator fx:id="indicator" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="112.0" prefWidth="120.0" styleClass="connection_progress_indicator">
+                        <ProgressIndicator fx:id="indicator" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="120.0" styleClass="connection_progress_indicator">
                            <HBox.margin>
-                              <Insets right="20.0" />
+                              <Insets />
                            </HBox.margin>
                         </ProgressIndicator>
                      </children>

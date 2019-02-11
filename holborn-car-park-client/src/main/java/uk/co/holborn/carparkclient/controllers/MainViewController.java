@@ -7,8 +7,10 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,11 +20,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
-    private long CONNECTION_TIME_MS = 1000;
+
     private static MainViewController instance = null;
 
     @FXML
@@ -47,7 +50,7 @@ public class MainViewController implements Initializable {
     public String happy_hour_time;
     Logger logger;
     public boolean happyHour = false;
-    long time_connection_starting, time_connected;
+    Long sessionStartTime;
 
 
     public MainViewController() {
@@ -57,8 +60,7 @@ public class MainViewController implements Initializable {
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
-            socket = IO.socket(GlobalVariables.webservice_socket);
-            time_connection_starting = System.currentTimeMillis();
+            socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);;
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -82,12 +84,21 @@ public class MainViewController implements Initializable {
         popup = new InfoPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
         sceneManager.changeTo(Scenes.LANDING);
+        sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
+            sessionStartTime = System.currentTimeMillis();
+        });
+        socketPreparation();
 
+
+
+    }
+
+    private void socketPreparation(){
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             popup.show("Connected! Authorising...");
             disconnectedUI(true);
-            socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
+            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID, (Ack) objects -> {
                 if (objects[0].equals(200)) {
                     popup.show("Authorised", false);
                     popup.removePopUp();
@@ -119,9 +130,7 @@ public class MainViewController implements Initializable {
             popup.show("Disconnected");
         });
         socket.connect();
-
     }
-
     public static MainViewController getInstance() {
         return instance;
     }
@@ -153,6 +162,33 @@ public class MainViewController implements Initializable {
         sceneAnchor.setDisable(enabled);
     }
 
+    public void sessionTimeOut(){
+         sessionStartTime = System.currentTimeMillis();
+         int session_timeout_ms =  GlobalVariables.SESSION_TIMEOUT_S * 1000;
+        int session_timeout_popup_ms =  GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
+        Thread session = new Thread(()->{
+            while(!Thread.currentThread().isInterrupted()){
+                if(sceneManager.getCurrentScene() == Scenes.LANDING){
+                    Thread.currentThread().interrupt();
+                }
+                if((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
+                    popup.show("Session timed out", false);
+                    sceneAnchor.setDisable(true);
+                    sceneManager.changeTo(Scenes.LANDING);
+                    try {
+                        Thread.sleep(session_timeout_popup_ms);
+                    } catch (InterruptedException e) {
+                    }
+                    popup.removePopUp();
+                    sceneAnchor.setDisable(false);
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        session.setName("Thread-Session Timeout Checker");
+        session.setDaemon(true);
+        session.start();
+    }
     /**
      * Update the date and time on screen
      */
