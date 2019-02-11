@@ -184,6 +184,12 @@ public class MainViewController implements Initializable {
                     popup.removePopUp();
                     sceneAnchor.setDisable(false);
                     Thread.currentThread().interrupt();
+                }else{
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                       Thread.currentThread().interrupt();
+                    }
                 }
             }
         });
@@ -211,7 +217,7 @@ public class MainViewController implements Initializable {
                 });
 
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
