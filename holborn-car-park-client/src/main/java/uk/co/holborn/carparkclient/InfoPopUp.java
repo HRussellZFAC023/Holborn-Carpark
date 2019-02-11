@@ -6,31 +6,31 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import uk.co.holborn.carparkclient.controllers.ConnectionPopUpController;
+import uk.co.holborn.carparkclient.controllers.InfoPopUpController;
 
 import java.io.IOException;
 
 import static javafx.scene.layout.AnchorPane.*;
 
-public class ConnectionPopUp {
+public class InfoPopUp {
     // private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
     private AnchorPane root;
-    private ConnectionPopUpController connectionPopUpController;
+    private InfoPopUpController infoPopUpController;
     private boolean alreadyOn;
     private boolean debug_mode = false;
     private double blurrRadius = 20;
     private EventHandler<ActionEvent> eventHandler;
 
-    public ConnectionPopUp(AnchorPane mainAnchor) {
+    public InfoPopUp(AnchorPane mainAnchor) {
         this.mainAnchor = mainAnchor;
         // this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
             try {
-                connectionPopUpController = new ConnectionPopUpController();
-                loader.setController(connectionPopUpController);
+                infoPopUpController = new InfoPopUpController();
+                loader.setController(infoPopUpController);
                 root = loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -51,8 +51,8 @@ public class ConnectionPopUp {
                 setLeftAnchor(root, 0.0);
                 setTopAnchor(root, 0.0);
                 Platform.runLater(() -> {
-                    connectionPopUpController.setText(message);
-                    connectionPopUpController.setIndicatorVisible(indicator);
+                    infoPopUpController.setText(message);
+                    infoPopUpController.setIndicatorVisible(indicator);
                     mainAnchor.getChildren().add(root);
                     Timeline t = new Timeline();
                     Animator.nodeThrowIn_Keyframes(root, t);
@@ -61,8 +61,8 @@ public class ConnectionPopUp {
                 alreadyOn = true;
             } else {
                 Platform.runLater(() -> {
-                    connectionPopUpController.setText(message);
-                    connectionPopUpController.setIndicatorVisible(indicator);
+                    infoPopUpController.setText(message);
+                    infoPopUpController.setIndicatorVisible(indicator);
                 });
             }
 

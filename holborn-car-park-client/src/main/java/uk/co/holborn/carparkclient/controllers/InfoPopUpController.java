@@ -8,7 +8,7 @@ import javafx.scene.control.ProgressIndicator;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ConnectionPopUpController implements Initializable {
+public class InfoPopUpController implements Initializable {
 
     @FXML
     Label info;

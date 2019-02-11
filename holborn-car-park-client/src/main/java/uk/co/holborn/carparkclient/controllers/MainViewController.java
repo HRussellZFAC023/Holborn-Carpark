@@ -40,7 +40,7 @@ public class MainViewController implements Initializable {
     public SceneManager sceneManager;
     Socket socket;
     GlobalVariables globalVariables;
-    ConnectionPopUp popup;
+    InfoPopUp popup;
     public Ticket ticket;
     public String hourly_price;
     public String parking_spaces;
@@ -79,7 +79,7 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
-        popup = new ConnectionPopUp(mainAnchor);
+        popup = new InfoPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
         sceneManager.changeTo(Scenes.LANDING);
 
