@@ -160,10 +160,13 @@ public class MainViewController implements Initializable {
         return socket;
     }
 
-    public void disconnectedUI(boolean enabled) {
+    private void disconnectedUI(boolean enabled) {
         sceneAnchor.setDisable(enabled);
     }
 
+    /**
+     * Thread that changes the scene to the landing page when no interaction with the ui happened for a defined time
+     */
     public void sessionTimeOut() {
         sessionStartTime = System.currentTimeMillis();
         int session_timeout_ms = GlobalVariables.SESSION_TIMEOUT_S * 1000;
@@ -199,7 +202,7 @@ public class MainViewController implements Initializable {
     }
 
     /**
-     * Update the date and time on screen
+     * Thread that updates the date and time
      */
     private void updater() {
         Thread updater = new Thread(() -> {

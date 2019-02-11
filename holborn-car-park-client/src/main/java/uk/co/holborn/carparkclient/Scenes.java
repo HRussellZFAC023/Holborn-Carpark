@@ -131,7 +131,7 @@ public enum Scenes {
 
         @Override
         void initialise() {
-
+            controller.setup();
         }
     };
     /**

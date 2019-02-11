@@ -2,32 +2,105 @@ package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import uk.co.holborn.carparkclient.Animator;
+import uk.co.holborn.carparkclient.Scenes;
+import uk.co.holborn.carparkclient.Ticket;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PaymentMethodsCashController implements Initializable {
 
-//    @FXML
-//    Label amountPaid;
-//    @FXML
-//    Label amountDue;
+    @FXML
+    Button backButton;
+    @FXML
+    TextField inputAmount;
+    @FXML
+    Label price_due;
+    @FXML
+    Label infoText;
+    @FXML
+    Label price_paid;
+    Ticket t;
     private MainViewController mc;
-    private double due = 6.50;
+    private double due = 0.00;
     private double paid = 0.00;
     private double change = 0.00;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
+        setup();
     }
 
     @FXML
-    public void  back() {
+    public void back() {
         mc.sceneManager.goBack();
     }
 
+    public void setup() {
+        t = mc.ticket;
+        due = t.getPrice();
+        paid = 0.00;
+        change = 0.00;
+        infoText.setText("");
+        backButton.setVisible(true);
+        inputAmount.setDisable(false);
+        updateUI();
+    }
 
+    public void pay() {
+        double amount;
+        try{
+            amount = Double.parseDouble(inputAmount.getText());
+        }catch(Exception e){
+           amount = 0;
+        }
+        due-=amount;
+        paid += amount;
+        if(due<0.0 && change == 0.0) {
+            change = -due;
+            due = 0.0;
+            inputAmount.setDisable(true);
+            backButton.setVisible(false);
+            setInfoText("Please take your change of £" + change);
+           Thread t = new Thread(()->{
+               try {
+                   Thread.sleep(3000);
+                   mc.sceneManager.changeTo(Scenes.LANDING);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+           });
+           t.setName("Thread-Sleep");
+           t.setDaemon(true);
+           t.start();
+        }
+        inputAmount.clear();
+        updateUI();
+    }
+    public void updateUI() {
+        setAmoundDue("£" + due);
+        setPaidAmount("£" + paid);
+    }
+
+    public void setAmoundDue(String amount) {
+        price_due.setText(amount);
+        Animator.nodeFade(price_due, true);
+    }
+
+    public void setPaidAmount(String amount) {
+        price_paid.setText(amount);
+        Animator.nodeFade(price_paid, true);
+    }
+
+    public void setInfoText(String amount) {
+        infoText.setText(amount);
+        Animator.nodeFade(price_due, true);
+    }
 
 
 }
