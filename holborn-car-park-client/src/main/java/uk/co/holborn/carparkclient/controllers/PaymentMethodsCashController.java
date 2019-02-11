@@ -1,5 +1,6 @@
 package uk.co.holborn.carparkclient.controllers;
 
+import io.socket.client.Socket;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -54,53 +55,60 @@ public class PaymentMethodsCashController implements Initializable {
 
     public void pay() {
         double amount;
-        try{
+        try {
             amount = Double.parseDouble(inputAmount.getText());
-        }catch(Exception e){
-           amount = 0;
+        } catch (Exception e) {
+            amount = 0;
         }
-        due-=amount;
+        due -= amount;
         paid += amount;
-        if(due<0.0 && change == 0.0) {
+        if (due < 0.0 && change == 0.0) {
             change = -due;
             due = 0.0;
             inputAmount.setDisable(true);
             backButton.setVisible(false);
             setInfoText("Please take your change of £" + change);
-           Thread t = new Thread(()->{
-               try {
-                   Thread.sleep(3000);
-                   mc.sceneManager.changeTo(Scenes.LANDING);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
-           });
-           t.setName("Thread-Sleep");
-           t.setDaemon(true);
-           t.start();
+            Thread t = new Thread(() -> {
+                try {
+                    emitPaid();
+                    Thread.sleep(3000);
+                    mc.sceneManager.changeTo(Scenes.LANDING);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            t.setName("Thread-Sleep");
+            t.setDaemon(true);
+            t.start();
         }
         inputAmount.clear();
         updateUI();
     }
-    public void updateUI() {
+
+    private void updateUI() {
         setAmoundDue("£" + due);
         setPaidAmount("£" + paid);
     }
 
-    public void setAmoundDue(String amount) {
+    private void setAmoundDue(String amount) {
         price_due.setText(amount);
         Animator.nodeFade(price_due, true);
     }
 
-    public void setPaidAmount(String amount) {
+    private void setPaidAmount(String amount) {
         price_paid.setText(amount);
         Animator.nodeFade(price_paid, true);
     }
 
-    public void setInfoText(String amount) {
+    private void setInfoText(String amount) {
         infoText.setText(amount);
         Animator.nodeFade(price_due, true);
     }
 
+    private void emitPaid() {
+        Socket socket = mc.getSocket();
+        Object[] params = new Object[]{true, ""+ t.getDuration(), ""+ t.getDate_out(), ""+t.get_id()};
+        socket.emit("ticket-paid", params);
+    }
 
 }
