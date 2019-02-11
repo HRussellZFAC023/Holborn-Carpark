@@ -1,5 +1,5 @@
 const moment = require('moment');
-
+const debug = require('debug')('holborn-car-park-service-app: socket_functions');
 const db = require('../databases/carpark_db_conn');
 const verify = require('../javascripts/verify');
 const queries = require('../databases/queries');
@@ -47,24 +47,19 @@ exports.fetch_ticket_details = function (_id, carpark_id, callback) {
         ticket.date_out = date.toISOString();
         ticket.duration_paying_for = Math.ceil(duration.asHours()).toFixed(0);
         ticket.price = (db_res.rows[0].hour_rate * Math.ceil(duration.asHours())).toFixed(2);
-        console.log("minutes:" + ticket.duration);
-        console.log("rounded hours to half:" + Math.ceil(duration.asHours()));
-        console.log("rounded hours to half:" + Math.ceil(duration.asHours())*60);
-        console.log("hours:" + duration.asHours());
-        const params = [_id, ticket.duration, ticket.date_out];
-        // db.query(queries.sockets.ticket_details_update, params, function (db_err) {
-        //     if (db_err) debug(db_err);
-        // });
+        // console.log("minutes:" + ticket.duration);
+        // console.log("rounded hours to half:" + Math.ceil(duration.asHours()));
+        // console.log("rounded hours to half:" + Math.ceil(duration.asHours())*60);
+        // console.log("hours:" + duration.asHours());
         return callback(200, "Ticket is valid: " + _id, ticket);
 
     });
 };
-
-exports.authorise1 = function (_idCarPark, callback) {
-    verify.ClientAuth(_idCarPark, function (code, desc) {
-        callback(code, desc);
+exports.ticket_paid = function (paid, duration, date_out, _id, carpark_id) {
+    const params = [paid, duration, date_out, _id, carpark_id];
+    db.query(queries.sockets.ticket_details_update, params, function (db_err) {
+        if (db_err) debug(db_err);
     });
-    return _idCarPark;
 };
 
 exports.authorise = function (socket, carparkid_cb) {

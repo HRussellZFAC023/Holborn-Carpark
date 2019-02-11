@@ -18,6 +18,9 @@ module.exports = function (io) {
         socket.on('fetch-carpark-details', function (callback) {
             socket_functions.carpark_details_modified(carpark_id, callback)
         });
+        socket.on('ticket-paid', function (paid, duration, date_out, _id) {
+            socket_functions.ticket_paid(paid, duration, date_out, _id, carpark_id);
+        });
 
     });
 };
