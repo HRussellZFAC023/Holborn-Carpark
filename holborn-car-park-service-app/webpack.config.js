@@ -1,10 +1,10 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: './server/react/index.js',
+  entry: './server/react/manager.js',
   output: {
     path: __dirname + '/public/protected/react',
-    filename: 'index.js'
+    filename: 'manager.js'
   },
   module: {
     rules: [
@@ -27,8 +27,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: "./server/react/index.html",
-      filename: "./index.html"
+      template: "./server/react/manager.html",
+      filename: "./manager.html"
     })
   ]
 };
