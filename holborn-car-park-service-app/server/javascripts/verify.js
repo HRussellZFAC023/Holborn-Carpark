@@ -19,8 +19,8 @@ exports.ClientAuth = function(_carpark_id, callback){
 };
 
 exports.UserAuth = function(req, res, next){
-    if(req.session && req.session.user) {
-        db_auth.query('SELECT * FROM users WHERE username = $1', [req.session.user], function (db_err, db_res) {
+    if(req.session && req.session.username) {
+        db_auth.query('SELECT * FROM users WHERE username = $1', [req.session.username], function (db_err, db_res) {
             if(db_err){
                 debug(db_err);
                 req.session.destroy(function () {

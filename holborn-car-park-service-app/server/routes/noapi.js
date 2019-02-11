@@ -1,5 +1,5 @@
-const express   = require('express');
-const router    = express.Router();
+const Router    = require('express-promise-router');
+const router    = new Router();
 const crypto    = require('crypto');
 const UUID      = require('uuid/v4');
 const debug     = require('debug')('holborn-car-park-service-app: auth');
@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
-    if (req.session && req.session.user) return res.redirect('/manager');
+    if (req.session && req.session.username) return res.redirect('/manager');
     res.sendFile('login.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
@@ -34,39 +34,35 @@ router.get('/logout', function (req, res) {
     });
 });
 
-router.post('/login', function (req, res) {
-    let uname = req.body.username;
-    let passw = req.body.password;
+router.post('/login', async function (req, res) {
+    let db_res;
+    try {
+        db_res = await db.query(query.noapi.login, [req.body.username]);
+    }
+    catch (db_err) {
+        debug(db_err);
+        return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
+    }
 
-    const params = [uname];
+    if (!db_res.rowCount)
+        return res.status(403).json({type: 'user', message: 'No such user.'});
 
-    db.query(query.noapi.login, params, function (db_err, db_res) {
-        if (db_err) {
-            debug(db_err);
-            return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
-        }
+    let hash = crypto.pbkdf2Sync(req.body.password, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512');
+    if (db_res.rows[0].pwd_hash !== hash.toString('hex'))
+        return res.status(403).json({type: 'pwd', message: 'Wrong password.'});
 
-        if (!db_res.rowCount) return res.status(403).json({type: 'user', message: 'No such user.'});
-
-        crypto.pbkdf2(passw, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
-            if (err) debug(err);
-
-            if (db_res.rows[0].pwd_hash.toString('hex') !== hash.toString('hex'))
-                return res.status(403).json({type: 'pwd', message: 'Wrong password.'});
-
-            req.session.user = uname;
-            req.session.save(function () {
-                res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
-            })
-        });
-    });
+    req.session.username    = db_res.rows[0].username;
+    req.session.level       = db_res.rows[0].level;
+    req.session.active      = db_res.rows[0].level;
+    await req.session.save();
+    return res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
 });
 
 router.post('/register', function (req, res) {
     let u_id    = UUID();
     let uname   = req.body.username;
     let email   = req.body.email;
-    let passw   = req.body.password;
+    let pwd   = req.body.password;
     let c_passw = req.body.confirm_password;
 
     if (!uname) {
@@ -81,23 +77,23 @@ router.post('/register', function (req, res) {
         return res.status(406).json({type: 'invalid email', message: 'Email is invalid.'});
     }
 
-    if (!passw) {
+    if (!pwd) {
         return res.status(406).json({type: 'invalid pwd', message: 'Password is invalid.'});
-    } else if (passw.length < 8) {
+    } else if (pwd.length < 8) {
         return res.status(406).json({type: 'short pwd', message: 'Password needs to be at least 8 characters.'});
-    } else if (!validatePwdAllowed(passw)) {
+    } else if (!validatePwdAllowed(pwd)) {
         return res.status(406).json({
             type: 'disallowed pwd',
             message: 'Password not allowed. Allowed symbols are alphanumeric and ' + G.ch_special
         });
-    } else if (!validatePwdComplex(passw)) {
+    } else if (!validatePwdComplex(pwd)) {
         return res.status(406).json({
             type: 'weak pwd',
             message: 'Password too weak. Must include at least 1 number, 1 upper case and 1 special symbol.'
         });
     }
 
-    if(passw !== c_passw){
+    if(pwd !== c_passw){
         return res.status(406).json({type: 'match pwd', message: 'Passwords must match.'});
     }
 
@@ -111,7 +107,7 @@ router.post('/register', function (req, res) {
             return res.status(418).json({type: 'taken name', message: 'Username already taken.'});
 
         let salt = genRandomString();
-        crypto.pbkdf2(passw, salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
+        crypto.pbkdf2(pwd, salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
             if (err) debug(err);
 
             const params = [u_id, uname, email, hash.toString('hex'), salt];
