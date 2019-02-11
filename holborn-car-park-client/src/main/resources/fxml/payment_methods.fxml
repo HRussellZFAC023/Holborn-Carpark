@@ -18,9 +18,9 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="2000.0" minWidth="800.0" prefWidth="1063.9404296875" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="195.08627319335938" minHeight="100.0" prefHeight="102.72382354736328" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="506.7761764526367" minHeight="100.66668701171875" prefHeight="506.7761764526367" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="165.4058837890625" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="250.0" minHeight="100.0" prefHeight="174.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="506.7761764526367" minHeight="100.66668701171875" prefHeight="385.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="240.5" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <GridPane hgap="20.0" GridPane.rowIndex="1">
@@ -48,7 +48,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#cardPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Credit / Debit Card" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1">
+                        <Button contentDisplay="TOP" disable="true" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#cardPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Credit / Debit Card" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1">
                             <graphic>
                                 <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
@@ -63,7 +63,7 @@
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#contactlessPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Contactless" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="2">
+                        <Button contentDisplay="TOP" disable="true" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#contactlessPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Contactless" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="2">
                             <graphic>
                                 <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                     <image>

@@ -2,6 +2,7 @@ package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import uk.co.holborn.carparkclient.Scenes;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,7 @@ public class PaymentMethodsController implements Initializable {
 
     @FXML
     private void cashPayment() {
-
+        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CASH);
     }
 
     @FXML

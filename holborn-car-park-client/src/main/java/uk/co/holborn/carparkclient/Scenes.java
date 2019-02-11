@@ -2,6 +2,7 @@ package uk.co.holborn.carparkclient;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import uk.co.holborn.carparkclient.controllers.PaymentMethodsCashController;
 import uk.co.holborn.carparkclient.controllers.LandingPageController;
 import uk.co.holborn.carparkclient.controllers.PaymentMethodsController;
 import uk.co.holborn.carparkclient.controllers.TicketCheckController;
@@ -103,8 +104,36 @@ public enum Scenes {
         void initialise() {
 
         }
-    };
+    },
+    PAYMENT_METHODS_CASH {
+        PaymentMethodsCashController controller = new PaymentMethodsCashController();
+        AnchorPane root;
 
+        @Override
+        String getFXMLLocation() {
+            return "/fxml/payment_methods_cash.fxml";
+        }
+
+        @Override
+        public Object getController() {
+            return controller;
+        }
+
+        @Override
+        AnchorPane getRootAnchor() {
+            return root;
+        }
+
+        @Override
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
+
+        }
+    };
     /**
      * Abstraction of a method that returns the location
      * of the fxml file within resources folder
