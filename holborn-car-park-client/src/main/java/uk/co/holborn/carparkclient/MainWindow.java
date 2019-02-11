@@ -9,9 +9,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.controllers.MainViewController;
 
-
 /**
- * Creates the main application window
+ * Creates the main application stage/window
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
  */
 public class MainWindow extends Application {
     Logger log;

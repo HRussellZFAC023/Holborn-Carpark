@@ -60,7 +60,8 @@ public class MainViewController implements Initializable {
         globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
-            socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);;
+            socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);
+            ;
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -90,10 +91,9 @@ public class MainViewController implements Initializable {
         socketPreparation();
 
 
-
     }
 
-    private void socketPreparation(){
+    private void socketPreparation() {
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             popup.show("Connected! Authorising...");
@@ -131,6 +131,7 @@ public class MainViewController implements Initializable {
         });
         socket.connect();
     }
+
     public static MainViewController getInstance() {
         return instance;
     }
@@ -158,20 +159,21 @@ public class MainViewController implements Initializable {
     public Socket getSocket() {
         return socket;
     }
-    public void disconnectedUI(boolean enabled){
+
+    public void disconnectedUI(boolean enabled) {
         sceneAnchor.setDisable(enabled);
     }
 
-    public void sessionTimeOut(){
-         sessionStartTime = System.currentTimeMillis();
-         int session_timeout_ms =  GlobalVariables.SESSION_TIMEOUT_S * 1000;
-        int session_timeout_popup_ms =  GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
-        Thread session = new Thread(()->{
-            while(!Thread.currentThread().isInterrupted()){
-                if(sceneManager.getCurrentScene() == Scenes.LANDING){
+    public void sessionTimeOut() {
+        sessionStartTime = System.currentTimeMillis();
+        int session_timeout_ms = GlobalVariables.SESSION_TIMEOUT_S * 1000;
+        int session_timeout_popup_ms = GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
+        Thread session = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                if (sceneManager.getCurrentScene() == Scenes.LANDING) {
                     Thread.currentThread().interrupt();
                 }
-                if((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
+                if ((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
                     popup.show("Session timed out", false);
                     sceneAnchor.setDisable(true);
                     sceneManager.changeTo(Scenes.LANDING);
@@ -189,6 +191,7 @@ public class MainViewController implements Initializable {
         session.setDaemon(true);
         session.start();
     }
+
     /**
      * Update the date and time on screen
      */

@@ -2,8 +2,6 @@ package uk.co.holborn.carparkclient;
 
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import uk.co.holborn.carparkclient.controllers.InfoPopUpController;
@@ -13,18 +11,14 @@ import java.io.IOException;
 import static javafx.scene.layout.AnchorPane.*;
 
 public class InfoPopUp {
-    // private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
     private AnchorPane root;
     private InfoPopUpController infoPopUpController;
     private boolean alreadyOn;
     private boolean debug_mode = false;
-    private double blurrRadius = 20;
-    private EventHandler<ActionEvent> eventHandler;
 
     public InfoPopUp(AnchorPane mainAnchor) {
         this.mainAnchor = mainAnchor;
-        // this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/info_popup.fxml"));

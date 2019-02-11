@@ -12,6 +12,12 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+/**
+ * Animator class implements all the animations used during runtime
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
+ */
 public class Animator {
     public static void nodeFade(Node node, boolean in, double keyFrameTime) {
         double opacityEnd, opacityStart;
@@ -147,7 +153,7 @@ public class Animator {
     }
 
     public static void nodePushOut(Node node) {
-        Timeline timeline  = new Timeline();
+        Timeline timeline = new Timeline();
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);
@@ -193,6 +199,7 @@ public class Animator {
                 new KeyFrame(Duration.seconds(0.3), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_BOTH))
         );
     }
+
     public static void nodePopIn(Node node, double startframe) {
         Timeline timeline = new Timeline();
         node.setOpacity(0);
@@ -212,7 +219,8 @@ public class Animator {
         );
         timeline.play();
     }
-    public static void nodeTranslateY(Node node, double startY, double endY, double startFrame, double endAfter){
+
+    public static void nodeTranslateY(Node node, double startY, double endY, double startFrame, double endAfter) {
         Timeline timeline = new Timeline();
         node.setTranslateY(startY);
         timeline.getKeyFrames().addAll(
@@ -221,7 +229,8 @@ public class Animator {
         );
         timeline.play();
     }
-    public static void nodeOpacityChange(Node node, double startOp, double endOP, double startFrame, double endAfter){
+
+    public static void nodeOpacityChange(Node node, double startOp, double endOP, double startFrame, double endAfter) {
         Timeline timeline = new Timeline();
         node.setOpacity(startOp);
         timeline.getKeyFrames().addAll(
@@ -230,6 +239,7 @@ public class Animator {
         );
         timeline.play();
     }
+
     public static void animation_ticket_check(List<Node> nodes) {
         nodes.get(0).setOpacity(0);
         nodes.get(1).setOpacity(0);
@@ -237,7 +247,7 @@ public class Animator {
         nodes.get(2).setOpacity(0);
         nodePopIn(nodes.get(0), 0.5);
         nodePopIn(nodes.get(1), 0.9);
-        nodeOpacityChange(nodes.get(2),0,1,0.9, 0.4);
-        nodeTranslateY(nodes.get(1),40,0,1.4, 0.9 );
+        nodeOpacityChange(nodes.get(2), 0, 1, 0.9, 0.4);
+        nodeTranslateY(nodes.get(1), 40, 0, 1.4, 0.9);
     }
 }

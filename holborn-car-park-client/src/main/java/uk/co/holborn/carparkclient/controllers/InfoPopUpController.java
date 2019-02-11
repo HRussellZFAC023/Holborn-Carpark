@@ -23,11 +23,12 @@ public class InfoPopUpController implements Initializable {
     public void setText(String message) {
         info.setText(message);
     }
+
     public void setIndicatorVisible(boolean visible) {
-        if(visible) {
-            indicator.setPrefHeight(200);
-            indicator.setPrefWidth(120);
-        }else{
+        if (visible) {
+            indicator.setPrefHeight(110);
+            indicator.setPrefWidth(80);
+        } else {
             indicator.setPrefHeight(0);
             indicator.setPrefWidth(0);
         }

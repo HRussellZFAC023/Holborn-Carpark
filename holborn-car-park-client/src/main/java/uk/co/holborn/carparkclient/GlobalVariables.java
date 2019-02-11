@@ -6,6 +6,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * Class that provides all the global variables used during runtime loaded from a configuration file
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
+ */
 public class GlobalVariables {
     static String APP_NAME = "";
     static String CAR_PARK_NAME = "";
@@ -16,12 +22,12 @@ public class GlobalVariables {
     public static int SESSION_TIMEOUT_S = 300;
     public static int SESSION_TIMEOUT_POPUP_DURATION_S = 3;
     private Logger logger = LogManager.getLogger(getClass().getName());
-
-    //    public static String db_domain = "https://notification-service-test-run.localtunnel.me";
-
     String configName = "config.xml";
     Properties appProp;
 
+    /**
+     * Constructor
+     */
     public GlobalVariables() {
         loadFile();
     }
@@ -29,6 +35,9 @@ public class GlobalVariables {
     private OutputStream output = null;
     private InputStream input = null;
 
+    /**
+     * Loads the variables from the configuration file. If the file doesn't exist, it will be created.
+     */
     private void loadFile() {
         appProp = new Properties();
         try {
@@ -62,8 +71,8 @@ public class GlobalVariables {
             WEBSERVICE_SOCKET = appProp.getProperty("webservice");
             MAIN_WINDOW_NAME = APP_NAME + " - " + CAR_PARK_NAME;
             LANDING_PAGE_WELCOME = "Welcome to " + CAR_PARK_NAME + "!";
-            SESSION_TIMEOUT_S =  Integer.parseInt((appProp.getProperty("session_timeout_seconds")));
-            SESSION_TIMEOUT_POPUP_DURATION_S =  Integer.parseInt((appProp.getProperty("session_timeout_popup_duration")));
+            SESSION_TIMEOUT_S = Integer.parseInt((appProp.getProperty("session_timeout_seconds")));
+            SESSION_TIMEOUT_POPUP_DURATION_S = Integer.parseInt((appProp.getProperty("session_timeout_popup_duration")));
 
         } catch (IOException ex) {
             logger.trace(ex.getStackTrace());

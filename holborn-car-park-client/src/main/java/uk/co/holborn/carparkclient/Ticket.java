@@ -2,6 +2,12 @@ package uk.co.holborn.carparkclient;
 
 import java.util.Date;
 
+/**
+ * Class simulating a ticket object
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
+ */
 public class Ticket {
     private String _id;
     private Date date_in;

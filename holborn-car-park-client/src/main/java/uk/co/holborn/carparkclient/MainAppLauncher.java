@@ -1,7 +1,11 @@
 package uk.co.holborn.carparkclient;
 
 /**
- * Run this to the main application windows
+ * Launches the class that opens the main application
+ * bug: this is a workaround for some javaFX modules bugs
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
  */
 public class MainAppLauncher {
     public static void main(String[] args) {
