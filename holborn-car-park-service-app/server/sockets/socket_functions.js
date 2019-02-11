@@ -30,6 +30,8 @@ exports.fetch_ticket_details = function (_id, carpark_id, callback) {
         }
         if (!db_res.rows[0].valid) {
             return callback(406, "Ticket is invalid: " + _id, null);
+        }if (db_res.rows[0].paid) {
+            return callback(406, "Ticket is already paid! " + _id, null);
         }
         const ticket = {
             _id: db_res.rows[0]._id,
