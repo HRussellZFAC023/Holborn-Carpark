@@ -89,7 +89,7 @@ public class MainViewController implements Initializable {
             disconnectedUI(true);
             socket.emit("authorisation", GlobalVariables.car_park_id, (Ack) objects -> {
                 if (objects[0].equals(200)) {
-                    popup.show("Authorised");
+                    popup.show("Authorised", false);
                     popup.removePopUp();
                     logger.info("Authorised!");
                     LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();

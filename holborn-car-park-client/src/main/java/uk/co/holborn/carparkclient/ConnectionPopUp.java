@@ -13,7 +13,7 @@ import java.io.IOException;
 import static javafx.scene.layout.AnchorPane.*;
 
 public class ConnectionPopUp {
-   // private AnchorPane blurrAnchor;
+    // private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
     private AnchorPane root;
     private ConnectionPopUpController connectionPopUpController;
@@ -24,7 +24,7 @@ public class ConnectionPopUp {
 
     public ConnectionPopUp(AnchorPane mainAnchor) {
         this.mainAnchor = mainAnchor;
-       // this.blurrAnchor = blurrAnchor;
+        // this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/connection_popup.fxml"));
@@ -38,7 +38,12 @@ public class ConnectionPopUp {
         }
 
     }
+
     public void show(String message) {
+        show(message, true);
+    }
+
+    public void show(String message, boolean indicator) {
         if (!debug_mode)
             if (!alreadyOn) {
                 setBottomAnchor(root, 0.0);
@@ -47,15 +52,17 @@ public class ConnectionPopUp {
                 setTopAnchor(root, 0.0);
                 Platform.runLater(() -> {
                     connectionPopUpController.setText(message);
+                    connectionPopUpController.setIndicatorVisible(indicator);
                     mainAnchor.getChildren().add(root);
                     Timeline t = new Timeline();
-                    Animator.nodeThrowIn_Keyframes(root,t);
+                    Animator.nodeThrowIn_Keyframes(root, t);
                     t.play();
                 });
                 alreadyOn = true;
             } else {
                 Platform.runLater(() -> {
                     connectionPopUpController.setText(message);
+                    connectionPopUpController.setIndicatorVisible(indicator);
                 });
             }
 
@@ -67,8 +74,8 @@ public class ConnectionPopUp {
             if (alreadyOn) {
                 Platform.runLater(() -> {
                     Timeline t = new Timeline();
-                    Animator.nodeBringOut_KeyFrames(root,t);
-                    t.setOnFinished(ev->{
+                    Animator.nodeBringOut_KeyFrames(root, t);
+                    t.setOnFinished(ev -> {
                         mainAnchor.getChildren().remove(root);
                         alreadyOn = false;
                     });
