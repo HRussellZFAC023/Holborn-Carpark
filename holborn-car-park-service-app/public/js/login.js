@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    $('#fld_username').val(getCookie("username"));
+
     $('#fld_password').on('keypress',function(e) {
         if (e.which === 13) {
             validate();
@@ -19,6 +21,12 @@ function validate() {
             password: $('#fld_password').val()
         },
         success: function (res, status, xhr) {
+            if(!getCookie("username")) {
+                if ($("#remember_me").prop("checked") === true) {
+                    setCookie("username", $('#fld_username').val(), 365);
+                }
+            }
+
             if(res && res.redirect) {
                 window.location.replace(window.location.protocol + '//' + window.location.host + res.redirect);
             }
@@ -72,4 +80,28 @@ function removeErrors(){
     else if($('#internal_error').length) {
         $('#internal_error').remove();
     }
+}
+
+function setCookie(cname, cvalue, exdays) {
+    let d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
 }
