@@ -9,10 +9,7 @@ class NavBar extends Component {
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a className="navbar-item brand-text has-text-white" href="">
-            <span className="icon"> <i className="fa fa-home"/> </span> &nbsp;
-            {/*img url needs to be changed!*/}
-            {/*<img src="../../resources/img/logo.png"*/}
-                 {/*alt="logo" width="112" height="28"/>*/}
+            <h1>HOLBORN</h1>
           </a>
         </div>
 

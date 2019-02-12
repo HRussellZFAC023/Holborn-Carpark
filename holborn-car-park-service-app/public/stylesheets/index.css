@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "Avenir Light";
+  src: url("avenir-light.ttf");
+  src: url("../resources/fonts/avenir-light.ttf");
+}
+
+html, body{
+  background-color: #f7f7f7;
+  font: 30em "Avenir Light";
+}
