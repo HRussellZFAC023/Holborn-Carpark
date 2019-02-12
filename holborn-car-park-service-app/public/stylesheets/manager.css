@@ -1,3 +1,6 @@
-i {
-  margin-right: 10px;
+html, body{
+  background-color: #f7f7f7;
+}
+.navbar{
+  background:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
 }
