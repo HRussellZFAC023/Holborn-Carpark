@@ -10,20 +10,23 @@ $(document).ready(function () {
 
 function validate() {
     removeErrors();
+    let username = $('#fld_username').val();
 
     $.ajax({
         url: '/register',
         type: 'POST',
         data: {
-            username: $('#fld_username').val(),
+            username: username,
             email: $('#fld_email').val(),
             password: $('#fld_password').val(),
             confirm_password: $('#fld_pwd_confirm').val()
         },
         success: function (res, status, xhr) {
+            let cookie_username = getCookie("username");
+
             if ($("#remember_me").prop("checked") === true) {
-                if(!getCookie("username") || getCookie("username") !== $('#fld_username').val()) {
-                    setCookie("username", $('#fld_username').val(), 365);
+                if(!cookie_username || cookie_username !== username) {
+                    setCookie("username", username, 365);
                 }
             }
 
