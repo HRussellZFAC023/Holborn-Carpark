@@ -36,7 +36,7 @@ const cl_sessions_opt = {
     saveUninitialized: false,
     cookie: {
         httpOnly: true,                 //this actually sets if cookie is accessible through JS
-        maxAge: 5 * 60 * 1000
+        maxAge: 555 * 60 * 1000
     },
     store: new pgSession({
         pool : db,                      // Connection pool

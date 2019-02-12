@@ -58,77 +58,82 @@ router.post('/login', async function (req, res) {
     return res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
 });
 
-router.post('/register', function (req, res) {
-    let u_id    = UUID();
-    let uname   = req.body.username;
-    let email   = req.body.email;
-    let pwd   = req.body.password;
-    let c_passw = req.body.confirm_password;
-
-    if (!uname) {
+router.post('/register', async function (req, res) {
+    if (!req.body.username) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
-    } else if (uname.includes(' ')) {
+    }
+    else if (req.body.username.includes(' ')) {
         return res.status(406).json({type: 'space in name', message: 'Username cannot contain a space.'});
-    } else if (uname.length > 8) {
+    }
+    else if (req.body.username.length > 8) {
         return res.status(406).json({type: 'long name', message: 'Username is too long.'});
     }
+    let db_res;
+    try {
+        db_res = await db.query(query.noapi.check_name, [req.body.username]);
+    }
+    catch(db_err){
+        debug(db_err);
+        return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
+    }
+    if (db_res.rowCount) {
+        return res.status(418).json({type: 'taken name', message: 'Username already taken. Teapot!'});
+    }
 
-    if(!email || !validateEmail(email)){
+    if(!req.body.email || !validEmail(req.body.email)){
         return res.status(406).json({type: 'invalid email', message: 'Email is invalid.'});
     }
 
-    if (!pwd) {
+
+    if (!req.body.password) {
         return res.status(406).json({type: 'invalid pwd', message: 'Password is invalid.'});
-    } else if (pwd.length < 8) {
+    }
+    else if (req.body.password.length < 8) {
         return res.status(406).json({type: 'short pwd', message: 'Password needs to be at least 8 characters.'});
-    } else if (!validatePwdAllowed(pwd)) {
+    }
+    else if (!pwdAllowed(req.body.password)) {
         return res.status(406).json({
             type: 'disallowed pwd',
             message: 'Password not allowed. Allowed symbols are alphanumeric and ' + G.ch_special
         });
-    } else if (!validatePwdComplex(pwd)) {
+    }
+    else if (!pwdComplex(req.body.password)) {
         return res.status(406).json({
             type: 'weak pwd',
             message: 'Password too weak. Must include at least 1 number, 1 upper case and 1 special symbol.'
         });
     }
 
-    if(pwd !== c_passw){
+    if(req.body.password !== req.body.confirm_password){
         return res.status(406).json({type: 'match pwd', message: 'Passwords must match.'});
     }
 
-    db.query(query.noapi.check_name, [uname], function (db_err, db_res) {
-        if (db_err) {
-            debug(db_err);
-            return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
-        }
 
-        if (db_res.rowCount !== 0)
-            return res.status(418).json({type: 'taken name', message: 'Username already taken.'});
+    let salt = genRandomString();
+    let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');
 
-        let salt = genRandomString();
-        crypto.pbkdf2(pwd, salt, G.hash_iterations, 64, 'sha512', function (err, hash) {
-            if (err) debug(err);
+    try{
+        await db.query(query.noapi.register, [UUID(), req.body.username, req.body.email, hash.toString('hex'), salt])
+    }
+    catch (db_err) {
+        debug(db_err);
+        return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
+    }
 
-            const params = [u_id, uname, email, hash.toString('hex'), salt];
-
-            db.query(query.noapi.register, params, function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
-                }
-
-                res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
-            });
-        });
-    });
+    return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
 });
 
-const genRandomString = function (length = 16) {
-    return crypto.randomBytes(128).toString('hex').slice(0, length);
-};
+async function isRegisteringNameValid(name){
 
-const validatePwdAllowed = function (pwd) {
+
+    return true;
+}
+
+function genRandomString (length = 16) {
+    return crypto.randomBytes(128).toString('hex').slice(0, length);
+}
+
+function pwdAllowed (pwd) {
     let allowed = G.ch_lower + G.ch_upper + G.ch_num + G.ch_special;
 
     for (let i = 0; i < pwd.length; ++i) {
@@ -136,9 +141,9 @@ const validatePwdAllowed = function (pwd) {
     }
 
     return true;
-};
+}
 
-const validatePwdComplex = function (pwd) {
+function pwdComplex (pwd) {
     let n_flag = false;
     let u_flag = false;
     let s_flag = false;
@@ -163,10 +168,10 @@ const validatePwdComplex = function (pwd) {
     }
 
     return n_flag && u_flag && s_flag;
-};
+}
 
-const validateEmail = function(email){
-    return email.includes('@') && email.includes('.') && email.lastIndexOf('.') > email.lastIndexOf('@');
-};
+function validEmail (em){
+    return em.includes('@') && em.includes('.') && em.lastIndexOf('.') > em.lastIndexOf('@');
+}
 
 module.exports = router;
