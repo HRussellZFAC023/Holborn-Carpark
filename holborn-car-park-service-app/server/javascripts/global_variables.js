@@ -6,4 +6,5 @@ module.exports = {
     ch_lower:           'abcdefghijklmnopqrstuvwxyz',
     ch_upper:           'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     ch_special:         '~!@#$%^&*()_+[]{}|<>?,.`',
+    ch_disallowed:      '\\|/\' ',
 };

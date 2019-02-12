@@ -62,8 +62,8 @@ router.post('/register', async function (req, res) {
     if (!req.body.username) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
     }
-    else if (req.body.username.includes(' ')) {
-        return res.status(406).json({type: 'space in name', message: 'Username cannot contain a space.'});
+    else if (!nameAllowed(req.body.username)) {
+        return res.status(406).json({type: 'space in name', message: 'Username cannot contain ' + G.ch_special + G.ch_disallowed + '.'});
     }
     else if (req.body.username.length > 8) {
         return res.status(406).json({type: 'long name', message: 'Username is too long.'});
@@ -123,14 +123,18 @@ router.post('/register', async function (req, res) {
     return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
 });
 
-async function isRegisteringNameValid(name){
-
-
-    return true;
-}
-
 function genRandomString (length = 16) {
     return crypto.randomBytes(128).toString('hex').slice(0, length);
+}
+
+function nameAllowed (name) {
+    let disallowed = G.ch_special + G.ch_disallowed;
+
+    for (let i = 0; i < name.length; ++i) {
+        if (disallowed.includes(name[i])) return false;
+    }
+
+    return true;
 }
 
 function pwdAllowed (pwd) {
