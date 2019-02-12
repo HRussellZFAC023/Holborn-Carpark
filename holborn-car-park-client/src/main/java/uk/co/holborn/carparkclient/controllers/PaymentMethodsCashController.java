@@ -62,12 +62,12 @@ public class PaymentMethodsCashController implements Initializable {
         }
         due -= amount;
         paid += amount;
-        if (due < 0.0 && change == 0.0) {
-            change = -due;
+        if (due <= 0.0 && change == 0.0) {
+            change = Math.abs(due);
             due = 0.0;
             inputAmount.setDisable(true);
             backButton.setVisible(false);
-            setInfoText("Please take your change of £" + change);
+            if( change <0) setInfoText("Please take your change of £" + change);
             Thread t = new Thread(() -> {
                 try {
                     emitPaid();
