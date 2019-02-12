@@ -31,8 +31,9 @@ router.get('/register', function (req, res) {
 });
 
 router.get('/manager', verify.UserAuth, function (req, res) {
-    res.sendFile('manager.html', {root: path.join('public', 'protected', 'HTML')});
+    res.sendFile('manager.html', {root: path.join('public', 'protected', 'react')});
 });
+
 
 router.get('/logout', function (req, res) {
     req.session.destroy(function () {

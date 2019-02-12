@@ -1,10 +1,17 @@
 @font-face {
-  font-family: "Avenir Light";
-  src: url("avenir-light.ttf");
-  src: url("../resources/fonts/avenir-light.ttf");
+  font-family: 'Avenir LT Std 35 Light';
+  font-style: normal;
+  font-weight: normal;
+  /*src: local('Avenir LT Std 35 Light'), url('../resources/fonts/AvenirLTStd-Light.woff') format('woff');*/
+  src: local('Avenir LT Std 35 Light'), url('fonts/AvenirLTStd-Light.woff') format('woff');
+
 }
 
-html, body{
+html, body {
   background-color: #f7f7f7;
-  font: 30em "Avenir Light";
+  font-family: 'Avenir LT Std 35 Light', fallback, serif;
+  font-weight: normal;
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
 }

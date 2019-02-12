@@ -1,4 +1,15 @@
+i {
+  padding-left: 5px;
+  padding-right: 5px;
+}
 
 .navbar{
   background:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+}
+
+.dropdown-content {
+  background-color: #f1f1f1;
+  max-width: 80px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
 }
