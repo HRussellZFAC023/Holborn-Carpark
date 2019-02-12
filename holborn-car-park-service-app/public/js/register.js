@@ -21,8 +21,8 @@ function validate() {
             confirm_password: $('#fld_pwd_confirm').val()
         },
         success: function (res, status, xhr) {
-            if(!getCookie("username")) {
-                if ($("#remember_me").prop("checked") === true) {
+            if ($("#remember_me").prop("checked") === true) {
+                if(!getCookie("username") || getCookie("username") !== $('#fld_username').val()) {
                     setCookie("username", $('#fld_username').val(), 365);
                 }
             }
