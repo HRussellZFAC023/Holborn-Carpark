@@ -1,8 +1,10 @@
-const moment = require('moment');
-const debug = require('debug')('holborn-car-park-service-app: socket_functions');
-const db = require('../databases/carpark_db_conn');
-const verify = require('../javascripts/verify');
-const queries = require('../databases/queries');
+const moment    = require('moment');
+const debug     = require('debug')('holborn-car-park-service-app: socket_functions');
+
+const db        = require('../databases/carpark_db_conn');
+const verify    = require('../javascripts/verify');
+const queries   = require('../databases/queries');
+
 
 exports.carpark_details_modified = function (_id, callback) {
     db.query(queries.sockets.ticket_valid_count, [_id], function (db_err, db_res_t) {
