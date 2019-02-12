@@ -6,7 +6,7 @@ const socket_functions  = require('./socket_functions');
 module.exports = function (io) {
     io.on('connection', function (socket) {
         let carpark_id = null;
-        debug('Socket connected: ' + socket.handshake.address);
+        debug('Socket connected: ' + socket.handshake.address.substring(socket.handshake.address.lastIndexOf(':') + 1));
         socket_functions.authorise(socket, function (carparkid) {
             carpark_id = carparkid;
             socket.join(carpark_id);
