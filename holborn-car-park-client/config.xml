@@ -4,7 +4,7 @@
     <entry key="app_name">Holborn Car Park System</entry>
     <entry key="car_park_id">110ec58a-a0f2-4ac4-8393-c866d813b8d1</entry>
     <entry key="car_park_name">Egham Car Park</entry>
-    <entry key="webservice">http://localhost:80</entry>
+    <entry key="webservice">http://10.2.73.239:80</entry>
     <entry key="finish_screen_delay">5000</entry>
     <entry key="session_timeout_seconds">180</entry>
     <entry key="session_timeout_popup_duration">3</entry>
