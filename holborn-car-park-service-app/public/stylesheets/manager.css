@@ -3,13 +3,25 @@ i {
   padding-right: 5px;
 }
 
-.navbar{
-  background:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+.gradient {
+  background: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
 }
 
 .dropdown-content {
   background-color: #f1f1f1;
   max-width: 80px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+}
+
+.grow-img {
+  max-width: 25%;
+  max-height: 25%;
+}
+
+.sidebar {
+  box-shadow: 2px 0 4px #888888;
+}
+.columns {
+  margin: 0 0 .75rem;
 }
