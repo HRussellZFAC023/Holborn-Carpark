@@ -12,141 +12,161 @@ const verify            = require('../../javascripts/verify');
 
 module.exports = function (io) {
     //Get all tickets
-    router.get('/', verify.UserAuth, function (req, res) {
-        db.query(query.api.tickets.get_all, function (db_err, db_res) {
-            if (db_err) {
-                debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
-            }
+    router.get('/', verify.UserAuth, async function (req, res) {
+        let db_res;
+        try{
+            db_res = await db.query(query.api.tickets.get_all);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
 
-            res.status(200).send(db_res.rows);
-        });
+        res.status(200).send(db_res.rows);
     });
 
     //Delete all tickets
-    router.delete('/', verify.UserAuth, function (req, res) {
-        db.query(query.api.tickets.delete_all, function (db_err, db_res) {
-            if (db_err) {
-                debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
-            }
+    router.delete('/', verify.UserAuth, async function (req, res) {
+        try{
+            await db.query(query.api.tickets.delete_all);
+        }
+        catch(db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
 
-            socket_functions.emit_update(io);
-            res.status(200).send('All tickets deleted');
-        });
+        socket_functions.emit_update(io);
+        res.status(200).send('All tickets deleted');
     });
 
     //Gets a specific ticket
-    router.get('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
+    router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 
-        db.query(query.api.tickets.get_one, params, function (db_err, db_res) {
-            if (db_err) {
-                debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
-            }
+        let db_res;
+        try{
+            db_res = await db.query(query.api.tickets.get_one, params);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
 
-            res.status(200).send(db_res.rows[0]);
-        });
+        res.status(200).send(db_res.rows[0]);
     });
 
     //Create a ticket (attached to a carpark id)
-    router.post('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
+    router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = UUID();
         let c_id = req.path.replace(/\//g, '');
         const params = [t_id, Date.now(), false, true, c_id];
 
-        db.query(query.api.tickets.create, params, function (db_err, db_res) {
-            if (db_err) {
-                debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
-            }
-            socket_functions.emit_update(io, c_id);
-            res.status(200).send('Success! Ticket with id  ' + t_id + '  created at car park ' + c_id);
-        });
+        try{
+            await db.query(query.api.tickets.create, params);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+
+        socket_functions.emit_update(io, c_id);
+        res.status(200).send('Success! Ticket with id  ' + t_id + '  created at car park ' + c_id);
     });
 
     //Update a ticket
-    router.put('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
+    router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
         if (typeof req.body.date_out !== 'undefined') {
-            db.query(query.api.tickets.update.date_out, [t_id, Date.now()], function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).send('Error on the server:' + db_err);
-                }
-
-                res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
-            });
-        } else if (typeof req.body.paid !== 'undefined') {
-            db.query(query.api.tickets.update.paid, [t_id, req.body.paid], function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).send('Error on the server:' + db_err);
-                }
-
-                res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
-            });
-        } else if (typeof req.body.valid !== 'undefined') {
-            db.query(query.api.tickets.update.paid, [t_id, req.body.valid], function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).send('Error on the server:' + db_err);
-                }
-
-                res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
-            });
-        } else if (typeof req.body.duration !== 'undefined') {
-            db.query(query.api.carparks.update.duration, [c_id, req.body.duration], function (db_err, db_res) {
-                if (db_err) {
-                    debug(db_err);
-                    return res.status(500).send('Error on the server:' + db_err);
-                }
-
-                res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
-            });
-        } else {
-            res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
-        }
-    });
-
-    //Delete a ticket
-    router.delete('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
-        let t_id = req.path.replace(/\//g, '');
-        const params = [t_id];
-
-        db.query(query.api.tickets.delete_one, params, function (db_err, db_res) {
-            if (db_err) {
+            try{
+                await db.query(query.api.tickets.update.date_out, [t_id, Date.now()]);
+            }
+            catch (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-            socket_functions.emit_update(io);
-            res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
-        });
+
+            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
+        }
+
+        if (typeof req.body.paid !== 'undefined') {
+            try{
+                await db.query(query.api.tickets.update.paid, [t_id, req.body.paid]);
+            }
+            catch(db_err) {
+                debug(db_err);
+                return res.status(500).send('Error on the server:' + db_err);
+            }
+
+            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
+        }
+
+        if (typeof req.body.valid !== 'undefined') {
+            try{
+                await db.query(query.api.tickets.update.paid, [t_id, req.body.valid]);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).send('Error on the server:' + db_err);
+            }
+
+            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
+        }
+
+        if (typeof req.body.duration !== 'undefined') {
+            try{
+                await db.query(query.api.carparks.update.duration, [t_id, req.body.duration]);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).send('Error on the server:' + db_err);
+            }
+
+            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
+        }
+
+        return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
+    });
+
+    //Delete a ticket
+    router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+        let t_id = req.path.replace(/\//g, '');
+        const params = [t_id];
+
+        try{
+            await db.query(query.api.tickets.delete_one, params);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+
+        socket_functions.emit_update(io);
+        res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
     });
 
 
     //Validates the ticket. After validation, the ticket can't be used anymore
-    router.post('/validate', verify.UserAuth, function (req, res) {
+    router.post('/validate', verify.UserAuth, async function (req, res) {
         let t_id = req.body._id;
         let c_id = req.body._carpark_id; //provided by the carpark requesting validation
         const params = [t_id];
 
+        let db_res;
+        try{
+            db_res = await db.query(query.api.tickets.validate, params);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+        if (db_res.rows[0]._carpark_id !== c_id) return res.status(406).send('Ticket does\'t belong to the carpark');
+        if (db_res.rows[0].valid !== true) return res.status(406).send('Ticket is invalid');
+        if (db_res.rows[0].paid !== true) return res.status(403).send('Ticket is unpaid');
 
-        db.query(query.api.tickets.validate, params, function (db_err, db_res) {
-            if (db_err) {
-                debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
-            }
-            if (db_res.rows[0]._carpark_id !== c_id) return res.status(406).send('Ticket does\'t belong to the carpark');
-            if (db_res.rows[0].valid !== true) return res.status(406).send('Ticket is invalid');
-            if (db_res.rows[0].paid !== true) return res.status(403).send('Ticket is unpaid');
-
-            socket_functions.emit_update(io, c_id);
-            res.status(200).send("Ticket valid. You can pass!");
-        });
+        socket_functions.emit_update(io, c_id);
+        res.status(200).send("Ticket valid. You can pass!");
     });
 
     return router;
