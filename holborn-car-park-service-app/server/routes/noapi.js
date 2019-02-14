@@ -9,6 +9,7 @@ const query     = require('../databases/queries');
 const db        = require('../databases/auth_db_conn');
 const G         = require('../javascripts/global');
 const verify    = require('../javascripts/verify');
+const util      = require('../javascripts/utils');
 
 
 router.get('/', function (req, res) {
@@ -107,7 +108,7 @@ router.post('/register', async function (req, res) {
         return res.status(406).json({type: 'match pwd', message: 'Passwords must match.'});
     }
 
-    let salt = G.genRandomString();
+    let salt = util.genRandomString();
     let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');
 
     try{

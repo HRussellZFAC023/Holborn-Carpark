@@ -9,6 +9,7 @@ const G      = require('../../javascripts/global');
 const db     = require('../../databases/auth_db_conn');
 const query  = require('../../databases/queries');
 const verify = require('../../javascripts/verify');
+const util      = require('../javascripts/utils');
 
 router.get('/', verify.UserAuth, async function (req, res) {
     let db_res;
@@ -39,7 +40,7 @@ router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 
 router.post('/', verify.UserAuth, async function (req, res) {
     let u_id = UUID();
-    let salt = G.genRandomString();
+    let salt = util.genRandomString();
     let hash = crypto.pbkdf2Sync(G.default_pwd, salt, G.hash_iterations, 64, 'sha512');
 
     let params = [u_id, req.body.username, req.body.email, hash.toString('hex'), salt, req.body.level, req.body.carparks, true];
