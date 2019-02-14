@@ -65,6 +65,14 @@ module.exports.passwordR = function (res, password, confirm_pwd) {
     return true;
 };
 
+module.exports.levelR = function (res, level){
+    if(level !== 0 && level !== 1 && level !== 2){
+        return res.status(406).json({type: 'invalid level', message: 'Level ' + level + ' does not exist. (0, 1, 2 are valid)'});
+    }
+
+    return true;
+};
+
 function pwdComplex (pwd) {
     return pwd.includesAnyOf(G.ch_num) && pwd.includesAnyOf(G.ch_upper) && pwd.includesAnyOf(G.ch_special);
 }

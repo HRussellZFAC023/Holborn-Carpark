@@ -40,9 +40,10 @@ router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     return res.status(200).send(db_res.rows[0]);
 });
 
-router.post('/', verify.UserAuth, async function (req, res) {
+router.post('/', async function (req, res) {
     if(await validate.usernameR(res, req.body.username) !== true) return;
     if(validate.emailR(res, req.body.email) !== true) return;
+    if(validate.levelR(res, parseInt(req.body.level)) !== true) return;
 
     let u_id = UUID();
     let salt = util.genRandomString();
