@@ -90,7 +90,7 @@ router.post('/register', async function (req, res) {
     else if (req.body.password.length < 8) {
         return res.status(406).json({type: 'short pwd', message: 'Password needs to be at least 8 characters.'});
     }
-    else if (req.body.password.includesAnyOf(G.ch_lower + G.ch_upper + G.ch_num + G.ch_special)) {
+    else if (!req.body.password.includesOnly(G.ch_lower + G.ch_upper + G.ch_num + G.ch_special)) {
         return res.status(406).json({
             type: 'disallowed pwd',
             message: 'Password not allowed. Allowed symbols are alphanumeric and ' + G.ch_special

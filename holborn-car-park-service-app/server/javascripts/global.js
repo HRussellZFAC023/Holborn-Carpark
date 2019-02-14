@@ -25,3 +25,10 @@ String.prototype.includesAnyOf = function (symbs) {
     return false;
 };
 
+String.prototype.includesOnly = function (symbs) {
+    for (let i = 0; i < this.length; ++i) {
+        if (!symbs.includes(this[i])) return false;
+    }
+
+    return true;
+};
