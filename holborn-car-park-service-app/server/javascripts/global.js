@@ -16,3 +16,12 @@ module.exports = {
 module.exports.genRandomString = function (length = 16) {
     return crypto.randomBytes(128).toString('hex').slice(0, length);
 };
+
+String.prototype.includesAnyOf = function (symbs) {
+    for (let i = 0; i < this.length; ++i) {
+        if (symbs.includes(this[i])) return true;
+    }
+
+    return false;
+};
+

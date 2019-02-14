@@ -62,7 +62,7 @@ router.post('/register', async function (req, res) {
     if (!req.body.username) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
     }
-    else if (!nameAllowed(req.body.username)) {
+    else if (req.body.username.includesAnyOf(G.ch_special + G.ch_disallowed)) {
         return res.status(406).json({type: 'space in name', message: 'Username cannot contain ' + G.ch_special + G.ch_disallowed + '.'});
     }
     else if (req.body.username.length > 8) {
@@ -90,7 +90,7 @@ router.post('/register', async function (req, res) {
     else if (req.body.password.length < 8) {
         return res.status(406).json({type: 'short pwd', message: 'Password needs to be at least 8 characters.'});
     }
-    else if (!pwdAllowed(req.body.password)) {
+    else if (req.body.password.includesAnyOf(G.ch_lower + G.ch_upper + G.ch_num + G.ch_special)) {
         return res.status(406).json({
             type: 'disallowed pwd',
             message: 'Password not allowed. Allowed symbols are alphanumeric and ' + G.ch_special
@@ -121,51 +121,8 @@ router.post('/register', async function (req, res) {
     return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
 });
 
-function nameAllowed (name) {
-    let disallowed = G.ch_special + G.ch_disallowed;
-
-    for (let i = 0; i < name.length; ++i) {
-        if (disallowed.includes(name[i])) return false;
-    }
-
-    return true;
-}
-
-function pwdAllowed (pwd) {
-    let allowed = G.ch_lower + G.ch_upper + G.ch_num + G.ch_special;
-
-    for (let i = 0; i < pwd.length; ++i) {
-        if (!allowed.includes(pwd[i])) return false;
-    }
-
-    return true;
-}
-
 function pwdComplex (pwd) {
-    let n_flag = false;
-    let u_flag = false;
-    let s_flag = false;
-
-    for (let i = 0; i < G.ch_num.length; ++i) {
-        if (pwd.includes(G.ch_num[i])) {
-            n_flag = true;
-            break;
-        }
-    }
-    for (let i = 0; i < G.ch_upper.length; ++i) {
-        if (pwd.includes(G.ch_upper[i])) {
-            u_flag = true;
-            break;
-        }
-    }
-    for (let i = 0; i < G.ch_special.length; ++i) {
-        if (pwd.includes(G.ch_special[i])) {
-            s_flag = true;
-            break;
-        }
-    }
-
-    return n_flag && u_flag && s_flag;
+    return pwd.includesAnyOf(G.ch_num) && pwd.includesAnyOf(G.ch_upper) && pwd.includesAnyOf(G.ch_special);
 }
 
 function validEmail (em){
