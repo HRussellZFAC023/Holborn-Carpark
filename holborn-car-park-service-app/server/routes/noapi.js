@@ -63,9 +63,9 @@ router.post('/login', async function (req, res) {
 router.post('/register', registerUser);
 
 async function registerUser(req, res) {
-    if(await validate.username(res, req.body.username) !== true) return;
-    if(await validate.email(res, req.body.email) !== true) return;
-    if(await validate.password(res, req.body.password, req.body.confirm_password) !== true) return;
+    if(await validate.usernameR(res, req.body.username) !== true) return;
+    if(validate.emailR(res, req.body.email) !== true) return;
+    if(validate.passwordR(res, req.body.password, req.body.confirm_password) !== true) return;
 
     let salt = util.genRandomString();
     let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');

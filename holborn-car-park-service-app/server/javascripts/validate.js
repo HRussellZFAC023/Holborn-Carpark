@@ -1,11 +1,11 @@
-module.exports.username = async function (res, name) {
+module.exports.usernameR = async function (res, name) {
     if (!name) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
     }
     else if (name.includesAnyOf(G.ch_special + G.ch_disallowed)) {
         return res.status(406).json({type: 'space in name', message: 'Username cannot contain ' + G.ch_special + G.ch_disallowed + '.'});
     }
-    else if (req.body.username.length > 8) {
+    else if (name.length > 8) {
         return res.status(406).json({type: 'long name', message: 'Username is too long.'});
     }
     let db_res;
@@ -23,7 +23,7 @@ module.exports.username = async function (res, name) {
     return true;
 };
 
-module.exports.email = function (res, email) {
+module.exports.emailR = function (res, email) {
     if(!email || !validEmail(email)){
         return res.status(406).json({type: 'invalid email', message: 'Email is invalid.'});
     }
@@ -31,7 +31,7 @@ module.exports.email = function (res, email) {
     return true;
 };
 
-module.exports.password = function (res, password, confirm_pwd) {
+module.exports.passwordR = function (res, password, confirm_pwd) {
     if (!password) {
         return res.status(406).json({type: 'invalid pwd', message: 'Password is invalid.'});
     }
