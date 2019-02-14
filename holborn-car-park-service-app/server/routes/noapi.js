@@ -84,7 +84,6 @@ router.post('/register', async function (req, res) {
         return res.status(406).json({type: 'invalid email', message: 'Email is invalid.'});
     }
 
-
     if (!req.body.password) {
         return res.status(406).json({type: 'invalid pwd', message: 'Password is invalid.'});
     }
@@ -107,7 +106,6 @@ router.post('/register', async function (req, res) {
     if(req.body.password !== req.body.confirm_password){
         return res.status(406).json({type: 'match pwd', message: 'Passwords must match.'});
     }
-
 
     let salt = G.genRandomString();
     let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');

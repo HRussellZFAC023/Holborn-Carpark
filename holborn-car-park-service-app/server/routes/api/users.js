@@ -37,7 +37,7 @@ router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     return res.status(200).send(db_res.rows[0]);
 });
 
-router.post('/', async function (req, res) {
+router.post('/', verify.UserAuth, async function (req, res) {
     let u_id = UUID();
     let salt = G.genRandomString();
     let hash = crypto.pbkdf2Sync(G.default_pwd, salt, G.hash_iterations, 64, 'sha512');
