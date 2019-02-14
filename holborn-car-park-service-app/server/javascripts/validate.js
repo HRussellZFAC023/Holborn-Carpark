@@ -1,3 +1,10 @@
+const debug   = require('debug')('holborn-car-park-service-app: DB');
+
+const G        = require('../javascripts/global');
+const db       = require('../databases/auth_db_conn');
+const query    = require('../databases/queries');
+
+
 module.exports.usernameR = async function (res, name) {
     if (!name) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
