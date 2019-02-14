@@ -1,3 +1,5 @@
+const crypto    = require('crypto');
+
 module.exports = {
     env:                'dev',
     hash_iterations:    1000,
@@ -7,4 +9,10 @@ module.exports = {
     ch_upper:           'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
     ch_special:         '~!@#$%^&*()_+[]{}|<>?,.`',
     ch_disallowed:      '\\|/\' ',
+    uuid_regex:         '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}',
+    default_pwd:        'holborn'
+};
+
+module.exports.genRandomString = function (length = 16) {
+    return crypto.randomBytes(128).toString('hex').slice(0, length);
 };

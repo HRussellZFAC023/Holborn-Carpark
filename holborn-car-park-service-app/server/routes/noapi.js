@@ -7,7 +7,7 @@ const path      = require('path');
 
 const query     = require('../databases/queries');
 const db        = require('../databases/auth_db_conn');
-const G         = require('../javascripts/global_variables');
+const G         = require('../javascripts/global');
 const verify    = require('../javascripts/verify');
 
 
@@ -52,8 +52,8 @@ router.post('/login', async function (req, res) {
         return res.status(403).json({type: 'pwd', message: 'Wrong password.'});
 
     req.session.username    = db_res.rows[0].username;
-    req.session.level       = db_res.rows[0].level;
-    req.session.active      = db_res.rows[0].level;
+    req.session.level       = db_res.rows[0].manager_level;
+    req.session.active      = db_res.rows[0].active;
     await req.session.save();
     return res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
 });
@@ -109,7 +109,7 @@ router.post('/register', async function (req, res) {
     }
 
 
-    let salt = genRandomString();
+    let salt = G.genRandomString();
     let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');
 
     try{
@@ -122,10 +122,6 @@ router.post('/register', async function (req, res) {
 
     return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
 });
-
-function genRandomString (length = 16) {
-    return crypto.randomBytes(128).toString('hex').slice(0, length);
-}
 
 function nameAllowed (name) {
     let disallowed = G.ch_special + G.ch_disallowed;

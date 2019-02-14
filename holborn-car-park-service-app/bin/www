@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const app    = require('../app');
 const debug  = require('debug')('holborn-car-park-service-app: server');
-const G      = require('../server/javascripts/global_variables');
+const G      = require('../server/javascripts/global');
 
 
 let server = null;

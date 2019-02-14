@@ -2,15 +2,13 @@ const express           = require('express');
 const router            = express.Router();
 const debug             = require('debug')('holborn-car-park-service-app: DB');
 const UUID              = require('uuid/v4');
+const G                 = require('../../javascripts/global');
 
 const db                = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
 const verify            = require('../../javascripts/verify');
 
-
-
-const uuid_regex        = '[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab][0-9A-Za-z]{3}-[0-9A-Za-z]{12}';
 
 module.exports = function (io) {
     //Get all tickets
@@ -39,7 +37,7 @@ module.exports = function (io) {
     });
 
     //Gets a specific ticket
-    router.get('/' + uuid_regex, verify.UserAuth, function (req, res) {
+    router.get('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 
@@ -54,7 +52,7 @@ module.exports = function (io) {
     });
 
     //Create a ticket (attached to a carpark id)
-    router.post('/' + uuid_regex, verify.UserAuth, function (req, res) {
+    router.post('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = UUID();
         let c_id = req.path.replace(/\//g, '');
         const params = [t_id, Date.now(), false, true, c_id];
@@ -70,7 +68,7 @@ module.exports = function (io) {
     });
 
     //Update a ticket
-    router.put('/' + uuid_regex, verify.UserAuth, function (req, res) {
+    router.put('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
         if (typeof req.body.date_out !== 'undefined') {
@@ -115,7 +113,7 @@ module.exports = function (io) {
     });
 
     //Delete a ticket
-    router.delete('/' + uuid_regex, verify.UserAuth, function (req, res) {
+    router.delete('/' + G.uuid_regex, verify.UserAuth, function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
 

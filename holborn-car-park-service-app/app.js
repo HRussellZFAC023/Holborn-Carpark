@@ -6,7 +6,7 @@ const path          = require('path');
 const pgSession     = require('connect-pg-simple')(cl_sessions);
 
 const db            = require('./server/databases/auth_db_conn');
-const G             = require('./server/javascripts/global_variables');
+const G             = require('./server/javascripts/global');
 
 
 debug(G.env);
@@ -23,7 +23,8 @@ const noApiRoutes = require('./server/routes/noapi');
 
 //API routes declaration
 const carParksRoute = require('./server/routes/api/carparks')(io);
-const ticketsRoute = require('./server/routes/api/tickets')(io);
+const ticketsRoute  = require('./server/routes/api/tickets')(io);
+const usersRoute    = require('./server/routes/api/users');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -59,6 +60,7 @@ app.use(noApiRoutes);
 const api_resource = '/api';
 app.use(api_resource + '/carparks', carParksRoute);
 app.use(api_resource + '/tickets', ticketsRoute);
+app.use(api_resource + '/users', usersRoute);
 
 //handle 404 res codes
 app.use(function (req, res) {

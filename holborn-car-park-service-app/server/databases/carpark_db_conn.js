@@ -1,7 +1,7 @@
 const pg    = require('pg');
 const debug = require('debug')('holborn-car-park-service-app: carpark_db');
 
-const G     = require('../javascripts/global_variables');
+const G     = require('../javascripts/global');
 
 
 const db_config = {
