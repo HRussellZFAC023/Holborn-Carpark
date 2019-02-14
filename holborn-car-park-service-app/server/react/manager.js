@@ -15,12 +15,10 @@ class DynamicContent extends React.Component {
   }
 
   setScene(nScene) {
-    console.log('set!', nScene);
     this.setState({scene: nScene})
   }
 
   getScene() {
-    console.log('get!', this.state.scene);
     switch (this.state.scene) {
       case "Dash":
         return <Dash/>;
