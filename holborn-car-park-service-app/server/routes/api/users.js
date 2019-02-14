@@ -9,7 +9,7 @@ const G      = require('../../javascripts/global');
 const db     = require('../../databases/auth_db_conn');
 const query  = require('../../databases/queries');
 const verify = require('../../javascripts/verify');
-const util      = require('../javascripts/utils');
+const util   = require('../../javascripts/utils');
 
 router.get('/', verify.UserAuth, async function (req, res) {
     let db_res;
