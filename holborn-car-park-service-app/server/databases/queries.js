@@ -43,11 +43,13 @@ exports.api = {
         get_one:    `SELECT * FROM users WHERE  _id = $1`,
         create:     `INSERT   INTO users VALUES ($1, $2, $3, $4, $5, $6, $7, $8 )`,
         update: {
-            username:   `UPDATE users SET name           = $2 WHERE _id = $1`,
-            email:      `UPDATE users SET hour_rate      = $2 WHERE _id = $1`,
-            password:   `UPDATE users SET postcode       = $2 WHERE _id = $1`,
-            carparks:   `UPDATE users SET parking_places = $2 WHERE _id = $1`,
-            active:     `UPDATE users SET duration       = $2 WHERE _id = $1`
+            username:       `UPDATE users SET username      = $2 WHERE _id = $1`,
+            email:          `UPDATE users SET email         = $2 WHERE _id = $1`,
+            password:       `UPDATE users SET pwd_hash      = $2 WHERE _id = $1`,
+            carparks:       `UPDATE users SET _carpark_id   = _carpark_id || $2 WHERE _id = $1`,
+            active:         `UPDATE users SET active        = $2 WHERE _id = $1`,
+            manager_level:  `UPDATE users SET manager_level = $2 WHERE _id = $1`,
+            salt:           `UPDATE users SET salt          = $2 WHERE _id = $1`
         },
         delete_one: `DELETE   FROM users WHERE _id = $1`
     }
