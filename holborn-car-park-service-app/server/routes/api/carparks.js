@@ -4,7 +4,7 @@ const debug             = require('debug')('holborn-car-park-service-app: DB');
 const UUID              = require('uuid/v4');
 
 const G                 = require('../../javascripts/global');
-const db                = require('../../databases/carpark_db_conn');
+const carpark_db        = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
 const verify            = require('../../javascripts/verify');
@@ -15,7 +15,7 @@ module.exports = function(io) {
     router.get('/', verify.UserAuth, async function (req, res) {
         let db_res;
         try{
-            db_res = await db.query(query.api.carparks.get_all);
+            db_res = await carpark_db.query(query.api.carparks.get_all);
         }
         catch (db_err) {
             debug(db_err);
@@ -28,7 +28,7 @@ module.exports = function(io) {
     //Delete all tickets
     router.delete('/', verify.UserAuth, async function (req, res) {
         try{
-            await db.query(query.api.carparks.delete_all);
+            await carpark_db.query(query.api.carparks.delete_all);
         }
         catch (db_err) {
             debug(db_err);
@@ -45,7 +45,7 @@ module.exports = function(io) {
 
         let db_res;
         try{
-            db_res = await db.query(query.api.carparks.get_one, params)
+            db_res = await carpark_db.query(query.api.carparks.get_one, params)
         }
         catch (db_err) {
             debug(db_err);
@@ -61,7 +61,7 @@ module.exports = function(io) {
         const params = [c_id, req.body.name, req.body.hour_rate, req.body.postcode, req.body.parking_places];
 
         try{
-            await db.query(query.api.carparks.create, params);
+            await carpark_db.query(query.api.carparks.create, params);
         }
         catch (db_err) {
             debug(db_err);
@@ -77,7 +77,7 @@ module.exports = function(io) {
 
         if (typeof req.body.name !== 'undefined') {
             try {
-                await db.query(query.api.carparks.update.name, [c_id, req.body.name]);
+                await carpark_db.query(query.api.carparks.update.name, [c_id, req.body.name]);
             }
             catch(db_err) {
                 debug(db_err);
@@ -89,7 +89,7 @@ module.exports = function(io) {
 
         if (typeof req.body.hour_rate !== 'undefined') {
             try {
-                await db.query(query.api.carparks.update.hour_rate, [c_id, req.body.hour_rate]);
+                await carpark_db.query(query.api.carparks.update.hour_rate, [c_id, req.body.hour_rate]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -102,7 +102,7 @@ module.exports = function(io) {
 
         if (typeof req.body.postcode !== 'undefined') {
             try {
-                await db.query(query.api.carparks.update.postcode, [c_id, req.body.postcode]);
+                await carpark_db.query(query.api.carparks.update.postcode, [c_id, req.body.postcode]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -114,7 +114,7 @@ module.exports = function(io) {
 
         if (typeof req.body.parking_places !== 'undefined') {
             try{
-            await db.query(query.api.carparks.update.parking_places, [c_id, req.body.parking_places]);
+            await carpark_db.query(query.api.carparks.update.parking_places, [c_id, req.body.parking_places]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -133,7 +133,7 @@ module.exports = function(io) {
         const params = [t_id];
 
         try{
-            await db.query(query.api.carparks.delete_one, params);
+            await carpark_db.query(query.api.carparks.delete_one, params);
         }catch (db_err) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);

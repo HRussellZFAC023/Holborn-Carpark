@@ -1,12 +1,12 @@
 const debug = require('debug')('holborn-car-park-service-app: socket');
 
-const db      = require ('../databases/carpark_db_conn');
-const db_auth = require ('../databases/auth_db_conn');
+const carpark_db    = require ('../databases/carpark_db_conn');
+const user_db       = require ('../databases/auth_db_conn');
 
 
 exports.ClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];
-    db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
+    carpark_db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
         if(db_err){
             debug(db_err);
             return callback(505, db_err);
@@ -20,7 +20,7 @@ exports.ClientAuth = function(_carpark_id, callback){
 
 exports.UserAuth = function(req, res, next){
     if(req.session && req.session.username) {
-        db_auth.query('SELECT * FROM users WHERE username = $1', [req.session.username], function (db_err, db_res) {
+        user_db.query('SELECT * FROM users WHERE username = $1', [req.session.username], function (db_err, db_res) {
             if(db_err){
                 debug(db_err);
                 req.session.destroy(function () {

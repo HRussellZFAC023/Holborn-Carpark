@@ -6,7 +6,7 @@ const debug     = require('debug')('holborn-car-park-service-app: auth');
 const path      = require('path');
 
 const query     = require('../databases/queries');
-const db        = require('../databases/auth_db_conn');
+const user_db   = require('../databases/auth_db_conn');
 const G         = require('../javascripts/global');
 const verify    = require('../javascripts/verify');
 const util      = require('../javascripts/utils');
@@ -39,7 +39,7 @@ router.get('/logout', function (req, res) {
 router.post('/login', async function (req, res) {
     let db_res;
     try {
-        db_res = await db.query(query.noapi.login, [req.body.username]);
+        db_res = await user_db.query(query.noapi.login, [req.body.username]);
     }
     catch (db_err) {
         debug(db_err);
@@ -71,7 +71,7 @@ async function registerUser(req, res) {
     let hash = crypto.pbkdf2Sync(req.body.password, salt, G.hash_iterations, 64, 'sha512');
 
     try{
-        await db.query(query.noapi.register, [UUID(), req.body.username, req.body.email, hash.toString('hex'), salt])
+        await user_db.query(query.noapi.register, [UUID(), req.body.username, req.body.email, hash.toString('hex'), salt])
     }
     catch (db_err) {
         debug(db_err);

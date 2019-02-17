@@ -2,9 +2,9 @@ const express           = require('express');
 const router            = express.Router();
 const debug             = require('debug')('holborn-car-park-service-app: DB');
 const UUID              = require('uuid/v4');
-const G                 = require('../../javascripts/global');
 
-const db                = require('../../databases/carpark_db_conn');
+const G                 = require('../../javascripts/global');
+const carpark_db        = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
 const verify            = require('../../javascripts/verify');
@@ -15,7 +15,7 @@ module.exports = function (io) {
     router.get('/', verify.UserAuth, async function (req, res) {
         let db_res;
         try{
-            db_res = await db.query(query.api.tickets.get_all);
+            db_res = await carpark_db.query(query.api.tickets.get_all);
         }
         catch (db_err) {
             debug(db_err);
@@ -28,7 +28,7 @@ module.exports = function (io) {
     //Delete all tickets
     router.delete('/', verify.UserAuth, async function (req, res) {
         try{
-            await db.query(query.api.tickets.delete_all);
+            await carpark_db.query(query.api.tickets.delete_all);
         }
         catch(db_err) {
             debug(db_err);
@@ -46,7 +46,7 @@ module.exports = function (io) {
 
         let db_res;
         try{
-            db_res = await db.query(query.api.tickets.get_one, params);
+            db_res = await carpark_db.query(query.api.tickets.get_one, params);
         }
         catch (db_err) {
             debug(db_err);
@@ -63,7 +63,7 @@ module.exports = function (io) {
         const params = [t_id, Date.now(), false, true, c_id];
 
         try{
-            await db.query(query.api.tickets.create, params);
+            await carpark_db.query(query.api.tickets.create, params);
         }
         catch (db_err) {
             debug(db_err);
@@ -80,7 +80,7 @@ module.exports = function (io) {
 
         if (typeof req.body.date_out !== 'undefined') {
             try{
-                await db.query(query.api.tickets.update.date_out, [t_id, Date.now()]);
+                await carpark_db.query(query.api.tickets.update.date_out, [t_id, Date.now()]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -92,7 +92,7 @@ module.exports = function (io) {
 
         if (typeof req.body.paid !== 'undefined') {
             try{
-                await db.query(query.api.tickets.update.paid, [t_id, req.body.paid]);
+                await carpark_db.query(query.api.tickets.update.paid, [t_id, req.body.paid]);
             }
             catch(db_err) {
                 debug(db_err);
@@ -104,7 +104,7 @@ module.exports = function (io) {
 
         if (typeof req.body.valid !== 'undefined') {
             try{
-                await db.query(query.api.tickets.update.paid, [t_id, req.body.valid]);
+                await carpark_db.query(query.api.tickets.update.paid, [t_id, req.body.valid]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -116,7 +116,7 @@ module.exports = function (io) {
 
         if (typeof req.body.duration !== 'undefined') {
             try{
-                await db.query(query.api.carparks.update.duration, [t_id, req.body.duration]);
+                await carpark_db.query(query.api.carparks.update.duration, [t_id, req.body.duration]);
             }
             catch (db_err) {
                 debug(db_err);
@@ -135,7 +135,7 @@ module.exports = function (io) {
         const params = [t_id];
 
         try{
-            await db.query(query.api.tickets.delete_one, params);
+            await carpark_db.query(query.api.tickets.delete_one, params);
         }
         catch (db_err) {
             debug(db_err);
@@ -155,7 +155,7 @@ module.exports = function (io) {
 
         let db_res;
         try{
-            db_res = await db.query(query.api.tickets.validate, params);
+            db_res = await carpark_db.query(query.api.tickets.validate, params);
         }
         catch (db_err) {
             debug(db_err);

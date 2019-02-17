@@ -6,7 +6,7 @@ const crypto  = require('crypto');
 
 
 const G        = require('../../javascripts/global');
-const db       = require('../../databases/auth_db_conn');
+const user_db  = require('../../databases/auth_db_conn');
 const query    = require('../../databases/queries');
 const verify   = require('../../javascripts/verify');
 const util     = require('../../javascripts/utils');
@@ -17,7 +17,7 @@ const validate = require('../../javascripts/validate');
 router.get('/', verify.UserAuth, async function (req, res) {
     let db_res;
     try {
-        db_res = await db.query(query.api.users.get_all);
+        db_res = await user_db.query(query.api.users.get_all);
     }
     catch (db_err) {
         debug(db_err);
@@ -32,7 +32,7 @@ router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let u_id = req.path.replace(/\//g, '');
     let db_res;
     try {
-        db_res = await db.query(query.api.users.get_one, [u_id]);
+        db_res = await user_db.query(query.api.users.get_one, [u_id]);
     }
     catch (db_err) {
         debug(db_err);
@@ -55,7 +55,7 @@ router.post('/', verify.UserAuth, async function (req, res) {
     let params = [u_id, req.body.username, req.body.email, hash.toString('hex'), salt, req.body.manager_level, req.body._carpark_id, true];
 
     try {
-        await db.query(query.api.users.create, params);
+        await user_db.query(query.api.users.create, params);
     }
     catch (db_err) {
         debug(db_err);
@@ -72,7 +72,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     if (typeof req.body.username !== 'undefined') {
         if(await validate.usernameR(res, req.body.username) !== true) return;
         try{
-            await db.query(query.api.users.update.username, [u_id, req.body.username]);
+            await user_db.query(query.api.users.update.username, [u_id, req.body.username]);
         }
         catch (db_err) {
             debug(db_err);
@@ -85,7 +85,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     if (typeof req.body.email !== 'undefined') {
         if(validate.emailR(res, req.body.email) !== true) return;
         try{
-            await db.query(query.api.users.update.email, [u_id, req.body.email]);
+            await user_db.query(query.api.users.update.email, [u_id, req.body.email]);
         }
         catch (db_err) {
             debug(db_err);
@@ -100,8 +100,8 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let hash = crypto.pbkdf2Sync(G.default_pwd, salt, G.hash_iterations, 64, 'sha512');
 
         try{
-            await db.query(query.api.users.update.password, [u_id, hash.toString('hex')]);
-            await db.query(query.api.users.update.salt,     [u_id, salt]);
+            await user_db.query(query.api.users.update.password, [u_id, hash.toString('hex')]);
+            await user_db.query(query.api.users.update.salt,     [u_id, salt]);
         }
         catch (db_err) {
             debug(db_err);
@@ -115,7 +115,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         if(validate.managerLevelR(res, req.body.manager_level) !== true) return;
 
         try{
-            await db.query(query.api.users.update.manager_level, [u_id, req.body.manager_level]);
+            await user_db.query(query.api.users.update.manager_level, [u_id, req.body.manager_level]);
         }
         catch (db_err) {
             debug(db_err);
@@ -129,7 +129,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         if(await validate.carparkID(res, req.body._carpark_id) !== true) return;
 
         try{
-            await db.query(query.api.users.update.carparks, [u_id, req.body._carpark_id]);
+            await user_db.query(query.api.users.update.carparks, [u_id, req.body._carpark_id]);
         }
         catch (db_err) {
             debug(db_err);
@@ -143,7 +143,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         if(await validate.activeStatus(res, req.body.active) !== true) return;
 
         try{
-            await db.query(query.api.users.update.active, [u_id, req.body.active === 'true']);
+            await user_db.query(query.api.users.update.active, [u_id, req.body.active === 'true']);
         }
         catch (db_err) {
             debug(db_err);
@@ -161,7 +161,7 @@ router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let u_id = req.path.replace(/\//g, '');
 
     try{
-        await db.query(query.api.users.delete_one, [u_id]);
+        await user_db.query(query.api.users.delete_one, [u_id]);
     }
     catch (db_err) {
         debug(db_err);

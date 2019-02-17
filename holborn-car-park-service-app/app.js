@@ -5,7 +5,7 @@ const debug         = require('debug')('holborn-car-park-service-app: env');
 const path          = require('path');
 const pgSession     = require('connect-pg-simple')(cl_sessions);
 
-const db            = require('./server/databases/auth_db_conn');
+const user_db       = require('./server/databases/auth_db_conn');
 const G             = require('./server/javascripts/global');
 
 
@@ -40,7 +40,7 @@ const cl_sessions_opt = {
         maxAge: 555 * 60 * 1000
     },
     store: new pgSession({
-        pool : db,                      // Connection pool
+        pool : user_db,                      // Connection pool
         tableName : 'user_sessions'
     }),
 };
