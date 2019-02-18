@@ -11,6 +11,7 @@ const G         = require('../javascripts/global');
 const verify    = require('../javascripts/verify');
 const util      = require('../javascripts/utils');
 const validate  = require('../javascripts/validate');
+const json_resp = require('../javascripts/json_response');
 
 
 /**
@@ -50,21 +51,21 @@ router.post('/login', async function loginUser(req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
+        return res.status(500).json(json_resp.error.internal);
     }
 
     if (!db_res.rowCount)
-        return res.status(403).json({type: 'user', message: 'No such user.'});
+        return res.status(403).json(json_resp.error.missing_user);
 
     let hash = crypto.pbkdf2Sync(req.body.password, db_res.rows[0].salt, G.hash_iterations, 64, 'sha512');
     if (db_res.rows[0].pwd_hash !== hash.toString('hex'))
-        return res.status(403).json({type: 'pwd', message: 'Wrong password.'});
+        return res.status(403).json(json_resp.error.wrong_password);
 
     req.session.username    = db_res.rows[0].username;
     req.session.level       = db_res.rows[0].manager_level;
     req.session.active      = db_res.rows[0].active;
     await req.session.save();
-    return res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
+    return res.status(200).json(json_resp.success.login);
 });
 
 router.post('/register', async function registerUser(req, res) {
@@ -80,10 +81,10 @@ router.post('/register', async function registerUser(req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).json({type: 'internal', message: 'Internal Error! Please try again later.'});
+        return res.status(500).json(json_resp.error.internal);
     }
 
-    return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
+    return res.status(200).json(json_resp.success.register);
 });
 
 module.exports = router;

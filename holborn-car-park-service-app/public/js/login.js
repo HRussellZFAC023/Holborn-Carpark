@@ -41,10 +41,10 @@ function validate() {
             if(type === 'internal'){
                 internalError(message)
             }
-            else if(type === 'user'){
+            else if(type === 'missing user'){
                 noSuchUser(message)
             }
-            else if(type === 'pwd'){
+            else if(type === 'wrong password'){
                 wrongPwd(message)
             }
         }

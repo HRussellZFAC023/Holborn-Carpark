@@ -41,16 +41,16 @@ function validate() {
             if (type === 'internal') {
                 internalError(message);
             }
-            else if (type === 'invalid name' || type === 'space in name' || type === 'taken name' || type === 'long name') {
+            else if (type === 'invalid name' || type === 'disallowed name' || type === 'taken name' || type === 'long name') {
                 nameError(message);
             }
             else if (type === 'invalid email') {
                 emailError(message);
             }
-            else if (type === 'invalid pwd' || type === 'short pwd' || type === 'disallowed pwd' || type === 'weak pwd') {
+            else if (type === 'invalid password' || type === 'short password' || type === 'disallowed password' || type === 'weak password') {
                 passwordError(message);
             }
-            else if (type === 'match pwd') {
+            else if (type === 'match password') {
                 pwdConfirmError(message)
             }
         }
