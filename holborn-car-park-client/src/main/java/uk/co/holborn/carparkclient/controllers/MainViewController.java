@@ -41,16 +41,16 @@ public class MainViewController implements Initializable {
     @FXML
     AnchorPane blurrAnchor;
     public SceneManager sceneManager;
-    Socket socket;
-    GlobalVariables globalVariables;
-    InfoPopUp popup;
+    private Socket socket;
+    private GlobalVariables globalVariables;
+    private InfoPopUp popup;
     public Ticket ticket;
-    public String hourly_price;
-    public String parking_spaces;
-    public String happy_hour_time;
-    Logger logger;
+    String hourly_price;
+    String parking_spaces;
+    String happy_hour_time;
+    private Logger logger;
     public boolean happyHour = false;
-    Long sessionStartTime;
+    private Long sessionStartTime;
 
 
     public MainViewController() {
@@ -84,12 +84,8 @@ public class MainViewController implements Initializable {
         popup = new InfoPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
         sceneManager.changeTo(Scenes.LANDING);
-        sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
-            sessionStartTime = System.currentTimeMillis();
-        });
+        sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> sessionStartTime = System.currentTimeMillis());
         socketPreparation();
-
-
     }
 
     private void socketPreparation() {
@@ -120,12 +116,11 @@ public class MainViewController implements Initializable {
             popup.show("Reconnecting...");
             disconnectedUI(true);
         });
-        socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> {
-            System.out.println("Err" + args_cni[0]);
-        });
+        socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> System.out.println("Err" + args_cni[0]));
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
             logger.warn("Disconnected");
             disconnectedUI(true);
+            sceneManager.changeTo(Scenes.LANDING);
             popup.show("Disconnected");
         });
         socket.connect();
@@ -166,7 +161,7 @@ public class MainViewController implements Initializable {
     /**
      * Thread that changes the scene to the landing page when no interaction with the ui happened for a defined time
      */
-    public void sessionTimeOut() {
+    void sessionTimeOut() {
         sessionStartTime = System.currentTimeMillis();
         int session_timeout_ms = GlobalVariables.SESSION_TIMEOUT_S * 1000;
         int session_timeout_popup_ms = GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
@@ -181,7 +176,7 @@ public class MainViewController implements Initializable {
                     sceneManager.changeTo(Scenes.LANDING);
                     try {
                         Thread.sleep(session_timeout_popup_ms);
-                    } catch (InterruptedException e) {
+                    } catch (InterruptedException ignored) {
                     }
                     popup.removePopUp();
                     sceneAnchor.setDisable(false);
