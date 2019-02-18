@@ -75,8 +75,16 @@ module.exports = function (io) {
     });
 
     //Update a ticket
-    router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+    router.put('/' + G.uuid_regex, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
+
+        if(typeof req.body.date_out === 'undefined' &&
+           typeof req.body.paid     === 'undefined' &&
+           typeof req.body.valid    === 'undefined' &&
+           typeof req.body.duration === 'undefined')
+        {
+            return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
+        }
 
         if (typeof req.body.date_out !== 'undefined') {
             try{
@@ -86,8 +94,6 @@ module.exports = function (io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         }
 
         if (typeof req.body.paid !== 'undefined') {
@@ -98,20 +104,16 @@ module.exports = function (io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         }
 
         if (typeof req.body.valid !== 'undefined') {
             try{
-                await carpark_db.query(query.api.tickets.update.paid, [t_id, req.body.valid]);
+                await carpark_db.query(query.api.tickets.update.valid, [t_id, req.body.valid]);
             }
             catch (db_err) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         }
 
         if (typeof req.body.duration !== 'undefined') {
@@ -122,11 +124,9 @@ module.exports = function (io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
         }
 
-        return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
+        return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
     });
 
     //Delete a ticket
