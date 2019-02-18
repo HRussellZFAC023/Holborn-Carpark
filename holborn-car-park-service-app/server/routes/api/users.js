@@ -66,15 +66,16 @@ router.post('/', verify.UserAuth, async function (req, res) {
 });
 
 //Update user
-router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+router.put('/' + G.uuid_regex, async function (req, res) {
     let u_id = req.path.replace(/\//g, '');
 
     if(typeof req.body.username         === 'undefined'&&
-       typeof req.body.email            === 'undefined'&&
-       typeof req.body.reset_password   === 'undefined'&&
-       typeof req.body.manager_level    === 'undefined'&&
-       typeof req.body._carpark_id      === 'undefined'&&
-       typeof req.body.active           === 'undefined')
+        typeof req.body.email            === 'undefined'&&
+        typeof req.body.reset_password   === 'undefined'&&
+        typeof req.body.change_password  === 'undefined' &&
+        typeof req.body.manager_level    === 'undefined'&&
+        typeof req.body._carpark_id      === 'undefined'&&
+        typeof req.body.active           === 'undefined')
     {
         return res.status(500).send('Possible body params are: \nusername, \nemail, \nmanager_level, \n_carpark_id[i], \nactive, \nreset_password');
     }
@@ -102,6 +103,22 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     }
 
     if (typeof req.body.reset_password !== 'undefined') {
+        let salt = util.genRandomString();
+        let hash = crypto.pbkdf2Sync(G.default_pwd, salt, G.hash_iterations, 64, 'sha512');
+
+        try{
+            await user_db.query(query.api.users.update.password, [u_id, hash.toString('hex')]);
+            await user_db.query(query.api.users.update.salt,     [u_id, salt]);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+    }
+
+    if (typeof req.body.change_password !== 'undefined') {
+        if(validate.passwordR(res, req.body.change_password, req.body.change_password) !== true) return;
+
         let salt = util.genRandomString();
         let hash = crypto.pbkdf2Sync(G.default_pwd, salt, G.hash_iterations, 64, 'sha512');
 
@@ -143,7 +160,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         if(await validate.activeStatus(res, req.body.active) !== true) return;
 
         try{
-            await user_db.query(query.api.users.update.active, [u_id, req.body.active === 'true']);
+            await user_db.query(query.api.users.update.active, [u_id, req.body.active]);
         }
         catch (db_err) {
             debug(db_err);
