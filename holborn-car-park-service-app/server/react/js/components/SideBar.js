@@ -25,7 +25,7 @@ class SideBar extends Component {
             <i className="fas fa-car"/> Car Parks</a></li>
           <li><a onClick={() => this.__setScene("Tickets")}
                  className={(this.state.activeTab === "Tickets")? "is-active" : ""}>
-            <i className="fas fa-ticket-alt"/>Car Parks</a></li>
+            <i className="fas fa-ticket-alt"/>Tickets</a></li>
         </ul>
         <p className="menu-label">
           Admin Controls

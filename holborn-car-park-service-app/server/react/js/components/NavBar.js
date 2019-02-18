@@ -28,7 +28,7 @@ class NavBar extends Component {
                   </div>
 
                   <div className="dropdown-menu" id="dropdown-menu4" role="menu">
-                    <div className="dropdown-content">
+                    <div className="nav-dropdown-content dropdown-content">
                       <a onClick={() => this.props.setScene("Settings")} className="dropdown-item">
                         Settings
                       </a>
