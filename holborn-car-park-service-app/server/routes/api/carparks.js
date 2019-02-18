@@ -75,6 +75,14 @@ module.exports = function(io) {
     router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let c_id = req.path.replace(/\//g, '');
 
+        if(typeof req.body.name             === 'undefined' &&
+           typeof req.body.hour_rate        === 'undefined' &&
+           typeof req.body.postcode         === 'undefined' &&
+           typeof req.body.parking_places   === 'undefined')
+        {
+            return res.status(500).send(`Possible body params are: name ("Egham"),\n hour_rate (2.1),\n postcode ("HH000HH")`);
+        }
+
         if (typeof req.body.name !== 'undefined') {
             try {
                 await carpark_db.query(query.api.carparks.update.name, [c_id, req.body.name]);
@@ -83,8 +91,6 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
         }
 
         if (typeof req.body.hour_rate !== 'undefined') {
@@ -96,9 +102,7 @@ module.exports = function(io) {
                 return res.status(500).send('Error on the server:' + db_err);
             }
 
-            socket_functions.emit_update(io, c_id);
-            return res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
-        }
+            socket_functions.emit_update(io, c_id);}
 
         if (typeof req.body.postcode !== 'undefined') {
             try {
@@ -108,8 +112,6 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
         }
 
         if (typeof req.body.parking_places !== 'undefined') {
@@ -120,11 +122,9 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).send('Error on the server:' + db_err);
             }
-
-            return res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
         }
 
-        return res.status(500).send(`Possible body params are: name ("Egham"),\n hour_rate (2.1),\n postcode ("HH000HH")`);
+        return res.status(200).send('Updated! Car park with id  ' + c_id + '  updated');
     });
 
     //Delete a ticket
