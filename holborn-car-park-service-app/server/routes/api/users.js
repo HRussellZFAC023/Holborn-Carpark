@@ -4,12 +4,13 @@ const debug   = require('debug')('holborn-car-park-service-app: DB');
 const UUID    = require('uuid/v4');
 const crypto  = require('crypto');
 
-const G        = require('../../javascripts/global');
-const user_db  = require('../../databases/auth_db_conn');
-const query    = require('../../databases/queries');
-const verify   = require('../../javascripts/verify');
-const util     = require('../../javascripts/utils');
-const validate = require('../../javascripts/validate');
+const G         = require('../../javascripts/global');
+const user_db   = require('../../databases/auth_db_conn');
+const query     = require('../../databases/queries');
+const verify    = require('../../javascripts/verify');
+const util      = require('../../javascripts/utils');
+const validate  = require('../../javascripts/validate');
+const json_resp = require('../../javascripts/json_response');
 
 
 /**
@@ -22,7 +23,7 @@ router.get('/', verify.UserAuth, async function (req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).send('Error on the server:' + db_err);
+        return res.status(500).json(json_resp.error.internal);
     }
 
     return res.status(200).send(db_res.rows);
@@ -39,7 +40,7 @@ router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).send('Error on the server:' + db_err);
+        return res.status(500).json(json_resp.error.internal);
     }
 
     return res.status(200).send(db_res.rows[0]);
@@ -56,10 +57,10 @@ router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).send('Error on the server:' + db_err);
+        return res.status(500).json(json_resp.error.internal);
     }
 
-    res.status(200).json({type: 'delete', message: 'User with id ' + u_id + ' deleted.'})
+    res.status(200).json(json_resp.success.delete)
 });
 
 //Create a user, that conforms to the enforced validations
@@ -79,10 +80,10 @@ router.post('/', verify.UserAuth, async function (req, res) {
     }
     catch (db_err) {
         debug(db_err);
-        return res.status(500).send('Error on the server:' + db_err);
+        return res.status(500).json(json_resp.error.internal);
     }
 
-    res.status(200).send('Success! User with id  ' + u_id + '  created');
+    res.status(200).json(json_resp.success.create);
 });
 
 /**
@@ -106,7 +107,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
        typeof req.body._carpark_id      === 'undefined' &&
        typeof req.body.active           === 'undefined')
     {
-        return res.status(500).send('Possible body params are: \nusername, \nemail, \nmanager_level, \n_carpark_id[i], \nactive, \nreset_password');
+        return res.status(500).json(json_resp.error.invalid_active_status);
     }
 
     if (typeof req.body.username !== 'undefined') {
@@ -116,7 +117,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -127,7 +128,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -141,7 +142,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -157,7 +158,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -169,7 +170,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -181,7 +182,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
@@ -193,11 +194,11 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
     }
 
-    return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
+    return res.status(200).json(json_resp.success.update);
 });
 
 module.exports = router;

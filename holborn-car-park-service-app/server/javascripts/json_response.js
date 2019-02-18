@@ -65,6 +65,19 @@ module.exports = {
         invalid_active_status: {
             type:    'invalid active',
             message: 'Active status is invalid.'
+        },
+        invalid_user_update: {
+            type:    'invalid update',
+            message: 'Possible parameters listed in .params',
+            params: {
+                username:           'string',
+                email:              'string',
+                manager_level:      'int',
+                _carpark_id:        'uuid[]',
+                active:             'boolean',
+                reset_password:     'boolean',
+                change_password:    'string'
+            }
         }
     },
     success: {
@@ -77,6 +90,18 @@ module.exports = {
             type:     'success',
             message:  'Register successful.',
             redirect: '/login'
+        },
+        create: {
+            type:    'create',
+            message: 'Create successful.'
+        },
+        delete: {
+            type:    'delete',
+            message: 'Delete successful.'
+        },
+        update: {
+            type:    'update',
+            message: 'Update successful.'
         }
     }
 };
