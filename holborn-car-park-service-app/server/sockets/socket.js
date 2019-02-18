@@ -18,8 +18,8 @@ module.exports = function (io) {
         socket.on('fetch-carpark-details', async function (callback) {
             await socket_functions.carpark_details_modified(carpark_id, callback)
         });
-        socket.on('ticket-paid', async function (paid, duration, date_out, _id) {
-            await socket_functions.ticket_paid(paid, duration, date_out, _id, carpark_id);
+        socket.on('ticket-paid', async function (paid, duration, date_out, _id, amount_paid) {
+            await socket_functions.ticket_paid(paid, duration, date_out, _id, amount_paid, carpark_id);
         });
 
     });

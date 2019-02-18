@@ -73,8 +73,8 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     return callback(200, "Ticket is valid: " + _id, ticket);
 };
 
-exports.ticket_paid = async function (paid, duration, date_out, _id, carpark_id) {
-    const params = [paid, duration, date_out, _id, carpark_id];
+exports.ticket_paid = async function (paid, duration, date_out, _id, amount_paid, carpark_id) {
+    const params = [paid, duration, date_out, _id, carpark_id, amount_paid];
     try {
         await carpark_db.query(queries.sockets.ticket_details_update, params);
     }
