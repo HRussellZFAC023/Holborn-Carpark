@@ -1,6 +1,5 @@
 package uk.co.holborn.carparkclient.controllers;
 
-import io.socket.client.Socket;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -62,15 +61,15 @@ public class PaymentMethodsCashController implements Initializable {
         }
         due -= amount;
         paid += amount;
-        if (due <= 0.0 && change == 0.0) {
+        if (due <= 0.0) {
             change = Math.abs(due);
             due = 0.0;
             inputAmount.setDisable(true);
             backButton.setVisible(false);
-            if( change <0) setInfoText("Please take your change of £" + change);
+            if( change >0) setInfoText("Please take your change of £" + change);
             Thread t = new Thread(() -> {
                 try {
-                    emitPaid();
+                    mc.emitTicketPaid();
                     Thread.sleep(3000);
                     mc.sceneManager.changeTo(Scenes.LANDING);
                 } catch (InterruptedException e) {
@@ -105,11 +104,6 @@ public class PaymentMethodsCashController implements Initializable {
         Animator.nodeFade(price_due, true);
     }
 
-    private void emitPaid() {
-        Socket socket = mc.getSocket();
-        System.out.println(t);
-        Object[] params = new Object[]{true, ""+ t.getDuration(), ""+ t.getDate_out(), ""+t.get_id(), ""+t.getPrice()};
-        socket.emit("ticket-paid", params);
-    }
+
 
 }

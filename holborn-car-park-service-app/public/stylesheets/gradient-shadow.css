@@ -1,0 +1,111 @@
+.gradientShadowButtonNotAnimated{
+    background-image: linear-gradient(to bottom right, #fff2f9, #c4bec4);
+    font-size: 16px;
+    position: relative;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 0.75em 1.75em;
+    border-radius: 50px;
+    display: inline-block;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+ /*   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);*/
+}
+.gradientShadowButton{
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    position: relative;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 0.75em 1.75em;
+    border-radius: 50px;
+    display: inline-block;
+    color: #fff;
+
+    /* Our gradient */
+    background: -webkit-gradient(linear, left top, right top, from(#6e89ff), to(#39c3c4));
+    background: linear-gradient(to bottom right, #6e89ff, #39c3c4);
+}
+
+.gradientShadowButton:after{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -10px;
+    left: 5%;
+    height: 110%;
+    width: 90%;
+    opacity: 0.8;
+    border-radius: 50px;
+
+    /* Declaring our shadow color inherit from the parent (button) */
+    background: inherit;
+
+    /* Blurring the element for shadow effect */
+    -webkit-filter: blur(6px);
+    filter: blur(6px);
+
+    /* Transition for the magic */
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+/*Animated Hover*/
+.gradientShadowButton:hover:after{
+    /* Changing blur effect */
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+
+    /* And change the style properties */
+    width: 100%;
+    bottom: -5px;
+    left: 0;
+}
+/*Animated Click*/
+.gradientShadowButton:active:after{
+    /* Changing blur effect */
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+}
+.gradientCard{
+    /*background-image: linear-gradient(to bottom right, #fff2f9, #c4bec4);*/
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.gradientCard:after{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    bottom: -20px;
+    left: 5%;
+    height: 100%;
+    width: 90%;
+    opacity: 0.8;
+    border-radius: inherit;
+    /* Declaring our shadow color inherit from the parent (button) */
+    background: inherit;
+
+    /* Blurring the element for shadow effect */
+    -webkit-filter: blur(10px);
+    filter: blur(10px);
+
+    /* Transition for the magic */
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+.gradientCard:hover:after{
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+}

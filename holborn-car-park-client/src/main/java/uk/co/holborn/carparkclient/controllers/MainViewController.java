@@ -61,7 +61,6 @@ public class MainViewController implements Initializable {
         logger = LogManager.getLogger(getClass().getName());
         try {
             socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);
-            ;
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -189,7 +188,7 @@ public class MainViewController implements Initializable {
                     Thread.currentThread().interrupt();
                 }else{
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                        Thread.currentThread().interrupt();
                     }
@@ -230,6 +229,10 @@ public class MainViewController implements Initializable {
         updater.setName("Thread-Date&Time Updater");
         updater.setDaemon(true);
         updater.start();
+    }
+     void emitTicketPaid() {
+        Object[] params = new Object[]{true, ""+ ticket.getDuration(), ""+ ticket.getDate_out(), ""+ticket.get_id(), ""+ticket.getPrice()};
+        socket.emit("ticket-paid", params);
     }
 
 }
