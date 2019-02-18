@@ -10,12 +10,14 @@
           type="text/javascript">
   </script>
 
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
-    rel="stylesheet"
-  />
-  <link href="login.css" rel="stylesheet" type="text/css"/>
-  <script src="register.js"></script>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+            rel="stylesheet"
+    />
+    <link href="gradient-shadow.css" rel="stylesheet" type="text/css"/>
+    <link href="global.css" rel="stylesheet" type="text/css"/>
+    <link href="login.css" rel="stylesheet" type="text/css"/>
+    <script src="register.js"></script>
 
 </head>
 
@@ -27,61 +29,73 @@
         <img alt="Holborn" src="img/logo.png">
       </figure>
     </div>
-  </div>
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <div class="column is-two-fifths center">
-        <div class="up"></div>
-        <div class="box" id="box">
-          <div class="content has-text-grey is-medium">
-            Please register to proceed.
-          </div>
-          <div class="field">
-            <div class="control" id="ctrl_username">
-              <input
-                autofocus=""
-                class="input is-medium"
-                id="fld_username"
-                name="username"
-                placeholder="Your Username"
-                type="text"
-              />
-            </div>
-          </div>
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <div class="column is-two-fifths center">
+                <div class="up"></div>
+                <div class="box" id="box">
+                    <div class="content has-text-grey is-medium">
+                    </div>
+                    <div class="field">
+                        <div class="control" id="ctrl_username">
+                            <input
+                                    autofocus=""
+                                    class="input is-medium"
+                                    id="fld_username"
+                                    name="username"
+                                    placeholder="username"
+                                    type="text"
+                            />
+                        </div>
+                    </div>
 
-          <div class="field">
-            <div class="control" id="ctrl_email">
-              <input
-                class="input is-medium"
-                id="fld_email"
-                name="email"
-                placeholder="Your Email"
-                type="text"
-              />
-            </div>
-          </div>
+                    <div class="field">
+                        <div class="control" id="ctrl_email">
+                            <input
+                                    class="input is-medium"
+                                    id="fld_email"
+                                    name="email"
+                                    placeholder="email"
+                                    type="text"
+                            />
+                        </div>
+                    </div>
 
-          <div class="field">
-            <div class="control" id="ctrl_password">
-              <input
-                class="input is-medium"
-                id="fld_password"
-                name="password"
-                placeholder="Your Password"
-                type="password"
-              />
-            </div>
-          </div>
+                    <div class="field">
+                        <div class="control" id="ctrl_password">
+                            <input
+                                    class="input is-medium"
+                                    id="fld_password"
+                                    name="password"
+                                    placeholder="password"
+                                    type="password"
+                            />
+                        </div>
+                    </div>
 
-          <div class="field">
-            <div class="control" id="ctrl_pwd_confirm">
-              <input
-                class="input is-medium"
-                id="fld_pwd_confirm"
-                name="password"
-                placeholder="Confirm Password"
-                type="password"
-              />
+                    <div class="field">
+                        <div class="control" id="ctrl_pwd_confirm">
+                            <input
+                                    class="input is-medium"
+                                    id="fld_pwd_confirm"
+                                    name="password"
+                                    placeholder="confirm password"
+                                    type="password"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="checkbox">
+                            <input type="checkbox" id="remember_me"/> Remember me
+                        </label>
+                    </div>
+                </div>
+                <button class="gradientShadowButton registerButton " id="btn_register" >Register</button>
+                <p class="has-text-grey">
+                    <a href="/login">Sign in</a> &nbsp;·&nbsp;
+                    <a href=""> Need Help?</a>
+                </p>
             </div>
           </div>
 
