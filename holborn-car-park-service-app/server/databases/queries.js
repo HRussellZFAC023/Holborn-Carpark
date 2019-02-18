@@ -49,7 +49,7 @@ exports.api = {
             username:       `UPDATE users SET username      = $2 WHERE _id = $1`,
             email:          `UPDATE users SET email         = $2 WHERE _id = $1`,
             password:       `UPDATE users SET pwd_hash      = $2 WHERE _id = $1`,
-            carparks:       `UPDATE users SET _carpark_id   = _carpark_id || $2 WHERE _id = $1`,
+            carparks:       `UPDATE users SET _carpark_id   = $2 WHERE _id = $1`,
             active:         `UPDATE users SET active        = $2 WHERE _id = $1`,
             manager_level:  `UPDATE users SET manager_level = $2 WHERE _id = $1`,
             salt:           `UPDATE users SET salt          = $2 WHERE _id = $1`
