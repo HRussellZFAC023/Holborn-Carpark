@@ -88,6 +88,15 @@ module.exports = {
                 valid:          'boolean',
                 duration:       'double'
             }
+        },
+        invalid_carpark_update: {
+            type:    'invalid update',
+            message: 'Possible parameters listed in .params',
+            params: {
+                name:           'string',
+                hour_rate:      'double',
+                postcode:       'string ("HH000HH")'
+            }
         }
     },
     success: {
