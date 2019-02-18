@@ -11,3 +11,9 @@ html,body {
 .foot {
   padding-bottom: 50px;
 }
+
+.signInButton{
+  background: -webkit-gradient(linear, left top, right top, from(#6e89ff), to(#39c3c4));
+  background: linear-gradient(to bottom right, #6e89ff, #39c3c4);
+  color: white;
+}
