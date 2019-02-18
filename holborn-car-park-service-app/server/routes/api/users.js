@@ -69,6 +69,16 @@ router.post('/', verify.UserAuth, async function (req, res) {
 router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let u_id = req.path.replace(/\//g, '');
 
+    if(typeof req.body.username         === 'undefined'&&
+       typeof req.body.email            === 'undefined'&&
+       typeof req.body.reset_password   === 'undefined'&&
+       typeof req.body.manager_level    === 'undefined'&&
+       typeof req.body._carpark_id      === 'undefined'&&
+       typeof req.body.active           === 'undefined')
+    {
+        return res.status(500).send('Possible body params are: \nusername, \nemail, \nmanager_level, \n_carpark_id[i], \nactive, \nreset_password');
+    }
+
     if (typeof req.body.username !== 'undefined') {
         if(await validate.usernameR(res, req.body.username) !== true) return;
         try{
@@ -78,8 +88,6 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
     if (typeof req.body.email !== 'undefined') {
@@ -91,8 +99,6 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
     if (typeof req.body.reset_password !== 'undefined') {
@@ -107,8 +113,6 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
     if (typeof req.body.manager_level !== 'undefined') {
@@ -121,8 +125,6 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
     if (typeof req.body._carpark_id !== 'undefined') {
@@ -135,8 +137,6 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
     if (typeof req.body.active !== 'undefined') {
@@ -149,11 +149,9 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
             debug(db_err);
             return res.status(500).send('Error on the server:' + db_err);
         }
-
-        return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
     }
 
-    return res.status(500).send('Possible body params are: \nusername, \nemail, \nmanager_level, \n_carpark_id[i], \nactive, \nreset_password');
+    return res.status(200).send('Updated! User with id  ' + u_id + '  updated');
 });
 
 //Delete
