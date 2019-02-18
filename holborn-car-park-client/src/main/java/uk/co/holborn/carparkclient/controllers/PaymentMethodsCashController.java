@@ -107,7 +107,8 @@ public class PaymentMethodsCashController implements Initializable {
 
     private void emitPaid() {
         Socket socket = mc.getSocket();
-        Object[] params = new Object[]{true, ""+ t.getDuration(), ""+ t.getDate_out(), ""+t.get_id()};
+        System.out.println(t);
+        Object[] params = new Object[]{true, ""+ t.getDuration(), ""+ t.getDate_out(), ""+t.get_id(), ""+t.getPrice()};
         socket.emit("ticket-paid", params);
     }
 
