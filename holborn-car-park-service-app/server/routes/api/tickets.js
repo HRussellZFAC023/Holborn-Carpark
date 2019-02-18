@@ -75,7 +75,7 @@ module.exports = function (io) {
     });
 
     //Update a ticket
-    router.put('/' + G.uuid_regex, async function (req, res) {
+    router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
         if(typeof req.body.date_out === 'undefined' &&
