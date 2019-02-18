@@ -45,7 +45,7 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
         return callback(406, "Ticket is invalid: " + _id, null);
     }
     if (db_res.rows[0].paid) {
-        return callback(406, "Ticket is already paid! " + _id, null);
+        return callback(406, "Ticket is already paid: " + _id, null);
     }
 
     const ticket = {
