@@ -66,7 +66,7 @@ router.post('/', verify.UserAuth, async function (req, res) {
 });
 
 //Update user
-router.put('/' + G.uuid_regex, async function (req, res) {
+router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let u_id = req.path.replace(/\//g, '');
 
     if(typeof req.body.username         === 'undefined'&&
