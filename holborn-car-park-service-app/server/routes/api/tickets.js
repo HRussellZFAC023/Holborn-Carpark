@@ -1,5 +1,5 @@
-const express           = require('express');
-const router            = express.Router();
+const Router            = require('express-promise-router');
+const router            = new Router();
 const debug             = require('debug')('holborn-car-park-service-app: DB');
 const UUID              = require('uuid/v4');
 
@@ -10,8 +10,16 @@ const socket_functions  = require('../../sockets/socket_functions');
 const verify            = require('../../javascripts/verify');
 
 
+/**
+ * Function that gets exported as a module so that it can take the socket as an argument
+ * and provide standard routing functionality at the same time by returning the router
+ * @param io
+ * @returns {module:express-promise-router}
+ */
 module.exports = function (io) {
-    //Get all tickets
+    /**
+     * Get all tickets
+     */
     router.get('/', verify.UserAuth, async function (req, res) {
         let db_res;
         try{
@@ -25,21 +33,9 @@ module.exports = function (io) {
         res.status(200).send(db_res.rows);
     });
 
-    //Delete all tickets
-    router.delete('/', verify.UserAuth, async function (req, res) {
-        try{
-            await carpark_db.query(query.api.tickets.delete_all);
-        }
-        catch(db_err) {
-            debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
-        }
-
-        socket_functions.emit_update(io);
-        res.status(200).send('All tickets deleted');
-    });
-
-    //Gets a specific ticket
+    /**
+     * Get a specific ticket
+     */
     router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
         const params = [t_id];
@@ -56,7 +52,45 @@ module.exports = function (io) {
         res.status(200).send(db_res.rows[0]);
     });
 
-    //Create a ticket (attached to a carpark id)
+    /**
+     * Delete all tickets
+     */
+    router.delete('/', verify.UserAuth, async function (req, res) {
+        try{
+            await carpark_db.query(query.api.tickets.delete_all);
+        }
+        catch(db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+
+        socket_functions.emit_update(io);
+        res.status(200).send('All tickets deleted');
+    });
+
+    /**
+     * Delete a specific ticket
+     */
+    router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+        let t_id = req.path.replace(/\//g, '');
+        const params = [t_id];
+
+        try{
+            await carpark_db.query(query.api.tickets.delete_one, params);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).send('Error on the server:' + db_err);
+        }
+
+        socket_functions.emit_update(io);
+        res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
+    });
+
+    /**
+     * Create a ticket, car park id needs to be provided as well
+     * so that the ticket get created attached to a car park
+     */
     router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = UUID();
         let c_id = req.path.replace(/\//g, '');
@@ -74,7 +108,13 @@ module.exports = function (io) {
         res.status(200).send('Success! Ticket with id  ' + t_id + '  created at car park ' + c_id);
     });
 
-    //Update a ticket
+    /**
+     * Update a ticket, possible parameters are:
+     * @param date_out  Date.now() from JS
+     * @param paid      true/false
+     * @param valid     true/false
+     * @param duration  double
+     */
     router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let t_id = req.path.replace(/\//g, '');
 
@@ -83,7 +123,7 @@ module.exports = function (io) {
            typeof req.body.valid    === 'undefined' &&
            typeof req.body.duration === 'undefined')
         {
-            return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false)');
+            return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false),\n duration (double)');
         }
 
         if (typeof req.body.date_out !== 'undefined') {
@@ -129,25 +169,9 @@ module.exports = function (io) {
         return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
     });
 
-    //Delete a ticket
-    router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
-        let t_id = req.path.replace(/\//g, '');
-        const params = [t_id];
-
-        try{
-            await carpark_db.query(query.api.tickets.delete_one, params);
-        }
-        catch (db_err) {
-            debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
-        }
-
-        socket_functions.emit_update(io);
-        res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
-    });
-
-
-    //Validates the ticket. After validation, the ticket can't be used anymore
+    /**
+     * Validates the ticket. After validation, the ticket can't be used anymore
+     */
     router.post('/validate', verify.UserAuth, async function (req, res) {
         let t_id = req.body._id;
         let c_id = req.body._carpark_id; //provided by the carpark requesting validation
@@ -163,7 +187,7 @@ module.exports = function (io) {
         }
         if (db_res.rows[0]._carpark_id !== c_id) return res.status(406).send('Ticket does\'t belong to the carpark');
         if (db_res.rows[0].valid !== true) return res.status(406).send('Ticket is invalid');
-        if (db_res.rows[0].paid !== true) return res.status(403).send('Ticket is unpaid');
+        if (db_res.rows[0].paid !== true) return res.status(403).send('Ticket is not paid');
 
         socket_functions.emit_update(io, c_id);
         res.status(200).send("Ticket valid. You can pass!");

@@ -13,6 +13,9 @@ const util      = require('../javascripts/utils');
 const validate  = require('../javascripts/validate');
 
 
+/**
+ * Defines what happens when a browser navigates to those routes
+ */
 router.get('/', function (req, res) {
     res.sendFile('index.html', {root: path.join('public', 'protected', 'HTML')});
 });
@@ -36,7 +39,11 @@ router.get('/logout', function (req, res) {
     });
 });
 
-router.post('/login', async function (req, res) {
+/**
+ * Functions that defines what happens when a post request is sent by the browser
+ * usually that is a button click requesting validation of details
+ */
+router.post('/login', async function loginUser(req, res) {
     let db_res;
     try {
         db_res = await user_db.query(query.noapi.login, [req.body.username]);
@@ -60,9 +67,7 @@ router.post('/login', async function (req, res) {
     return res.status(200).json({type: 'success', message: 'Login successful.', redirect: '/manager'});
 });
 
-router.post('/register', registerUser);
-
-async function registerUser(req, res) {
+router.post('/register', async function registerUser(req, res) {
     if(await validate.usernameR(res, req.body.username) !== true) return;
     if(validate.emailR(res, req.body.email) !== true) return;
     if(validate.passwordR(res, req.body.password, req.body.confirm_password) !== true) return;
@@ -79,6 +84,6 @@ async function registerUser(req, res) {
     }
 
     return res.status(200).json({type: 'success', message: 'Register successful.', redirect: '/manager'});
-}
+});
 
 module.exports = router;

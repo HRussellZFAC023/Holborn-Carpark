@@ -6,6 +6,16 @@ const user_db    = require('../databases/auth_db_conn');
 const query      = require('../databases/queries');
 
 
+/**
+ * Validate registering username for:
+ * undefined/null/empty sting
+ * containment of special/disallowed characters
+ * length (max is 8)
+ * already in use
+ * @param res
+ * @param name
+ * @returns {Promise<*>}
+ */
 module.exports.usernameR = async function (res, name) {
     if (!name) {
         return res.status(406).json({type: 'invalid name', message: 'Username is invalid.'});
@@ -31,6 +41,12 @@ module.exports.usernameR = async function (res, name) {
     return true;
 };
 
+/**
+ * Validate registering email
+ * @param res
+ * @param email
+ * @returns {*}
+ */
 module.exports.emailR = function (res, email) {
     if(!email || !validEmail(email)){
         return res.status(406).json({type: 'invalid email', message: 'Email is invalid.'});
@@ -39,6 +55,17 @@ module.exports.emailR = function (res, email) {
     return true;
 };
 
+/**
+ * Validate registering password for:
+ * undefined/null/empty sting
+ * length (min is 8)
+ * disallowed (can't contain disallowed symbols)
+ * strength
+ * @param res
+ * @param password
+ * @param confirm_pwd
+ * @returns {*}
+ */
 module.exports.passwordR = function (res, password, confirm_pwd) {
     if (!password) {
         return res.status(406).json({type: 'invalid pwd', message: 'Password is invalid.'});
@@ -66,6 +93,12 @@ module.exports.passwordR = function (res, password, confirm_pwd) {
     return true;
 };
 
+/**
+ * Validate registering manager level
+ * @param res
+ * @param level
+ * @returns {*}
+ */
 module.exports.managerLevelR = function (res, level){
     if(level !== '0' && level !== '1' && level !== '2'){
         return res.status(406).json({type: 'invalid level', message: 'Level ' + level + ' does not exist. (0, 1, 2 are valid)'});
@@ -74,14 +107,30 @@ module.exports.managerLevelR = function (res, level){
     return true;
 };
 
+/**
+ * Check password complexity
+ * @param pwd
+ * @returns {boolean}
+ */
 function pwdComplex (pwd) {
     return pwd.includesAnyOf(G.ch_num) && pwd.includesAnyOf(G.ch_upper) && pwd.includesAnyOf(G.ch_special);
 }
 
+/**
+ * Most basic validation for emails
+ * @param em
+ * @returns {*|boolean}
+ */
 function validEmail (em){
     return em.includes('@') && em.includes('.') && em.lastIndexOf('.') > em.lastIndexOf('@');
 }
 
+/**
+ * Check if a car park id is valid, exists, etc
+ * @param res
+ * @param ids
+ * @returns {Promise<*>}
+ */
 module.exports.carparkID = async function (res, ids) {
     let db_res;
     for (let i = 0; i < ids.length; ++i) {
@@ -98,6 +147,12 @@ module.exports.carparkID = async function (res, ids) {
     return true;
 };
 
+/**
+ * validate active status, should be a boolean
+ * @param res
+ * @param status
+ * @returns {Promise<*>}
+ */
 module.exports.activeStatus = async function (res, status) {
     if(status !== 'true' && status !== 'false'){
         return res.status(406).json({type: 'invalid active status', message: 'Active status is invalid.'});

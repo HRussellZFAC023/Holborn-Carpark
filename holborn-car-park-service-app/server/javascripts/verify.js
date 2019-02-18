@@ -4,6 +4,12 @@ const carpark_db    = require ('../databases/carpark_db_conn');
 const user_db       = require ('../databases/auth_db_conn');
 
 
+/**
+ * Function that verifies client software connecting to the server
+ * @param _carpark_id
+ * @param callback
+ * @constructor
+ */
 exports.ClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];
     carpark_db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
@@ -18,6 +24,13 @@ exports.ClientAuth = function(_carpark_id, callback){
     });
 };
 
+/**
+ * Function that verifies any user action
+ * @param req
+ * @param res
+ * @param next
+ * @constructor
+ */
 exports.UserAuth = function(req, res, next){
     if(req.session && req.session.username) {
         user_db.query('SELECT * FROM users WHERE username = $1', [req.session.username], function (db_err, db_res) {
