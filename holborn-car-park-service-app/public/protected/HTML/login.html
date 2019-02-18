@@ -14,8 +14,9 @@
             rel="stylesheet"
     />
 
+    <link href="gradient-shadow.css" rel="stylesheet" type="text/css"/>
+    <link href="global.css" rel="stylesheet" type="text/css"/>
     <link href="login.css" rel="stylesheet" type="text/css"/>
-    <link href="index.css" rel="stylesheet" type="text/css"/>
     <script src="login.js"></script>
 </head>
 
@@ -33,10 +34,7 @@
             <div class="column is-two-fifths center">
                 <div class="up"></div>
 
-                <div class="box" id="box">
-                    <div class="content has-text-grey is-medium">
-                        Please login to proceed.
-                    </div>
+                <div class="" id="box">
                     <div class="field">
                         <div class="control" id="ctrl_username">
                             <input
@@ -44,7 +42,7 @@
                                     class="input is-large"
                                     id="fld_username"
                                     name="username"
-                                    placeholder="Your Username"
+                                    placeholder="username"
                                     type="text"
                             />
                         </div>
@@ -56,7 +54,7 @@
                                     class="input is-large"
                                     id="fld_password"
                                     name="password"
-                                    placeholder="Your Password"
+                                    placeholder="password"
                                     type="password"
                             />
                         </div>
@@ -67,10 +65,11 @@
                             <input type="checkbox" id="remember_me"/> Remember me
                         </label>
                     </div>
-                    <div class="button is-block is-info is-large is-fullwidth" id="btn_login">
-                        Login
+                    <div class=" is-block is-info is-large is-fullwidth" >
                     </div>
                 </div>
+                <button class="gradientShadowButton actionButton" id="btn_login" >Login</button>
+                <br>
                 <p class="has-text-grey">
                     <a href="/register">Sign Up</a> &nbsp;·&nbsp;
                     <a href="">Forgot Password</a> &nbsp;·&nbsp;
