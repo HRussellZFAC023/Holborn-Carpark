@@ -107,7 +107,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
        typeof req.body._carpark_id      === 'undefined' &&
        typeof req.body.active           === 'undefined')
     {
-        return res.status(500).json(json_resp.error.invalid_active_status);
+        return res.status(500).json(json_resp.error.invalid_user_update);
     }
 
     if (typeof req.body.username !== 'undefined') {

@@ -8,6 +8,7 @@ const carpark_db        = require('../../databases/carpark_db_conn');
 const query             = require('../../databases/queries');
 const socket_functions  = require('../../sockets/socket_functions');
 const verify            = require('../../javascripts/verify');
+const json_resp         = require('../../javascripts/json_response');
 
 
 /**
@@ -27,7 +28,7 @@ module.exports = function (io) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
 
         res.status(200).send(db_res.rows);
@@ -46,7 +47,7 @@ module.exports = function (io) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
 
         res.status(200).send(db_res.rows[0]);
@@ -61,11 +62,11 @@ module.exports = function (io) {
         }
         catch(db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
 
         socket_functions.emit_update(io);
-        res.status(200).send('All tickets deleted');
+        res.status(200).json(json_resp.success.delete);
     });
 
     /**
@@ -80,11 +81,11 @@ module.exports = function (io) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
 
         socket_functions.emit_update(io);
-        res.status(200).send('Deleted! Ticket with id  ' + t_id + '  deleted');
+        res.status(200).json(json_resp.success.delete);
     });
 
     /**
@@ -101,11 +102,11 @@ module.exports = function (io) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
 
         socket_functions.emit_update(io, c_id);
-        res.status(200).send('Success! Ticket with id  ' + t_id + '  created at car park ' + c_id);
+        res.status(200).send(json_resp.success.create);
     });
 
     /**
@@ -123,7 +124,7 @@ module.exports = function (io) {
            typeof req.body.valid    === 'undefined' &&
            typeof req.body.duration === 'undefined')
         {
-            return res.status(500).send('Possible body params are: \ndate_out (Date.now()),\npaid (true/false),\nvalid (true/false),\n duration (double)');
+            return res.status(500).json(json_resp.error.invalid_ticket_update);
         }
 
         if (typeof req.body.date_out !== 'undefined') {
@@ -132,7 +133,7 @@ module.exports = function (io) {
             }
             catch (db_err) {
                 debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
+                return res.status(500).json(json_resp.error.internal);
             }
         }
 
@@ -142,7 +143,7 @@ module.exports = function (io) {
             }
             catch(db_err) {
                 debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
+                return res.status(500).json(json_resp.error.internal);
             }
         }
 
@@ -152,7 +153,7 @@ module.exports = function (io) {
             }
             catch (db_err) {
                 debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
+                return res.status(500).json(json_resp.error.internal);
             }
         }
 
@@ -162,11 +163,11 @@ module.exports = function (io) {
             }
             catch (db_err) {
                 debug(db_err);
-                return res.status(500).send('Error on the server:' + db_err);
+                return res.status(500).json(json_resp.error.internal);
             }
         }
 
-        return res.status(200).send('Updated! Ticket with id  ' + t_id + '  updated');
+        return res.status(200).json(json_resp.success.update);
     });
 
     /**
@@ -183,7 +184,7 @@ module.exports = function (io) {
         }
         catch (db_err) {
             debug(db_err);
-            return res.status(500).send('Error on the server:' + db_err);
+            return res.status(500).json(json_resp.error.internal);
         }
         if (db_res.rows[0]._carpark_id !== c_id) return res.status(406).send('Ticket does\'t belong to the carpark');
         if (db_res.rows[0].valid !== true) return res.status(406).send('Ticket is invalid');

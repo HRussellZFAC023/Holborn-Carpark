@@ -70,13 +70,23 @@ module.exports = {
             type:    'invalid update',
             message: 'Possible parameters listed in .params',
             params: {
-                username:           'string',
-                email:              'string',
-                manager_level:      'int',
-                _carpark_id:        'uuid[]',
-                active:             'boolean',
-                reset_password:     'boolean',
-                change_password:    'string'
+                username:        'string',
+                email:           'string',
+                manager_level:   'int',
+                _carpark_id:     'uuid[]',
+                active:          'boolean',
+                reset_password:  'boolean',
+                change_password: 'string'
+            }
+        },
+        invalid_ticket_update: {
+            type:    'invalid update',
+            message: 'Possible parameters listed in .params',
+            params: {
+                date_out:       'Date.now()',
+                paid:           'boolean',
+                valid:          'boolean',
+                duration:       'double'
             }
         }
     },
