@@ -11,7 +11,7 @@ const db_config = {
     port: 5432
 };
 
-if (G.env === 'dev') db_config.host = '18.218.5.6';
+if (G.env === 'dev') db_config.host = '18.130.76.77';
 else db_config.host = '127.0.0.1';
 
 /**
