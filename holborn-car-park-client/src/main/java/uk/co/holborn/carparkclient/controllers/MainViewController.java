@@ -3,6 +3,7 @@ package uk.co.holborn.carparkclient.controllers;
 import io.socket.client.Ack;
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +19,6 @@ import uk.co.holborn.carparkclient.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -181,11 +181,11 @@ public class MainViewController implements Initializable {
                     popup.removePopUp();
                     sceneAnchor.setDisable(false);
                     Thread.currentThread().interrupt();
-                }else{
+                } else {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                       Thread.currentThread().interrupt();
+                        Thread.currentThread().interrupt();
                     }
                 }
             }
@@ -199,34 +199,66 @@ public class MainViewController implements Initializable {
      * Thread that updates the date and time
      */
     private void updater() {
-        Thread updater = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                Date dateNow = new Date();
-                String strTimeFormat = "HH:mm:ss";
-                DateFormat timeFormat = new SimpleDateFormat(strTimeFormat);
-
-                String strDateFormat = "MMM d Y";
-                DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-
-                Platform.runLater(() -> {
-                    dateLabel.setText(dateFormat.format(dateNow).toUpperCase());
-                    timeLabel.setText(timeFormat.format(dateNow));
-                });
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//         final long[] frameTimes = new long[100];
+//        final int[] frameTimeIndex = {0};
+//        final boolean[] arrayFilled = {false};
+        AnimationTimer at = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
+                String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
+                dateLabel.setText(date);
+                timeLabel.setText(time);
+                //activate to see FPS
+//                long oldFrameTime = frameTimes[frameTimeIndex[0]] ;
+//                frameTimes[frameTimeIndex[0]] = now ;
+//                frameTimeIndex[0] = (frameTimeIndex[0] + 1) % frameTimes.length ;
+//                if (frameTimeIndex[0] == 0) {
+//                    arrayFilled[0] = true ;
+//                }
+//                if (arrayFilled[0]) {
+//                    long elapsedNanos = now - oldFrameTime ;
+//                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+//                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+//                    dateLabel.setText(String.format("FPS: %.3f", frameRate) + " " + date);
+//                }
             }
-
-        });
-        updater.setName("Thread-Date&Time Updater");
-        updater.setDaemon(true);
-        updater.start();
+        };
+        at.start();
+//        Timeline clockTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+//            String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//            String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
+//            dateLabel.setText(date);
+//            timeLabel.setText(time);
+//        }),
+//                new KeyFrame(Duration.seconds(0.5))
+//        );
+//        clockTimeline.setCycleCount(Animation.INDEFINITE);
+//        clockTimeline.play();
+//        Thread updater = new Thread(() -> {
+//            while (!Thread.currentThread().isInterrupted()) {
+//                String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
+//                String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
+//                Platform.runLater(() -> {
+//                    dateLabel.setText(date);
+//                    timeLabel.setText(time);
+//                });
+//
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        });
+//        updater.setName("Thread-Date&Time Updater");
+//        updater.setDaemon(true);
+//        updater.start();
     }
-     void emitTicketPaid() {
-        Object[] params = new Object[]{true, ""+ ticket.getDuration(), ""+ ticket.getDate_out(), ""+ticket.get_id(), ""+ticket.getPrice()};
+
+    void emitTicketPaid() {
+        Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
         socket.emit("ticket-paid", params);
     }
 
