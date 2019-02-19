@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: './server/react/manager.js',
   output: {
-    path: __dirname + '/public/protected/react',
+    path: __dirname + '/public/js',
     filename: 'manager.js'
   },
   module: {
@@ -28,7 +28,7 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: "./server/react/manager.html",
-      filename: "./manager.html"
+      filename: "../protected/HTML/manager.html"
     })
   ]
 };

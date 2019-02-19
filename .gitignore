@@ -12,6 +12,8 @@ holborn-car-park-barriers/target/
 .DS_Store
 .vscode/
 *.iml
+holborn-car-park-service-app/public/js/manager.js
+holborn-car-park-service-app/public/protected/HTML/manager.html
 
 #Directories NOT to exclude
 !holborn-car-park-barriers/.idea/runConfigurations/
