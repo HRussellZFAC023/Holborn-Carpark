@@ -24,6 +24,7 @@ require('./server/sockets/socket')(io);
  * Main routes declaration
  */
 const noApiRoutes = require('./server/routes/noapi');
+const utilityRoutes = require('./server/routes/utility');
 
 /**
  * API routes declaration
@@ -67,6 +68,7 @@ app.use(express.static(path.join(__dirname, 'public', 'js')));
 app.use(express.static(path.join(__dirname, 'public', 'resources')));
 app.use(express.static(path.join(__dirname, 'public', 'stylesheets')));
 app.use(noApiRoutes);
+app.use('/utility', utilityRoutes);
 
 /**
  * Setting API routes to be used as express middleware
