@@ -23,7 +23,7 @@ require('./server/sockets/socket')(io);
 /**
  * Main routes declaration
  */
-const noApiRoutes = require('./server/routes/noapi');
+const mainRoutes    = require('./server/routes/main');
 const utilityRoutes = require('./server/routes/utility');
 
 /**
@@ -67,7 +67,7 @@ app.use(cl_sessions(cl_sessions_opt));
 app.use(express.static(path.join(__dirname, 'public', 'js')));
 app.use(express.static(path.join(__dirname, 'public', 'resources')));
 app.use(express.static(path.join(__dirname, 'public', 'stylesheets')));
-app.use(noApiRoutes);
+app.use(mainRoutes);
 app.use('/utility', utilityRoutes);
 
 /**
