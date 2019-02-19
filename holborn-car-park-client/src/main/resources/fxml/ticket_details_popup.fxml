@@ -13,9 +13,9 @@
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="600.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="200.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="853.8915405273438" minWidth="300.0" prefWidth="852.7304077148438" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
@@ -89,7 +89,7 @@
                                                 <Font name="Avenir Next Bold" size="13.0" />
                                             </font>
                                         </Label>
-                              <Label styleClass="ticket_detail_info_label" text="Duration paying for:" textFill="#6f5ac6" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                              <Label styleClass="ticket_detail_info_label" text="Paying for:" textAlignment="RIGHT" textFill="#6f5ac6" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Avenir Next Bold" size="13.0" />
                                  </font>
