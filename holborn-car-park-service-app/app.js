@@ -71,9 +71,6 @@ app.use(noApiRoutes);
 /**
  * Setting API routes to be used as express middleware
  */
-//fix me
-app.use(express.static(path.join(__dirname, 'public', 'protected', 'react')));
-
 const api_resource = '/api';
 app.use(api_resource + '/carparks', carParksRoute);
 app.use(api_resource + '/tickets', ticketsRoute);

@@ -31,7 +31,7 @@ router.get('/register', function (req, res) {
 });
 
 router.get('/manager', verify.UserAuth, function (req, res) {
-    res.sendFile('manager.html', {root: path.join('public', 'protected', 'react')});
+    res.sendFile('manager.html', {root: path.join('public', 'protected', 'HTML')});
 });
 
 
