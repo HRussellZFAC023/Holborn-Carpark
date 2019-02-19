@@ -1,7 +1,13 @@
+html,
+body {
+  height: 100%;
+}
+
 .is-70{
-  margin: auto;
+
   padding-top: 25px;
   max-width: 33%;
+  margin-bottom: 30px;
 }
 
 .up {
