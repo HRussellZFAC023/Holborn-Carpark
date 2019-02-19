@@ -52,18 +52,15 @@ public class LandingPageController implements Initializable {
         });
     }
     private void update(Object[] objects) {
-        Platform.runLater(() -> {
             updateTextParkingSpaces(objects[0] + "");
             updateTextPrice("£" + objects[1]);
             updateHappyHour((objects[2] + "").subSequence(0, 5) + " - " + (objects[3] + "").subSequence(0, 5));
-        });
     }
 
     private void updateTextParkingSpaces(String message) {
         if (!mc.parking_spaces.equals(message)) {
             mc.parking_spaces = message;
-            Animator.nodeFade(parking_spaces, false);
-            parking_spaces.setText(message);
+            Platform.runLater(()->parking_spaces.setText(message));
             Animator.nodeFade(parking_spaces, true);
         }
     }
@@ -71,8 +68,7 @@ public class LandingPageController implements Initializable {
     private void updateTextPrice(String message) {
         if (!mc.hourly_price.equals(message)) {
             mc.hourly_price = message;
-            Animator.nodeFade(price, false);
-            price.setText(message);
+            Platform.runLater(()->price.setText(message));
             Animator.nodeFade(price, true);
         }
     }
@@ -80,8 +76,7 @@ public class LandingPageController implements Initializable {
     private void updateHappyHour(String message) {
         if (!mc.happy_hour_time.equals(message)) {
             mc.happy_hour_time = message;
-            Animator.nodeFade(happy_hour, false);
-            happy_hour.setText(message);
+            Platform.runLater(()-> happy_hour.setText(message));
             Animator.nodeFade(happy_hour, true);
         }
     }

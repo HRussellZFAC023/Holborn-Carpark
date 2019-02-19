@@ -158,8 +158,7 @@ public class TicketCheckController implements Initializable {
     private void setMessage(String message) {
         Platform.runLater(() -> {
             infoText.setText(message);
-            Animator.nodeFade(infoText, true);
-        });
+        });Animator.nodeFade(infoText, true);
     }
 
 }
