@@ -32,7 +32,7 @@ class NavBar extends Component {
                       <a onClick={() => this.props.setScene("Settings")} className="dropdown-item">
                         Settings
                       </a>
-                      <a onClick={() => console.log("Logout")} className="dropdown-item">
+                      <a onClick={() => window.location.replace(window.location.protocol + '//' + window.location.host + "/logout")} className="dropdown-item">
                         Logout
                       </a>
                     </div>
