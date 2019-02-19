@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import NavBar from "./js/components/NavBar";
 import Sidebar from "./js/components/SideBar";
 import Dash from "./js/components/Dash"
-import Oof404 from "./js/components/Oof404"
+import Missing404 from "./js/components/Missing404"
 import Settings from "./js/components/Settings";
 import Report from "./js/components/Report";
 import Tickets from "./js/components/Tickets";
@@ -34,7 +34,7 @@ class DynamicContent extends React.Component {
       case "Tickets":
         return <Tickets/>;
       default:
-        return <Oof404/>
+        return <Missing404/>
     }
   }
 

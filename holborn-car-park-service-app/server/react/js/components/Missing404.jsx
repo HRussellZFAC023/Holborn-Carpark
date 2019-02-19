@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-class Oof404 extends Component {
+class Missing404 extends Component {
 
   render() {
     return (
@@ -20,7 +20,7 @@ class Oof404 extends Component {
   }
 }
 
-export default Oof404;
+export default Missing404;
 
 
 
