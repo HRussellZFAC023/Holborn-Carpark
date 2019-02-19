@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.util.Duration;
 
@@ -61,16 +62,16 @@ public class Animator {
 
     public static void nodeBlurr(Node node, double blurrRadius, double keyFrameTime) {
         Timeline timeline = new Timeline();
-        blurr_keyframes(node, blurrRadius, keyFrameTime, timeline);
+        gaussian_blurr_keyframes(node, blurrRadius, keyFrameTime, timeline);
         timeline.play();
 
     }
 
     public static void nodeBlurrBackgroundAndShowPopUp(Node background, Node popup, EventHandler<ActionEvent> eventEventHandler) {
         Timeline timeline = new Timeline();
-        double blurrEndKey = 0.4;
-        blurr_keyframes(background, 60, blurrEndKey, timeline);
-        nodePopInCard_keyframes(popup, blurrEndKey + 0.3, timeline);
+        double blurrEndKey = 0.2;
+        gaussian_blurr_keyframes(background, 20, blurrEndKey, timeline);
+        nodePopInCard_keyframes(popup, blurrEndKey+0.2 , timeline);
         timeline.setOnFinished(eventEventHandler);
         timeline.play();
     }
@@ -84,12 +85,22 @@ public class Animator {
         timeline.play();
     }
 
-    public static void blurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
+    public static void gaussian_blurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
         GaussianBlur gb = new GaussianBlur();
         gb.setRadius(0);
         node.setEffect(gb);
         timeline.getKeyFrames().addAll(
                 new KeyFrame(Duration.seconds(keyFrame), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_IN))
+        );
+    }
+    public static void box_blurr_keyframes(Node node, double iterations, double keyFrame, Timeline timeline) {
+        BoxBlur bb = new BoxBlur();
+        bb.setWidth(10);
+        bb.setHeight(10);
+        bb.setIterations(0);
+        node.setEffect(bb);
+        timeline.getKeyFrames().addAll(
+                new KeyFrame(Duration.seconds(keyFrame), new KeyValue(bb.iterationsProperty(), iterations, Interpolator.EASE_IN))
         );
     }
 
@@ -108,15 +119,19 @@ public class Animator {
         node.setOpacity(0);
         node.setScaleX(0);
         node.setScaleY(0);
-        double startOffset = 0.3;
+        node.setTranslateY(-500);
+        double startOffset = 0.2;
         double bounceOffset = startOffset + 0.2;
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 0, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_BOTH)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_IN)),
+
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.translateYProperty(), 0, Interpolator.EASE_IN)),
+
                 new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_BOTH)),
                 new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_BOTH))
         );
