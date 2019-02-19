@@ -26,6 +26,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   plugins: [
     new HtmlWebPackPlugin({
       template: "./server/react/manager.html",
