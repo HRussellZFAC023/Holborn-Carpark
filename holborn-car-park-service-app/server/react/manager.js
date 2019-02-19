@@ -29,7 +29,7 @@ class DynamicContent extends React.Component {
         return <Settings/>;
       case "Report":
         return <Report/>;
-      case "Car Parks":
+      case "CarPark":
         return <Carparks/>;
       case "Tickets":
         return <Tickets/>;
