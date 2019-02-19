@@ -1,20 +1,14 @@
 package uk.co.holborn.carparkclient;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.effect.GaussianBlur;
+import javafx.scene.CacheHint;
 import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 import uk.co.holborn.carparkclient.controllers.TicketDetailsPopUpController;
 
 import java.io.IOException;
 
 import static javafx.scene.layout.AnchorPane.*;
-import static javafx.scene.layout.AnchorPane.setTopAnchor;
 
 public class TicketDetailsPopUp {
     private AnchorPane blurrAnchor;
@@ -39,6 +33,11 @@ public class TicketDetailsPopUp {
                 e.printStackTrace();
             }
         }
+
+        root.setCache(true);
+        root.setCacheHint(CacheHint.SPEED);
+        blurrAnchor.setCache(true);
+        blurrAnchor.setCacheHint(CacheHint.SPEED);
     }
 
     public void remove() {
@@ -54,11 +53,9 @@ public class TicketDetailsPopUp {
                 setRightAnchor(root, 0.0);
                 setLeftAnchor(root, 0.0);
                 setTopAnchor(root, 0.0);
-                Platform.runLater(() -> {
-                    tc.setTicket(ticket);
-                    mainAnchor.getChildren().add(root);
-                    Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor, root, null);
-                });
+                tc.setTicket(ticket);
+                Platform.runLater(() -> mainAnchor.getChildren().add(root));
+                Animator.nodeBlurrBackgroundAndShowPopUp(blurrAnchor, root, null);
                 alreadyOn = true;
             }
 

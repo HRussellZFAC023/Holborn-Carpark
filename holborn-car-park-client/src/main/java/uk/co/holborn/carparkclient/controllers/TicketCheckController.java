@@ -54,13 +54,14 @@ public class TicketCheckController implements Initializable {
     public TicketCheckController() {
         logger = LogManager.getLogger(getClass().getName());
         mc = MainViewController.getInstance();
+        socket = mc.getSocket();
+        gson = new Gson();
     }
 
     ArrayList<Node> nodes = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        socket = mc.getSocket();
         nodes.add(ticket_image_bg);
         nodes.add(ticket_image_ticket);
         nodes.add(ticket_image_laser_beam);
@@ -79,7 +80,6 @@ public class TicketCheckController implements Initializable {
                         animateImageValidate(true);
                         setMessage("Your ticket is valid!");
                         //  Object ticket = objects[2];
-                        gson = new Gson();
                         mc.ticket = gson.fromJson(objects[2].toString(), Ticket.class);
                         try {
                             Thread.sleep(500);

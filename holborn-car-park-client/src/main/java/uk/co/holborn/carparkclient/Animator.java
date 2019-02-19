@@ -69,9 +69,9 @@ public class Animator {
 
     public static void nodeBlurrBackgroundAndShowPopUp(Node background, Node popup, EventHandler<ActionEvent> eventEventHandler) {
         Timeline timeline = new Timeline();
-        double blurrEndKey = 0.2;
-        gaussian_blurr_keyframes(background, 20, blurrEndKey, timeline);
-        nodePopInCard_keyframes(popup, blurrEndKey+0.2 , timeline);
+        double startKey = 0.2;
+        nodePopInCard_keyframes(popup, startKey, timeline);
+        gaussian_blurr_keyframes(background, 30, startKey + 0.4, startKey + 0.6, timeline);
         timeline.setOnFinished(eventEventHandler);
         timeline.play();
     }
@@ -86,13 +86,19 @@ public class Animator {
     }
 
     public static void gaussian_blurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
+        gaussian_blurr_keyframes(node, blurrRadius, 0, keyFrame, timeline);
+    }
+
+    public static void gaussian_blurr_keyframes(Node node, double blurrRadius, double start_keyframe, double end_keyframe, Timeline timeline) {
         GaussianBlur gb = new GaussianBlur();
         gb.setRadius(0);
         node.setEffect(gb);
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(keyFrame), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_IN))
+                new KeyFrame(Duration.seconds(start_keyframe), new KeyValue(gb.radiusProperty(), 0, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(end_keyframe), new KeyValue(gb.radiusProperty(), blurrRadius, Interpolator.EASE_BOTH))
         );
     }
+
     public static void box_blurr_keyframes(Node node, double iterations, double keyFrame, Timeline timeline) {
         BoxBlur bb = new BoxBlur();
         bb.setWidth(10);
@@ -123,14 +129,14 @@ public class Animator {
         double startOffset = 0.2;
         double bounceOffset = startOffset + 0.2;
         timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.opacityProperty(), 0, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleXProperty(), 0.5, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe), new KeyValue(node.scaleYProperty(), 0.5, Interpolator.EASE_BOTH)),
 
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.translateYProperty(), 0, Interpolator.EASE_IN)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.opacityProperty(), 1, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleXProperty(), 1.2, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.scaleYProperty(), 1.2, Interpolator.EASE_BOTH)),
+                new KeyFrame(Duration.seconds(endKeyframe + startOffset), new KeyValue(node.translateYProperty(), 0, Interpolator.EASE_BOTH)),
 
                 new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_BOTH)),
                 new KeyFrame(Duration.seconds(endKeyframe + bounceOffset), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_BOTH))
