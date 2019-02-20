@@ -11,6 +11,11 @@ if (localStorage.getItem(storage_key) === null) {
     }
 }
 
+window.addEventListener('pageshow', function(event) {
+   if(preferredThemeScheme){
+       preferredThemeScheme.scheme = localStorage.getItem(storage_key)
+   }
+});
 
 // this runs every time the preferred color scheme changes (by the OS or manually)
 preferredThemeScheme.onChange = function () {
