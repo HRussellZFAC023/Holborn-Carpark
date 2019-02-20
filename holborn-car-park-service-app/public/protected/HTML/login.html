@@ -6,10 +6,12 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>Login</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+    <script crossorigin="anonymous"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
             type="text/javascript">
     </script>
     <link
+            crossorigin="anonymous"
             href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
             rel="stylesheet"
     />
@@ -18,6 +20,8 @@
     <link href="global.css" rel="stylesheet" type="text/css"/>
     <link href="login.css" rel="stylesheet" type="text/css"/>
     <script src="login.js"></script>
+    <script src="https://unpkg.com/css-prefers-color-scheme/browser.min"></script>
+    <script src="preferredThemeScheme.js"  type="text/javascript"></script>
 </head>
 
 <body>
@@ -36,10 +40,10 @@
 
                 <div class="" id="box">
                     <div class="field">
-                        <div class="control " id="ctrl_username" >
+                        <div class="control " id="ctrl_username">
                             <input
                                     autofocus=""
-                                    class="input is-large"
+                                    class="input is-large roundedTextField"
                                     id="fld_username"
                                     name="username"
                                     placeholder="username"
@@ -49,9 +53,9 @@
                     </div>
 
                     <div class="field">
-                        <div class="control" id="ctrl_password" style="border-radius: 10px">
+                        <div class="control" id="ctrl_password">
                             <input
-                                    class="input is-large"
+                                    class="input is-large roundedTextField"
                                     id="fld_password"
                                     name="password"
                                     placeholder="password"
@@ -65,15 +69,16 @@
                             <input type="checkbox" id="remember_me"/> Remember me
                         </label>
                     </div>
-                    <div class=" is-block is-info is-large is-fullwidth gradientNoShadow actionButton"  id="btn_login">
+                    <div class=" is-block is-info is-large is-fullwidth gradientNoShadow actionButton" id="btn_login">
                         Login
                     </div>
-                <br>
-                <!--<p class="has-text-grey">-->
+                    <br>
+                    <!--<p class="has-text-grey">-->
                     <!--<a href="/register">Sign Up</a> &nbsp;·&nbsp;-->
                     <!--<a href="">Forgot Password</a> &nbsp;·&nbsp;-->
                     <!--<a href="">Need Help?</a>-->
-                <!--</p>-->
+                    <!--</p>-->
+                </div>
             </div>
         </div>
     </div>
