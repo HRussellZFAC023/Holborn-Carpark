@@ -1,5 +1,7 @@
 package Networking;
 
+import FxStuff.Ticket;
+
 public class ClientLauncher {
 
     public static void main(String[] args) {
@@ -9,7 +11,7 @@ public class ClientLauncher {
     public ClientLauncher() {
         Thr thread = new Thr(
                 false,
-                new Ticket("Networking.Ticket")
+                new Ticket()
         );//Create a new test thread
         thread.start();
     }//Class used for testing the client connections
@@ -17,7 +19,7 @@ public class ClientLauncher {
     private class Thr extends Thread {
 
         private boolean type;//Type of barrier
-        private Ticket ticket;//Networking.Ticket if applicable
+        private Ticket ticket;//Ticket if applicable
 
         public Thr(boolean type, Ticket ticket){
             new Thr(type);//Call the alternate constructor
@@ -31,9 +33,9 @@ public class ClientLauncher {
         @Override
         public void run() {
             if (type) {
-                new Client(type);
+                //new Client(type);
             } else {
-                new Client(type, ticket);
+                //new Client(type, ticket);
             }
         }//Run thread
     }//Thread for testing socket connections of multiple barriers

@@ -12,7 +12,7 @@ public class Protocol {
             sleep(1);
         }
         return Boolean.parseBoolean(line);
-    }//Networking.Protocol for getting the type of barrier
+    }//Protocol for getting the type of barrier
 
     public String requestTicket(Scanner scan, PrintWriter out) {
         String request;
