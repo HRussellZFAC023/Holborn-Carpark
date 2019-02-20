@@ -1,3 +1,5 @@
+package Networking;
+
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -29,7 +31,7 @@ public class Client {
 
     public Client(boolean type, Ticket ticket) {
         connect(type);//Connect to server
-        System.out.println("Ticket is: " + validateTicket(ticket));//Check if ticket is valid
+        System.out.println("Networking.Ticket is: " + validateTicket(ticket));//Check if ticket is valid
         try {
             Thread.sleep(500);
         } catch (Exception e) {

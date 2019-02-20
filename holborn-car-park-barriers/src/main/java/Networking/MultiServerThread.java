@@ -1,3 +1,5 @@
+package Networking;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -43,7 +45,7 @@ public class MultiServerThread extends Thread {
         while (!(line = waitAnswer(scan)).contentEquals("Halt")) {
             //If the get command has been received
             if (line.contentEquals("Get")) {
-                Ticket ticket = new Ticket("Ticket");//Needs to generate ticket here
+                Ticket ticket = new Ticket("Networking.Ticket");//Needs to generate ticket here
                 //Convert the ticket to a string and send it to the barriers
                 print.println((new Gson()).toJson(ticket));
             }
@@ -59,7 +61,7 @@ public class MultiServerThread extends Thread {
                 //Removes teh command sent by the barrier
                 String ticketID = line.substring(6);
                 //Need to check ticket with database here
-                if (ticketID.contentEquals("Ticket")) {
+                if (ticketID.contentEquals("Networking.Ticket")) {
                     print.println("True");
                     //Open barrier
                     //Maybe return something to let the database know the car has left

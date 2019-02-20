@@ -1,3 +1,5 @@
+package Networking;
+
 import java.io.PrintWriter;
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class Protocol {
             sleep(1);
         }
         return Boolean.parseBoolean(line);
-    }//Protocol for getting the type of barrier
+    }//Networking.Protocol for getting the type of barrier
 
     public String requestTicket(Scanner scan, PrintWriter out) {
         String request;

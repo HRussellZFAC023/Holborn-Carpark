@@ -1,3 +1,5 @@
+package Networking;
+
 public class Ticket {
 
     private String ID;

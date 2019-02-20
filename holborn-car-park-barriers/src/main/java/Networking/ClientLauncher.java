@@ -1,3 +1,5 @@
+package Networking;
+
 public class ClientLauncher {
 
     public static void main(String[] args) {
@@ -7,7 +9,7 @@ public class ClientLauncher {
     public ClientLauncher() {
         Thr thread = new Thr(
                 false,
-                new Ticket("Ticket")
+                new Ticket("Networking.Ticket")
         );//Create a new test thread
         thread.start();
     }//Class used for testing the client connections
@@ -15,7 +17,7 @@ public class ClientLauncher {
     private class Thr extends Thread {
 
         private boolean type;//Type of barrier
-        private Ticket ticket;//Ticket if applicable
+        private Ticket ticket;//Networking.Ticket if applicable
 
         public Thr(boolean type, Ticket ticket){
             new Thr(type);//Call the alternate constructor
