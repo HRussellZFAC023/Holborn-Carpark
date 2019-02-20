@@ -40,7 +40,7 @@ public class MainViewController implements Initializable {
     @FXML
     AnchorPane mainAnchor;
     @FXML
-    AnchorPane blurrAnchor;
+    AnchorPane sceneContainer;
     @FXML
     Button themeModeButton;
     public SceneManager sceneManager;
@@ -85,7 +85,7 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         updater();
         themeModeButton.setText("NIGHTTIME");
-        popup = new InfoPopUp(mainAnchor);
+        popup = new InfoPopUp(sceneContainer);
         sceneManager = new SceneManager(sceneAnchor);
         sceneManager.changeTo(Scenes.LANDING);
         sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> sessionStartTime = System.currentTimeMillis());
