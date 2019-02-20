@@ -6,9 +6,7 @@
   src: local('Avenir LT Std 35 Light'), url('fonts/AvenirLTStd-Light.woff') format('woff');
 
 }
-
 html, body {
-  background-color: #f7f7f7;
   font-family: 'Avenir LT Std 35 Light', fallback, serif;
   font-weight: normal;
   height: 100%;
