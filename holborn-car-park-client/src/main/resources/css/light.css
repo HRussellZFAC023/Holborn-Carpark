@@ -13,7 +13,7 @@
 .button_card{
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
-    fx-font: 32px "Avenir Light";
+    -fx-font: 32px "Avenir Light";
     -fx-border-width: 0;
     -fx-border-radius: 0;
     -fx-border-color: #4E4C4D;
@@ -180,4 +180,16 @@
 .ticket_detail_info_label_bigger{
     -fx-font: 36 "Avenir Book";
     -fx-fill: blue;
+}
+.themeModeButton{
+    -fx-border-radius: 20px;
+    -fx-background-color: #3e4044;
+    -fx-text-fill: #fffef2;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 2);
+}
+.themeModeButton:pressed{
+    -fx-border-radius: 20px;
+    -fx-background-color: #2f3134;
+    -fx-text-fill: #fffef2;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 1);
 }

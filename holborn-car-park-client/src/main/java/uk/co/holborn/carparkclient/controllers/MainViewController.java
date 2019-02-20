@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -40,6 +41,8 @@ public class MainViewController implements Initializable {
     AnchorPane mainAnchor;
     @FXML
     AnchorPane blurrAnchor;
+    @FXML
+    Button themeModeButton;
     public SceneManager sceneManager;
     private Socket socket;
     private GlobalVariables globalVariables;
@@ -81,11 +84,13 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
+        themeModeButton.setText("NIGHTTIME");
         popup = new InfoPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
         sceneManager.changeTo(Scenes.LANDING);
         sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> sessionStartTime = System.currentTimeMillis());
         socketPreparation();
+
     }
 
     private void socketPreparation() {
@@ -257,6 +262,17 @@ public class MainViewController implements Initializable {
 //        updater.start();
     }
 
+    @FXML
+    void switchTheme(){
+        if(ThemeProvider.getCurrentTheme() == Themes.LIGHT) {
+            ThemeProvider.switchTheme(Themes.DARK);
+            themeModeButton.setText("DAYTIME");
+        }
+        else {
+            ThemeProvider.switchTheme(Themes.LIGHT);
+            themeModeButton.setText("NIGHTTIME");
+        }
+    }
     void emitTicketPaid() {
         Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
         socket.emit("ticket-paid", params);
