@@ -17,6 +17,7 @@ import uk.co.holborn.carparkclient.controllers.MainViewController;
  */
 public class MainWindow extends Application {
     Logger log;
+   Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -26,7 +27,9 @@ public class MainWindow extends Application {
         primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
-        primaryStage.setScene(new Scene(root, 1280, 768));
+        scene = new Scene(root, 1280, 768);
+        scene.getStylesheets().add("/css/light.css");
+        primaryStage.setScene(scene);
         primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(600);
         primaryStage.show();
