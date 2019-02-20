@@ -13,17 +13,20 @@
             rel="stylesheet"
     />
     <link
+            crossorigin="anonymous"
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
             rel="stylesheet"
     />
     <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
-            rel="stylesheet"
+    crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"
+    rel="stylesheet"
     />
-    <link href="landing.css" rel="stylesheet" type="text/css"/>
-    <link href="global.css" rel="stylesheet" type="text/css"/>
-    <link href="gradient-shadow.css" rel="stylesheet" type="text/css"/>
-    <script src="landing.js"></script>
+    <link href="landing.css" crossorigin="anonymous" rel="stylesheet" type="text/css"/>
+    <link href="gradient-shadow.css" crossorigin="anonymous" rel="stylesheet" type="text/css"/>
+    <link href="global.css" crossorigin="anonymous" rel="stylesheet" type="text/css"/>
+    <script src="https://unpkg.com/css-prefers-color-scheme/browser.min"></script>
+    <script src="preferredThemeScheme.js"  type="text/javascript"></script>
 </head>
 
 <body>
@@ -39,30 +42,37 @@
         <div class="container has-text-centered">
             <div class="column is-4 is-offset-4">
                 <form action="login">
-                    <button class="gradientShadowButton actionButton" type="submit">Sign in</button>
+                    <button class="gradientShadowButton signIn" type="submit">Sign in</button>
                 </form>
                 <!--<div class="box has-background-dark">-->
-                    <!--<h1 class="has-text-grey-lighter title">-->
-                        <!--Who are we?-->
-                    <!--</h1>-->
-                    <!--<h2 class="has-text-grey-lighter subtitle">-->
-                        <!--Holborn Car Par Services is a small company that owns a few car parks in Greater London.-->
-                    <!--</h2>-->
-                    <!--<a class="button is-info" href="login">-->
-                        <!--Sign in-->
-                    <!--</a>-->
+                <!--<h1 class="has-text-grey-lighter title">-->
+                <!--Who are we?-->
+                <!--</h1>-->
+                <!--<h2 class="has-text-grey-lighter subtitle">-->
+                <!--Holborn Car Par Services is a small company that owns a few car parks in Greater London.-->
+                <!--</h2>-->
+                <!--<a class="button is-info" href="login">-->
+                <!--Sign in-->
+                <!--</a>-->
                 <!--</div>-->
             </div>
         </div>
     </div>
     <div class="hero-foot foot">
         <!--<div class="content has-text-centered ">-->
-            <!--<p class="has-text-dark"><i class="fas fa-phone"></i> 07027 293666 </p>-->
+        <!--<p class="has-text-dark"><i class="fas fa-phone"></i> 07027 293666 </p>-->
         <!--</div>-->
     </div>
 
 </main>
 
 </body>
-
+<footer>
+    <p>
+        Change the color scheme:
+        <button onClick="preferredThemeScheme.scheme='dark'">Dark</button>
+        <button onClick="preferredThemeScheme.scheme='light'">Light</button>
+    <p>
+        Current Color Scheme: <span id="preferred-color-scheme">preferredThemeScheme.scheme</span>
+</footer>
 </html>
