@@ -15,10 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import uk.co.holborn.carparkclient.Animator;
-import uk.co.holborn.carparkclient.Scenes;
-import uk.co.holborn.carparkclient.Ticket;
-import uk.co.holborn.carparkclient.TicketDetailsPopUp;
+import uk.co.holborn.carparkclient.*;
 
 import java.net.URL;
 import java.util.ArrayList;

@@ -28,7 +28,7 @@ public class MainWindow extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         scene = new Scene(root, 1280, 768);
-        scene.getStylesheets().add("/css/light.css");
+        new ThemeProvider(scene, Themes.LIGHT);
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(400);
         primaryStage.setMinWidth(600);
