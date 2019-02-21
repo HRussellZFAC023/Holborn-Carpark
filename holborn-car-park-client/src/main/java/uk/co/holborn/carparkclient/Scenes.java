@@ -135,7 +135,7 @@ public enum Scenes {
         }
     };
     /**
-     * Abstraction of a method that returns the location
+     * Method that gets the location
      * of the fxml file within resources folder
      * <p>
      * This is called in {@link #getURLResource()}
@@ -145,7 +145,7 @@ public enum Scenes {
     abstract String getFXMLLocation();
 
     /**
-     * Abstraction of a method that returns Object
+     * Method that gets an Object
      * containing a reference to the controller
      * <p>
      * This is called in {@link #getScene()}
@@ -155,7 +155,7 @@ public enum Scenes {
     public abstract Object getController();
 
     /**
-     * Abstraction of a method that returns an Anchor Pane
+     * Method that gets an Anchor Pane
      * containing a reference to the root anchor pane
      * <p>
      * This is called in {@link #getScene()}
@@ -165,21 +165,22 @@ public enum Scenes {
     abstract AnchorPane getRootAnchor();
 
     /**
-     * Abstraction of a method that sets an Anchor Pane
+     * Method that sets an Anchor Pane
      * containing a reference to the root anchor pane
      * <p>
      * This is called in {@link #getScene()}
+     * @param root set the AnchorPane to this
      */
     abstract void setRootAnchor(AnchorPane root);
 
     /**
-     * Abstraction of a method that does all the necessary
+     * Method that does all the necessary
      * preparation in the controller before returning the root anchor pane
      */
     abstract void initialise();
 
     /**
-     * Method returns an URL pointing to the resources folder with the file path returned by {@link #getFXMLLocation()}
+     * Method that gets an URL pointing to the resources folder with the file path returned by {@link #getFXMLLocation()}
      *
      * @return resource URL
      */
