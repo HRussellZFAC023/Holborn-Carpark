@@ -9,6 +9,7 @@ import javafx.scene.SnapshotParameters;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class ThemeProvider {
@@ -33,11 +34,10 @@ public class ThemeProvider {
             AnchorPane root = (AnchorPane) scene.getRoot();
             root.getChildren().add(imgv);
             imgv.fitWidthProperty().bind(root.widthProperty());
-            imgv.fitHeightProperty().bind(root.heightProperty()
-            );
+            imgv.fitHeightProperty().bind(root.heightProperty());
             FadeTransition f = new FadeTransition();
             f.setNode(root.getChildren().get(2));
-            f.setDuration(Duration.seconds(0.3));
+            f.setDuration(Duration.seconds(0.5));
             f.setInterpolator(Interpolator.EASE_BOTH);
             f.setFromValue(1.0);
             f.setToValue(0.0);
@@ -55,12 +55,16 @@ public class ThemeProvider {
         final WritableImage image = new WritableImage(
                 (int) Math.round(bounds.getWidth() * scale),
                 (int) Math.round(bounds.getHeight() * scale));
-
+        Rectangle rect = new Rectangle();
+        rect.setHeight(bounds.getHeight());
+        rect.setWidth(bounds.getWidth());
+        node.setClip(rect);
         final SnapshotParameters spa = new SnapshotParameters();
         spa.setTransform(javafx.scene.transform.Transform.scale(scale, scale));
         final ImageView view = new ImageView(node.snapshot(spa, image));
         view.setFitWidth(bounds.getWidth());
         view.setFitHeight(bounds.getHeight());
+        node.setClip(null);
         return view;
     }
 }
