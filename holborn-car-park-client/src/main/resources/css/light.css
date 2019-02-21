@@ -8,7 +8,7 @@
 }
 .top_bar{
     -fx-background-color:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
-    /*-fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.67), 60, 0.0, 0, -10);*/
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.67), 60, 0.0, 0, -10);
 }
 .button_card{
     -fx-background-color: #ffffff;
