@@ -11,7 +11,7 @@ public class Protocol {
         while((line = scan.nextLine()) == null){
             sleep(1);
         }
-        return Boolean.parseBoolean(line);
+        return line.equalsIgnoreCase("In");
     }//Protocol for getting the type of barrier
 
     public String requestTicket(Scanner scan, PrintWriter out) {
@@ -33,6 +33,19 @@ public class Protocol {
         }
         return Boolean.parseBoolean(answer);
     }//Checks if the input ID from the barrier is a valid ticket to leave the carpark
+
+    public String update(Scanner scan, PrintWriter out){
+        System.out.println("Sending update request");
+        out.println("Update");
+        System.out.println("Sent request");
+        String answer;
+        while ((answer = scan.nextLine()) == null) {
+            System.out.println("Null answer.");
+            sleep(1);
+        }
+        System.out.println("Update recieved from socket.");
+        return answer;
+    }
 
     private void sleep(int time) {
         try {

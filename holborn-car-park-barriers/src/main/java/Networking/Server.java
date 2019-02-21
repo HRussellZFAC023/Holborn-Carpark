@@ -7,14 +7,17 @@ public class Server {
 
     private int port = 4444;//Port that the server listens on
     private MultiServerThread server;//holds the most recent server thread
-
+    private boolean listening = true;
 
     public static void main(String[] args) {
         new Server();
     }
 
+    public void stopListening(){
+        listening = false;
+    }
+
     public Server() {
-        boolean listening = true;
         try (ServerSocket serverSocketIn = new ServerSocket(port)){
             //Whilst listening for connections
             while (listening) {

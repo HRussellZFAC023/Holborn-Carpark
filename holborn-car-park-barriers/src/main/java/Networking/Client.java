@@ -7,6 +7,7 @@ import FxStuff.Scenes;
 import FxStuff.Ticket;
 import com.google.gson.Gson;
 import javafx.application.Platform;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,8 +19,6 @@ import java.util.Scanner;
 
 public class Client extends Thread {
 
-    //private String ip = "127.0.0.1";//Needs to be changed
-    //private String port = "4444";//The port that the barriers connect to
     private Socket socket;
 
     private MainViewController mainCont;
@@ -29,26 +28,16 @@ public class Client extends Thread {
 
     }//Constructor for barrier
 
-    /*public Client(boolean type, Ticket ticket) {
-        connect(type);//Connect to server
-        System.out.println("Ticket is: " + validateTicket(ticket));//Check if ticket is valid
-        try {
-            Thread.sleep(500);
-        } catch (Exception e) {
-
-        }
-        endConnection();//End connection to server
-        System.out.println("Ended " + (type ? "Input" : "Output") + " thread.");
-    }//Constructor for test out barrier*/
-
     @Override
     public void run() {
-        connect();
+        connect();//Change to allow loop here
+        //Maybe add a queue
     }
 
     public void connect() {
         //Set the variables for the socket definition in the try, catch
         InfoPopUp popup =  mainCont.getPopup();
+        Logger logger = mainCont.getLogger();
         popup.show("Connecting...");
         mainCont.disconnectedUI(true);
         String[] socketDefinitions = mainCont.getSocket();
@@ -66,13 +55,13 @@ public class Client extends Thread {
                 //e.printStackTrace();
             }
         }
-        //logger.info("Connected to the web server. Authorising...");
+        logger.info("Connected to the web server. Authorising...");
         popup.show("Connected! Authorising...");
         mainCont.disconnectedUI(true);
         sleep(500);//Add an authorisation method
         popup.show("Authorised", false);
         popup.removePopUp();
-        //logger.info("Authorised!");
+        logger.info("Authorised!");
         LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();
         Platform.runLater(lc::enableFetching);
         mainCont.disconnectedUI(false);
@@ -81,9 +70,7 @@ public class Client extends Thread {
     }//Connect to the server and define what type of connection is being created
 
     public Ticket getTicket() {
-        if (socket == null) {//Return null if not connected
-            return null;
-        }
+        checkConnection();
         Ticket ticket = null;
         try {
             PrintWriter out = getPrinter();//Get the input and output streams
@@ -99,9 +86,7 @@ public class Client extends Thread {
     }//Request a ticket from the server
 
     public boolean validateTicket(Ticket ticket) {
-        if (socket == null) {//If there is no connection return null
-            return false;
-        }
+        checkConnection();
         try {
             //Validate the ticket using the protocol
             return new Protocol().validate(ticket.get_id(), getScanner(), getPrinter());
@@ -147,43 +132,31 @@ public class Client extends Thread {
         popup.removePopUp();
         popup.show("Reconnecting...");
         mainCont.disconnectedUI(true);
+        connect();
     }
 
-    /*private void socketPreparation() {
-        socket.on(io.socket.client.Socket.EVENT_CONNECT, args_cn -> {
-            logger.info("Connected to the web server. Authorising...");
-            popup.show("Connected! Authorising...");
-            disconnectedUI(true);
-            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID, (Ack) objects -> {
-                if (objects[0].equals(200)) {
-                    popup.show("Authorised", false);
-                    popup.removePopUp();
-                    logger.info("Authorised!");
-                    LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();
-                    Platform.runLater(lc::enableFetching);
-                    disconnectedUI(false);
-                } else {
-                    logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
-                    System.exit(0);
-                }
-            });
-        });
-        socket.on(io.socket.client.Socket.EVENT_CONNECTING, args_cni -> {
-            popup.show("Connecting...");
-            disconnectedUI(true);
-            // logger.info("Connecting...");
-        });
-        socket.on(io.socket.client.Socket.EVENT_RECONNECTING, args_cni -> {
-            popup.show("Reconnecting...");
-            disconnectedUI(true);
-        });
-        socket.on(io.socket.client.Socket.EVENT_CONNECT_ERROR, args_cni -> System.out.println("Err" + args_cni[0]));
-        socket.on(io.socket.client.Socket.EVENT_DISCONNECT, args_dc -> {
-            logger.warn("Disconnected");
-            disconnectedUI(true);
-            sceneManager.changeTo(Scenes.LANDING);
-            popup.show("Disconnected");
-        });
-        socket.connect();
-    }*/
+    private void checkConnection(){
+        if (socket == null) {
+            System.out.println("Disconnected.");
+            disconected();
+        }
+    }
+
+    public Object[] getCarparkDetails(){
+        System.out.println("Checking connection");
+        checkConnection();
+        System.out.println("Connection there.");
+        Object[] details = new Object[]{"Unavaliable", 10.00, "00:00 ", "00:00 "};
+        try {
+            PrintWriter out = getPrinter();//Get the input and output streams
+            Scanner scan = getScanner();
+            //Get the string version of the ticket object
+            String detailsString = new Protocol().update(scan, out);
+            //Convert the string to a ticket
+            details = new Gson().fromJson(detailsString, Object[].class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return details;
+    }
 }

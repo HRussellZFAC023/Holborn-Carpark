@@ -41,8 +41,8 @@ public class MainViewController implements Initializable {
     AnchorPane mainAnchor;
     @FXML
     AnchorPane blurrAnchor;
-    public SceneManager sceneManager;
-    Client client;
+    private SceneManager sceneManager;
+    private Client client;
     Socket socket;
     GlobalVariables globalVariables;
     InfoPopUp popup;
@@ -135,6 +135,14 @@ public class MainViewController implements Initializable {
 
     public InfoPopUp getPopup(){
         return popup;
+    }
+
+    public Logger getLogger(){
+        return logger;
+    }
+
+    public Object[] getCarparkDetails(){
+        return client.getCarparkDetails();
     }
 
     /**

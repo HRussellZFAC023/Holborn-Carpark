@@ -38,6 +38,7 @@ public class MultiServerThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Socket stopped.");
     }//Main code of the server thread, deals with running the correct protocols and ending the connection afterwards
 
     private void inBarrier(Scanner scan, PrintWriter print) {
@@ -45,10 +46,24 @@ public class MultiServerThread extends Thread {
         //While the stop command has not been given
         while (!(line = waitAnswer(scan)).contentEquals("Halt")) {
             //If the get command has been received
-            if (line.contentEquals("Get")) {
-                Ticket ticket = new Ticket();//Needs to generate ticket here
-                //Convert the ticket to a string and send it to the barriers
-                print.println((new Gson()).toJson(ticket));
+            System.out.println("Recieved: " + line);
+            switch (line) {
+                case ("Get"):
+                    Ticket ticket = new Ticket();//Needs to generate ticket here
+                    //Convert the ticket to a string and send it to the barriers
+                    print.println((new Gson()).toJson(ticket));
+                    break;
+                case("Update"):
+                    System.out.println("Recieved update request");
+                    //Needs to get the info here
+                    Object[] infoStuff = new Object[]{"Some",2.50,"05:30 ", "06:30 "};
+                    print.println((new Gson()).toJson(infoStuff));
+                    System.out.println("Sent update request.");
+                    break;
+                default:
+                    System.out.println("Error in input request");
+                    print.println((new Gson()).toJson(null));
+                    break;
             }
         }
     }//The code run by an in barrier connection to retrieve a new ticket

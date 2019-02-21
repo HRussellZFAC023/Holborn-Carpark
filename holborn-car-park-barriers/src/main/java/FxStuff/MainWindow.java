@@ -16,7 +16,8 @@ public class MainWindow extends Application {
     public void start(Stage mainStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         mainStage.setTitle(GlobalVariables.main_window_name);
-        mainStage.setFullScreen(true);
+        mainStage.setFullScreen(false);
+        //mainStage.setFullScreen(true);
         mainStage.setFullScreenExitHint("");
         mainStage.setScene(new Scene(root, 1280, 768));
         mainStage.setMinHeight(400);
