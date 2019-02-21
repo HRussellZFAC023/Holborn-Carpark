@@ -30,8 +30,8 @@ public class MainWindow extends Application {
         scene = new Scene(root, 1280, 768);
         new ThemeProvider(scene, Themes.LIGHT);
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(400);
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(800);
         primaryStage.show();
     }
 
