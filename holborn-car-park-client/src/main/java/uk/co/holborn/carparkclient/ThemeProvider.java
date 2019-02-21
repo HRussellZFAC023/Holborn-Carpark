@@ -13,19 +13,25 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class ThemeProvider {
-    static Scene scene;
-    static Themes currentTheme;
+    private  Scene scene;
+    private  Themes currentTheme;
+    private static ThemeProvider instance;
 
-    ThemeProvider(Scene scene, Themes defaultTheme) {
-        ThemeProvider.scene = scene;
+    public static ThemeProvider getInstance() {
+        return instance;
+    }
+
+    ThemeProvider(Scene scene, Themes defaultTheme){
+        this.scene = scene;
+        instance = this;
         switchTheme(defaultTheme);
     }
 
-    public static Themes getCurrentTheme() {
+    public Themes getCurrentTheme() {
         return currentTheme;
     }
 
-    public static void switchTheme(Themes theme) {
+    public  void switchTheme(Themes theme) {
         if (currentTheme == null) {
             currentTheme = theme;
         }
@@ -50,7 +56,7 @@ public class ThemeProvider {
         }
         scene.getStylesheets().add(theme.getStylesheetPath());
     }
-    public static ImageView getImageFromNode (Node node, double scale) {
+    private static ImageView getImageFromNode(Node node, double scale) {
         final Bounds bounds = node.getLayoutBounds();
         final WritableImage image = new WritableImage(
                 (int) Math.round(bounds.getWidth() * scale),

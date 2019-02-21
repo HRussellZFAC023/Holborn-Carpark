@@ -264,12 +264,12 @@ public class MainViewController implements Initializable {
 
     @FXML
     void switchTheme(){
-        if(ThemeProvider.getCurrentTheme() == Themes.LIGHT) {
-            ThemeProvider.switchTheme(Themes.DARK);
+        if(ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
+            ThemeProvider.getInstance().switchTheme(Themes.DARK);
             themeModeButton.setText("DAYTIME");
         }
         else {
-            ThemeProvider.switchTheme(Themes.LIGHT);
+            ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
             themeModeButton.setText("NIGHTTIME");
         }
     }
