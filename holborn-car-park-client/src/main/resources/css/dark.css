@@ -8,7 +8,7 @@
 }
 .top_bar{
     -fx-background-color:  linear-gradient(to right top, #25252a, #333337, #434245, #525253, #626262);
-    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.67), 60, 0.0, 0, -10);
+    /*-fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.67), 60, 0.0, 0, -10);*/
 }
 .button_card{
     -fx-background-color: #3e4044;
@@ -69,7 +69,7 @@
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
 }
 .button_back{
-    -fx-background-color: #9a9a9a;
+    -fx-background-color: #383838;
     -fx-text-fill: white;
     -fx-font: 32px "Avenir Light";
     -fx-background-radius: 14;
@@ -79,7 +79,7 @@
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 5, 0, 0, 4);
 }
 .button_back:pressed{
-    -fx-background-color: #505050;
+    -fx-background-color: #292929;
     -fx-text-fill: white;
     -fx-font: 32px "Avenir Light";
     -fx-background-radius: 14;
