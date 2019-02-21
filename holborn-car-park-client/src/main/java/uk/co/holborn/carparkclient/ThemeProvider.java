@@ -64,7 +64,7 @@ public class ThemeProvider {
 
             FadeTransition f = new FadeTransition();
             f.setNode(root.getChildren().get(1));
-            f.setDuration(Duration.seconds(0.5));
+            f.setDuration(Duration.seconds(0.3));
             f.setInterpolator(Interpolator.EASE_BOTH);
             f.setFromValue(1.0);
             f.setToValue(0.0);
