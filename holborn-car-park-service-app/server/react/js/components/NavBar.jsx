@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 
 class NavBar extends Component {
-
   render() {
+    const heroStyle = {
+      padding: '1rem 1.5rem'
+    };
     return (
       <section className="hero gradient">
-        <div className="hero-body">
+        <div className="hero-body" style={heroStyle}>
           <nav className="navbar" role="navigation" aria-label="main navigation">
             <div>
               <a className="navbar-brand">
