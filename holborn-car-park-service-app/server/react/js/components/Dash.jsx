@@ -7,10 +7,10 @@ class Dash extends Component {
         $.ajax({
             url: '/utility/name',
             type: 'GET',
-            success: function(name) {
+            success: function (name) {
                 this.setState({name: name});
             }.bind(this),
-            error: function(xhr, status, err) {
+            error: function (xhr, status, err) {
                 console.error('', status, err.toString());
             }.bind(this)
         });
@@ -22,7 +22,6 @@ class Dash extends Component {
             name: '',
         }
     }
-
 
 
     render() {
