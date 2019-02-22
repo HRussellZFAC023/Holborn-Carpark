@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: './server/react/manager.js',
+  entry: './server/react/manager.jsx',
   output: {
     path: __dirname + '/public/js',
     filename: 'manager.js',
