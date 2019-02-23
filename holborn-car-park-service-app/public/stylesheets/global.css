@@ -52,19 +52,5 @@ html{
     .roundedTextField::placeholder{
         color: #a1a1a1;
     }
-}
-@media (color-index: 48){
-    html{
-        background: #25252a;
-        color: white;
-    }
-    .roundedTextField{
-        border-radius: 10px;
-        background: #393e44;
-        color: white;
-        border-color: #25252a;
-    }
-    .roundedTextField::placeholder{
-        color: #a1a1a1;
-    }
+
 }

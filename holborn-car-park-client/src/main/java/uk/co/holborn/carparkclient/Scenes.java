@@ -134,6 +134,7 @@ public enum Scenes {
             controller.setup();
         }
     };
+
     /**
      * Method that gets the location
      * of the fxml file within resources folder
@@ -169,6 +170,7 @@ public enum Scenes {
      * containing a reference to the root anchor pane
      * <p>
      * This is called in {@link #getScene()}
+     *
      * @param root set the AnchorPane to this
      */
     abstract void setRootAnchor(AnchorPane root);
@@ -203,9 +205,9 @@ public enum Scenes {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            initialise();
         }
+
+        initialise();
         return getRootAnchor();
     }
 
