@@ -6,7 +6,6 @@ import io.socket.client.Socket;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TicketCheckController implements Initializable {
@@ -29,11 +27,7 @@ public class TicketCheckController implements Initializable {
     @FXML
     Label infoText;
     @FXML
-    ImageView ticket_image_bg;
-    @FXML
-    ImageView ticket_image_ticket;
-    @FXML
-    ImageView ticket_image_laser_beam;
+    ImageView ticket_image;
     @FXML
     ImageView ticket_image_validated;
     @FXML
@@ -47,6 +41,7 @@ public class TicketCheckController implements Initializable {
     private Logger logger;
     private MainViewController mc;
     private Gson gson;
+    Sprite sprite;
 
     public TicketCheckController() {
         logger = LogManager.getLogger(getClass().getName());
@@ -55,15 +50,11 @@ public class TicketCheckController implements Initializable {
         gson = new Gson();
     }
 
-    ArrayList<Node> nodes = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nodes.add(ticket_image_bg);
-        nodes.add(ticket_image_ticket);
-        nodes.add(ticket_image_laser_beam);
+        sprite = new Sprite(ticket_image, mc.getSpriteSheets().getImage(Sprites.TICKET_INSERT), 400, 400);
         tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
-        setup();
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() >= 36) {
                 setMessage("Please wait...");
@@ -118,29 +109,24 @@ public class TicketCheckController implements Initializable {
     private void validationUI(boolean show) {
         backButton.setVisible(!show);
         checkTicketField.setDisable(show);
-        if(show) {
+        if (show) {
             Animator.nodePushOut(checkTicketField);
-        }
-        else  Animator.nodePopIn(checkTicketField, 0.2);
+        } else Animator.nodePopIn(checkTicketField, 0.2);
     }
 
     private void animateImageShow() {
-        Animator.animation_ticket_check(nodes);
+        Animator.nodePopIn(ticket_image, 0.6, e -> {
+            sprite.replay();
+        });
     }
 
     private void animateTicketUIHide() {
-        Animator.nodePushOut(nodes.get(0));
-        Animator.nodePushOut(nodes.get(1));
-        Animator.nodePushOut(nodes.get(2));
+        sprite.pause();
+        Animator.nodePushOut(ticket_image);
     }
 
     private void resetAnimPoses() {
-        ticket_image_bg.setOpacity(0);
-        ticket_image_ticket.setOpacity(0);
-        ticket_image_ticket.setTranslateY(40);
-        ticket_image_laser_beam.setOpacity(0);
-        ticket_image_laser_beam.setScaleX(1);
-        ticket_image_laser_beam.setScaleY(1);
+        sprite.resetView();
         ticket_image_validated.setOpacity(0);
         ticket_image_validated.setTranslateY(0);
         ticket_image_validated.setScaleX(0);
@@ -155,7 +141,8 @@ public class TicketCheckController implements Initializable {
     private void setMessage(String message) {
         Platform.runLater(() -> {
             infoText.setText(message);
-        });Animator.nodeFade(infoText, true);
+        });
+        Animator.nodeFade(infoText, true);
     }
 
 }
