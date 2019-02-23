@@ -10,8 +10,9 @@ import javafx.util.Duration;
 
 /**
  * The Sprite class represents a quick way of
- * loading and playing sprite sheets on a {@link ImageView}/
+ * loading and playing sprite sheets on a {@link ImageView}
  * <p></p>
+ * The default FPS is set to 60
  *
  * @author Vlad Alboiu
  * @version 1.0
