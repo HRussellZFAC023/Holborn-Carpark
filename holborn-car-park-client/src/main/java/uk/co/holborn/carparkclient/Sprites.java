@@ -13,7 +13,13 @@ public enum Sprites {
         public String getImageName() {
             return "ticket_insert_sprite.png";
         }
-    };
+    },
+    PAYMENT_APPLE_PAY {
+        @Override
+        public String getImageName() {
+            return "apple_pay_anim_sprite.png";
+        }
+    };;
 
     /**
      * Method that gets the image name
