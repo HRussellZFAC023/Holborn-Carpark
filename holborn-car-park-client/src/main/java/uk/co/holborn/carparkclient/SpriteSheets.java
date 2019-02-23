@@ -19,6 +19,7 @@ import java.util.Map;
 public class SpriteSheets {
     private Logger log;
     private Map<Sprites, Image> images;
+    private boolean loadedAll;
 
     /**
      * Initialises the class
@@ -32,6 +33,7 @@ public class SpriteSheets {
      * Load all the images
      */
     public void load(){
+        loadedAll = true;
         log.info("Loading images");
         int i = 1;
         for(Sprites sprite : Sprites.values()){
@@ -39,7 +41,10 @@ public class SpriteSheets {
             images.put(sprite, loadImage(sprite.getImageFromResources()));
             i++;
         }
-        log.info("All images have been loaded!");
+        if(loadedAll) log.info("All images have been loaded!");
+        else{
+            log.warn("Unable to load some images!");
+        }
     }
 
     /**
@@ -60,8 +65,9 @@ public class SpriteSheets {
         try{
             return new Image(getClass().getResourceAsStream(source));
         }catch (Exception e){
+            loadedAll = false;
             e.printStackTrace();
-            log.trace(e.getStackTrace());
+            log.warn("Unable to load: "+ source + ". Message: "+ e.getMessage());
         }
         return null;
     }
