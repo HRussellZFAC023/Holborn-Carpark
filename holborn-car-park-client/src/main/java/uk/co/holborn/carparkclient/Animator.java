@@ -17,7 +17,7 @@ import java.util.List;
  * Animator class implements all the animations used during runtime
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.1
  */
 public class Animator {
     public static void nodeFade(Node node, boolean in, double keyFrameTime) {
@@ -207,7 +207,7 @@ public class Animator {
     }
 
     public static void nodePopIn(Node node) {
-        nodePopIn(node, 0.2);
+        nodePopIn(node, 0.2, null);
     }
 
     public static void nodePushOut_KeyFrames(Node node, Timeline timeline) {
@@ -221,7 +221,10 @@ public class Animator {
         );
     }
 
-    public static void nodePopIn(Node node, double startframe) {
+    public static void nodePopIn(Node node, double startframe){
+        nodePopIn(node, 0.2, null);
+    }
+    public static void nodePopIn(Node node, double startframe, EventHandler<ActionEvent> eventHandler) {
         Timeline timeline = new Timeline();
         node.setOpacity(0);
         node.setScaleX(0);
@@ -238,6 +241,7 @@ public class Animator {
                 new KeyFrame(Duration.seconds(startframe + frameOffset + 0.2), new KeyValue(node.scaleYProperty(), 1, Interpolator.EASE_IN)),
                 new KeyFrame(Duration.seconds(startframe + frameOffset + 0.2), new KeyValue(node.scaleXProperty(), 1, Interpolator.EASE_IN))
         );
+        timeline.setOnFinished(eventHandler);
         timeline.play();
     }
 
