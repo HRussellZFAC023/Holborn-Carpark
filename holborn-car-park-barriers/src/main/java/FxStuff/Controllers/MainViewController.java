@@ -146,6 +146,10 @@ public class MainViewController implements Initializable {
         return client.getTicket();
     }
 
+    public void disconnect(){
+        client.endConnection();
+    }
+
     /**
      * Update the date and time on screen
      */
