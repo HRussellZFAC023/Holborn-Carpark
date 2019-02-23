@@ -64,19 +64,9 @@
                                 </TextField>
                             </children>
                         </GridPane>
-                        <ImageView fx:id="ticket_image_bg" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ticket_image" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
                                 <Image url="@../img/validate_ticket_comp/background.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="ticket_image_ticket" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <image>
-                                <Image url="@../img/validate_ticket_comp/ticket.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="ticket_image_laser_beam" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                            <image>
-                                <Image url="@../img/validate_ticket_comp/laser_beam.png" />
                             </image>
                         </ImageView>
                         <ImageView fx:id="ticket_image_validated" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
