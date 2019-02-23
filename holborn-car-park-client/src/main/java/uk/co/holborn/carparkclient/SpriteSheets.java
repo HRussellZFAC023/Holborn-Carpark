@@ -37,6 +37,7 @@ public class SpriteSheets {
         for(Sprites sprite : Sprites.values()){
             log.info("Loading " + i + " out of " + Sprites.values().length);
             images.put(sprite, loadImage(sprite.getImageFromResources()));
+            i++;
         }
         log.info("All images have been loaded!");
     }
