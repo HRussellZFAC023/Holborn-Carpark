@@ -1,6 +1,8 @@
 package FxStuff;
 
 import FxStuff.Controllers.LandingPageController;
+import FxStuff.Controllers.MainViewController;
+import FxStuff.Controllers.TicketPrintingController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
@@ -12,11 +14,12 @@ import java.net.URL;
  * making sure there can only be one instance of a scene at a time
  *
  * @author Vlad Alboiu
+ * @author Cameron
  * @version 1.0
  */
 public enum Scenes {
     LANDING {
-        LandingPageController controller = new LandingPageController();
+        LandingPageController controller = new LandingPageController(MainViewController.getInstance());
         AnchorPane root;
 
         @Override
@@ -44,13 +47,13 @@ public enum Scenes {
         }
 
     },
-    /*TICKET_CHECK {
-        TicketCheckController controller = new TicketCheckController();
+    PRINT_TICKET {
+        TicketPrintingController controller = new TicketPrintingController(MainViewController.getInstance());
         AnchorPane root;
 
         @Override
         String getFXMLLocation() {
-            return "/fxml/ticket_check.fxml";
+            return "/fxml/printing_ticket.fxml";
         }
 
         @Override
@@ -70,9 +73,10 @@ public enum Scenes {
 
         @Override
         void initialise() {
-            controller.setup();
+            System.out.println("Hit it.");
+            controller.getTicket();
         }
-    },
+    }/*,
     PAYMENT_METHODS {
         PaymentMethodsController controller = new PaymentMethodsController();
         AnchorPane root;
@@ -171,9 +175,8 @@ public enum Scenes {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            initialise();
         }
+        initialise();
         return getRootAnchor();
     }
 

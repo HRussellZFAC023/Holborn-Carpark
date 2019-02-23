@@ -1,10 +1,7 @@
 package FxStuff.Controllers;
 
 
-import FxStuff.GlobalVariables;
-import FxStuff.InfoPopUp;
-import FxStuff.SceneManager;
-import FxStuff.Scenes;
+import FxStuff.*;
 import Networking.Client;
 import io.socket.client.Socket;
 import javafx.application.Platform;
@@ -143,6 +140,10 @@ public class MainViewController implements Initializable {
 
     public Object[] getCarparkDetails(){
         return client.getCarparkDetails();
+    }
+
+    public Ticket getNewTicket(){
+        return client.getTicket();
     }
 
     /**

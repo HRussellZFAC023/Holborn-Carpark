@@ -50,6 +50,7 @@ public class MultiServerThread extends Thread {
             switch (line) {
                 case ("Get"):
                     Ticket ticket = new Ticket();//Needs to generate ticket here
+                    ticket.set_id("Test_ticket");
                     //Convert the ticket to a string and send it to the barriers
                     print.println((new Gson()).toJson(ticket));
                     break;

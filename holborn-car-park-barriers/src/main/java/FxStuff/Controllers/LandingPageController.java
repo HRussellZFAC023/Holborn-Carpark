@@ -2,6 +2,7 @@ package FxStuff.Controllers;
 
 import FxStuff.Animator;
 import FxStuff.GlobalVariables;
+import FxStuff.Scenes;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,9 +26,12 @@ public class LandingPageController implements Initializable {
     Label happy_hour;
     Logger logger;
 
+    public LandingPageController(MainViewController mainCont){
+        this.mainCont = mainCont;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mainCont = MainViewController.getInstance();
         logger = LogManager.getLogger(getClass().getName());
 
         welcome.setText(GlobalVariables.landing_page_welcome);
@@ -92,7 +96,6 @@ public class LandingPageController implements Initializable {
 
     @FXML
     public void begin() {
-        /*mainCont.sceneManager.changeTo(Scenes.TICKET_CHECK);*/
+        mainCont.getSceneManager().changeTo(Scenes.PRINT_TICKET);
     }
-
 }

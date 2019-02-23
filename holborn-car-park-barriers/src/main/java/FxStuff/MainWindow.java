@@ -24,4 +24,9 @@ public class MainWindow extends Application {
         mainStage.setMinWidth(600);
         mainStage.show();
     }
+
+    @Override
+    public void stop(){
+        //Add method to close the sockets
+    }
 }
