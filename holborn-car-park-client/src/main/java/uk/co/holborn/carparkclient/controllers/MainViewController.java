@@ -54,6 +54,7 @@ public class MainViewController implements Initializable {
     private Logger logger;
     public boolean happyHour = false;
     private Long sessionStartTime;
+    public static SpriteSheets spriteSheets;
 
 
     public MainViewController() {
@@ -68,6 +69,7 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
         instance = this;
+        spriteSheets = new SpriteSheets();
     }
 
     public void sendAlert(String title, String header, String content, AlertType alertType) {
@@ -84,6 +86,7 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
+        spriteSheets.load();
         themeModeButton.setText("NIGHTTIME");
         popup = new InfoPopUp(sceneContainer);
         sceneManager = new SceneManager(sceneAnchor);
@@ -157,6 +160,10 @@ public class MainViewController implements Initializable {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public SpriteSheets getSpriteSheets() {
+        return spriteSheets;
     }
 
     private void disconnectedUI(boolean enabled) {
@@ -263,16 +270,16 @@ public class MainViewController implements Initializable {
     }
 
     @FXML
-    void switchTheme(){
-        if(ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
+    void switchTheme() {
+        if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
             ThemeProvider.getInstance().switchTheme(Themes.DARK);
             themeModeButton.setText("DAYTIME");
-        }
-        else {
+        } else {
             ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
             themeModeButton.setText("NIGHTTIME");
         }
     }
+
     void emitTicketPaid() {
         Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
         socket.emit("ticket-paid", params);
