@@ -14,6 +14,7 @@
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
     -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #3d3d3d;
     -fx-border-width: 0;
     -fx-border-radius: 0;
     -fx-border-color: #4E4C4D;
@@ -206,4 +207,33 @@
 .logoMainTicket{
     -fx-font: 49 "Avenir Book";
     -fx-text-fill: #7c7c7c ;
+}
+.toggle_card{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font: 32px "Avenir Light";
+    -fx-border-width: 0;
+    -fx-text-fill: #3d3d3d;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.77), 1, 0, 0, 0);
+}
+
+.toggle_card:pressed{
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}
+.toggle_card:selected:disabled{
+    -fx-background-color:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-border-radius: 10;
+    -fx-opacity: 1.0;
+    /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
 }
