@@ -6,6 +6,7 @@ import io.socket.client.Socket;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,6 +55,9 @@ public class TicketCheckController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sprite = new Sprite(ticket_image, mc.getSpriteSheets().getImage(Sprites.TICKET_INSERT), 400, 400);
+        sprite.setFPS(30);
+        ticket_image.setCache(true);
+        ticket_image.setCacheHint(CacheHint.SPEED);
         tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() >= 36) {
