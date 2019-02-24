@@ -46,14 +46,14 @@ public static MainViewController mc;
         FxAssert.verifyThat(".label", LabeledMatchers.hasText("Invalid ticket! Please seek assistance from a member of staff."));
 
     }
-    @Test
-     public void testValidTicket() {
-        sleep(3000);
-        clickOn(".button");
-        sleep(500);
-        write("cb62a50c-dd53-4856-8882-53aa3ae1c767");
-        sleep(500);
-        FxAssert.verifyThat(".label", LabeledMatchers.hasText("Your ticket is valid!"));
-
-    }
+//    @Test
+//     public void testValidTicket() {
+//        sleep(3000);
+//        clickOn(".button");
+//        sleep(500);
+//        write("cb62a50c-dd53-4856-8882-53aa3ae1c767");
+//        sleep(500);
+//        FxAssert.verifyThat(".label", LabeledMatchers.hasText("Your ticket is valid!"));
+//
+//    }
 }
