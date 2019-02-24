@@ -14,11 +14,11 @@ import java.util.Map;
  * This class needs to have the sprite paths declared in {@link Sprites}
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.1
  */
 public class SpriteSheets {
     private Logger log;
-    private Map<Sprites, Image> images;
+    private Map<Sprites, SpriteSettings> spriteSettingsMap;
     private boolean loadedAll;
 
     /**
@@ -26,48 +26,57 @@ public class SpriteSheets {
      */
     public SpriteSheets() {
         log = LogManager.getLogger(getClass().getName());
-        images = new HashMap<>();
+        spriteSettingsMap = new HashMap<>();
     }
 
     /**
      * Load all the images
      */
-    public void load(){
+    public void load() {
         loadedAll = true;
         log.info("Loading images");
         int i = 1;
-        for(Sprites sprite : Sprites.values()){
+        for (Sprites sprite : Sprites.values()) {
             log.info("Loading " + i + " out of " + Sprites.values().length);
-            images.put(sprite, loadImage(sprite.getImageFromResources()));
+            SpriteSettings sp = sprite.getSpriteSettings();
+            sp.setImage(loadImage(sp));
+            spriteSettingsMap.put(sprite, sp);
             i++;
         }
-        if(loadedAll) log.info("All images have been loaded!");
-        else{
+        if (loadedAll) log.info("All images have been loaded!");
+        else {
             log.warn("Unable to load some images!");
         }
     }
 
     /**
-     * Get the image corresponding to a Sprite
-     * @param sprite the key
-     * @return the sprite image
+     * This method returns the SpriteSettings stored in the hash map
+     *
+     * @param sprite the sprite from where we want its settings
+     * @return a {@link SpriteSettings} object
      */
-    public Image getImage(Sprites sprite){
-        return images.get(sprite);
+    public SpriteSettings getSpriteSettings(Sprites sprite) {
+        return spriteSettingsMap.get(sprite);
     }
 
     /**
-     * This method return a image based on a source in the resources folder
-     * @param source the name of the image
+     * This method return a image based on a source defined in the sprite settings
+     *
+     * @param spriteSettings the name of the image
      * @return a Image object
      */
-    private Image loadImage(String source){
-        try{
-            return new Image(getClass().getResourceAsStream(source),8192,8192,true, true);
-        }catch (Exception e){
+    private Image loadImage(SpriteSettings spriteSettings) {
+        try {
+            return new Image(
+                    getClass().getResource(spriteSettings.getPath()).toExternalForm(),
+                    spriteSettings.getScaleToWidth(),
+                    spriteSettings.getScaleToHeight(),
+                    true,
+                    false);
+        } catch (Exception e) {
             loadedAll = false;
             e.printStackTrace();
-            log.warn("Unable to load: "+ source + ". Message: "+ e.getMessage());
+            log.warn("Unable to load: " + spriteSettings.getPath() + ". Message: " + e.getMessage());
         }
         return null;
     }
