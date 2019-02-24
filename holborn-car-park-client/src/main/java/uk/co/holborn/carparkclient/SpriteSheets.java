@@ -63,7 +63,7 @@ public class SpriteSheets {
      */
     private Image loadImage(String source){
         try{
-            return new Image(getClass().getResourceAsStream(source));
+            return new Image(getClass().getResourceAsStream(source),8192,8192,true, true);
         }catch (Exception e){
             loadedAll = false;
             e.printStackTrace();

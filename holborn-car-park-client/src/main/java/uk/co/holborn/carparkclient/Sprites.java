@@ -13,12 +13,14 @@ public enum Sprites {
         public String getImageName() {
             return "ticket_insert_sprite.png";
         }
+
     },
     PAYMENT_APPLE_PAY {
         @Override
         public String getImageName() {
             return "apple_pay_anim_sprite.png";
         }
+
     };
 
     /**
@@ -26,6 +28,12 @@ public enum Sprites {
      * @return image name
      */
      abstract String getImageName();
+
+//    /**
+//     * Method that returns the resolution to scale the image to
+//     * @return List containing the width and height (index 0 for width, respectively 1)
+//     */
+//    abstract List<Integer> getScaledResolution();
 
     /**
      * Method that returns the full path of the image in resources folder (ex. /img/example.png0
