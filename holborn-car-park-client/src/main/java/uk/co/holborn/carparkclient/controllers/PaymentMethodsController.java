@@ -29,7 +29,7 @@ public class PaymentMethodsController implements Initializable {
 
     @FXML
     private void contactlessPayment() {
-
+        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CONTACTLESS);
     }
 
     @FXML
