@@ -5,42 +5,30 @@ package uk.co.holborn.carparkclient;
  * <p></p>
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.1
  */
 public enum Sprites {
-    TICKET_INSERT {
-        @Override
-        public String getImageName() {
-            return "ticket_insert_sprite.png";
-        }
+    TICKET_INSERT(new SpriteSettings("/img/ticket_insert_sprite.png", 4096, 9, 25)),
+    PAYMENT_APPLE_PAY(new SpriteSettings("/img/apple_pay_contactless_sprite.png", 4096, 10, 25)),
+    PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/card_pay_anim_sprite.png", 4096, 10, 99, 25));;
 
-    },
-    PAYMENT_APPLE_PAY {
-        @Override
-        public String getImageName() {
-            return "apple_pay_anim_sprite.png";
-        }
-
-    };
+    private SpriteSettings spriteSettings;
 
     /**
-     * Method that gets the image name
-     * @return image name
+     * Constructor that assigns SpriteSettings for each Sprite
+     *
+     * @param spriteSettings
      */
-     abstract String getImageName();
-
-//    /**
-//     * Method that returns the resolution to scale the image to
-//     * @return List containing the width and height (index 0 for width, respectively 1)
-//     */
-//    abstract List<Integer> getScaledResolution();
+    Sprites(SpriteSettings spriteSettings) {
+        this.spriteSettings = spriteSettings;
+    }
 
     /**
-     * Method that returns the full path of the image in resources folder (ex. /img/example.png0
-     * @return path
+     * Methd that gets the sprite settings from a Sprite
+     *
+     * @return sprite settings
      */
-    public String getImageFromResources() {
-        String imagesDirectory = "/img/";
-        return imagesDirectory + getImageName();
+    public SpriteSettings getSpriteSettings() {
+        return spriteSettings;
     }
 }
