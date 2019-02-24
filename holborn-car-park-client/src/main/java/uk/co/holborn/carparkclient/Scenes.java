@@ -2,10 +2,7 @@ package uk.co.holborn.carparkclient;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-import uk.co.holborn.carparkclient.controllers.PaymentMethodsCashController;
-import uk.co.holborn.carparkclient.controllers.LandingPageController;
-import uk.co.holborn.carparkclient.controllers.PaymentMethodsController;
-import uk.co.holborn.carparkclient.controllers.TicketCheckController;
+import uk.co.holborn.carparkclient.controllers.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -133,7 +130,36 @@ public enum Scenes {
         void initialise() {
             controller.setup();
         }
-    };
+    },
+    PAYMENT_METHODS_CONTACTLESS {
+        PaymentMethodsContactlessController controller = new PaymentMethodsContactlessController();
+        AnchorPane root;
+
+        @Override
+        String getFXMLLocation() {
+            return "/fxml/payment_methods_contactless.fxml";
+        }
+
+        @Override
+        public Object getController() {
+            return controller;
+        }
+
+        @Override
+        AnchorPane getRootAnchor() {
+            return root;
+        }
+
+        @Override
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
+            controller.setup();
+        }
+    };;
 
     /**
      * Method that gets the location

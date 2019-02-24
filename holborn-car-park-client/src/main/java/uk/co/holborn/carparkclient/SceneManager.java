@@ -17,7 +17,7 @@ import static javafx.scene.layout.AnchorPane.*;
  * All the scenes are added on the provided AnchorPane as a parameter.
  *
  * @author Vlad Alboiu
- * @version 1.0.1
+ * @version 1.0.2
  * @see Scenes
  */
 public class SceneManager {
@@ -42,6 +42,7 @@ public class SceneManager {
 
     /**
      * Change to the provided scene
+     *
      * @param scene
      */
     public void changeTo(Scenes scene) {
@@ -55,6 +56,7 @@ public class SceneManager {
 
     /**
      * Display the provided scene
+     *
      * @param scene to display
      */
     private void displayScene(Scenes scene) {
@@ -63,7 +65,8 @@ public class SceneManager {
 
     /**
      * Display the provided scene
-     * @param scene to display
+     *
+     * @param scene    to display
      * @param reversed animation or not
      */
     private void displayScene(Scenes scene, boolean reversed) {
@@ -96,7 +99,18 @@ public class SceneManager {
     }
 
     /**
+     * Reverse to the specified scene
+     * Note: this method clears the scene stack
+     * @param scene where to reverse to
+     */
+    public void reverseTo(Scenes scene) {
+        sceneStack.clear();
+        displayScene(scene, true);
+    }
+
+    /**
      * Display the scenes animations
+     *
      * @param reversed animation
      */
     private void animateShowIn(boolean reversed) {
@@ -125,6 +139,7 @@ public class SceneManager {
 
     /**
      * Provides the actual scene
+     *
      * @return currentScene
      */
     public Scenes getCurrentScene() {

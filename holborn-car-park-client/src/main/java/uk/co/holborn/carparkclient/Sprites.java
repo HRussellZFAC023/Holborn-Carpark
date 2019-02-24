@@ -19,7 +19,7 @@ public enum Sprites {
         public String getImageName() {
             return "apple_pay_anim_sprite.png";
         }
-    };;
+    };
 
     /**
      * Method that gets the image name
