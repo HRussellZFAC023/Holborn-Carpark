@@ -2,6 +2,7 @@ package uk.co.holborn.carparkclient.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
@@ -25,26 +26,19 @@ public class PaymentMethodsContactlessController implements Initializable {
     Ticket t;
     private MainViewController mc;
     private Sprite sprite;
+    private boolean firstTime;
 
     @Override
 
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
         toggleGroup = new ToggleGroup();
-        toggleGroup.getToggles().add((ToggleButton) toggleVbox.getChildren().get(0));
-        toggleGroup.getToggles().add((ToggleButton) toggleVbox.getChildren().get(1));
-        toggleGroup.getToggles().get(0).setUserData("Debit/Credit");
-        toggleGroup.getToggles().get(1).setUserData("Apple Pay");
-
-        toggleGroup.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> {
-                if (newToggle.getUserData().equals("Apple Pay")) {
-                    popInSprite(Sprites.PAYMENT_APPLE_PAY);
-                } else {
-                    popInSprite(Sprites.PAYMENT_CARD_CONTACTLESS);
-                }
-                ((ToggleButton) newToggle).setDisable(true);
-                if (oldToggle != null) ((ToggleButton) oldToggle).setDisable(false);
-        });
+    }
+    private void setOtherTogglesDisabled(){
+        for (Toggle tg: toggleGroup.getToggles()) {
+            if(tg.isSelected())((ToggleButton)tg).setDisable(true);
+            else ((ToggleButton)tg).setDisable(false);
+        }
     }
 
     private void popInSprite(Sprites sp) {
@@ -53,9 +47,18 @@ public class PaymentMethodsContactlessController implements Initializable {
             sprite.pause();
             sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(sp));
         }
-        Animator.nodePopIn(imageView, 0.4, e -> {
+        if (firstTime) {
+            firstTime = false;
+            Animator.nodePopIn(imageView, 0.4, e -> {
+                sprite.replay();
+            });
+        } else {
             sprite.replay();
-        });
+            Animator.nodePopIn(imageView, 0.0, e -> {
+//            sprite.replay();
+            });
+        }
+
 
     }
 
@@ -64,7 +67,26 @@ public class PaymentMethodsContactlessController implements Initializable {
         mc.sceneManager.goBack();
     }
 
+    private void configureToggles(){
+        toggleGroup = new ToggleGroup();
+        toggleGroup.getToggles().add((ToggleButton) toggleVbox.getChildren().get(0));
+        toggleGroup.getToggles().add((ToggleButton) toggleVbox.getChildren().get(1));
+        toggleGroup.getToggles().get(0).setUserData("Debit/Credit");
+        toggleGroup.getToggles().get(1).setUserData("Apple Pay");
+        toggleGroup.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> {
+            if(toggleGroup.getSelectedToggle()!= null){
+                if (toggleGroup.getSelectedToggle().getUserData().equals("Apple Pay")) {
+                    popInSprite(Sprites.PAYMENT_APPLE_PAY);
+                } else {
+                    popInSprite(Sprites.PAYMENT_CARD_CONTACTLESS);
+                }
+                setOtherTogglesDisabled();
+            }
+        });
+    }
     public void setup() {
+        firstTime = true;
+        configureToggles();
         toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
     }
 
