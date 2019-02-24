@@ -14,7 +14,7 @@
     -fx-background-color: #3e4044;
     -fx-background-radius: 10;
     -fx-font: 32px "Avenir Light";
-    -fx-text-fill: #e8e8e8;
+    -fx-text-fill: #e1e1e1;
     -fx-border-width: 0;
     -fx-border-radius: 0;
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.77), 1, 0, 0, 0);
@@ -175,12 +175,17 @@
 }
 
 .ticket_detail_info_label{
-    -fx-font: 24 "Avenir Book";
-    -fx-fill: blue;
+    -fx-font: bold 24 "Avenir Next";
+    -fx-text-fill: #f2f2f2;
+}
+.ticket_detail_info_label_value{
+    -fx-font-family: "Avenir Book";
+    -fx-font-size: 24;
+    -fx-text-fill: #bebebe;
 }
 .ticket_detail_info_label_bigger{
-    -fx-font: 36 "Avenir Book";
-    -fx-fill: blue;
+    -fx-font: 40 "Avenir Next";
+    -fx-text-fill: #ffffff;
 }
 .themeModeButton{
     -fx-border-radius: 20px;
@@ -193,4 +198,42 @@
     -fx-background-color: #cfcec4;
     -fx-text-fill: #3e4044;
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 1);
+}
+.logoMain{
+    -fx-font: 33 "Avenir Book";
+    -fx-text-fill: white;
+}
+
+.logoMainTicket{
+    -fx-font: 49 "Avenir Book";
+    -fx-text-fill: #ffffff;
+}
+.toggle_card{
+    -fx-background-color: #4d4d4d;
+    -fx-background-radius: 10;
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #e1e1e1;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.77), 1, 0, 0, 0);
+}
+
+.toggle_card:pressed{
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}
+.toggle_card:selected:disabled{
+    -fx-background-color:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-border-radius: 10;
+    -fx-opacity: 1.0;
+    /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
 }
