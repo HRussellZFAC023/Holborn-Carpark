@@ -7,7 +7,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "build": "^0.1.4",
     "connect-pg-simple": "^5.0.0",
     "debug": "git+https://github.com/NaNraptor/debug.git",
     "express": "^4.16.4",
