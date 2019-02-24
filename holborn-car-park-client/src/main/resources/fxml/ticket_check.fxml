@@ -23,9 +23,9 @@
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints maxHeight="195.08627319335938" minHeight="10.0" prefHeight="128.27056884765625" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="341.5" minHeight="10.0" prefHeight="268.5" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="238.40586853027344" minHeight="10.0" prefHeight="148.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="222.02740478515625" minHeight="10.0" prefHeight="108.5" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="394.5" minHeight="10.0" prefHeight="392.5" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="238.40586853027344" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="222.02740478515625" minHeight="10.0" prefHeight="57.5" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="252.853515625" minHeight="2.66668701171875" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="69.33331298828125" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -64,12 +64,12 @@
                                 </TextField>
                             </children>
                         </GridPane>
-                        <ImageView fx:id="ticket_image" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                        <ImageView fx:id="ticket_image" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                             <image>
                                 <Image url="@../img/validate_ticket_comp/background.png" />
                             </image>
                         </ImageView>
-                        <ImageView fx:id="ticket_image_validated" fitHeight="280.0" fitWidth="280.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                        <ImageView fx:id="ticket_image_validated" fitHeight="239.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                             <image>
                                 <Image url="@../img/checkmark.png" />
                             </image>
