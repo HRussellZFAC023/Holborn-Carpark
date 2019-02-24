@@ -15,7 +15,7 @@ import javafx.util.Duration;
  * The default FPS is set to 60
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.2
  */
 public class Sprite {
     private ImageView spriteView;
@@ -23,8 +23,18 @@ public class Sprite {
     private int fps = 60;
     private int count;
     private int columns;
-    private int rows;
     private SpriteAnimation currentAnimation;
+
+    /**
+     * Initializes a sprite and its parameters from a {@link SpriteSettings} object
+     *
+     * @param spriteView     a {@link ImageView} object to set the sprite to
+     * @param spriteSettings the swttings from which to load the image and parameters
+     */
+    public Sprite(ImageView spriteView, SpriteSettings spriteSettings) {
+        this.spriteView = spriteView;
+        setSpriteSettings(spriteSettings);
+    }
 
     /**
      * Initializes a sprite from a String reference to an image.
@@ -38,7 +48,7 @@ public class Sprite {
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
      */
-    public Sprite(ImageView spriteView, String sheet, int width, int height) {
+    public Sprite(ImageView spriteView, String sheet, double width, double height) {
         this.spriteView = spriteView;
         setSheet(sheet, width, height);
     }
@@ -55,7 +65,7 @@ public class Sprite {
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
      */
-    public Sprite(ImageView spriteView, Image image, int width, int height) {
+    public Sprite(ImageView spriteView, Image image, double width, double height) {
         this.spriteView = spriteView;
         setImage(image, width, height);
     }
@@ -69,9 +79,10 @@ public class Sprite {
      * @param width  the width of a single sprite cell
      * @param height the height of a single sprite cell
      */
-    public void setSheet(String sheet, int width, int height) {
+    public void setSheet(String sheet, double width, double height) {
         setImage(new Image(getClass().getResource(sheet).toExternalForm()), width, height);
     }
+
 
     /**
      * Set a new sprite from a Image reference.
@@ -80,12 +91,12 @@ public class Sprite {
      * @param width  the width of a single sprite cell
      * @param height the height of a single sprite cell
      */
-    public void setImage(Image image, int width, int height) {
+    public void setImage(Image image, double width, double height) {
         spriteView.setImage(image);
         rect = new Rectangle2D(0, 0, width, height);
         resetView();
         columns = (int) (spriteView.getImage().getWidth() / width);
-        rows = (int) (spriteView.getImage().getHeight() / height);
+        int rows = (int) (spriteView.getImage().getHeight() / height);
         count = columns * rows;
         if (currentAnimation != null) {
             pause();
@@ -145,9 +156,27 @@ public class Sprite {
         this.fps = fps;
     }
 
+    /**
+     * Reset the view to the first frame
+     */
     public void resetView() {
         pause();
-        spriteView.setViewport(new Rectangle2D(0, 0, rect.getWidth(), rect.getHeight()));
+        if (spriteView != null) spriteView.setViewport(new Rectangle2D(0, 0, rect.getWidth(), rect.getHeight()));
+    }
+
+    /**
+     * Set the Sprite with the given sprite settings
+     *
+     * @param spriteSettings the settings to be set too
+     */
+    public void setSpriteSettings(SpriteSettings spriteSettings) {
+        setImage(spriteSettings.getImage(),
+                spriteSettings.getScaleToWidth() / spriteSettings.getSlices(),
+                spriteSettings.getScaleToHeight() / spriteSettings.getSlices()
+        );
+        setFPS(spriteSettings.getFPS());
+        setSpritesCount(spriteSettings.getCount());
+        resetView();
     }
 
 
@@ -170,13 +199,18 @@ public class Sprite {
             setCycleCount(cycleCount);
         }
 
+        /**
+         * Set the viewport from one sprite cell to another
+         *
+         * @param k animation progress (0.0 at the start and 1.0 at the end frame)
+         */
         protected void interpolate(double k) {
             final int index = Math.min((int) Math.floor(k * count), count - 1);
             final int offsetX = 0;
             final int offsetY = 0;
             if (index != lastIndex) {
-                final int x = (index % columns) * (int) rect.getWidth() + offsetX;
-                final int y = (index / columns) * (int) rect.getHeight() + offsetY;
+                final double x = (index % columns) * rect.getWidth() + offsetX;
+                final double y = (double) (index / columns) * rect.getHeight() + offsetY;
                 spriteView.setViewport(new Rectangle2D(x, y, rect.getWidth(), rect.getHeight()));
                 lastIndex = index;
             }
