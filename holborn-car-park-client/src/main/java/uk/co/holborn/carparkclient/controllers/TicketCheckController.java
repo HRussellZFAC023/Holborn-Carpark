@@ -54,8 +54,7 @@ public class TicketCheckController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sprite = new Sprite(ticket_image, mc.getSpriteSheets().getImage(Sprites.TICKET_INSERT), 400, 400);
-        sprite.setFPS(30);
+        sprite = new Sprite(ticket_image, mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
         ticket_image.setCache(true);
         ticket_image.setCacheHint(CacheHint.SPEED);
         tp = new TicketDetailsPopUp(mainAnchorPane, blurrAnchorPane);
