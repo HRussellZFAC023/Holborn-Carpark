@@ -129,8 +129,8 @@
 }
 
 .scene_top_title{
-    -fx-font: 34 "Avenir";
-    -fx-fill: #494848;
+    -fx-font: 34 "Avenir Book";
+    -fx-text-fill: #cbc8c8;
 }
 .scene_info_text{
     -fx-font: 24 "Avenir";

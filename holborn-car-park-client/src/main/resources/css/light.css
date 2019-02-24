@@ -52,7 +52,7 @@
     -fx-background-color: #f7f7f7;
     -fx-text-fill: #575757;
     -fx-font: 32px "Avenir Light";
-    -fx-background-radius: 30;
+    -fx-background-radius: 40;
     -fx-border-width: 0;
     -fx-border-radius: 0;
     -fx-border-color: #4E4C4D;
@@ -128,8 +128,8 @@
 }
 
 .scene_top_title{
-    -fx-font: 34 "Avenir";
-    -fx-fill: #494848;
+    -fx-font: 34 "Avenir Book";
+    -fx-text-fill: #494848;
 }
 .scene_info_text{
     -fx-font: 24 "Avenir";
@@ -174,12 +174,17 @@
 }
 
 .ticket_detail_info_label{
-    -fx-font: 24 "Avenir Book";
-    -fx-fill: blue;
+    -fx-font: bold 24 "Avenir Next";
+    -fx-text-fill: #858585;
+}
+.ticket_detail_info_label_value{
+    -fx-font-family: "Avenir Book";
+    -fx-font-size: 24;
+    -fx-text-fill: #a6a6a6;
 }
 .ticket_detail_info_label_bigger{
-    -fx-font: 36 "Avenir Book";
-    -fx-fill: blue;
+    -fx-font: 40 "Avenir Next";
+    -fx-text-fill: #4e4e4e;
 }
 .themeModeButton{
     -fx-border-radius: 20px;
@@ -192,4 +197,13 @@
     -fx-background-color: #2f3134;
     -fx-text-fill: #fffef2;
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 1);
+}
+.logoMain{
+    -fx-font: 33 "Avenir Book";
+    -fx-text-fill: white;
+}
+
+.logoMainTicket{
+    -fx-font: 49 "Avenir Book";
+    -fx-text-fill: #7c7c7c ;
 }
