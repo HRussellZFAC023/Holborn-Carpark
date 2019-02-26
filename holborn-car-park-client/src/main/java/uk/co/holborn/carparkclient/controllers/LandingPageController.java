@@ -80,9 +80,13 @@ public class LandingPageController implements Initializable {
             Animator.nodeFade(happy_hour, true);
         }
     }
-
     @FXML
-    public void begin() {
+    public void smartcardCheck() {
+        mc.sceneManager.changeTo(Scenes.SMARTCARD_CHECK);
+        mc.sessionTimeOut();
+    }
+    @FXML
+    public void ticketCheck() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
         mc.sessionTimeOut();
     }
