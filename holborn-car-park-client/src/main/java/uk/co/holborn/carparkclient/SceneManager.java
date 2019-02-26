@@ -43,7 +43,7 @@ public class SceneManager {
     /**
      * Change to the provided scene
      *
-     * @param scene
+     * @param scene wanted scene
      */
     public void changeTo(Scenes scene) {
         if (animationFinished) {

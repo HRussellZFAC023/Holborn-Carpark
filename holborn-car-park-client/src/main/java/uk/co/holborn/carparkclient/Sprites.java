@@ -2,10 +2,9 @@ package uk.co.holborn.carparkclient;
 
 /**
  * The Sprites class contains all the sprites used throughout the application runtime
- * <p></p>
  *
  * @author Vlad Alboiu
- * @version 1.0.1
+ * @version 1.0.2
  */
 public enum Sprites {
     TICKET_INSERT(new SpriteSettings("/img/ticket_insert_sprite.png", 4096, 9, 25)),

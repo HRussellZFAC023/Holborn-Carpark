@@ -2,6 +2,14 @@ package uk.co.holborn.carparkclient;
 
 import javafx.scene.image.Image;
 
+/**
+ * The SpriteSettings class implements a easy way of
+ * setting all the necessary parameters for a sprite. T
+ * he SpriteSettings class expects a path to an image with 1:1 ratio (same width and height).
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.0
+ */
 public class SpriteSettings {
     private String path;
     private double scaleToWidth;
@@ -11,6 +19,14 @@ public class SpriteSettings {
     private int FPS;
     private Image image;
 
+    /**
+     * Initialises a new SpriteSettings instance
+     * @param path the path of the file found under resources folder
+     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     * @param slices the number of slices for a column or row
+     * @param count the number of non empty frames the sprite has
+     * @param FPS the speed at which the animation will be ran at
+     */
     SpriteSettings(String path, double scale, int slices, int count, int FPS) {
         this.path = path;
         this.scaleToWidth = scale;
@@ -19,7 +35,13 @@ public class SpriteSettings {
         this.count = count;
         this.FPS = FPS;
     }
-
+    /**
+     * Initialises a new SpriteSettings instance
+     * @param path the path of the file found under resources folder
+     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     * @param slices the number of slices for a column or row
+     * @param FPS the speed at which the animation will be ran at
+     */
     SpriteSettings(String path, double scale, int slices, int FPS) {
         this.path = path;
         this.scaleToWidth = scale;
