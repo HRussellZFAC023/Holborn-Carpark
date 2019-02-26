@@ -15,9 +15,7 @@ import javafx.util.Duration;
 /**
  * The ThemeProvider class provides a way to change the
  * application stylesheets during runtime, fading between the themes on change.
- *
- *<p></p>
- * It requires a {@link Scene} containing only one {@link Pane} as a child (the pane can have more children) for this to work.
+ *It requires a {@link Scene} containing only one {@link Pane} as a child (the pane can have more children) for this to work.
  *
  * @author Vlad Alboiu
  * @version 1.0
@@ -53,14 +51,14 @@ public class ThemeProvider {
     public  void switchTheme(Themes theme) {
         if (currentTheme == null) {
             currentTheme = theme;
-        }
+        }else
         if (currentTheme != theme) {
-            ImageView imgv = getImageViewFromNode(scene.getRoot(), 2);
+            ImageView imageView = getImageViewFromNode(scene.getRoot(), 2);
             Pane root = (Pane) scene.getRoot();
 
-            imgv.fitWidthProperty().bind(root.widthProperty());
-            imgv.fitHeightProperty().bind(root.heightProperty());
-            root.getChildren().add(imgv);
+            imageView.fitWidthProperty().bind(root.widthProperty());
+            imageView.fitHeightProperty().bind(root.heightProperty());
+            root.getChildren().add(imageView);
 
             FadeTransition f = new FadeTransition();
             f.setNode(root.getChildren().get(1));

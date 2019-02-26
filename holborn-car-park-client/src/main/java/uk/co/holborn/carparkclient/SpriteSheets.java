@@ -10,7 +10,6 @@ import java.util.Map;
 /**
  * The SpriteSheet class contains helps us keep track of all
  * the sprite sheets in the app while alo allowing preloading evey image on load
- * <p></p>
  * This class needs to have the sprite paths declared in {@link Sprites}
  *
  * @author Vlad Alboiu
@@ -72,7 +71,7 @@ public class SpriteSheets {
                     spriteSettings.getScaleToWidth(),
                     spriteSettings.getScaleToHeight(),
                     true,
-                    false);
+                    true, true);
         } catch (Exception e) {
             loadedAll = false;
             e.printStackTrace();
