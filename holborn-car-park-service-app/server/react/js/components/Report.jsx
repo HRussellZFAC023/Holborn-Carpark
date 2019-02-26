@@ -82,7 +82,6 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
-
                                     {new Date().getHours() - 2} : 00 - {new Date().getHours()} : 00
                                 </div>
                             </div>
