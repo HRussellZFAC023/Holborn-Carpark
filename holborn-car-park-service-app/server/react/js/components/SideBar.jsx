@@ -9,6 +9,9 @@ class SideBar extends Component {
     render() {
         return (
             <aside className="menu aside text-is-centerd">
+                 <p className="menu-label">
+                    General
+                </p>
                 <ul className="menu-list">
                     <li><a onClick={() => this.__setScene("Dashboard")}
                            className={(this.state.activeTab === "Dashboard") ? "is-active" : ""}><i

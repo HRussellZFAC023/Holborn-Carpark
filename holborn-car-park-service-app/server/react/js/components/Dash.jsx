@@ -60,7 +60,7 @@ class Dash extends Component {
                     <article className="level-item has-text-centered">
                         <div>
                             <p className="heading">Time</p>
-                            <p className="title"><Time/></p>
+                            <Time/>
                         </div>
                     </article>
                 </section>

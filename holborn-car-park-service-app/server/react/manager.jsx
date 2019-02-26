@@ -41,7 +41,7 @@ class DynamicContent extends React.Component {
                 return <Carparks />;
             case "Tickets":
                 return <Tickets />;
-            case "Emplyees":
+            case "Staff":
                 return <Employees />
             default:
                 return <Missing404 />
@@ -59,12 +59,14 @@ class DynamicContent extends React.Component {
                     <section className="column">
                         <div className="container">
                             {this.getScene()}
+                           
                             {this.state.showPopup ?
                                 <Settings
                                     closePopup={this.togglePopup.bind(this)}
                                 />
                                 : null
                             }
+
                         </div>
                     </section>
                 </div>

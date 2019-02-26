@@ -4,8 +4,7 @@ class Settings extends Component {
 
     render() {
         return (
-            <section className="profile-setting columns">
-
+            <section className="popup columns">
                 <div className="column ">
                     <div className="tile is-parent">
                         <article className="tile is-child notification is-info">
