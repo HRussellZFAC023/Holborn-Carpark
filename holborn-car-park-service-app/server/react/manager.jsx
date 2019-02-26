@@ -14,39 +14,41 @@ import Carparks     from './js/components/Carparks'
 class DynamicContent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {scene: 'Dashboard'};
+        this.state = { scene: 'Dashboard' };
         this.setScene = (nScene) => {
-            this.setState({scene: nScene})
+            this.setState({ scene: nScene })
         }
     }
 
     getScene() {
         switch (this.state.scene) {
             case "Dashboard":
-                return <Dash/>;
+                return <Dash />;
             case "Settings":
-                return <Settings/>;
+                return <Settings />;
             case "Report":
-                return <Report/>;
+                return <Report />;
             case "CarPark":
-                return <Carparks/>;
+                return <Carparks />;
             case "Tickets":
-                return <Tickets/>;
+                return <Tickets />;
             default:
-                return <Missing404/>
+                return <Missing404 />
         }
     }
 
     render() {
         return (
             <main>
-                <NavBar setScene={this.setScene}/>
-                <div className="columns">
-                    <section className="column hero is-fullheight is-3 sidebar">
-                        <Sidebar setScene={this.setScene}/>
+                <NavBar setScene={this.setScene} />
+                <div className="columns ">
+                    <section className="column hero is-fullheight is-2 sidebar">
+                        <Sidebar setScene={this.setScene} />
                     </section>
-                    <section className="column is-9">
-                        {this.getScene()}
+                    <section className="column">
+                        <div className="container">
+                            {this.getScene()}
+                        </div>
                     </section>
                 </div>
             </main>
@@ -55,4 +57,4 @@ class DynamicContent extends React.Component {
 }
 
 const dynamicWrapper = document.getElementById("DynamicContent");
-dynamicWrapper ? ReactDOM.render(<DynamicContent/>, dynamicWrapper) : false;
+dynamicWrapper ? ReactDOM.render(<DynamicContent />, dynamicWrapper) : false;

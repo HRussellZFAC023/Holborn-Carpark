@@ -2,17 +2,14 @@ import React, {Component} from 'react'
 
 class NavBar extends Component {
     render() {
-        const heroStyle = {
-            padding: '1rem 1.5rem'
-        };
         return (
-            <section className="hero gradient">
-                <div className="hero-body" style={heroStyle}>
+            <section className="hero is-small gradient">
+                <div className="hero-body">
                     <nav className="navbar" role="navigation" aria-label="main navigation">
                         <div>
                             <a className="navbar-brand">
                                 {/*<img className="grow-img" src={"/img/logo_bg_white@4x.png"} alt={"logo"}/>*/}
-                                <h1 className="title is-1 brand-text has-text-white">
+                                <h1 className="title is-2 brand-text has-text-white">
                                     <b>HOLBORN</b>
                                 </h1>
                             </a>
@@ -42,7 +39,6 @@ class NavBar extends Component {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </nav>
