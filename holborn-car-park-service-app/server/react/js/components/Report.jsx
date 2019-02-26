@@ -15,13 +15,11 @@ class Report extends Component {
             carpark: carParksData[0],
             startDate: null
         };
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(date) {
-        this.setState({
-            startDate: date
-        });
+        this.handleChange = (date) =>{
+            this.setState({
+                startDate: date
+            });
+        }
     }
 
     render() {
@@ -125,13 +123,13 @@ class Report extends Component {
                     </div>
                     <div className="column is-2 has-text-centered">
                         <button className="button is-large is-info">Generate</button>
+                        <button onClick={window.print()} className="button is-large is-info">Print</button>
                     </div>
                 </div>
                 {/*insert graphs etc here*/}
                 <section className="collumns">
                     <div className="collumn">
                         <div className="tile">
-        
                             <Bar data={
                                 {
                                     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -147,10 +145,7 @@ class Report extends Component {
                             <Doughnut data="" />
                         </div>
                     </div>
-
                 </section>
-
-
             </section>
 
         )
