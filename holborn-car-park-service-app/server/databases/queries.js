@@ -14,7 +14,19 @@ exports.sockets = {
 };
 
 exports.api = {
-    tickets: {
+    smartcards: {
+        get_all:    `SELECT * FROM smartcards`,
+        delete_all: `DELETE   FROM smartcards`,
+        get_one:    `SELECT * FROM smartcards WHERE  _id = $1`,
+        create:     `INSERT   INTO smartcards VALUES ($1, to_timestamp($2 / 1000.0), null, $3, $4, $5)`,
+        update: {
+            date_out:   `UPDATE tickets SET date_out  = to_timestamp($2 / 1000.0)   WHERE _id = $1`,
+            paid:       `UPDATE tickets SET paid      = $2                          WHERE _id = $1`,
+            valid:      `UPDATE tickets SET valid     = $2                          WHERE _id = $1`
+        },
+        delete_one: `DELETE   FROM tickets WHERE _id = $1`,
+        validate:   `SELECT * FROM tickets WHERE _id = $1`
+    }, tickets: {
         get_all:    `SELECT * FROM tickets`,
         delete_all: `DELETE   FROM tickets`,
         get_one:    `SELECT * FROM tickets WHERE  _id = $1`,
