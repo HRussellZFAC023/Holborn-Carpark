@@ -6,6 +6,9 @@ i {
 .gradient {
   background: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
 }
+.gradient2{
+  background: linear-gradient(to right, #5B86E5, #36D1DC)
+}
 
 .nav-dropdown-content {
   background-color: #f1f1f1;
@@ -24,4 +27,8 @@ i {
 }
 .columns {
   margin: 0 0 .75rem;
+}
+.manager-tiles{
+  margin: 1rem 0;
+  border: 1px solid #999;
 }

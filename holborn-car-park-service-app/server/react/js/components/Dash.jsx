@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Time from './Clock'
 import $ from 'jquery';
 
@@ -8,7 +8,7 @@ class Dash extends Component {
             url: '/utility/name',
             type: 'GET',
             success: function (name) {
-                this.setState({name: name});
+                this.setState({ name: name });
             }.bind(this),
             error: function (xhr, status, err) {
                 console.error('', status, err.toString());
@@ -23,11 +23,10 @@ class Dash extends Component {
         }
     }
 
-
     render() {
         return (
             <main>
-                <section className="hero is-small is-dark gradient">
+                <section className="hero is-small is-info gradient2">
                     <div className="hero-body">
                         <div className="container">
                             <h1 className="title">
@@ -39,36 +38,31 @@ class Dash extends Component {
                         </div>
                     </div>
                 </section>
-                <section className="info-tiles">
-                    <div className="tile is-ancestor has-text-centered">
-                        <div className="tile is-parent">
-                            <article className="tile is-child box">
-                                <p className="title"> {} </p>
-                                <p className="subtitle">{}</p>
-                            </article>
+                <section className="level manager-tiles">
+                    <article class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Cars</p>
+                            <p class="title">2000</p>
                         </div>
-                        <div className="tile is-parent">
-                            < article className="tile is-child box">
-                                < p className="title"> {} </p>
-                                <p className="subtitle">{}</p>
-                            </article>
+                    </article>
+                    <article class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Car Parks</p>
+                            <p class="title">20</p>
                         </div>
-                        <div
-                            className="tile is-parent">
-                            <article className="tile is-child box">
-                                <p className="title"> {} </p>
-                                <p className="subtitle">{}</p>
-                            </article>
+                    </article>
+                    <article class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Revenue</p>
+                            <p class="title">$$$</p>
                         </div>
-                        <div
-                            className="tile is-parent">
-                            <article
-                                className="tile is-child box">
-                                <p className="title">{}</p>
-                                < p className="subtitle"><Time/></p>
-                            </article>
+                    </article>
+                    <article class="level-item has-text-centered">
+                        <div>
+                            <p class="heading">Time</p>
+                            <p class="title"><Time/></p>
                         </div>
-                    </div>
+                    </article>
                 </section>
             </main>
         )
