@@ -1,5 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
+import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,8 +12,8 @@ class Report extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            carpark:    carParksData[0],
-            startDate:  null
+            carpark: carParksData[0],
+            startDate: null
         };
         this.handleChange = this.handleChange.bind(this);
     }
@@ -93,7 +95,7 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
-                                    <p style={{display: "inline"}}>From:&nbsp;&nbsp;</p>
+                                    <p style={{ display: "inline" }}>From:&nbsp;&nbsp;</p>
                                     <DatePicker
                                         selected={this.state.startDate}
                                         onChange={this.handleChange}
@@ -105,7 +107,7 @@ class Report extends Component {
                                         className={"input is-small"}
                                         placeholderText="Start date"
                                     />
-                                    <p style={{display: "inline"}}>&nbsp;-&nbsp;To:&nbsp;&nbsp;</p>
+                                    <p style={{ display: "inline" }}>&nbsp;-&nbsp;To:&nbsp;&nbsp;</p>
                                     <DatePicker
                                         selected={this.state.startDate}
                                         onChange={this.handleChange}
@@ -126,6 +128,29 @@ class Report extends Component {
                     </div>
                 </div>
                 {/*insert graphs etc here*/}
+                <section className="collumns">
+                    <div className="collumn">
+                        <div className="tile">
+        
+                            <Bar data={
+                                {
+                                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                                    datasets: [{
+                                    label: "No* cars",
+                                    backgroundColor: 'rgb(255, 99, 132)',
+                                    borderColor: 'rgb(255, 99, 132)',
+                                    data: [0, 10, 5, 2, 20, 30, 45],
+                                    }]
+                                }
+                            }
+                            />
+                            <Doughnut data="" />
+                        </div>
+                    </div>
+
+                </section>
+
+
             </section>
 
         )
