@@ -30,5 +30,6 @@ i {
 }
 .manager-tiles{
   margin: 1rem 0;
+  padding: 1rem 0rem;
   border: 1px solid #999;
 }
