@@ -6,7 +6,7 @@ class NavBar extends Component {
             <section className="hero is-small gradient">
                 <div className="hero-body">
                     <nav className="navbar" role="navigation" aria-label="main navigation">
-                        <div>
+                        <div id="logo-div">
                             <a className="navbar-brand">
                                 {/*<img className="grow-img" src={"/img/logo_bg_white@4x.png"} alt={"logo"}/>*/}
                                 <h1 className="title is-2 brand-text has-text-white">

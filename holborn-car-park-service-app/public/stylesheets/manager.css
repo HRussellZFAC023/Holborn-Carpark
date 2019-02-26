@@ -33,3 +33,11 @@ i {
   padding: 1rem 0rem;
   border: 1px solid #999;
 }
+
+.hero.is-small .hero-body{
+  padding: 0.8rem 2.5rem;
+}
+
+#logo-div{
+  transform: translateY(10%);
+}
