@@ -12,208 +12,102 @@ import java.net.URL;
  * making sure there can only be one instance of a scene at a time
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.1
  */
 public enum Scenes {
-    LANDING {
-        LandingPageController controller = new LandingPageController();
-        AnchorPane root;
-
+    LANDING("/fxml/landing_page.fxml", new LandingPageController()) {
         @Override
-        String getFXMLLocation() {
-            return "/fxml/landing_page.fxml";
-        }
-
-        @Override
-        public Object getController() {
-            return controller;
-        }
-
-        @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
-        }
-
-    },
-    TICKET_CHECK {
-        TicketCheckController controller = new TicketCheckController();
-        AnchorPane root;
-
-        @Override
-        String getFXMLLocation() {
-            return "/fxml/ticket_check.fxml";
-        }
-
-        @Override
-        public Object getController() {
-            return controller;
-        }
-
-        @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
-            controller.setup();
+        void onSceneEnter() {
         }
     },
-    PAYMENT_METHODS {
-        PaymentMethodsController controller = new PaymentMethodsController();
-        AnchorPane root;
-
+    TICKET_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
-        String getFXMLLocation() {
-            return "/fxml/payment_methods.fxml";
+        void onSceneEnter() {
+            ((CheckController) controller).setup();
+            ((CheckController) controller).setTicketMode();
         }
-
+    },
+    SMARTCARD_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
-        public Object getController() {
-            return controller;
+        void onSceneEnter() {
+            ((CheckController) controller).setup();
+            ((CheckController) controller).setSmartcardMode();
         }
-
+    },
+    PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
         @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
+        void onSceneEnter() {
 
         }
     },
-    PAYMENT_METHODS_CASH {
-        PaymentMethodsCashController controller = new PaymentMethodsCashController();
-        AnchorPane root;
-
+    PAYMENT_METHODS_CASH("/fxml/payment_methods_cash.fxml", new PaymentMethodsCashController()) {
         @Override
-        String getFXMLLocation() {
-            return "/fxml/payment_methods_cash.fxml";
-        }
-
-        @Override
-        public Object getController() {
-            return controller;
-        }
-
-        @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
-            controller.setup();
+        void onSceneEnter() {
+            ((PaymentMethodsCashController) controller).setup();
         }
     },
-    PAYMENT_METHODS_CONTACTLESS {
-        PaymentMethodsContactlessController controller = new PaymentMethodsContactlessController();
-        AnchorPane root;
-
+    PAYMENT_METHODS_CONTACTLESS("/fxml/payment_methods_contactless.fxml", new PaymentMethodsContactlessController()) {
         @Override
-        String getFXMLLocation() {
-            return "/fxml/payment_methods_contactless.fxml";
+        void onSceneEnter() {
+            ((PaymentMethodsContactlessController) controller).setup();
         }
+    };
 
-        @Override
-        public Object getController() {
-            return controller;
-        }
-
-        @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
-            controller.setup();
-        }
-    };;
+    Object controller;
+    String fxmlLocation;
+    AnchorPane root;
 
     /**
-     * Method that gets the location
-     * of the fxml file within resources folder
-     * <p>
-     * This is called in {@link #getURLResource()}
+     * The constructor takes as a parameter the location of the FXML file
+     * found in the resources folder and a new  instance of a controller
      *
-     * @return a string
+     * @param fxmlLocation the location of the fxml file
+     * @param controller   the instance of the controller to be attached
      */
-    abstract String getFXMLLocation();
+    Scenes(String fxmlLocation, Object controller) {
+        this.fxmlLocation = fxmlLocation;
+        this.controller = controller;
+        initialise();
+    }
 
     /**
-     * Method that gets an Object
-     * containing a reference to the controller
+     * Method that is called before returning the scene
      * <p>
      * This is called in {@link #getScene()}
-     *
-     * @return the controller object
      */
-    public abstract Object getController();
+    abstract void onSceneEnter();
 
     /**
-     * Method that gets an Anchor Pane
-     * containing a reference to the root anchor pane
-     * <p>
-     * This is called in {@link #getScene()}
-     *
-     * @return the root anchor pane
+     * Method that gets called in the constructor
+     * to prepare all the necessary scenes
      */
-    abstract AnchorPane getRootAnchor();
+    private void initialise() {
+        FXMLLoader loader = new FXMLLoader(getURLResource());
+        loader.setController(controller);
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
-     * Method that sets an Anchor Pane
-     * containing a reference to the root anchor pane
-     * <p>
-     * This is called in {@link #getScene()}
-     *
-     * @param root set the AnchorPane to this
-     */
-    abstract void setRootAnchor(AnchorPane root);
-
-    /**
-     * Method that does all the necessary
-     * preparation in the controller before returning the root anchor pane
-     */
-    abstract void initialise();
-
-    /**
-     * Method that gets an URL pointing to the resources folder with the file path returned by {@link #getFXMLLocation()}
+     * Method that gets an URL pointing to the resources folder with the file path
      *
      * @return resource URL
      */
     protected URL getURLResource() {
-        return getClass().getResource(getFXMLLocation());
+        return getClass().getResource(fxmlLocation);
+    }
+
+    /**
+     * Method that returns the controller object attached to the screen.
+     * Note: the returned data is of type Object. Make sure to cast the object to the controller type before using any methods
+     *
+     * @return the controller as Object
+     */
+    public Object getController() {
+        return controller;
     }
 
     /**
@@ -223,18 +117,8 @@ public enum Scenes {
      * @return the root anchor pane of the loaded UI
      */
     public AnchorPane getScene() {
-        if (getRootAnchor() == null) {
-            FXMLLoader loader = new FXMLLoader(getURLResource());
-            loader.setController(getController());
-            try {
-                setRootAnchor(loader.load());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        initialise();
-        return getRootAnchor();
+        onSceneEnter();
+        return root;
     }
 
 }
