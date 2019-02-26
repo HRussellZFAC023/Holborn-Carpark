@@ -29,7 +29,7 @@ class NavBar extends Component {
 
                                     <div className="dropdown-menu" id="dropdown-menu4" role="menu">
                                         <div className="nav-dropdown-content dropdown-content">
-                                            <a onClick={() => this.props.closePopup()}
+                                            <a onClick={() => this.props.togglePopup()}
                                                className="dropdown-item">
                                                 Settings
                                             </a>

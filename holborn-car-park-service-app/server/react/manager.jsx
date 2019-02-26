@@ -59,14 +59,7 @@ class DynamicContent extends React.Component {
                     <section className="column">
                         <div className="container">
                             {this.getScene()}
-                           
-                            {this.state.showPopup ?
-                                <Settings
-                                    closePopup={this.togglePopup.bind(this)}
-                                />
-                                : null
-                            }
-
+                            {this.state.showPopup ? <Settings closePopup={this.togglePopup.bind(this)} /> : null}
                         </div>
                     </section>
                 </div>
