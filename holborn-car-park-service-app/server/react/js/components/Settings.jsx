@@ -4,65 +4,65 @@ class Settings extends Component {
 
     render() {
         return (
-            <section class="profile-setting columns">
+            <section className="profile-setting columns">
 
-                <div class="column ">
-                    <div class="tile is-parent">
-                        <article class="tile is-child notification is-info">
-                            <p class="title">Welcome</p>
-                            <p class="subtitle">Your Name</p>
-                            <figure class="image is-4by3">
+                <div className="column ">
+                    <div className="tile is-parent">
+                        <article className="tile is-child notification is-info">
+                            <p className="title">Welcome</p>
+                            <p className="subtitle">Your Name</p>
+                            <figure className="image is-4by3">
                                 <img src="https://bulma.io/images/placeholders/640x480.png" />
                             </figure>
                         </article>
                     </div>
                 </div>
 
-                <div class="column ">
-                    <div class="field">
-                        <label class="label">Name</label>
-                        <div class="control">
-                            <input class="input" type="text" placeholder="Text input" value="yourname" />
+                <div className="column ">
+                    <div className="field">
+                        <label className="label">Name</label>
+                        <div className="control">
+                            <input className="input" type="text" placeholder="Text input" value="yourname" />
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Username</label>
-                        <div class="control">
-                            <input class="input is-success" type="text" placeholder="Text input" value="username@gmail.com" />
+                    <div className="field">
+                        <label className="label">Username</label>
+                        <div className="control">
+                            <input className="input is-success" type="text" placeholder="Text input" value="username@gmail.com" />
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Email</label>
-                        <div class="control">
-                            <input class="input is-danger" type="email" placeholder="Email input" value="hello@" />
+                    <div className="field">
+                        <label className="label">Email</label>
+                        <div className="control">
+                            <input className="input is-danger" type="email" placeholder="Email input" value="hello@" />
                         </div>
-                        <p class="help is-danger">This email is invalid</p>
+                        <p className="help is-danger">This email is invalid</p>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Date of Birth</label>
-                        <div class="control">
-                            <div class="select">
+                    <div className="field">
+                        <label className="label">Date of Birth</label>
+                        <div className="control">
+                            <div className="select">
                                 <input daterangepicker id="test" type="text" name="birthdate" value="10/24/1984" />
                             </div>
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Message</label>
-                        <div class="control">
-                            <textarea class="textarea" placeholder="Textarea"></textarea>
+                    <div className="field">
+                        <label className="label">Message</label>
+                        <div className="control">
+                            <textarea className="textarea" placeholder="Textarea"></textarea>
                         </div>
                     </div>
 
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <button class="button is-link">Submit</button>
+                    <div className="field is-grouped">
+                        <div className="control">
+                            <button className="button is-link">Submit</button>
                         </div>
-                        <div class="control">
-                            <button class="button is-text">Cancel</button>
+                        <div className="control">
+                            <button className="button is-text">Cancel</button>
                         </div>
                     </div>
 

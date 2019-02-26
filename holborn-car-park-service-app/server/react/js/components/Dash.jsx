@@ -39,28 +39,28 @@ class Dash extends Component {
                     </div>
                 </section>
                 <section className="level manager-tiles">
-                    <article class="level-item has-text-centered">
+                    <article className="level-item has-text-centered">
                         <div>
-                            <p class="heading">Cars</p>
-                            <p class="title">2000</p>
+                            <p className="heading">Cars</p>
+                            <p className="title">2000</p>
                         </div>
                     </article>
-                    <article class="level-item has-text-centered">
+                    <article className="level-item has-text-centered">
                         <div>
-                            <p class="heading">Car Parks</p>
-                            <p class="title">20</p>
+                            <p className="heading">Car Parks</p>
+                            <p className="title">20</p>
                         </div>
                     </article>
-                    <article class="level-item has-text-centered">
+                    <article className="level-item has-text-centered">
                         <div>
-                            <p class="heading">Revenue</p>
-                            <p class="title">$$$</p>
+                            <p className="heading">Revenue</p>
+                            <p className="title">$$$</p>
                         </div>
                     </article>
-                    <article class="level-item has-text-centered">
+                    <article className="level-item has-text-centered">
                         <div>
-                            <p class="heading">Time</p>
-                            <p class="title"><Time/></p>
+                            <p className="heading">Time</p>
+                            <p className="title"><Time/></p>
                         </div>
                     </article>
                 </section>
