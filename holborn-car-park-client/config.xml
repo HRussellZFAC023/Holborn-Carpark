@@ -8,4 +8,7 @@
     <entry key="finish_screen_delay">5000</entry>
     <entry key="session_timeout_seconds">180</entry>
     <entry key="session_timeout_popup_duration">3</entry>
+    <entry key="auto_night_time">true</entry>
+    <entry key="night_time_start">19</entry>
+    <entry key="night_time_end">7</entry>
 </properties>

@@ -14,7 +14,7 @@
     -fx-background-color: #ffffff;
     -fx-background-radius: 10;
     -fx-font: 32px "Avenir Light";
-    -fx-text-fill: #3d3d3d;
+    -fx-text-fill: #4d4d4d;
     -fx-border-width: 0;
     -fx-border-radius: 0;
     -fx-border-color: #4E4C4D;
@@ -156,6 +156,14 @@
     /*-fx-border-width: 2;*/
     -fx-background-radius: 10;
     /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+}
+.landing_page_info_container_label {
+    -fx-font: 16px "Avenir Heavy";
+    -fx-text-fill: #747474;
+}
+.landing_page_info_container_value {
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #747474;
 }
 .connection_card{
     -fx-background-color: #f9f9f9;
