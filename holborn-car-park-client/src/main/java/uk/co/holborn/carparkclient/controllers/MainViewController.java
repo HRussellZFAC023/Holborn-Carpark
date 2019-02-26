@@ -5,11 +5,8 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -18,9 +15,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
 
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -55,6 +52,7 @@ public class MainViewController implements Initializable {
     public boolean happyHour = false;
     private Long sessionStartTime;
     public static SpriteSheets spriteSheets;
+    int pastHour = 0;
 
 
     public MainViewController() {
@@ -65,28 +63,28 @@ public class MainViewController implements Initializable {
         logger = LogManager.getLogger(getClass().getName());
         try {
             socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error(e.getMessage());
         }
         instance = this;
         spriteSheets = new SpriteSheets();
+        spriteSheets.load();
     }
 
-    public void sendAlert(String title, String header, String content, AlertType alertType) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(header);
-            alert.setContentText(content);
-            alert.showAndWait();
-        });
-
-    }
+//    public void sendAlert(String title, String header, String content, AlertType alertType) {
+//        Platform.runLater(() -> {
+//            Alert alert = new Alert(alertType);
+//            alert.setTitle(title);
+//            alert.setHeaderText(header);
+//            alert.setContentText(content);
+//            alert.showAndWait();
+//        });
+//
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
-        spriteSheets.load();
         themeModeButton.setText("NIGHTTIME");
         popup = new InfoPopUp(sceneContainer);
         sceneManager = new SceneManager(sceneAnchor);
@@ -138,26 +136,6 @@ public class MainViewController implements Initializable {
         return instance;
     }
 
-    @FXML
-    public void switchHappyHour(ActionEvent event) {
-//        sceneManager.switchToScene("HappyHour");
-    }
-
-    @FXML
-    public void switchStart(ActionEvent event) {
-//        sceneManager.switchToScene("Start");
-    }
-
-    @FXML
-    public void switchTicketCheck(ActionEvent event) {
-        sceneManager.changeTo(Scenes.TICKET_CHECK);
-    }
-
-    @FXML
-    public void goBack(ActionEvent event) {
-        sceneManager.goBack();
-    }
-
     public Socket getSocket() {
         return socket;
     }
@@ -186,6 +164,10 @@ public class MainViewController implements Initializable {
                     popup.show("Session timed out", false);
                     sceneAnchor.setDisable(true);
                     sceneManager.reverseTo(Scenes.LANDING);
+                    if (ticket != null)
+                        if (ticket.getAmountPaid() > 0) {
+                            emitMoney(ticket.getAmountPaid());
+                        }
                     try {
                         Thread.sleep(session_timeout_popup_ms);
                     } catch (InterruptedException ignored) {
@@ -207,6 +189,12 @@ public class MainViewController implements Initializable {
         session.start();
     }
 
+    private void emitMoney(double amount) {
+        //TODO <- HARDWARE MISSING: emit banknotes/coins out
+        logger.info("Session timed out but the user inserted money. Gave " + amount + " back");
+        ticket = null;
+    }
+
     /**
      * Thread that updates the date and time
      */
@@ -214,6 +202,7 @@ public class MainViewController implements Initializable {
 //         final long[] frameTimes = new long[100];
 //        final int[] frameTimeIndex = {0};
 //        final boolean[] arrayFilled = {false};
+
         AnimationTimer at = new AnimationTimer() {
             @Override
             public void handle(long now) {

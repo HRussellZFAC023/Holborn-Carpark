@@ -15,12 +15,21 @@ public class Ticket {
     private double price;
     private double duration;
     private int duration_paying_for;
+    private double amountPaid;
 
     public Ticket() {
     }
 
     public int getDuration_paying_for() {
         return duration_paying_for;
+    }
+
+    public double getAmountPaid() {
+        return amountPaid;
+    }
+
+    public void setAmountPaid(double amountPaid) {
+        this.amountPaid = amountPaid;
     }
 
     public void setDuration_paying_for(int duration_paying_for) {
