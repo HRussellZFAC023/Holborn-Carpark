@@ -8,20 +8,32 @@ package uk.co.holborn.carparkclient;
  * @version 1.0
  */
 public enum Themes {
-    LIGHT{
-        @Override
-        String getStylesheetPath() {
-            return "/css/light.css";
-        }
-    },DARK{
-        @Override
-        String getStylesheetPath() {
-            return "/css/dark.css";
-        }
-    };
+    /**
+     * Light theme
+     */
+    LIGHT("/css/light.css"),
+    /**
+     * Dark theme
+     */
+    DARK("/css/dark.css");
+
+    private String stylesheetPath;
+
+    /**
+     * Constructor for a the theme
+     *
+     * @param stylesheetPath the path where the css file can be found under resources folder
+     */
+    Themes(String stylesheetPath) {
+        this.stylesheetPath = stylesheetPath;
+    }
+
     /**
      * Method that gets the stylesheets location string within the resources folder
+     *
      * @return stylesheet location
      */
-    abstract String getStylesheetPath();
+    public String getStylesheetPath() {
+        return stylesheetPath;
+    }
 }
