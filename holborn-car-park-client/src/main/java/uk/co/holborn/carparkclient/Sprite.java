@@ -11,7 +11,6 @@ import javafx.util.Duration;
 /**
  * The Sprite class represents a quick way of
  * loading and playing sprite sheets on a {@link ImageView}
- * <p></p>
  * The default FPS is set to 60
  *
  * @author Vlad Alboiu
@@ -47,6 +46,7 @@ public class Sprite {
      * @param sheet      a string referencing an image file
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
+     * @deprecated  use {@link #Sprite(ImageView, SpriteSettings)} instead
      */
     public Sprite(ImageView spriteView, String sheet, double width, double height) {
         this.spriteView = spriteView;
@@ -64,6 +64,7 @@ public class Sprite {
      * @param image      a Image object
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
+     * @deprecated  use {@link #Sprite(ImageView, SpriteSettings)} instead
      */
     public Sprite(ImageView spriteView, Image image, double width, double height) {
         this.spriteView = spriteView;
@@ -92,10 +93,13 @@ public class Sprite {
      * @param height the height of a single sprite cell
      */
     public void setImage(Image image, double width, double height) {
+       setImage(image,width,height, (int) (spriteView.getImage().getWidth() / width));
+    }
+    public void setImage(Image image, double width, double height, int cells) {
         spriteView.setImage(image);
         rect = new Rectangle2D(0, 0, width, height);
         resetView();
-        columns = (int) (spriteView.getImage().getWidth() / width);
+        columns = cells;
         int rows = (int) (spriteView.getImage().getHeight() / height);
         count = columns * rows;
         if (currentAnimation != null) {
@@ -172,7 +176,8 @@ public class Sprite {
     public void setSpriteSettings(SpriteSettings spriteSettings) {
         setImage(spriteSettings.getImage(),
                 spriteSettings.getScaleToWidth() / spriteSettings.getSlices(),
-                spriteSettings.getScaleToHeight() / spriteSettings.getSlices()
+                spriteSettings.getScaleToHeight() / spriteSettings.getSlices(),
+                spriteSettings.getSlices()
         );
         setFPS(spriteSettings.getFPS());
         setSpritesCount(spriteSettings.getCount());
