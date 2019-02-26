@@ -20,7 +20,7 @@ import uk.co.holborn.carparkclient.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TicketCheckController implements Initializable {
+public class CheckController implements Initializable {
 
 
     @FXML
@@ -44,7 +44,7 @@ public class TicketCheckController implements Initializable {
     private Gson gson;
     Sprite sprite;
 
-    public TicketCheckController() {
+    public CheckController() {
         logger = LogManager.getLogger(getClass().getName());
         mc = MainViewController.getInstance();
         socket = mc.getSocket();
@@ -99,6 +99,12 @@ public class TicketCheckController implements Initializable {
         animateImageShow();
     }
 
+    public void setTicketMode(){
+
+    }
+    public void setSmartcardMode(){
+
+    }
     @FXML
     private void goToPayment() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
