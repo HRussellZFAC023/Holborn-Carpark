@@ -26,7 +26,7 @@ class Report extends Component {
         return (
             <section>
                 <div className="columns">
-                    <div className="column is-5">
+                    <div className="column">
                         <div className="card">
                             <header className="card-header">
                                 <p className="card-header-title">
@@ -63,7 +63,7 @@ class Report extends Component {
                         </div>
                     </div>
 
-                    <div className="column is-5">
+                    <div className="column">
                         <div className="card">
                             <header className="card-header">
                                 <p className="card-header-title">
@@ -121,7 +121,7 @@ class Report extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="column">
+                    <div className="column is-2 has-text-centered">
                         <button className="button is-large is-info">Generate</button>
                     </div>
                 </div>

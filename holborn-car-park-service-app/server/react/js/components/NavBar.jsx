@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 class NavBar extends Component {
+    
     render() {
         return (
             <section className="hero is-small gradient">
@@ -28,7 +29,7 @@ class NavBar extends Component {
 
                                     <div className="dropdown-menu" id="dropdown-menu4" role="menu">
                                         <div className="nav-dropdown-content dropdown-content">
-                                            <a onClick={() => this.props.setScene("Settings")}
+                                            <a onClick={() => this.props.closePopup()}
                                                className="dropdown-item">
                                                 Settings
                                             </a>

@@ -1,37 +1,48 @@
-import React        from 'react'
-import ReactDOM     from 'react-dom'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import NavBar       from './js/components/NavBar'
-import Sidebar      from './js/components/SideBar'
-import Dash         from './js/components/Dash'
-import Missing404   from './js/components/Missing404'
-import Settings     from './js/components/Settings'
-import Report       from './js/components/Report'
-import Tickets      from './js/components/Tickets'
-import Carparks     from './js/components/Carparks'
+import NavBar from './js/components/NavBar'
+import Sidebar from './js/components/SideBar'
+import Dash from './js/components/Dash'
+import Missing404 from './js/components/Missing404'
+import Settings from './js/components/Settings'
+import Report from './js/components/Report'
+import Tickets from './js/components/Tickets'
+import Carparks from './js/components/Carparks'
+import Employees from './js/components/Employees'
 
 
 class DynamicContent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { scene: 'Dashboard' };
+        this.state = {
+            scene: 'Dashboard',
+            showSettings: false
+        };
         this.setScene = (nScene) => {
             this.setState({ scene: nScene })
         }
+
+    }
+
+    togglePopup() {
+        this.setState({
+            showSettings: !this.state.showSettings
+        });
     }
 
     getScene() {
         switch (this.state.scene) {
             case "Dashboard":
                 return <Dash />;
-            case "Settings":
-                return <Settings />;
             case "Report":
                 return <Report />;
             case "CarPark":
                 return <Carparks />;
             case "Tickets":
                 return <Tickets />;
+            case "Emplyees":
+                return <Employees />
             default:
                 return <Missing404 />
         }
@@ -40,7 +51,7 @@ class DynamicContent extends React.Component {
     render() {
         return (
             <main>
-                <NavBar setScene={this.setScene} />
+                <NavBar closePopup={this.togglePopup.bind(this)} />
                 <div className="columns ">
                     <section className="column hero is-fullheight is-2 sidebar">
                         <Sidebar setScene={this.setScene} />
@@ -48,6 +59,12 @@ class DynamicContent extends React.Component {
                     <section className="column">
                         <div className="container">
                             {this.getScene()}
+                            {this.state.showPopup ?
+                                <Settings
+                                    closePopup={this.togglePopup.bind(this)}
+                                />
+                                : null
+                            }
                         </div>
                     </section>
                 </div>
