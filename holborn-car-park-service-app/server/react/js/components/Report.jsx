@@ -25,10 +25,10 @@ class Report extends Component {
                                 <div className="dropdown is-hoverable">
                                     <div className="dropdown-trigger">
                                         <a className="card-header-icon" aria-haspopup="true"
-                                           aria-controls="dropdown-menu4">
-                  <span className="icon is-small">
-                      <i className="fas fa-angle-down" aria-hidden="true"/>
-                   </span>
+                                            aria-controls="dropdown-menu4">
+                                            <span className="icon is-small">
+                                                <i className="fas fa-angle-down" aria-hidden="true" />
+                                            </span>
                                         </a>
                                     </div>
                                     <div className="dropdown-menu" id="dropdown-menu4" role="menu">
@@ -62,10 +62,10 @@ class Report extends Component {
                                 <div className="dropdown is-hoverable">
                                     <div className="dropdown-trigger">
                                         <a className="card-header-icon" aria-haspopup="true"
-                                           aria-controls="dropdown-menu4">
-                  <span className="icon is-small">
-                      <i className="fas fa-angle-down" aria-hidden="true"/>
-                   </span>
+                                            aria-controls="dropdown-menu4">
+                                            <span className="icon is-small">
+                                                <i className="fas fa-angle-down" aria-hidden="true" />
+                                            </span>
                                         </a>
                                     </div>
                                     <div className="dropdown-menu" id="dropdown-menu4" role="menu">
@@ -82,6 +82,7 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
+
                                     {new Date().getHours() - 2} : 00 - {new Date().getHours()} : 00
                                 </div>
                             </div>
