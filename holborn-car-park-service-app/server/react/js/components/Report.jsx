@@ -1,4 +1,7 @@
 import React, {Component} from 'react'
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 //fixme fetch this data from api in componentDidMount()
 const carParksData = ["Egham", "Staines", "Windsor", "Mayfair", "Holborn"];
@@ -7,8 +10,16 @@ class Report extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            carpark: carParksData[0]
-        }
+            carpark:    carParksData[0],
+            startDate:  null
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(date) {
+        this.setState({
+            startDate: date
+        });
     }
 
     render() {
@@ -82,7 +93,30 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
-                                    {new Date().getHours() - 2} : 00 - {new Date().getHours()} : 00
+                                    <p style={{display: "inline"}}>From:&nbsp;&nbsp;</p>
+                                    <DatePicker
+                                        selected={this.state.startDate}
+                                        onChange={this.handleChange}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={60}
+                                        dateFormat="dd/mm/yyyy h:mm aa"
+                                        todayButton={"Today"}
+                                        className={"input is-small"}
+                                        placeholderText="Start date"
+                                    />
+                                    <p style={{display: "inline"}}>&nbsp;-&nbsp;To:&nbsp;&nbsp;</p>
+                                    <DatePicker
+                                        selected={this.state.startDate}
+                                        onChange={this.handleChange}
+                                        showTimeSelect
+                                        timeFormat="HH:mm"
+                                        timeIntervals={60}
+                                        dateFormat="dd/mm/yyyy h:mm aa"
+                                        todayButton={"Today"}
+                                        className={"input is-small"}
+                                        placeholderText="Final date"
+                                    />
                                 </div>
                             </div>
                         </div>
