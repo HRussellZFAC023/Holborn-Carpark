@@ -210,6 +210,19 @@ public class MainViewController implements Initializable {
                 String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
                 dateLabel.setText(date);
                 timeLabel.setText(time);
+                Calendar currTime = Calendar.getInstance();
+                int hour = currTime.get(Calendar.HOUR_OF_DAY);
+                if(GlobalVariables.AUTO_NIGHT_TIME)
+                if(pastHour != hour) {
+                    pastHour = hour;
+                    if(hour >= GlobalVariables.NIGHT_TIME_START || hour <= GlobalVariables.NIGHT_TIME_END){
+                        ThemeProvider.getInstance().switchTheme(Themes.DARK);
+                    }else if(ThemeProvider.getInstance().getCurrentTheme() != Themes.LIGHT){
+                        ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
+                    }
+                    updateThemeButton();
+                }
+
                 //activate to see FPS
 //                long oldFrameTime = frameTimes[frameTimeIndex[0]] ;
 //                frameTimes[frameTimeIndex[0]] = now ;
@@ -262,9 +275,15 @@ public class MainViewController implements Initializable {
     void switchTheme() {
         if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
             ThemeProvider.getInstance().switchTheme(Themes.DARK);
-            themeModeButton.setText("DAYTIME");
         } else {
             ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
+        }
+        updateThemeButton();
+    }
+    void updateThemeButton(){
+        if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
+            themeModeButton.setText("DAYTIME");
+        } else {
             themeModeButton.setText("NIGHTTIME");
         }
     }
