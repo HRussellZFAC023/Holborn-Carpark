@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import NavBar from './js/components/NavBar'
-import Sidebar from './js/components/SideBar'
-import Dash from './js/components/Dash'
-import Missing404 from './js/components/Missing404'
-import Settings from './js/components/Settings'
-import Report from './js/components/Report'
-import Tickets from './js/components/Tickets'
-import Carparks from './js/components/Carparks'
-import Employees from './js/components/Employees'
+import NavBar       from './js/components/NavBar'
+import Sidebar      from './js/components/SideBar'
+import Dash         from './js/components/Dash'
+import Missing404   from './js/components/Missing404'
+import Report       from './js/components/Report'
+import Settings     from './js/components/Settings'
+import Tickets      from './js/components/Tickets'
+import Carparks     from './js/components/Carparks'
+import Employees    from './js/components/Employees'
 
 
 class DynamicContent extends React.Component {
@@ -22,14 +22,15 @@ class DynamicContent extends React.Component {
         this.setScene = (nScene) => {
             this.setState({ scene: nScene })
         }
+        this.togglePopup = () => {
+            this.setState({
+                showSettings: !this.state.showSettings
+            });
+        }
 
     }
 
-    togglePopup() {
-        this.setState({
-            showSettings: !this.state.showSettings
-        });
-    }
+   
 
     getScene() {
         switch (this.state.scene) {
@@ -51,7 +52,7 @@ class DynamicContent extends React.Component {
     render() {
         return (
             <main>
-                <NavBar closePopup={this.togglePopup.bind(this)} />
+                <NavBar togglePopup={this.togglePopup} />
                 <div className="columns ">
                     <section className="column hero is-fullheight is-2 sidebar">
                         <Sidebar setScene={this.setScene} />
@@ -59,7 +60,7 @@ class DynamicContent extends React.Component {
                     <section className="column">
                         <div className="container">
                             {this.getScene()}
-                            {this.state.showPopup ? <Settings closePopup={this.togglePopup.bind(this)} /> : null}
+                            {this.state.showSettings ? <Settings togglePopup={this.togglePopup} /> : null}
                         </div>
                     </section>
                 </div>
