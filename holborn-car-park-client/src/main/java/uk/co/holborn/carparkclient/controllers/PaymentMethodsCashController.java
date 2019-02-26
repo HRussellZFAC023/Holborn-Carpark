@@ -60,6 +60,7 @@ public class PaymentMethodsCashController implements Initializable {
         }
         due -= amount;
         paid += amount;
+        t.setAmountPaid(paid);
         if (due <= 0.0) {
             change = Math.abs(due);
             due = 0.0;
