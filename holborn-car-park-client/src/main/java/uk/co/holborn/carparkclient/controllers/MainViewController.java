@@ -212,16 +212,24 @@ public class MainViewController implements Initializable {
                 timeLabel.setText(time);
                 Calendar currTime = Calendar.getInstance();
                 int hour = currTime.get(Calendar.HOUR_OF_DAY);
-                if(GlobalVariables.AUTO_NIGHT_TIME)
-                if(pastHour != hour) {
-                    pastHour = hour;
-                    if(hour >= GlobalVariables.NIGHT_TIME_START || hour <= GlobalVariables.NIGHT_TIME_END){
-                        ThemeProvider.getInstance().switchTheme(Themes.DARK);
-                    }else if(ThemeProvider.getInstance().getCurrentTheme() != Themes.LIGHT){
-                        ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
+                int minute = currTime.get(Calendar.MINUTE);
+                String target = hour + ":" + minute;
+
+                if (GlobalVariables.AUTO_NIGHT_TIME)
+                    if (pastHour != hour) {
+                        pastHour = hour;
+
+                        boolean sameDay = GlobalVariables.NIGHT_TIME_START < GlobalVariables.NIGHT_TIME_END;
+                        boolean hourBetweenSameDay = hour >= GlobalVariables.NIGHT_TIME_START && hour <= GlobalVariables.NIGHT_TIME_END;
+                        boolean hourBetweenSameAndNextDay = hour >= GlobalVariables.NIGHT_TIME_START || hour < GlobalVariables.NIGHT_TIME_END;
+                        boolean expr = sameDay ? hourBetweenSameDay : hourBetweenSameAndNextDay;
+                        if (expr) {
+                            ThemeProvider.getInstance().switchTheme(Themes.DARK);
+                        } else {
+                            ThemeProvider.getInstance().switchTheme(Themes.LIGHT);
+                        }
+                        updateThemeButton();
                     }
-                    updateThemeButton();
-                }
 
                 //activate to see FPS
 //                long oldFrameTime = frameTimes[frameTimeIndex[0]] ;
