@@ -16,7 +16,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PaymentMethodsContactlessController implements Initializable {
-
+    @FXML
+    Label price;
+    @FXML
+    Label amountText;
     @FXML
     ImageView imageView;
     @FXML
@@ -88,6 +91,13 @@ public class PaymentMethodsContactlessController implements Initializable {
         firstTime = true;
         configureToggles();
         toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
+
+        if (mc.ticket.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
+            amountText.setText("Amount remaining");
+        } else {
+            amountText.setText("Fee");
+        }
+        price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountPaid())));
     }
 
 }

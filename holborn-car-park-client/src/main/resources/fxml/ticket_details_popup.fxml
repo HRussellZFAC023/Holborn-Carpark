@@ -94,7 +94,7 @@
                                     <Font name="Avenir Next Bold" size="13.0" />
                                 </font>
                             </Label>
-                  <Label layoutX="70.0" layoutY="306.0" styleClass="ticket_detail_info_label" text="Price" textFill="#575757">
+                  <Label layoutX="70.0" layoutY="306.0" styleClass="ticket_detail_info_label" text="Fee" textFill="#575757">
                      <font>
                         <Font name="Avenir Next Bold" size="13.0" />
                      </font>

@@ -37,7 +37,7 @@ public enum Scenes {
     PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
         @Override
         void onSceneEnter() {
-
+            ((PaymentMethodsController) controller).setup();
         }
     },
     PAYMENT_METHODS_CASH("/fxml/payment_methods_cash.fxml", new PaymentMethodsCashController()) {

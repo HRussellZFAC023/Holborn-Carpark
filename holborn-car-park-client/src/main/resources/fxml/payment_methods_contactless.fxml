@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0"  xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
       <GridPane layoutX="-106.0" prefHeight="795.0" prefWidth="1358.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -52,6 +52,11 @@
                                       <Image url="@../img/checkmark.png" />
                                   </image>
                               </ImageView>
+                        <ImageView fx:id="imageValidate" fitHeight="313.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../img/checkmark.png" />
+                           </image>
+                        </ImageView>
                           </children>
                       </GridPane>
                </children>
@@ -97,6 +102,26 @@
                                   <Font size="40.0" />
                               </font>
                           </Button>
+                  <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="payButton" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#transactionApproved" prefHeight="78.0" prefWidth="270.0" styleClass="button_action_round" text="APPROVE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#transactionRefused" prefHeight="78.0" prefWidth="266.0" styleClass="button_action_round" text="REFUSE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Button>
                       </children>
                   </GridPane>
               </children>

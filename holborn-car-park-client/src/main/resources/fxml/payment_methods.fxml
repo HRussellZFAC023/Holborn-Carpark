@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -83,7 +83,7 @@
                   <Insets left="40.0" right="40.0" />
                </GridPane.margin>
                 </GridPane>
-                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please choose your payment method" textAlignment="CENTER" textFill="#6b6a6a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please choose your payment method" textAlignment="CENTER" textFill="#6b6a6a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Avenir Roman" size="34.0" />
                     </font>
@@ -104,11 +104,21 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="BACK" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                  <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="CANCEL" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                      <font>
                         <Font size="40.0" />
                      </font>
                   </Button>
+                  <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
          </children>
