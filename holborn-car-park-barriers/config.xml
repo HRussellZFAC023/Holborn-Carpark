@@ -9,7 +9,8 @@
     <!--Not needed, can be retrieved from the client if needed-->
     <entry key="webservice">127.0.0.1:4444</entry>
     <!--Needs to be changed to fit the client, maybe check the database? Ask Vlad or Nanyo-->
-    <entry key="barrier_type">In</entry>
+    <!--<entry key="barrier_type">In</entry>-->
+    <entry key="barrier_type">Out</entry>
     <!--Better way to do this?-->
     <entry key="finish_screen_delay">5000</entry>
     <!--Not needed?-->

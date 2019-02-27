@@ -1,6 +1,7 @@
 package FxStuff;
 
-import FxStuff.Controllers.LandingPageController;
+import FxStuff.Controllers.LandingInPageController;
+import FxStuff.Controllers.LandingOutPageController;
 import FxStuff.Controllers.MainViewController;
 import FxStuff.Controllers.TicketPrintingController;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +19,42 @@ import java.net.URL;
  * @version 1.0
  */
 public enum Scenes {
-    LANDING {
-        LandingPageController controller = new LandingPageController(MainViewController.getInstance());
+    LANDING_IN {
+        LandingInPageController controller = new LandingInPageController(MainViewController.getInstance());
         AnchorPane root;
 
         @Override
         String getFXMLLocation() {
-            return "/fxml/landing_page.fxml";
+            return "/fxml/landing_in_page.fxml";
+        }
+
+        @Override
+        public Object getController() {
+            return controller;
+        }
+
+        @Override
+        AnchorPane getRootAnchor() {
+            return root;
+        }
+
+        @Override
+        void setRootAnchor(AnchorPane root) {
+            this.root = root;
+        }
+
+        @Override
+        void initialise() {
+        }
+
+    },
+    LANDING_OUT {
+        LandingOutPageController controller = new LandingOutPageController(MainViewController.getInstance());
+        AnchorPane root;
+
+        @Override
+        String getFXMLLocation() {
+            return "/fxml/landing_out_page.fxml";
         }
 
         @Override
@@ -73,39 +103,9 @@ public enum Scenes {
 
         @Override
         void initialise() {
-            System.out.println("Hit it.");
             controller.getTicket();
         }
-    }/*,
-    PAYMENT_METHODS {
-        PaymentMethodsController controller = new PaymentMethodsController();
-        AnchorPane root;
-
-        @Override
-        String getFXMLLocation() {
-            return "/fxml/payment_methods.fxml";
-        }
-
-        @Override
-        public Object getController() {
-            return controller;
-        }
-
-        @Override
-        AnchorPane getRootAnchor() {
-            return root;
-        }
-
-        @Override
-        void setRootAnchor(AnchorPane root) {
-            this.root = root;
-        }
-
-        @Override
-        void initialise() {
-
-        }
-    }*/;
+    };
 
     /**
      * Abstraction of a method that returns the location

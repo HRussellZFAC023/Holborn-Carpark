@@ -3,9 +3,7 @@ package FxStuff.Controllers;
 
 import FxStuff.*;
 import Networking.Client;
-import io.socket.client.Socket;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -72,7 +70,8 @@ public class MainViewController implements Initializable {
         Platform.runLater(this::serverConnection);
         popup = new InfoPopUp(mainAnchor);
         sceneManager = new SceneManager(sceneAnchor);
-        sceneManager.changeTo(Scenes.LANDING);
+        if (GlobalVariables.getBarrierType()) sceneManager.changeTo(Scenes.LANDING_IN);
+        else sceneManager.changeTo(Scenes.LANDING_OUT);
     }
 
     public static MainViewController getInstance() {

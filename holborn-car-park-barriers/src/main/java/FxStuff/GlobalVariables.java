@@ -88,4 +88,8 @@ public class GlobalVariables {
 
         }
     }
+
+    public static boolean getBarrierType(){
+        return barrier_type.equalsIgnoreCase("In");
+    }
 }

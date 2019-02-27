@@ -13,9 +13,10 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LandingPageController implements Initializable {
+public class LandingInPageController implements Initializable {
 
     private MainViewController mainCont;
+    private Logger logger;
 
     @FXML
     Label welcome;
@@ -25,16 +26,15 @@ public class LandingPageController implements Initializable {
     Label price;
     @FXML
     Label happy_hour;
-    Logger logger;
 
-    public LandingPageController(MainViewController mainCont){
+
+    public LandingInPageController(MainViewController mainCont){
         this.mainCont = mainCont;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         logger = LogManager.getLogger(getClass().getName());
-
         welcome.setText(GlobalVariables.landing_page_welcome);
         Animator.nodeFade(welcome, true);
     }

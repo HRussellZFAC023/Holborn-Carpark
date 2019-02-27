@@ -1,7 +1,8 @@
 package Networking;
 
-import FxStuff.Controllers.LandingPageController;
+import FxStuff.Controllers.LandingInPageController;
 import FxStuff.Controllers.MainViewController;
+import FxStuff.GlobalVariables;
 import FxStuff.InfoPopUp;
 import FxStuff.Scenes;
 import FxStuff.Ticket;
@@ -36,7 +37,7 @@ public class Client extends Thread {
 
     public void connect() {
         //Set the variables for the socket definition in the try, catch
-        InfoPopUp popup =  mainCont.getPopup();
+        InfoPopUp popup = mainCont.getPopup();
         Logger logger = mainCont.getLogger();
         popup.show("Connecting...");
         mainCont.disconnectedUI(true);
@@ -56,8 +57,10 @@ public class Client extends Thread {
         }
         logger.info("Connected to the web server. Authorising...");
         authorise(popup, logger);
-        LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();
-        Platform.runLater(lc::enableFetching);
+        if (GlobalVariables.getBarrierType()) {
+            LandingInPageController lc = (LandingInPageController) Scenes.LANDING_IN.getController();
+            Platform.runLater(lc::enableFetching);
+        }
         mainCont.disconnectedUI(false);
         System.out.println("Connection made on: " + hostname + ":" + portNumber + ".");
     }//Connect to the server and define what type of connection is being created
@@ -73,7 +76,7 @@ public class Client extends Thread {
             ticket = new Gson().fromJson(tickString, Ticket.class);
         } catch (IOException e) {
             e.printStackTrace();
-        }catch (NoConnectionError nc){
+        } catch (NoConnectionError nc) {
             disconnected();
             ticket = getTicket();
         }
@@ -111,7 +114,7 @@ public class Client extends Thread {
         return new PrintWriter(socket.getOutputStream(), true);
     }//Get the output stream of the socket in a print writer
 
-    private void sleep(int time){
+    private void sleep(int time) {
         try {
             Thread.sleep(time);
         } catch (Exception e) {
@@ -119,9 +122,9 @@ public class Client extends Thread {
         }
     }
 
-    private void disconnected(){
+    private void disconnected() {
         connected = false;
-        InfoPopUp popup =  mainCont.getPopup();
+        InfoPopUp popup = mainCont.getPopup();
         mainCont.disconnectedUI(true);
         popup.show("Disconnected");
         sleep(500);
@@ -129,7 +132,7 @@ public class Client extends Thread {
         reconnect(popup);
     }
 
-    private void reconnect(InfoPopUp popup){
+    private void reconnect(InfoPopUp popup) {
         popup.show("Reconnecting...");
         Logger logger = mainCont.getLogger();
         String[] socketDefinitions = mainCont.getSocket();
@@ -151,7 +154,7 @@ public class Client extends Thread {
         System.out.println("Connection made on: " + hostname + ":" + portNumber + ".");
     }
 
-    private void authorise(InfoPopUp popup, Logger logger){
+    private void authorise(InfoPopUp popup, Logger logger) {
         popup.show("Connected! Authorising...");
         mainCont.disconnectedUI(true);
         sleep(500);//Add an authorisation method, might not be needed.
@@ -161,7 +164,7 @@ public class Client extends Thread {
         mainCont.disconnectedUI(false);
     }
 
-    public Object[] getCarparkDetails(){
+    public Object[] getCarparkDetails() {
         Object[] details;
         try {
             PrintWriter out = getPrinter();//Get the input and output streams
@@ -178,7 +181,7 @@ public class Client extends Thread {
         return details;
     }
 
-    public boolean isConnected(){
+    public boolean isConnected() {
         return connected;
     }
 }
