@@ -72,17 +72,6 @@ public class MainViewController implements Initializable {
         spriteSheets.load();
     }
 
-//    public void sendAlert(String title, String header, String content, AlertType alertType) {
-//        Platform.runLater(() -> {
-//            Alert alert = new Alert(alertType);
-//            alert.setTitle(title);
-//            alert.setHeaderText(header);
-//            alert.setContentText(content);
-//            alert.showAndWait();
-//        });
-//
-//    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
@@ -110,7 +99,13 @@ public class MainViewController implements Initializable {
                     disconnectedUI(false);
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
-                    System.exit(0);
+                    popup.removePopUp();
+                    Platform.runLater(()->{
+                        Alerter.showUnableToStartAlertAndOpenRunningDirectory(
+                                "Unauthorised access!",
+                                "You are not authorised to access the web service. Please make sure the configuration details given by your administrator are correct and try again."
+                        );
+                    });
                 }
             });
         });

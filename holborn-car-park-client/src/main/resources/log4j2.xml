@@ -47,7 +47,7 @@
 
         <RollingFile name="errorLog" fileName="${APP_LOG_ROOT}/error.log"
                      filePattern="${APP_LOG_ROOT}/error-%d{yyyy-MM-dd}-%i.log">
-            <LevelRangeFilter minLevel="WARN" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB"/>

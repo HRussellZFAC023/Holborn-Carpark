@@ -64,8 +64,13 @@ public class GlobalVariables {
                 appProp.setProperty("night_time_start", "19");
                 appProp.setProperty("night_time_end", "7");
                 appProp.storeToXML(output, null);
-                logger.warn("File created! Please modify the config file with the received information from your administrator.");
-                System.exit(-1);
+                logger.info("Configuration file created! ");
+                logger.error("Please modify the config file with the received information from your administrator. (Configuration file: " + configName + ")");
+                Alerter.showUnableToStartAlertAndOpenRunningDirectory(
+                        "Configuration file created!",
+                        "Before starting the application, please update the configuration file with the received information from your administrator."
+                );
+
             }
             input = new FileInputStream(confFile);
             // load a properties file
@@ -75,12 +80,19 @@ public class GlobalVariables {
             CAR_PARK_ID = appProp.getProperty("car_park_id");
             if (CAR_PARK_ID.isEmpty()) {
                 logger.error("The car_park_id must be specified!");
-                System.exit(-1);
+                Alerter.showUnableToStartAlertAndOpenRunningDirectory(
+                        "The \"car_park_id\" cannot be empty!",
+                        "Please modify the config file with the received information from your administrator. (Configuration file: " + configName + ")"
+                );
             }
             WEBSERVICE_SOCKET = appProp.getProperty("webservice");
             if (WEBSERVICE_SOCKET.isEmpty()) {
                 logger.error("The webservice must be specified!");
-                System.exit(-1);
+                Alerter.showUnableToStartAlertAndOpenRunningDirectory(
+                        "The \"webservice\" cannot be empty!",
+                        "Please modify the config file with the received information from your administrator. (Configuration file: " + configName + ")"
+                );
+
             }
             MAIN_WINDOW_NAME = APP_NAME + " - " + CAR_PARK_NAME;
             LANDING_PAGE_WELCOME = "Welcome to " + CAR_PARK_NAME + "!";
@@ -93,14 +105,14 @@ public class GlobalVariables {
             }
 
         } catch (IOException ex) {
-            logger.trace(ex.getStackTrace());
+            logger.error(ex.getMessage());
             ex.printStackTrace();
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    logger.trace(e.getStackTrace());
+                    logger.error(e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -108,7 +120,7 @@ public class GlobalVariables {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    logger.trace(e.getStackTrace());
+                    logger.error(e.getMessage());
                     e.printStackTrace();
                 }
             }

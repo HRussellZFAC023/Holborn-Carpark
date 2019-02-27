@@ -1,4 +1,31 @@
 
+/**Costumization of Buttons**/
+.dialog-pane .button{
+    -fx-background-color: #f7f7f7;
+    -fx-text-fill: #575757;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 40;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
+}
+.dialog-pane .button:pressed{
+    -fx-background-color: #4469d2;
+    -fx-text-fill: #f7f7f7;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 30;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
+}
+.dialog-pane .header-panel .label{
+    -fx-font: 20px "Avenir Light";
+}
+.dialog-pane > .content.label {
+    -fx-font: 16px "Avenir Light";
+}
 .background_card{
     -fx-background-color: #f7f7f7;
     -fx-background-radius: 0;
