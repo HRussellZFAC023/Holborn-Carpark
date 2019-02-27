@@ -9,6 +9,7 @@ import uk.co.holborn.carparkclient.Animator;
 import uk.co.holborn.carparkclient.Scenes;
 import uk.co.holborn.carparkclient.Ticket;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -26,9 +27,9 @@ public class PaymentMethodsCashController implements Initializable {
     Label price_paid;
     Ticket t;
     private MainViewController mc;
-    private double due = 0.00;
-    private double paid = 0.00;
-    private double change = 0.00;
+    private BigDecimal due;
+    private BigDecimal paid;
+    private BigDecimal change;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,9 +43,9 @@ public class PaymentMethodsCashController implements Initializable {
 
     public void setup() {
         t = mc.ticket;
-        due = t.getPrice();
-        paid = 0.00;
-        change = 0.00;
+        due = t.getPrice().subtract(t.getAmountPaid());
+        paid = t.getAmountPaid();
+        change = new BigDecimal("0");
         infoText.setText("");
         backButton.setVisible(true);
         inputAmount.setDisable(false);
@@ -52,21 +53,21 @@ public class PaymentMethodsCashController implements Initializable {
     }
 
     public void pay() {
-        double amount;
+        BigDecimal amount;
         try {
-            amount = Double.parseDouble(inputAmount.getText());
+            amount = new BigDecimal(inputAmount.getText());
         } catch (Exception e) {
-            amount = 0;
+            amount = BigDecimal.ZERO;
         }
-        due -= amount;
-        paid += amount;
+        due = due.subtract(amount);
+        paid = paid.add(amount);
         t.setAmountPaid(paid);
-        if (due <= 0.0) {
-            change = Math.abs(due);
-            due = 0.0;
+        if (due.compareTo(BigDecimal.ZERO) <= 0) {
+            change = due.abs();
+            due = BigDecimal.ZERO;
             inputAmount.setDisable(true);
             backButton.setVisible(false);
-            if( change >0) setInfoText("Please take your change of £" + change);
+            if (change.compareTo(BigDecimal.ZERO) > 0) setInfoText("Please take your change of £" + change);
             Thread t = new Thread(() -> {
                 try {
                     mc.emitTicketPaid();
@@ -103,7 +104,6 @@ public class PaymentMethodsCashController implements Initializable {
         infoText.setText(amount);
         Animator.nodeFade(price_due, true);
     }
-
 
 
 }

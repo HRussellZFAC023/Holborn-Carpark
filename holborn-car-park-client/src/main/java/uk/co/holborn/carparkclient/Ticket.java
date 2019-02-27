@@ -1,5 +1,6 @@
 package uk.co.holborn.carparkclient;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -12,23 +13,25 @@ public class Ticket {
     private String _id;
     private Date date_in;
     private Date date_out;
-    private double price;
+    private BigDecimal price;
     private double duration;
     private int duration_paying_for;
-    private double amountPaid;
+    private BigDecimal amountPaid;
 
     public Ticket() {
+        price = BigDecimal.ZERO;
+        amountPaid = BigDecimal.ZERO;
     }
 
     public int getDuration_paying_for() {
         return duration_paying_for;
     }
 
-    public double getAmountPaid() {
+    public BigDecimal getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(double amountPaid) {
+    public void setAmountPaid(BigDecimal amountPaid) {
         this.amountPaid = amountPaid;
     }
 
@@ -36,7 +39,7 @@ public class Ticket {
         this.duration_paying_for = duration_paying_for;
     }
 
-    public Ticket(String _id, Date date_in, double price) {
+    public Ticket(String _id, Date date_in, BigDecimal price) {
         this._id = _id;
         this.date_in = date_in;
         this.price = price;
@@ -77,11 +80,11 @@ public class Ticket {
         this.date_out = date_check_out;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

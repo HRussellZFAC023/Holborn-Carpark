@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -116,7 +117,6 @@ public class MainViewController implements Initializable {
         socket.on(Socket.EVENT_CONNECTING, args_cni -> {
             popup.show("Connecting...");
             disconnectedUI(true);
-            // logger.info("Connecting...");
         });
         socket.on(Socket.EVENT_RECONNECTING, args_cni -> {
             popup.show("Reconnecting...");
@@ -158,23 +158,22 @@ public class MainViewController implements Initializable {
         Thread session = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 if (sceneManager.getCurrentScene() == Scenes.LANDING) {
+                    if (ticket != null)
+                        if (ticket.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
+                            emitMoney(ticket.getAmountPaid());
+                        }
                     Thread.currentThread().interrupt();
                 }
                 if ((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
                     popup.show("Session timed out", false);
                     sceneAnchor.setDisable(true);
                     sceneManager.reverseTo(Scenes.LANDING);
-                    if (ticket != null)
-                        if (ticket.getAmountPaid() > 0) {
-                            emitMoney(ticket.getAmountPaid());
-                        }
                     try {
                         Thread.sleep(session_timeout_popup_ms);
                     } catch (InterruptedException ignored) {
                     }
                     popup.removePopUp();
                     sceneAnchor.setDisable(false);
-                    Thread.currentThread().interrupt();
                 } else {
                     try {
                         Thread.sleep(1000);
@@ -189,7 +188,7 @@ public class MainViewController implements Initializable {
         session.start();
     }
 
-    private void emitMoney(double amount) {
+    private void emitMoney(BigDecimal amount) {
         //TODO <- HARDWARE MISSING: emit banknotes/coins out
         logger.info("Session timed out but the user inserted money. Gave " + amount + " back");
         ticket = null;
@@ -199,6 +198,7 @@ public class MainViewController implements Initializable {
      * Thread that updates the date and time
      */
     private void updater() {
+//        activate to see fps
 //         final long[] frameTimes = new long[100];
 //        final int[] frameTimeIndex = {0};
 //        final boolean[] arrayFilled = {false};
@@ -247,36 +247,6 @@ public class MainViewController implements Initializable {
             }
         };
         at.start();
-//        Timeline clockTimeline = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-//            String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//            String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
-//            dateLabel.setText(date);
-//            timeLabel.setText(time);
-//        }),
-//                new KeyFrame(Duration.seconds(0.5))
-//        );
-//        clockTimeline.setCycleCount(Animation.INDEFINITE);
-//        clockTimeline.play();
-//        Thread updater = new Thread(() -> {
-//            while (!Thread.currentThread().isInterrupted()) {
-//                String time = new SimpleDateFormat("HH:mm:ss").format(new Date());
-//                String date = new SimpleDateFormat("MMM d Y").format(new Date()).toUpperCase();
-//                Platform.runLater(() -> {
-//                    dateLabel.setText(date);
-//                    timeLabel.setText(time);
-//                });
-//
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//        });
-//        updater.setName("Thread-Date&Time Updater");
-//        updater.setDaemon(true);
-//        updater.start();
     }
 
     @FXML
@@ -288,7 +258,8 @@ public class MainViewController implements Initializable {
         }
         updateThemeButton();
     }
-    void updateThemeButton(){
+
+    private void updateThemeButton() {
         if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
             themeModeButton.setText("DAYTIME");
         } else {
