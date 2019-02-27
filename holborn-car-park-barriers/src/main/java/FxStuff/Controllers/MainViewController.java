@@ -40,21 +40,18 @@ public class MainViewController implements Initializable {
     AnchorPane blurrAnchor;
     private SceneManager sceneManager;
     private Client client;
-    Socket socket;
-    GlobalVariables globalVariables;
-    InfoPopUp popup;
+    private InfoPopUp popup;
     public String hourly_price;
     public String parking_spaces;
     public String happy_hour_time;
-    Logger logger;
-    long time_connection_starting, time_connected;
+    private Logger logger;
 
 
     public MainViewController() {
         hourly_price = "";
         parking_spaces = "";
         happy_hour_time = "";
-        globalVariables = new GlobalVariables();
+        new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         instance = this;
     }
@@ -82,72 +79,53 @@ public class MainViewController implements Initializable {
         return instance;
     }
 
-    @FXML
-    public void switchStart(ActionEvent event) {
-//        sceneManager.switchToScene("Start");
-    }
-
-    @FXML
-    public void switchTicketCheck(ActionEvent event) {
-        /*sceneManager.changeTo(Scenes.TICKET_CHECK);*/
-    }
-
-    @FXML
-    public void goBack(ActionEvent event) {
-        sceneManager.goBack();
-    }
-
-    /*public Socket getSocket() {
-        return socket;
-    }*/
-
-    public void disconnectedUI(boolean enabled){
+    public void disconnectedUI(boolean enabled) {
         sceneAnchor.setDisable(enabled);
     }
-
 
     /**
      * Connection to the server
      */
-    private void serverConnection(){
+    private void serverConnection() {
         Client clientInterface = new Client(this);
         clientInterface.setName("ServerConnection");
         clientInterface.setDaemon(true);
         clientInterface.start();
-        time_connection_starting = System.currentTimeMillis();
         client = clientInterface;
     }
 
-    public String[] getSocket(){
+    public String[] getSocket() {
         return GlobalVariables.webservice_socket.split(":");
     }
 
-    public String getBarrier_type(){
+    public String getBarrier_type() {
         return GlobalVariables.barrier_type;
     }
 
-    public SceneManager getSceneManager(){
+    public SceneManager getSceneManager() {
         return sceneManager;
     }
 
-    public InfoPopUp getPopup(){
+    public InfoPopUp getPopup() {
         return popup;
     }
 
-    public Logger getLogger(){
+    public Logger getLogger() {
         return logger;
     }
 
-    public Object[] getCarparkDetails(){
+    public Object[] getCarparkDetails() {
         return client.getCarparkDetails();
     }
 
-    public Ticket getNewTicket(){
+    public Ticket getNewTicket() {
         return client.getTicket();
     }
 
-    public void disconnect(){
-        client.endConnection();
+    public void disconnect() {
+        if (client.isConnected()) {
+            client.endConnection();
+        }
     }
 
     /**

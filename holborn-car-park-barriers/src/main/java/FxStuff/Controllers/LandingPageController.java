@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 public class LandingPageController implements Initializable {
 
     private MainViewController mainCont;
+
     @FXML
     Label welcome;
     @FXML
@@ -46,16 +47,7 @@ public class LandingPageController implements Initializable {
         else price.setText(mainCont.hourly_price);
         if (mainCont.happy_hour_time.isEmpty()) updateHappyHour(fetching);
         else happy_hour.setText(mainCont.happy_hour_time);
-
-        //Self implementation of this needs to be added
-        System.out.println("Asking for updates");
         update(mainCont.getCarparkDetails());
-        System.out.println("Received updates.");
-        /*Socket socket = mainCont.getSocket();
-        socket.emit("fetch-carpark-details", (Ack) this::update);
-        socket.on("update-carpark-details", objects -> {
-            socket.emit("fetch-carpark-details", (Ack) this::update);
-        });*/
     }
 
     private void update(Object[] objects) {

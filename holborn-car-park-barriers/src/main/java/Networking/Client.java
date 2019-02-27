@@ -20,7 +20,7 @@ import java.util.Scanner;
 public class Client extends Thread {
 
     private Socket socket;
-
+    private boolean connected = false;
     private MainViewController mainCont;
 
     public Client(MainViewController mainCont) {
@@ -43,7 +43,6 @@ public class Client extends Thread {
         String[] socketDefinitions = mainCont.getSocket();
         String hostname = socketDefinitions[0];
         int portNumber = Integer.parseInt(socketDefinitions[1]);
-        boolean connected = false;
         while (!connected) {
             sleep(100);
             try {
@@ -56,21 +55,14 @@ public class Client extends Thread {
             }
         }
         logger.info("Connected to the web server. Authorising...");
-        popup.show("Connected! Authorising...");
-        mainCont.disconnectedUI(true);
-        sleep(500);//Add an authorisation method
-        popup.show("Authorised", false);
-        popup.removePopUp();
-        logger.info("Authorised!");
+        authorise(popup, logger);
         LandingPageController lc = (LandingPageController) Scenes.LANDING.getController();
         Platform.runLater(lc::enableFetching);
         mainCont.disconnectedUI(false);
-
         System.out.println("Connection made on: " + hostname + ":" + portNumber + ".");
     }//Connect to the server and define what type of connection is being created
 
     public Ticket getTicket() {
-        checkConnection();
         Ticket ticket = null;
         try {
             PrintWriter out = getPrinter();//Get the input and output streams
@@ -81,19 +73,22 @@ public class Client extends Thread {
             ticket = new Gson().fromJson(tickString, Ticket.class);
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (NoConnectionError nc){
+            disconnected();
+            ticket = getTicket();
         }
         return ticket;
     }//Request a ticket from the server
 
     public boolean validateTicket(Ticket ticket) {
-        checkConnection();
         try {
             //Validate the ticket using the protocol
             return new Protocol().validate(ticket.get_id(), getScanner(), getPrinter());
         } catch (IOException e) {
-            e.printStackTrace();
+            disconnected();
+            //e.printStackTrace();
+            return validateTicket(ticket);
         }
-        return false;
     }//Check with the server if the ticket is valid
 
     public void endConnection() {
@@ -102,6 +97,7 @@ public class Client extends Thread {
             getPrinter().println("Halt");
             //Close the socket
             socket.close();
+            connected = false;
         } catch (IOException e) {
 
         }
@@ -123,30 +119,50 @@ public class Client extends Thread {
         }
     }
 
-    private void disconected(){
+    private void disconnected(){
+        connected = false;
         InfoPopUp popup =  mainCont.getPopup();
         mainCont.disconnectedUI(true);
-        mainCont.getSceneManager().changeTo(Scenes.LANDING);
         popup.show("Disconnected");
-        sleep(1000);
-        popup.removePopUp();
-        popup.show("Reconnecting...");
+        sleep(500);
         mainCont.disconnectedUI(true);
-        connect();
+        reconnect(popup);
     }
 
-    private void checkConnection(){
-        if (socket == null) {
-            System.out.println("Disconnected.");
-            disconected();
+    private void reconnect(InfoPopUp popup){
+        popup.show("Reconnecting...");
+        Logger logger = mainCont.getLogger();
+        String[] socketDefinitions = mainCont.getSocket();
+        String hostname = socketDefinitions[0];
+        int portNumber = Integer.parseInt(socketDefinitions[1]);
+        while (!connected) {
+            sleep(100);
+            try {
+                socket = new Socket(hostname, portNumber);
+                getPrinter().println(mainCont.getBarrier_type());//Send the type of barrier to the server
+                connected = true;
+            } catch (IOException e) {
+                System.out.print("\rUnable to reconnect to: " + hostname + ":" + portNumber + ". Attempting to reconnect...");
+                //e.printStackTrace();
+            }
         }
+        logger.info("Reconnected to the web server. Authorising...");
+        authorise(popup, logger);
+        System.out.println("Connection made on: " + hostname + ":" + portNumber + ".");
+    }
+
+    private void authorise(InfoPopUp popup, Logger logger){
+        popup.show("Connected! Authorising...");
+        mainCont.disconnectedUI(true);
+        sleep(500);//Add an authorisation method, might not be needed.
+        popup.show("Authorised", false);
+        popup.removePopUp();
+        logger.info("Authorised!");
+        mainCont.disconnectedUI(false);
     }
 
     public Object[] getCarparkDetails(){
-        System.out.println("Checking connection");
-        checkConnection();
-        System.out.println("Connection there.");
-        Object[] details = new Object[]{"Unavaliable", 10.00, "00:00 ", "00:00 "};
+        Object[] details;
         try {
             PrintWriter out = getPrinter();//Get the input and output streams
             Scanner scan = getScanner();
@@ -155,8 +171,14 @@ public class Client extends Thread {
             //Convert the string to a ticket
             details = new Gson().fromJson(detailsString, Object[].class);
         } catch (IOException e) {
-            e.printStackTrace();
+            disconnected();
+            details = getCarparkDetails();
+            //e.printStackTrace();
         }
         return details;
+    }
+
+    public boolean isConnected(){
+        return connected;
     }
 }

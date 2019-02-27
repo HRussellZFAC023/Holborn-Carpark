@@ -15,7 +15,14 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage mainStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
+        Parent root = null;
+        //if(GlobalVariables.barrier_type.equalsIgnoreCase("In")) {
+            root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
+        /*}else if(GlobalVariables.barrier_type.equalsIgnoreCase("Out")){
+            //The out barrier screen.
+        }else{
+            System.exit(-1);//Need a thing here
+        }*/
         mainStage.setTitle(GlobalVariables.main_window_name);
         mainStage.setFullScreen(false);
         //mainStage.setFullScreen(true);

@@ -1,6 +1,5 @@
 package FxStuff.Controllers;
 
-import FxStuff.Scenes;
 import FxStuff.Ticket;
 import javafx.fxml.Initializable;
 
