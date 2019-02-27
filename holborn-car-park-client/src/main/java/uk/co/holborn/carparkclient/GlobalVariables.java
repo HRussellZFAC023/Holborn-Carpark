@@ -89,7 +89,7 @@ public class GlobalVariables {
             AUTO_NIGHT_TIME = Boolean.parseBoolean((appProp.getProperty("auto_night_time")));
             if (AUTO_NIGHT_TIME) {
                 NIGHT_TIME_START = Integer.parseInt((appProp.getProperty("night_time_start")));
-                NIGHT_TIME_START = Integer.parseInt((appProp.getProperty("night_time_end")));
+                NIGHT_TIME_END = Integer.parseInt((appProp.getProperty("night_time_end")));
             }
 
         } catch (IOException ex) {
