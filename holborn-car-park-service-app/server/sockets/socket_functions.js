@@ -1,25 +1,23 @@
-const moment    = require('moment');
-const debug     = require('debug')('holborn-car-park-service-app: socket_functions');
+const moment = require('moment');
+const debug = require('debug')('holborn-car-park-service-app: socket_functions');
 
 const carpark_db = require('../databases/carpark_db_conn');
-const verify     = require('../javascripts/verify');
-const queries    = require('../databases/queries');
+const verify = require('../javascripts/verify');
+const queries = require('../databases/queries');
 
 
 exports.carpark_details_modified = async function (_id, callback) {
     let db_res;
     try {
         db_res = await carpark_db.query(queries.sockets.ticket_valid_count, [_id]);
-    }
-    catch (db_err) {
+    } catch (db_err) {
         debug(db_err);
     }
-    let count =  db_res.rows[0].count;
+    let count = db_res.rows[0].count;
 
     try {
         db_res = await carpark_db.query(queries.sockets.carpark_details, [_id]);
-    }
-    catch (db_err) {
+    } catch (db_err) {
         debug(db_err);
     }
 
@@ -33,8 +31,7 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     let db_res;
     try {
         db_res = await carpark_db.query(queries.sockets.ticket_details, params);
-    }
-    catch (db_err) {
+    } catch (db_err) {
         return callback(500, db_err.message, null);
     }
 
@@ -77,17 +74,16 @@ exports.ticket_paid = async function (paid, duration, date_out, _id, amount_paid
     const params = [paid, duration, date_out, _id, carpark_id, amount_paid];
     try {
         await carpark_db.query(queries.sockets.ticket_details_update, params);
-    }
-    catch (db_err) {
+    } catch (db_err) {
         debug(db_err);
     }
 };
 
 exports.authorise = function (socket, carparkid_cb) {
-    socket.on('authorisation', function (_idCarPark, callback) {
-        verify.ClientAuth(_idCarPark, function (code, desc) {
+    socket.on('authorisation', function (_idCarPark, carpark_name, callback) {
+        verify.ClientAuth(_idCarPark, carpark_name, function (code, desc) {
             callback(code, desc);
-            carparkid_cb(code,_idCarPark);
+            carparkid_cb(code, _idCarPark);
         });
     });
 };

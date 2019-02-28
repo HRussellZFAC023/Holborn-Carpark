@@ -80,7 +80,6 @@ public class MainViewController implements Initializable {
         sceneManager.changeTo(Scenes.LANDING);
         sceneAnchor.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> sessionStartTime = System.currentTimeMillis());
         socketPreparation();
-
     }
 
     private void socketPreparation() {
@@ -88,7 +87,7 @@ public class MainViewController implements Initializable {
             logger.info("Connected to the web server. Authorising...");
             popup.show("Connected! Authorising...");
             disconnectedUI(true);
-            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID, (Ack) objects -> {
+            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID,GlobalVariables.CAR_PARK_NAME, (Ack) objects -> {
                 if (objects[0].equals(200)) {
                     popup.show("Authorised", false);
                     popup.removePopUp();

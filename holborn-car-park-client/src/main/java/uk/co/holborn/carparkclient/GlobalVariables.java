@@ -20,7 +20,7 @@ public class GlobalVariables {
 
 
     static String APP_NAME = "Holborn Car Park System";
-    static String CAR_PARK_NAME = "";
+    public static String CAR_PARK_NAME = "";
     static String MAIN_WINDOW_NAME = "";
     public static String LANDING_PAGE_WELCOME = "";
     public static String CAR_PARK_ID = "";

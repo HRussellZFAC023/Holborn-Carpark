@@ -10,9 +10,9 @@ const user_db       = require ('../databases/auth_db_conn');
  * @param callback
  * @constructor
  */
-exports.ClientAuth = function(_carpark_id, callback){
-    const params = [_carpark_id];
-    carpark_db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
+exports.ClientAuth = function(_carpark_id, carpark_name, callback){
+    const params = [_carpark_id, carpark_name];
+    carpark_db.query('SELECT * FROM carparks WHERE _id = $1 AND name = $2', params, function(db_err, db_res ){
         if(db_err){
             debug("Failed authorisation for "+ _carpark_id)
             return callback(505, db_err);
