@@ -12,14 +12,18 @@ class Report extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            carparks: [{name: null}],
-            startDate: null,
+            carparks:           [{name: ''}],
+            selectedCarpark:    {name: ''},
+            startDate:          null,
         };
-        this.handleChange = (date) =>{
+
+        this.handleChange = (date) => {
             this.setState({
                 startDate: date
             });
-        }
+        };
+
+        this.changeSelectedCP = this.changeSelectedCP.bind(this);
     }
 
     componentDidMount() {
@@ -28,7 +32,8 @@ class Report extends Component {
             type: 'GET',
             success: (data) => {
                 this.setState({
-                    carparks:  data
+                    carparks:  JSON.parse(JSON.stringify(data)),
+                    selectedCarpark: JSON.parse(JSON.stringify(data[0]))
                 });
             },
             error: (xhr, status, err) => {
@@ -50,6 +55,18 @@ class Report extends Component {
                 console.error('', status, err.toString());
             }
         });
+    }
+
+    changeSelectedCP(cp){
+        if(this.state.selectedCarpark.name === cp.currentTarget.textContent) return;
+
+        for (let i = 0; i < this.state.carparks.length; ++i){
+            if(this.state.carparks[i].name === cp.currentTarget.textContent){
+                this.setState({
+                    selectedCarpark: this.state.carparks[i]
+                });
+            }
+        }
     }
 
     render() {
@@ -77,8 +94,9 @@ class Report extends Component {
                                             <div className="dropdown-item">
                                                 <ul>
                                                     {
-                                                    this.state.carparks.map(function (cp) {
-                                                        return <li>{cp.name}</li>
+                                                        console.log(this.state)}{
+                                                    this.state.carparks.map((cp) => {
+                                                        return <li onClick={this.changeSelectedCP}>{cp.name}</li>
                                                     })
                                                     }
                                                 </ul>
@@ -89,7 +107,7 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
-                                    {this.state.carparks[0].name}
+                                    {this.state.selectedCarpark.name}
                                 </div>
                             </div>
                         </div>
