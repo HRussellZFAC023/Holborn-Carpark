@@ -171,7 +171,7 @@ class Report extends Component {
                         </div>
                     </div>
                     <div className="column is-2 has-text-centered">
-                        <button onClick={this.genReport} className="button is-fullwidth is-large is-info">Generate</button>
+                        <button onClick={this.genReport} style={{marginBottom: 15}} className="button is-fullwidth is-large is-info">Generate</button>
                         <button onClick={()=>window.print()} className="button is-fullwidth is-large is-info">Print</button>
                     </div>
                 </div>
