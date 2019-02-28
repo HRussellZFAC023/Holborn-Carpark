@@ -56,14 +56,14 @@ public class TicketDetailsPopUpController implements Initializable {
         duration_paying_for.setText((ticket.getDuration_paying_for()) + hours);
         BigDecimal discountedPrice = BigDecimal.ZERO;
         BigDecimal originakPrice = ticket.getPrice();
-        discount.setText("Discount (" + (ticket.getDiscount() > 0 ? ticket.getDiscount() + "%)" : "unavailable") + ")");
+        discount.setText("Discount (" + (ticket.getDiscount() > 0 ? ticket.getDiscount() + "%" : "unavailable") + ")");
 
         discountedPrice = originakPrice.subtract(originakPrice.multiply(new BigDecimal(ticket.getDiscount())).divide(new BigDecimal("100"), RoundingMode.HALF_UP));
         price.setText("£" + discountedPrice);
         discountFrom.setText("£" + originakPrice);
         discountSave.setText("£" + (originakPrice.subtract(discountedPrice)));
         ticket.setPrice(discountedPrice);
-        if(ticket.getPrice()== BigDecimal.ZERO){
+        if(ticket.getPrice().compareTo(BigDecimal.ZERO)==0){
             payButton.setText("VALIDATE");
             location = Scenes.FINISH;
             ticket.setPaid(true);
