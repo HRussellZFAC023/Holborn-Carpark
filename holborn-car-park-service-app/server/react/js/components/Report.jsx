@@ -94,7 +94,6 @@ class Report extends Component {
                                             <div className="dropdown-item">
                                                 <ul>
                                                     {
-                                                        console.log(this.state)}{
                                                     this.state.carparks.map((cp) => {
                                                         return <a onClick={this.changeSelectedCP}>{cp.name}<br /></a>
                                                     })
