@@ -14,7 +14,7 @@ import javafx.util.Duration;
  * The default FPS is set to 60
  *
  * @author Vlad Alboiu
- * @version 1.0.2
+ * @version 1.0.3
  */
 public class Sprite {
     private ImageView spriteView;
@@ -148,6 +148,13 @@ public class Sprite {
     public void replay() {
         if (currentAnimation == null) play();
         else currentAnimation.playFromStart();
+    }
+    /**
+     * Replays the current animation from the start a number of times
+     * @param cycles  the number of times to be played
+     */
+    public void replay(int cycles) {
+        play(cycles);
     }
 
     /**
