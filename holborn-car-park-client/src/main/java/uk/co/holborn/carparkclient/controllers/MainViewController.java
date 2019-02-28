@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
-
+    public boolean debugMode = true;
     private static MainViewController instance = null;
 
     @FXML
