@@ -99,12 +99,14 @@ public class MainViewController implements Initializable {
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     popup.removePopUp();
-                    Platform.runLater(()->{
-                        Alerter.showUnableToStartAlertAndOpenRunningDirectory(
+                    Platform.runLater((() -> {
+                        Alerter.showUnableToStartAlert(
                                 "Unauthorised access!",
-                                "You are not authorised to access the web service. Please make sure the configuration details given by your administrator are correct and try again."
+                                "You are not authorised to access the web service. " +
+                                        "Please make sure the configuration details given by your administrator are correct and try again."
                         );
-                    });
+                    }));
+
                 }
             });
         });
@@ -145,7 +147,7 @@ public class MainViewController implements Initializable {
     /**
      * Thread that changes the scene to the landing page when no interaction with the ui happened for a defined time
      */
-    void sessionTimeOut() {
+    void startSession() {
         sessionStartTime = System.currentTimeMillis();
         int session_timeout_ms = GlobalVariables.SESSION_TIMEOUT_S * 1000;
         int session_timeout_popup_ms = GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
