@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
 
 public class CheckController implements Initializable {
 
+    String VALID_MESSAGE;
+    String INVALID_MESSAGE;
+    String SOCKET_EMIT;
+    String INFO;
 
     @FXML
     TextField checkTicketField;
@@ -63,14 +67,13 @@ public class CheckController implements Initializable {
                 setMessage("Please wait...");
                 animateTicketUIHide();
                 validationUI(true);
-                socket.emit("fetch-ticket", newValue.substring(0, 36), (Ack) objects -> {
+                socket.emit(SOCKET_EMIT, newValue.substring(0, 36), (Ack) objects -> {
                     Object err = objects[0];
                     Object description = objects[1];
                     logger.info(err + " " + description);
                     if (err.equals(200)) {
                         animateImageValidate(true);
-                        setMessage("Your ticket is valid!");
-                        //  Object ticket = objects[2];
+                        setMessage(VALID_MESSAGE);
                         mc.ticket = gson.fromJson(objects[2].toString(), Ticket.class);
                         try {
                             Thread.sleep(500);
@@ -80,7 +83,7 @@ public class CheckController implements Initializable {
                         tp.show(mc.ticket);
                     } else {
                         animateImageValidate(false);
-                        setMessage("Invalid ticket! Please seek assistance from a member of staff.");
+                        setMessage(INVALID_MESSAGE);
                         Platform.runLater(() -> backButton.setVisible(true));
 
                     }
@@ -93,6 +96,7 @@ public class CheckController implements Initializable {
     private void setup() {
         resetAnimPoses();
         validationUI(false);
+        setMessage(INFO);
         checkTicketField.clear();
         tp.remove();
         animateImageShow();
@@ -100,12 +104,18 @@ public class CheckController implements Initializable {
 
     public void setTicketMode(){
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
-        setMessage("Please insert your ticket");
+        INFO = "Please insert your ticket";
+        SOCKET_EMIT = "fetch-ticket";
+        VALID_MESSAGE = "Your ticket is valid!";
+        INVALID_MESSAGE = "The ticket is invalid! Please seek assistance from a member of staff.";
         setup();
     }
     public void setSmartcardMode(){
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.SMARTCARD_CHECK));
-        setMessage("Please bring your smart card near the reader");
+        INFO = "Please bring your smart card near the reader";
+        SOCKET_EMIT = "fetch-smartcard";
+        VALID_MESSAGE = "Your smart card is valid";
+        INVALID_MESSAGE = "The smart card is invalid! Please seek assistance from a member of staff.";
         setup();
     }
     @FXML
