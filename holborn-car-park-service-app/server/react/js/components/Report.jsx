@@ -5,8 +5,6 @@ import { Doughnut } from 'react-chartjs-2';
 
 const $ = require('jquery');
 
-//fixme fetch this data from api in componentDidMount()
-const carParksData = ["Egham", "Staines", "Windsor", "Mayfair", "Holborn"];
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -31,6 +29,21 @@ class Report extends Component {
             success: (data) => {
                 this.setState({
                     carparks:  data
+                });
+            },
+            error: (xhr, status, err) => {
+                console.error('', status, err.toString());
+            }
+        });
+    }
+
+    genReport() {
+        $.ajax({
+            url: '',
+            type: 'GET',
+            success: (data) => {
+                this.setState({
+                    //
                 });
             },
             error: (xhr, status, err) => {
@@ -141,7 +154,7 @@ class Report extends Component {
                         </div>
                     </div>
                     <div className="column is-2 has-text-centered">
-                        <button className="button is-fullwidth is-large is-info">Generate</button>
+                        <button onClick={this.genReport} className="button is-fullwidth is-large is-info">Generate</button>
                         <button onClick={()=>window.print()} className="button is-fullwidth is-large is-info">Print</button>
                     </div>
                 </div>
