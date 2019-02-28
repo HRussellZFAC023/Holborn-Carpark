@@ -1,9 +1,11 @@
 
-/**Costumization of Buttons**/
+/**
+Dialog pane, only in light mode
+ */
 .dialog-pane .button{
     -fx-background-color: #f7f7f7;
     -fx-text-fill: #575757;
-    -fx-font: 20px "Avenir Light";
+    -fx-font: 16px "Avenir Light";
     -fx-background-radius: 40;
     -fx-border-width: 0;
     -fx-border-radius: 0;
@@ -13,11 +15,6 @@
 .dialog-pane .button:pressed{
     -fx-background-color: #4469d2;
     -fx-text-fill: #f7f7f7;
-    -fx-font: 20px "Avenir Light";
-    -fx-background-radius: 30;
-    -fx-border-width: 0;
-    -fx-border-radius: 0;
-    -fx-border-color: #4E4C4D;
     -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
 }
 .dialog-pane .header-panel .label{
@@ -26,6 +23,9 @@
 .dialog-pane > .content.label {
     -fx-font: 16px "Avenir Light";
 }
+/**
+Start ui configuration for both themes
+ */
 .background_card{
     -fx-background-color: #f7f7f7;
     -fx-background-radius: 0;

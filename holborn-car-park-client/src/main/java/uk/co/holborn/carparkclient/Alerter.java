@@ -1,19 +1,24 @@
 package uk.co.holborn.carparkclient;
 
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DialogEvent;
-import javafx.scene.control.DialogPane;
+import javafx.scene.control.*;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 public class Alerter {
     private static String OS = System.getProperty("os.name").toLowerCase();
-    ;
 
     public static void showAlert(String title, String header, String content, Alert.AlertType alertType, EventHandler<DialogEvent> onCloseEvent) {
+        Alert a = getAlert(title, header, content, alertType);
+        a.setOnCloseRequest(onCloseEvent);
+        a.showAndWait();
+
+    }
+
+    public static Alert getAlert(String title, String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -23,24 +28,23 @@ public class Alerter {
         dialogPane.getStyleClass().add("dialog-pane");
         dialogPane.setMinHeight(200);
         dialogPane.setMinWidth(600);
-        alert.setOnCloseRequest(onCloseEvent);
-        alert.showAndWait();
-
+        return alert;
+    }
+    public static void showUnableToStartAlertAndOpenRunningDirectory(String header, String content) {
+        ButtonType showLocation = new ButtonType("Show Location", ButtonBar.ButtonData.LEFT);
+        Alert alert = getAlert("Unable to start!", header, content, Alert.AlertType.ERROR);
+        alert.getButtonTypes().add(showLocation);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == showLocation) {
+            openRunningDirectory();
+        }
+       System.exit(-1);
     }
 
     public static void showUnableToStartAlert(String header, String content) {
-        showUnableToStartAlert(header, content, null);
-    }
-
-    public static void showUnableToStartAlertAndOpenRunningDirectory(String header, String content) {
-        showUnableToStartAlert(header, content, e -> {
-            openRunningDirectory();
+        showAlert("Unable to start", header, content, Alert.AlertType.ERROR, t->{
             System.exit(-1);
         });
-    }
-
-    public static void showUnableToStartAlert(String header, String content, EventHandler<DialogEvent> onCloseEvent) {
-        showAlert("Unable to start", header, content, Alert.AlertType.ERROR, onCloseEvent);
 
     }
 

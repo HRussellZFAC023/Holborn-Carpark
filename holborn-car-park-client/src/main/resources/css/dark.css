@@ -1,4 +1,6 @@
-
+/**
+Start ui configuration for both themes
+ */
 .background_card{
     -fx-background-color: #25252a;
     -fx-background-radius: 0;
