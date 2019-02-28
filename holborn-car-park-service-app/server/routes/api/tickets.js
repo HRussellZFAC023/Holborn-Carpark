@@ -19,29 +19,29 @@ const json_resp         = require('../../javascripts/json_response');
  */
 module.exports = function (io) {
     /**
-     * Get all tickets
+     * Get all tickets (or all tickets based on some parameter/s)
      */
     router.get('/', verify.UserAuth, async function (req, res) {
         let db_res;
+
+        if(typeof req.query._carpark_id  !== 'undefined'  &&
+           typeof req.query.startDate    !== 'undefined'  &&
+           typeof req.query.endDate    !== 'undefined'
+        ){
+            let params = [req.query._carpark_id, new Date(req.query.startDate).valueOf(), new Date(req.query.endDate).valueOf()];
+            try{
+                db_res = await carpark_db.query(query.api.tickets.get_all_specific, params);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).json(json_resp.error.internal);
+            }
+
+            return res.status(200).send(db_res.rows);
+        }
+
         try{
             db_res = await carpark_db.query(query.api.tickets.get_all);
-        }
-        catch (db_err) {
-            debug(db_err);
-            return res.status(500).json(json_resp.error.internal);
-        }
-
-        res.status(200).send(db_res.rows);
-    });
-
-    /**
-     * Get all tickets belonging to a carpark
-     */
-    router.get('/carpark/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
-        let c_id = req.path.replace(/\//g, '').substring("carpark".length);
-        let db_res;
-        try{
-            db_res = await carpark_db.query(query.api.tickets.get_all_in_carpark, [c_id]);
         }
         catch (db_err) {
             debug(db_err);
