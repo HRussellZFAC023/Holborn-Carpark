@@ -7,10 +7,11 @@ package uk.co.holborn.carparkclient;
  * @version 1.0.3
  */
 public enum Sprites {
-    TICKET_INSERT(new SpriteSettings("/img/ticket_insert_sprite.png", 4096, 9, 25)),
-    PAYMENT_APPLE_PAY(new SpriteSettings("/img/apple_pay_contactless_sprite.png", 4096, 10, 25)),
-    PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/card_pay_anim_sprite.png", 4096, 10, 99, 25)),
-    THANK_YOU(new SpriteSettings("/img/thank_you_sprite.png", 4096, 6, 25));
+    TICKET_INSERT(new SpriteSettings("/img/sprites/ticket_insert_sprite.png", 4096, 9, 25)),
+    SMARTCARD_CHECK(new SpriteSettings("/img/sprites/smartcard_check_sprite.png", 4096, 10,99, 25)),
+    PAYMENT_APPLE_PAY(new SpriteSettings("/img/sprites/apple_pay_contactless_sprite.png", 4096, 10, 25)),
+    PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/sprites/card_pay_anim_sprite.png", 4096, 10, 99, 25)),
+    THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25));
 
     private SpriteSettings spriteSettings;
 
