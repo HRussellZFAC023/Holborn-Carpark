@@ -17,6 +17,9 @@ module.exports = function (io) {
         socket.on('fetch-ticket', async function (_id, callback) {
             await socket_functions.fetch_ticket_details(_id, carpark_id, callback);
         });
+        socket.on('fetch-smartcard', async function (_id, callback) {
+            await socket_functions.fetch_smartcard_details(_id, carpark_id, callback);
+        });
         socket.on('fetch-carpark-details', async function (callback) {
             await socket_functions.carpark_details_modified(carpark_id, callback)
         });

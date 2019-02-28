@@ -10,7 +10,11 @@ exports.sockets = {
                              WHERE valid = true AND _carpark_id = $1`,
     carpark_details:        `SELECT * 
                              FROM     carparks
-                             WHERE     carparks._id = $1`
+                             WHERE     carparks._id = $1`,
+    smartcard_details: `SELECT *
+                        FROM       smartcards 
+                        INNER JOIN carparks 
+                        ON         smartcards._carpark_id = carparks._id WHERE smartcards._id = $1 AND smartcards._carpark_id = $2`,
 };
 
 exports.api = {

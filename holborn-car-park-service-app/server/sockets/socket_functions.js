@@ -25,7 +25,23 @@ exports.carpark_details_modified = async function (_id, callback) {
 
     return callback(avail_places, db_res.rows[0].hour_rate, db_res.rows[0].happy_hour_start, db_res.rows[0].happy_hour_end);
 };
-
+exports.fetch_smartcard_details = async function (_id, carpark_id, callback) {
+    const params = [_id, carpark_id];
+    let db_res;
+    try {
+        db_res = await carpark_db.query(queries.sockets.smartcard_details, params);
+    } catch (db_err) {
+        return callback(500, db_err.message, null);
+    }
+    if (db_res.rows[0]) {
+        await this.fetch_ticket_details(db_res.rows[0].ticket_id, carpark_id, function (code, details, ticket) {
+            if (code === 200) ticket.discount = db_res.rows[0].discount;
+            return callback(code, details, ticket)
+        });
+    }else{
+        return callback(404, "Smart card could not be found: " + _id, null)
+    }
+};
 exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     const params = [_id, carpark_id];
     let db_res;
