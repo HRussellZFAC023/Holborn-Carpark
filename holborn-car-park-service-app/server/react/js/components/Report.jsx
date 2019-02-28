@@ -15,11 +15,17 @@ class Report extends Component {
             carparks:           [{name: ''}],
             selectedCarpark:    {name: ''},
             startDate:          null,
+            endDate:            null
         };
 
-        this.handleChange = (date) => {
+        this.handleStartDate = (date) => {
             this.setState({
                 startDate: date
+            });
+        };
+        this.handleEndDate = (date) => {
+            this.setState({
+                endDate: date
             });
         };
 
@@ -145,7 +151,7 @@ class Report extends Component {
                                     <p style={{ display: "inline" }}>From:&nbsp;&nbsp;</p>
                                     <DatePicker
                                         selected={this.state.startDate}
-                                        onChange={this.handleChange}
+                                        onChange={this.handleStartDate}
                                         showTimeSelect
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
@@ -156,8 +162,8 @@ class Report extends Component {
                                     />
                                     <p style={{ display: "inline" }}>&nbsp;-&nbsp;To:&nbsp;&nbsp;</p>
                                     <DatePicker
-                                        selected={this.state.startDate}
-                                        onChange={this.handleChange}
+                                        selected={this.state.endDate}
+                                        onChange={this.handleEndDate}
                                         showTimeSelect
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
