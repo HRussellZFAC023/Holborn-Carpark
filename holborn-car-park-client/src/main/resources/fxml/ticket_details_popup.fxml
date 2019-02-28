@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -44,7 +44,7 @@
                         <Font name="Avenir Book" size="21.0" />
                      </font>
                   </Label>
-                            <Button fx:id="payButton" contentDisplay="CENTER" layoutX="368.0" layoutY="504.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToPayment" prefHeight="69.0" prefWidth="163.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0">
+                            <Button fx:id="payButton" contentDisplay="CENTER" layoutX="320.0" layoutY="504.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToPayment" prefHeight="78.0" prefWidth="220.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="320.0">
                                 <font>
                                     <Font size="40.0" />
                                 </font>
