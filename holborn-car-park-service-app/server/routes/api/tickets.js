@@ -35,6 +35,23 @@ module.exports = function (io) {
     });
 
     /**
+     * Get all tickets belonging to a carpark
+     */
+    router.get('/carpark/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+        let c_id = req.path.replace(/\//g, '');
+        let db_res;
+        try{
+            db_res = await carpark_db.query(query.api.tickets.get_all_in_carpark, [c_id]);
+        }
+        catch (db_err) {
+            debug(db_err);
+            return res.status(500).json(json_resp.error.internal);
+        }
+
+        res.status(200).send(db_res.rows);
+    });
+
+    /**
      * Get a specific ticket
      */
     router.get('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
