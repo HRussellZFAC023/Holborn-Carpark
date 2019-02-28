@@ -3,23 +3,40 @@ import DatePicker from "react-datepicker";
 import { Bar } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 
-import "react-datepicker/dist/react-datepicker.css";
+const $ = require('jquery');
 
 //fixme fetch this data from api in componentDidMount()
 const carParksData = ["Egham", "Staines", "Windsor", "Mayfair", "Holborn"];
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class Report extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            carpark: carParksData[0],
-            startDate: null
+            carparks: [{name: null}],
+            startDate: null,
         };
         this.handleChange = (date) =>{
             this.setState({
                 startDate: date
             });
         }
+    }
+
+    componentDidMount() {
+        $.ajax({
+            url: '/api/carparks/',
+            type: 'GET',
+            success: (data) => {
+                this.setState({
+                    carparks:  data
+                });
+            },
+            error: (xhr, status, err) => {
+                console.error('', status, err.toString());
+            }
+        });
     }
 
     render() {
@@ -46,9 +63,11 @@ class Report extends Component {
                                         <div className="dropdown-content">
                                             <div className="dropdown-item">
                                                 <ul>
-                                                    {carParksData.map(function (cp) {
-                                                        return <li /*onClick={this.setState({carpark: cp})}*/>{cp}</li>
-                                                    })}
+                                                    {
+                                                    this.state.carparks.map(function (cp) {
+                                                        return <li>{cp.name}</li>
+                                                    })
+                                                    }
                                                 </ul>
                                             </div>
                                         </div>
@@ -57,7 +76,7 @@ class Report extends Component {
                             </header>
                             <div className="card-content">
                                 <div className="content">
-                                    {this.state.carpark}
+                                    {this.state.carparks[0].name}
                                 </div>
                             </div>
                         </div>
