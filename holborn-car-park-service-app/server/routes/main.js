@@ -48,7 +48,7 @@ router.get('/logout', function (req, res) {
 router.post('/login', async function loginUser(req, res) {
     let db_res;
     try {
-        db_res = await user_db.query(query.noapi.login, [req.body.username]);
+        db_res = await user_db.query(query.noapi.login, [req.body.username.trim()]);
     }
     catch (db_err) {
         debug(db_err);
