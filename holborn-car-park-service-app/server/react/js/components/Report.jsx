@@ -11,8 +11,10 @@ import "react-datepicker/dist/react-datepicker.css";
 class Report extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            carparks:           [{name: ''}],
+            tickets:            [],
+            carparks:           [],
             selectedCarpark:    {name: ''},
             startDate:          null,
             endDate:            null
@@ -29,7 +31,36 @@ class Report extends Component {
             });
         };
 
-        this.changeSelectedCP = this.changeSelectedCP.bind(this);
+        this.changeSelectedCP = (cp) => {
+            if(this.state.selectedCarpark.name === cp.currentTarget.textContent) return;
+
+            for (let i = 0; i < this.state.carparks.length; ++i){
+                if(this.state.carparks[i].name === cp.currentTarget.textContent){
+                    this.setState({
+                        selectedCarpark: this.state.carparks[i]
+                    });
+                }
+            }
+        };
+
+        this.genReport = () => {
+            //get tickets
+            $.ajax({
+                url: '/api/tickets/',
+                type: 'GET',
+                data: {
+                    _carpark_id: this.state.selectedCarpark._id,
+                    startDate:   this.state.startDate,
+                    endDate:        this.state.endDate
+                },
+                success: (data) => {
+                    console.log(data)
+                },
+                error: (xhr, status, err) => {
+                    console.error('', status, err.toString());
+                }
+            });
+        }
     }
 
     componentDidMount() {
@@ -46,33 +77,6 @@ class Report extends Component {
                 console.error('', status, err.toString());
             }
         });
-    }
-
-    genReport() {
-        $.ajax({
-            url: '',
-            type: 'GET',
-            success: (data) => {
-                this.setState({
-                    //
-                });
-            },
-            error: (xhr, status, err) => {
-                console.error('', status, err.toString());
-            }
-        });
-    }
-
-    changeSelectedCP(cp){
-        if(this.state.selectedCarpark.name === cp.currentTarget.textContent) return;
-
-        for (let i = 0; i < this.state.carparks.length; ++i){
-            if(this.state.carparks[i].name === cp.currentTarget.textContent){
-                this.setState({
-                    selectedCarpark: this.state.carparks[i]
-                });
-            }
-        }
     }
 
     render() {
@@ -110,7 +114,7 @@ class Report extends Component {
                                     </div>
                                 </div>
                             </header>
-                            <div className="card-content">
+                            <div className="card-content" style={{height: "75px"}}>
                                 <div className="content">
                                     {this.state.selectedCarpark.name}
                                 </div>
