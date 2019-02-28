@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -165,6 +164,7 @@ public class MainViewController implements Initializable {
                     }
                     popup.removePopUp();
                     sceneAnchor.setDisable(false);
+                    Thread.currentThread().interrupt();
                 } else {
                     try {
                         Thread.sleep(1000);
@@ -177,12 +177,6 @@ public class MainViewController implements Initializable {
         session.setName("Thread-Session Timeout Checker");
         session.setDaemon(true);
         session.start();
-    }
-
-    private void emitMoney(BigDecimal amount) {
-        //TODO <- HARDWARE MISSING: emit banknotes/coins out
-        logger.info("Session timed out but the user inserted money. Gave " + amount + " back");
-        ticket = null;
     }
 
     /**
@@ -250,7 +244,7 @@ public class MainViewController implements Initializable {
     }
 
     private void updateThemeButton() {
-        if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
+        if (ThemeProvider.getInstance().getCurrentTheme() == Themes.DARK) {
             themeModeButton.setText("DAYTIME");
         } else {
             themeModeButton.setText("NIGHTTIME");
