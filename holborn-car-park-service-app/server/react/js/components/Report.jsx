@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
-import { Bar } from 'react-chartjs-2';
-import { Doughnut } from 'react-chartjs-2';
 
 const $ = require('jquery');
 
 
 import "react-datepicker/dist/react-datepicker.css";
+import ReportSection from "./ReportSection";
 
 class Report extends Component {
     constructor(props) {
@@ -51,10 +50,12 @@ class Report extends Component {
                 data: {
                     _carpark_id: this.state.selectedCarpark._id,
                     startDate:   this.state.startDate,
-                    endDate:        this.state.endDate
+                    endDate:     this.state.endDate
                 },
                 success: (data) => {
-                    console.log(data)
+                    this.setState({
+                        tickets: data
+                    })
                 },
                 error: (xhr, status, err) => {
                     console.error('', status, err.toString());
@@ -165,26 +166,12 @@ class Report extends Component {
                         <button onClick={()=>window.print()} className="button is-fullwidth is-large is-info">Print</button>
                     </div>
                 </div>
-                {/*insert graphs etc here*/}
-                <section className="collumns">
-                    <div className="collumn">
-                        <div className="tile">
-                            <Bar data={
-                                {
-                                    labels: ["January", "February", "March", "April", "May", "June", "July"],
-                                    datasets: [{
-                                    label: "No* cars",
-                                    backgroundColor: 'rgb(255, 99, 132)',
-                                    borderColor: 'rgb(255, 99, 132)',
-                                    data: [0, 10, 5, 2, 20, 30, 45],
-                                    }]
-                                }
-                            }
-                            />
-                            {/* <Doughnut data="" /> */}
-                        </div>
-                    </div>
-                </section>
+
+                {
+                    this.state.tickets.length === 0
+                    ? (<div className="has-text-centered"> </div>)
+                    : <ReportSection/>
+                }
             </section>
 
         )
