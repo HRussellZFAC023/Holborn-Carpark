@@ -13,7 +13,7 @@
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="852.7304077148438" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="300.0" prefWidth="900.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
@@ -44,7 +44,7 @@
                         <Font name="Avenir Book" size="21.0" />
                      </font>
                   </Label>
-                            <Button fx:id="payButton" contentDisplay="CENTER" layoutX="88.0" layoutY="467.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToPayment" prefHeight="69.0" prefWidth="163.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER">
+                            <Button fx:id="payButton" contentDisplay="CENTER" layoutX="368.0" layoutY="504.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#goToPayment" prefHeight="69.0" prefWidth="163.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="360.0">
                                 <font>
                                     <Font size="40.0" />
                                 </font>
@@ -59,7 +59,7 @@
                                     <Font name="Avenir Next Bold" size="13.0" />
                                 </font>
                             </Label>
-                  <Label fx:id="companyName" layoutX="68.0" layoutY="33.0" prefHeight="40.0" prefWidth="260.0" styleClass="logoMainTicket" text="HOLBORN" textFill="#7c7c7c">
+                  <Label fx:id="companyName" layoutX="66.0" layoutY="33.0" prefHeight="40.0" prefWidth="260.0" styleClass="logoMainTicket" text="HOLBORN" textFill="#7c7c7c">
                      <font>
                         <Font name="Avenir Book" size="33.0" />
                      </font>
@@ -89,12 +89,37 @@
                         <Font name="Avenir Next Bold" size="13.0" />
                      </font>
                   </Label>
-                            <Label fx:id="price" layoutX="99.0" layoutY="367.0" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b">
-                                <font>
-                                    <Font name="Avenir Next Bold" size="13.0" />
-                                </font>
-                            </Label>
-                  <Label layoutX="70.0" layoutY="306.0" styleClass="ticket_detail_info_label" text="Fee" textFill="#575757">
+                  <Label fx:id="discount" layoutX="73.0" layoutY="306.0" styleClass="ticket_detail_info_label" text="Discount (100%)" textFill="#575757">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="price" layoutX="552.0" layoutY="353.0" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="531.0" layoutY="307.0" styleClass="ticket_detail_info_label" text="Total fee" textFill="#575757">
+                     <font>
+                        <Font name="Avenir Next Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="99.0" layoutY="350.0" styleClass="ticket_detail_info_label_value" text="From" textFill="#838383">
+                     <font>
+                        <Font name="Avenir Next Bold" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="79.0" layoutY="382.0" styleClass="ticket_detail_info_label_value" text="You save" textFill="#6f5ac6">
+                     <font>
+                        <Font name="Avenir Book" size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="discountFrom" layoutX="219.0" layoutY="350.0" styleClass="ticket_detail_info_label_value" text="£00.00" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Avenir Next Bold" size="31.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="discountSave" layoutX="219.0" layoutY="382.0" styleClass="ticket_detail_info_label_value" text="£00.00" textFill="#6b6b6b">
                      <font>
                         <Font name="Avenir Next Bold" size="13.0" />
                      </font>

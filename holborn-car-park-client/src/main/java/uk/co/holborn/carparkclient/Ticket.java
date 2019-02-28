@@ -19,12 +19,22 @@ public class Ticket {
     private BigDecimal amountInTicketMachine;
     private BigDecimal change;
     private boolean paid;
+    private int discount;
 
     public Ticket() {
         price = BigDecimal.ZERO;
         amountInTicketMachine = BigDecimal.ZERO;
         change =BigDecimal.ZERO;
         paid = false;
+        discount = 0;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
     }
 
     public boolean isPaid() {

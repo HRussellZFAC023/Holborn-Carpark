@@ -24,14 +24,12 @@ public enum Scenes {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setTicketMode();
-            ((CheckController) controller).setup();
         }
     },
     SMARTCARD_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setSmartcardMode();
-            ((CheckController) controller).setup();
         }
     },
     PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
