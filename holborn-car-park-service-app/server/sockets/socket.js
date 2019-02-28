@@ -11,7 +11,7 @@ module.exports = function (io) {
             carpark_id = carparkid;
             if(code == 200){
                 socket.join(carpark_id);
-                debug("joined in : " + carpark_id);
+                debug(socket.handshake.address.substring(socket.handshake.address.lastIndexOf(':') + 1) + " joined in : " + carpark_id);
             }
         });
         socket.on('fetch-ticket', async function (_id, callback) {
