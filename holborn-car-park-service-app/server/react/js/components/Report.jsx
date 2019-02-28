@@ -135,7 +135,7 @@ class Report extends Component {
                                         showTimeSelect
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
-                                        dateFormat="dd/mm/yyyy h:mm aa"
+                                        dateFormat="dd/MM/yyyy h:mm aa"
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Start date"
@@ -147,7 +147,7 @@ class Report extends Component {
                                         showTimeSelect
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
-                                        dateFormat="dd/mm/yyyy h:mm aa"
+                                        dateFormat="dd/MM/yyyy h:mm aa"
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Final date"
