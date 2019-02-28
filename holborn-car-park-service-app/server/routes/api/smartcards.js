@@ -92,13 +92,13 @@ module.exports = function (io) {
      * Create a ticket, car park id needs to be provided as well
      * so that the ticket get created attached to a car park
      */
-    router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
+    router.post('/', verify.UserAuth, async function (req, res) {
         let t_id = UUID();
-        let c_id = req.path.replace(/\//g, '');
-        const params = [t_id, Date.now(), false, true, c_id];
+        let c_id = req.body._carpark_id;
+        const params = [t_id,, req.body.name, 0, c_id,null];
 
         try{
-            await carpark_db.query(query.api.tickets.create, params);
+            await carpark_db.query(query.api.smartcards.create, params);
         }
         catch (db_err) {
             debug(db_err);

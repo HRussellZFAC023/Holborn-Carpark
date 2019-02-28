@@ -31,6 +31,7 @@ const utilityRoutes = require('./server/routes/utility');
  */
 const carParksRoute = require('./server/routes/api/carparks')(io);
 const ticketsRoute  = require('./server/routes/api/tickets')(io);
+const smartcardsRoute  = require('./server/routes/api/smartcards')(io);
 const usersRoute    = require('./server/routes/api/users');
 
 /**
@@ -76,6 +77,7 @@ app.use('/utility', utilityRoutes);
 const api_resource = '/api';
 app.use(api_resource + '/carparks', carParksRoute);
 app.use(api_resource + '/tickets', ticketsRoute);
+app.use(api_resource + '/smartcards', smartcardsRoute);
 app.use(api_resource + '/users', usersRoute);
 
 
