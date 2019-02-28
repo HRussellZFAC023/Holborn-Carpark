@@ -23,15 +23,15 @@ public enum Scenes {
     TICKET_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
-            ((CheckController) controller).setup();
             ((CheckController) controller).setTicketMode();
+            ((CheckController) controller).setup();
         }
     },
     SMARTCARD_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
-            ((CheckController) controller).setup();
             ((CheckController) controller).setSmartcardMode();
+            ((CheckController) controller).setup();
         }
     },
     PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
@@ -50,6 +50,12 @@ public enum Scenes {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsContactlessController) controller).setup();
+        }
+    },
+    FINISH("/fxml/finish.fxml", new FinishController()) {
+        @Override
+        void onSceneEnter() {
+            ((FinishController) controller).setup();
         }
     };
 
