@@ -96,7 +96,7 @@ class Report extends Component {
                                                     {
                                                         console.log(this.state)}{
                                                     this.state.carparks.map((cp) => {
-                                                        return <li onClick={this.changeSelectedCP}>{cp.name}</li>
+                                                        return <a onClick={this.changeSelectedCP}>{cp.name}<br /></a>
                                                     })
                                                     }
                                                 </ul>
