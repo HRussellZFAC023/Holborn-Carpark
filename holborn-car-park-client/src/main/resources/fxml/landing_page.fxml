@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -41,7 +41,7 @@
                             <graphic>
                                 <ImageView fx:id="validateTicket" fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../img/validate_ticket_comp/validate_ticket.png" />
+                                        <Image url="@../img/validate_ticket.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -52,11 +52,11 @@
                                 <Insets />
                             </GridPane.margin>
                         </Button>
-                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#smartcardCheck" prefHeight="600.0" prefWidth="600.0" styleClass="button_card" text="Checkout Smartcard" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#smartcardCheck" prefHeight="600.0" prefWidth="600.0" styleClass="button_card" text="Validate Smart Card" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                             <graphic>
                                 <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../img/lost_ticket.png" />
+                                        <Image url="@../img/smartcard_check.png" />
                                     </image>
                                 </ImageView>
                             </graphic>
