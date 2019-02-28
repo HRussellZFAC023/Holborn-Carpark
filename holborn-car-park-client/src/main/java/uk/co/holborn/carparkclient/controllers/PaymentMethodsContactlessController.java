@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import uk.co.holborn.carparkclient.Animator;
+import uk.co.holborn.carparkclient.Scenes;
 import uk.co.holborn.carparkclient.Sprite;
 import uk.co.holborn.carparkclient.Sprites;
 
@@ -120,7 +121,11 @@ public class PaymentMethodsContactlessController implements Initializable {
                     setMessage("Transaction Refused! Please try again or choose another payment method");
                     toggleVbox.setDisable(false);
                 }
-                Thread.sleep(2000);
+                Thread.sleep(1000);
+                if(approved) {
+                    mc.ticket.setPaid(true);
+                    mc.sceneManager.changeTo(Scenes.FINISH);
+                }
             } catch (InterruptedException e) {
 
             }
@@ -167,12 +172,12 @@ public class PaymentMethodsContactlessController implements Initializable {
         configureToggles();
         toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
 
-        if (mc.ticket.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
+        if (mc.ticket.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
             amountText.setText("Amount remaining");
         } else {
             amountText.setText("Fee");
         }
-        price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountPaid())));
+        price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountInTicketMachine())));
     }
 
     private void setMessage(String message) {

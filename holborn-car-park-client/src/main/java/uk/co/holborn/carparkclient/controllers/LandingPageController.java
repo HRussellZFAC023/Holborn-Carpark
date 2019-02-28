@@ -83,12 +83,12 @@ public class LandingPageController implements Initializable {
     @FXML
     public void smartcardCheck() {
         mc.sceneManager.changeTo(Scenes.SMARTCARD_CHECK);
-        mc.sessionTimeOut();
+        mc.startSession();
     }
     @FXML
     public void ticketCheck() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
-        mc.sessionTimeOut();
+        mc.startSession();
     }
 
 }

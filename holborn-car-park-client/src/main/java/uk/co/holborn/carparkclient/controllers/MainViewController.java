@@ -152,17 +152,13 @@ public class MainViewController implements Initializable {
         int session_timeout_popup_ms = GlobalVariables.SESSION_TIMEOUT_POPUP_DURATION_S * 1000;
         Thread session = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
-                if (sceneManager.getCurrentScene() == Scenes.LANDING) {
-                    if (ticket != null)
-                        if (ticket.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
-                            emitMoney(ticket.getAmountPaid());
-                        }
+                if (sceneManager.getCurrentScene() == Scenes.LANDING || sceneManager.getCurrentScene() == Scenes.FINISH) {
                     Thread.currentThread().interrupt();
                 }
                 if ((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
                     popup.show("Session timed out", false);
                     sceneAnchor.setDisable(true);
-                    sceneManager.reverseTo(Scenes.LANDING);
+                    sceneManager.changeTo(Scenes.FINISH);
                     try {
                         Thread.sleep(session_timeout_popup_ms);
                     } catch (InterruptedException ignored) {

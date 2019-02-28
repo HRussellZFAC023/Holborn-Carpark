@@ -43,10 +43,11 @@ public class PaymentMethodsCashController implements Initializable {
 
     public void setup() {
         t = mc.ticket;
-        due = t.getPrice().subtract(t.getAmountPaid());
-        paid = t.getAmountPaid();
+        due = t.getPrice().subtract(t.getAmountInTicketMachine());
+        paid = t.getAmountInTicketMachine();
         change = new BigDecimal("0");
         infoText.setText("");
+        inputAmount.clear();
         backButton.setVisible(true);
         inputAmount.setDisable(false);
         updateUI();
@@ -61,25 +62,15 @@ public class PaymentMethodsCashController implements Initializable {
         }
         due = due.subtract(amount);
         paid = paid.add(amount);
-        t.setAmountPaid(paid);
+        t.setAmountInTicketMachine(paid);
         if (due.compareTo(BigDecimal.ZERO) <= 0) {
             change = due.abs();
             due = BigDecimal.ZERO;
             inputAmount.setDisable(true);
             backButton.setVisible(false);
-            if (change.compareTo(BigDecimal.ZERO) > 0) setInfoText("Please take your change of £" + change);
-            Thread t = new Thread(() -> {
-                try {
-                    mc.emitTicketPaid();
-                    Thread.sleep(3000);
-                    mc.sceneManager.changeTo(Scenes.LANDING);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-            t.setName("Thread-Sleep");
-            t.setDaemon(true);
-            t.start();
+            t.setChange(change);
+            t.setPaid(true);
+            mc.sceneManager.changeTo(Scenes.FINISH);
         }
         inputAmount.clear();
         updateUI();

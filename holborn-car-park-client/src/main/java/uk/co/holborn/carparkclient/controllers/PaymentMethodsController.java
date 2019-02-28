@@ -44,19 +44,19 @@ public class PaymentMethodsController implements Initializable {
     }
 
     public void setup() {
-        if (mc.ticket.getAmountPaid().compareTo(BigDecimal.ZERO) > 0) {
+        if (mc.ticket.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
             infoText.setText("Please pay the remaining amount");
             amountText.setText("Amount remaining");
         } else {
             infoText.setText("Please choose your payment method");
             amountText.setText("Fee");
         }
-        price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountPaid())));
+        price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountInTicketMachine())));
     }
 
     @FXML
     private void back() {
-        mc.sceneManager.goBack();
+        mc.sceneManager.changeTo(Scenes.FINISH);
     }
 
 
