@@ -1,26 +1,26 @@
 import React, { Component } from 'react'
 import Time from './Clock'
-import $ from 'jquery';
 
 class Dash extends Component {
-    componentDidMount() {
-        $.ajax({
-            url: '/utility/name',
-            type: 'GET',
-            success: function (name) {
-                this.setState({ name: name });
-            }.bind(this),
-            error: function (xhr, status, err) {
-                console.error('', status, err.toString());
-            }.bind(this)
-        });
-    }
-
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            username: props.username,
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // do stuff on state change
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
+        if(props.username !== state.username){
+
+            return {username: props.username};
         }
+        // Return null to indicate no change to state.
+        return null;
     }
 
     render() {
@@ -30,7 +30,7 @@ class Dash extends Component {
                     <div className="hero-body">
                         <div className="container">
                             <h1 className="title">
-                                Welcome, {this.state.name}
+                                Welcome, {this.state.username}
                             </h1>
                             <h2 className="subtitle">
                                 Here is the current dashboard:

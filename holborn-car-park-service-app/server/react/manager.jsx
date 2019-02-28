@@ -11,17 +11,20 @@ import Tickets      from './js/components/Tickets'
 import Carparks     from './js/components/Carparks'
 import Employees    from './js/components/Employees'
 
+const $ = require('jquery');
+
 
 class DynamicContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            scene: 'Dashboard',
-            showSettings: false
+            scene:          'Dashboard',
+            showSettings:   false,
+            username:       null
         };
         this.setScene = (nScene) => {
             this.setState({ scene: nScene })
-        }
+        };
         this.togglePopup = () => {
             this.setState({
                 showSettings: !this.state.showSettings
@@ -30,12 +33,28 @@ class DynamicContent extends React.Component {
 
     }
 
-   
+
+    componentDidMount () {
+        $.ajax({
+            url: '/utility/name',
+            type: 'GET',
+            success: (name) => {
+                this.setState({
+                    username: name
+                });
+            },
+            error: (xhr, status, err) => {
+                console.error('', status, err.toString());
+            }
+        });
+    }
 
     getScene() {
         switch (this.state.scene) {
             case "Dashboard":
-                return <Dash />;
+                return <Dash username={this.state.username}/>;
+            case "Settings":
+                return <Settings />;
             case "Report":
                 return <Report />;
             case "CarPark":
