@@ -122,28 +122,8 @@ class Report extends Component {
                         <div className="card">
                             <header className="card-header">
                                 <p className="card-header-title">
-                                    Time
+                                     Select Time
                                 </p>
-
-                                <div className="dropdown is-hoverable">
-                                    <div className="dropdown-trigger">
-                                        <a className="card-header-icon" aria-haspopup="true"
-                                            aria-controls="dropdown-menu4">
-                                            <span className="icon is-small">
-                                                <i className="fas fa-angle-down" aria-hidden="true" />
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div className="dropdown-menu" id="dropdown-menu4" role="menu">
-                                        <div className="dropdown-content">
-                                            <div className="dropdown-item">
-                                                <ul>
-                                                    <li>possible time</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
                             </header>
                             <div className="card-content">
