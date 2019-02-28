@@ -92,7 +92,6 @@ public class CheckController implements Initializable {
 
     private void setup() {
         resetAnimPoses();
-        setMessage("Please insert your ticket");
         validationUI(false);
         checkTicketField.clear();
         tp.remove();
@@ -101,10 +100,12 @@ public class CheckController implements Initializable {
 
     public void setTicketMode(){
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
+        setMessage("Please insert your ticket");
         setup();
     }
     public void setSmartcardMode(){
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.SMARTCARD_CHECK));
+        setMessage("Please bring your smart card near the reader");
         setup();
     }
     @FXML
