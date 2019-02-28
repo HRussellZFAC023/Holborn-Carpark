@@ -87,7 +87,7 @@ exports.authorise = function (socket, carparkid_cb) {
     socket.on('authorisation', function (_idCarPark, callback) {
         verify.ClientAuth(_idCarPark, function (code, desc) {
             callback(code, desc);
-            carparkid_cb(_idCarPark);
+            carparkid_cb(code,_idCarPark);
         });
     });
 };

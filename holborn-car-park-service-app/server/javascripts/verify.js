@@ -14,7 +14,7 @@ exports.ClientAuth = function(_carpark_id, callback){
     const params = [_carpark_id];
     carpark_db.query('SELECT * FROM carparks WHERE _id = $1', params, function(db_err, db_res ){
         if(db_err){
-            debug(db_err);
+            debug("Failed authorisation for "+ _carpark_id)
             return callback(505, db_err);
         }
         if(db_res.rowCount === 0) {

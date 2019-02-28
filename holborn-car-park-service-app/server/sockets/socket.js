@@ -7,10 +7,12 @@ module.exports = function (io) {
     io.on('connection', function (socket) {
         let carpark_id = null;
         debug('Socket connected: ' + socket.handshake.address.substring(socket.handshake.address.lastIndexOf(':') + 1));
-        socket_functions.authorise(socket, function (carparkid) {
+        socket_functions.authorise(socket, function (code,carparkid) {
             carpark_id = carparkid;
-            socket.join(carpark_id);
-            debug("joined in : " + carpark_id);
+            if(code == 200){
+                socket.join(carpark_id);
+                debug("joined in : " + carpark_id);
+            }
         });
         socket.on('fetch-ticket', async function (_id, callback) {
             await socket_functions.fetch_ticket_details(_id, carpark_id, callback);
