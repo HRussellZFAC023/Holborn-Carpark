@@ -3,10 +3,7 @@ package uk.co.holborn.carparkclient.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -32,6 +29,8 @@ public class PaymentMethodsContactlessController implements Initializable {
     VBox toggleVbox;
     @FXML
     ImageView imageValidate;
+    @FXML
+    Button backButton;
     ToggleGroup toggleGroup;
 
     private MainViewController mc;
@@ -110,7 +109,7 @@ public class PaymentMethodsContactlessController implements Initializable {
             try {
                 imageValidate.setOpacity(0);
                 setMessage("Please wait...");
-                toggleVbox.setDisable(true);
+                setCheckMode(true);
                 spritePushOut();
                 Thread.sleep(2000);
                 if (approved) {
@@ -119,10 +118,10 @@ public class PaymentMethodsContactlessController implements Initializable {
                 } else {
                     animateImageValidate(false);
                     setMessage("Transaction Refused! Please try again or choose another payment method");
-                    toggleVbox.setDisable(false);
+                    setCheckMode(false);
                 }
                 Thread.sleep(1000);
-                if(approved) {
+                if (approved) {
                     mc.ticket.setPaid(true);
                     mc.sceneManager.changeTo(Scenes.FINISH);
                 }
@@ -151,8 +150,9 @@ public class PaymentMethodsContactlessController implements Initializable {
         Animator.nodePushOut(imageView);
     }
 
-    private void setTogglesSelectable(boolean selectable) {
-
+    private void setCheckMode(boolean checkMode) {
+        toggleVbox.setDisable(checkMode);
+        backButton.setVisible(!checkMode);
     }
 
     private void animateImageValidate(boolean valid) {
@@ -170,6 +170,7 @@ public class PaymentMethodsContactlessController implements Initializable {
         imageValidate.setOpacity(0);
         toggleVbox.setDisable(false);
         configureToggles();
+        setCheckMode(false);
         toggleGroup.selectToggle(toggleGroup.getToggles().get(0));
 
         if (mc.ticket.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
