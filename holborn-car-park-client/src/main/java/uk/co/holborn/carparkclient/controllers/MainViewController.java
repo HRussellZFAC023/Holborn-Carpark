@@ -197,6 +197,7 @@ public class MainViewController implements Initializable {
 //         final long[] frameTimes = new long[100];
 //        final int[] frameTimeIndex = {0};
 //        final boolean[] arrayFilled = {false};
+        pastHour = -1;
 
         AnimationTimer at = new AnimationTimer() {
             @Override
@@ -208,12 +209,10 @@ public class MainViewController implements Initializable {
                 Calendar currTime = Calendar.getInstance();
                 int hour = currTime.get(Calendar.HOUR_OF_DAY);
                 int minute = currTime.get(Calendar.MINUTE);
-                String target = hour + ":" + minute;
 
                 if (GlobalVariables.AUTO_NIGHT_TIME)
                     if (pastHour != hour) {
                         pastHour = hour;
-
                         boolean sameDay = GlobalVariables.NIGHT_TIME_START < GlobalVariables.NIGHT_TIME_END;
                         boolean hourBetweenSameDay = hour >= GlobalVariables.NIGHT_TIME_START && hour <= GlobalVariables.NIGHT_TIME_END;
                         boolean hourBetweenSameAndNextDay = hour >= GlobalVariables.NIGHT_TIME_START || hour < GlobalVariables.NIGHT_TIME_END;
