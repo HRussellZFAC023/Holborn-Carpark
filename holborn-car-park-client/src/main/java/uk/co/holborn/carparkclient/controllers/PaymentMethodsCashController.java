@@ -5,9 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import uk.co.holborn.carparkclient.Animator;
-import uk.co.holborn.carparkclient.Scenes;
-import uk.co.holborn.carparkclient.Ticket;
+import javafx.scene.image.ImageView;
+import uk.co.holborn.carparkclient.*;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -20,9 +19,9 @@ public class PaymentMethodsCashController implements Initializable {
     @FXML
     TextField inputAmount;
     @FXML
-    Label price_due;
+    ImageView imageView;
     @FXML
-    Label infoText;
+    Label price_due;
     @FXML
     Label price_paid;
     Ticket t;
@@ -30,10 +29,12 @@ public class PaymentMethodsCashController implements Initializable {
     private BigDecimal due;
     private BigDecimal paid;
     private BigDecimal change;
+    private Sprite sprite;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
+        sprite = new Sprite(imageView, mc.getSpriteSheets().getSpriteSettings(Sprites.COINS_IN));
     }
 
     @FXML
@@ -43,10 +44,10 @@ public class PaymentMethodsCashController implements Initializable {
 
     public void setup() {
         t = mc.ticket;
+        sprite.replay();
         due = t.getPrice().subtract(t.getAmountInTicketMachine());
         paid = t.getAmountInTicketMachine();
         change = new BigDecimal("0");
-        infoText.setText("");
         inputAmount.clear();
         backButton.setVisible(true);
         inputAmount.setDisable(false);
@@ -91,10 +92,6 @@ public class PaymentMethodsCashController implements Initializable {
         Animator.nodeFade(price_paid, true);
     }
 
-    private void setInfoText(String amount) {
-        infoText.setText(amount);
-        Animator.nodeFade(price_due, true);
-    }
 
 
 }

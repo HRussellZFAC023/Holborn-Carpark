@@ -23,7 +23,7 @@ exports.carpark_details_modified = async function (_id, callback) {
 
     const avail_places = db_res.rows[0].parking_places - count;
 
-    return callback(avail_places, db_res.rows[0].hour_rate, db_res.rows[0].happy_hour_start, db_res.rows[0].happy_hour_end);
+    return callback(avail_places, db_res.rows[0].hour_rate, db_res.rows[0].happy_hour);
 };
 exports.fetch_smartcard_details = async function (_id, carpark_id, callback) {
     const params = [_id, carpark_id];
@@ -54,12 +54,12 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     if (db_res.rowCount === 0) {
         return callback(404, "Ticket not found: " + _id, null);
     }
-    if (!db_res.rows[0].valid) {
-        return callback(406, "Ticket is invalid: " + _id, null);
-    }
-    if (db_res.rows[0].paid) {
-        return callback(406, "Ticket is already paid: " + _id, null);
-    }
+    // if (!db_res.rows[0].valid) {
+    //     return callback(406, "Ticket is invalid: " + _id, null);
+    // }
+    // if (db_res.rows[0].paid) {
+    //     return callback(406, "Ticket is already paid: " + _id, null);
+    // }
 
     const ticket = {
         _id: db_res.rows[0]._id,
@@ -67,7 +67,9 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
         date_out: db_res.rows[0].date_out,
         price: db_res.rows[0].price,
         duration: db_res.rows[0].duration,
-        duration_paying_for: 0
+        duration_paying_for: 0,
+        paid: db_res.rows[0].paid,
+        valid: db_res.rows[0].valid
     };
 
     const now = moment();
@@ -103,7 +105,18 @@ exports.authorise = function (socket, carparkid_cb) {
         });
     });
 };
-
+exports.smartcard_exit =function (socket, carparkid_cb) {
+    //TODO<- smartcard exit
+};
+exports.smartcard_enter = function (socket, carparkid_cb) {
+    //TODO<- smartcard enter
+};
+exports.ticket_exit = function (socket, carparkid_cb) {
+    //TODO<- ticket exit
+};
+exports.request_ticket = function (socket, carparkid_cb) {
+    //TODO<- ticket request
+};
 exports.emit_update = function (io, _id) {
     io.sockets.in(_id).emit('update-carpark-details');
 };

@@ -4,134 +4,160 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0"  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane fx:id="blurrAnchorPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columnConstraints>
+      <GridPane layoutX="-96.0" layoutY="10.0" prefHeight="795.0" prefWidth="1358.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="742.7276000976562" minWidth="230.81134033203125" percentWidth="50.0" prefWidth="541.596923828125" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1009.8961486816406" minWidth="10.0" percentWidth="50.0" prefWidth="670.903076171875" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints maxHeight="195.08627319335938" minHeight="10.0" prefHeight="101.1775131225586" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="423.8224868774414" minHeight="10.0" prefHeight="423.8224868774414" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="252.853515625" minHeight="2.66668701171875" prefHeight="45.66668701171875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="69.33331298828125" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please take your change" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                            <font>
-                                <Font name="Avenir Roman" size="34.0" />
-                            </font>
-                        </Label>
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                        </GridPane>
-                        <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints maxHeight="101.70246887207031" minHeight="10.0" prefHeight="70.42158508300781" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="201.51663208007812" minHeight="10.0" prefHeight="152.5784149169922" vgrow="SOMETIMES" />
-                                <RowConstraints maxHeight="206.70272827148438" minHeight="10.0" prefHeight="69.98336791992188" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="216.63665771484375" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="216.63665771484375" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="195.08627319335938" minHeight="10.0" prefHeight="69.77748107910156" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="530.9987373352051" minHeight="10.0" prefHeight="520.2225189208984" vgrow="SOMETIMES" />
+                     </rowConstraints>
                      <children>
-                        <Label styleClass="ticket_detail_info_label_bigger" text="Amount due" textFill="#6f5ac6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                        <Label fx:id="infoText1" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please insert coins and/or cash" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
-                              <Font name="Avenir Next Bold" size="24.0" />
+                              <Font name="Avenir Roman" size="34.0" />
                            </font>
                         </Label>
-                        <Label fx:id="price_due" styleClass="ticket_detail_info_label_bigger" text="£00.00" textAlignment="CENTER" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <font>
-                              <Font name="Avenir Next Bold" size="12.0" />
-                           </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                        <Label styleClass="ticket_detail_info_label_bigger" text="Amount paid" textFill="#6f5ac6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-                           <font>
-                              <Font name="Avenir Next Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="price_paid" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="Avenir Next Bold" size="13.0" />
-                           </font>
-                        </Label>
-                        <GridPane GridPane.rowIndex="4">
+                        <ImageView fx:id="imageView" fitHeight="526.0" fitWidth="526.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <image>
+                              <Image url="@../img/validate_ticket_comp/background.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+              <AnchorPane fx:id="blurrAnchorPane" prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="786.0" minWidth="10.0" prefWidth="503.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="10.0" prefWidth="499.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="180.94371032714844" minHeight="10.0" prefHeight="106.89140319824219" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="528.5656051635742" minHeight="10.0" prefHeight="501.6085968017578" vgrow="SOMETIMES" />
                           </rowConstraints>
+                          <children>
+                              <GridPane GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                  <columnConstraints>
+                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  </columnConstraints>
+                                  <rowConstraints>
+                                      <RowConstraints maxHeight="101.70246887207031" minHeight="10.0" prefHeight="70.42158508300781" vgrow="SOMETIMES" />
+                                      <RowConstraints maxHeight="201.51663208007812" minHeight="10.0" prefHeight="152.5784149169922" vgrow="SOMETIMES" />
+                                      <RowConstraints maxHeight="206.70272827148438" minHeight="10.0" prefHeight="69.98336791992188" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="216.63665771484375" minHeight="10.0" prefHeight="158.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="216.63665771484375" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                  </rowConstraints>
                            <children>
-                              <TextField fx:id="inputAmount" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="253.0" style="-fx-background-radius: 30;" styleClass="custom_text_field" GridPane.halignment="RIGHT">
+                              <Label styleClass="ticket_detail_info_label" text="Amount due" textFill="#6f5ac6" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                  <font>
-                                    <Font size="27.0" />
+                                    <Font name="Avenir Next Bold" size="24.0" />
                                  </font>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <GridPane.margin>
-                                    <Insets right="20.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <Button contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#pay" prefHeight="71.0" prefWidth="162.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER" GridPane.columnIndex="1">
-                                 <GridPane.margin>
-                                    <Insets left="20.0" />
-                                 </GridPane.margin>
-                              </Button>
+                              </Label>
+                              <Label fx:id="price_due" styleClass="ticket_detail_info_label_bigger" text="£00.00" textAlignment="CENTER" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label styleClass="ticket_detail_info_label" text="Amount paid" textFill="#6f5ac6" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="price_paid" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="Avenir Next Bold" size="13.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </GridPane>
+                              </GridPane>
+                          </children>
+                      </GridPane>
+                  </children>
+              </AnchorPane>
+         </children>
+         <padding>
+            <Insets bottom="160.0" />
+         </padding>
+      </GridPane>
+          <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+              <children>
+                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <columnConstraints>
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      </rowConstraints>
+                      <children>
+                          <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="BACK" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                              <font>
+                                  <Font size="40.0" />
+                              </font>
+                          </Button>
+                  <GridPane GridPane.columnIndex="2" GridPane.rowSpan="3">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="786.0" minWidth="10.0" prefWidth="282.34507751464844" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="10.0" prefWidth="135.65492248535156" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TextField fx:id="inputAmount" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="253.0" style="-fx-background-radius: 30;" styleClass="custom_text_field" GridPane.halignment="RIGHT">
+                           <font>
+                              <Font size="27.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <GridPane.margin>
+                              <Insets right="20.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <Button contentDisplay="CENTER" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#pay" prefHeight="71.0" prefWidth="162.0" styleClass="button_action_round" text="PAY" textAlignment="CENTER" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="20.0" />
+                           </GridPane.margin>
+                        </Button>
                      </children>
-                        </GridPane>
-                    </children>
-                </GridPane>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <children>
-                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="BACK" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                    <font>
-                                        <Font size="40.0" />
-                                    </font>
-                                </Button>
-                            </children>
-                        </GridPane>
-                    </children>
-                </AnchorPane>
-            </children>
-        </AnchorPane>
+                  </GridPane>
+                      </children>
+                  </GridPane>
+              </children>
+          </AnchorPane>
     </children>
 </AnchorPane>

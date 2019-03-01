@@ -47,11 +47,6 @@
                                       <Image url="@../img/validate_ticket_comp/background.png" />
                                   </image>
                               </ImageView>
-                              <ImageView fx:id="image_validated" fitHeight="239.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                                  <image>
-                                      <Image url="@../img/checkmark.png" />
-                                  </image>
-                              </ImageView>
                         <ImageView fx:id="imageValidate" fitHeight="313.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                            <image>
                               <Image url="@../img/checkmark.png" />
