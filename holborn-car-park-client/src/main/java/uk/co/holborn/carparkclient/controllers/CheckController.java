@@ -24,6 +24,7 @@ public class CheckController implements Initializable {
 
     String VALID_MESSAGE;
     String INVALID_MESSAGE;
+    String DOESNT_EXIST;
     String SOCKET_EMIT;
     String INFO;
 
@@ -47,6 +48,7 @@ public class CheckController implements Initializable {
     private MainViewController mc;
     private Gson gson;
     Sprite sprite;
+    private boolean isTicketFromSmartCard;
 
     public CheckController() {
         logger = LogManager.getLogger(getClass().getName());
@@ -72,20 +74,27 @@ public class CheckController implements Initializable {
                     Object description = objects[1];
                     logger.info(err + " " + description);
                     if (err.equals(200)) {
-                        animateImageValidate(true);
-                        setMessage(VALID_MESSAGE);
                         mc.ticket = gson.fromJson(objects[2].toString(), Ticket.class);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        if (mc.ticket.isValid()) {
+                            if (!mc.ticket.isPaid()) {
+                                animateImageValidate(true);
+                                setMessage(VALID_MESSAGE);
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                tp.show(mc.ticket);
+                            } else {
+                                mc.ticket.setReceivedFromSmartcard(isTicketFromSmartCard);
+                                mc.ticket.setPaidOnReceived(true);
+                                mc.sceneManager.changeTo(Scenes.FINISH);
+                            }
+                        }else{
+                            setInvalidUI(INVALID_MESSAGE);
                         }
-                        tp.show(mc.ticket);
                     } else {
-                        animateImageValidate(false);
-                        setMessage(INVALID_MESSAGE);
-                        Platform.runLater(() -> backButton.setVisible(true));
-
+                        setInvalidUI(DOESNT_EXIST);
                     }
                 });
             }
@@ -102,22 +111,34 @@ public class CheckController implements Initializable {
         animateImageShow();
     }
 
-    public void setTicketMode(){
+    private void setInvalidUI(String text) {
+        animateImageValidate(false);
+        setMessage(text);
+        Platform.runLater(() -> backButton.setVisible(true));
+    }
+
+    public void setTicketMode() {
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
         INFO = "Please insert your ticket";
         SOCKET_EMIT = "fetch-ticket";
         VALID_MESSAGE = "Your ticket is valid!";
         INVALID_MESSAGE = "The ticket is invalid! Please seek assistance from a member of staff.";
+        DOESNT_EXIST = "Your ticket could not be found! Please seek assistance from a member of staff.";
+        isTicketFromSmartCard = false;
         setup();
     }
-    public void setSmartcardMode(){
+
+    public void setSmartcardMode() {
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.SMARTCARD_CHECK));
         INFO = "Please bring your smart card near the reader";
         SOCKET_EMIT = "fetch-smartcard";
         VALID_MESSAGE = "Your smart card is valid";
-        INVALID_MESSAGE = "The smart card is invalid! Please seek assistance from a member of staff.";
+        INVALID_MESSAGE = "The smart card session is invalid! Please seek assistance from a member of staff.";
+        DOESNT_EXIST = "The smart card is invalid! Please seek assistance from a member of staff.";
+        isTicketFromSmartCard = true;
         setup();
     }
+
     @FXML
     private void goToPayment() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);

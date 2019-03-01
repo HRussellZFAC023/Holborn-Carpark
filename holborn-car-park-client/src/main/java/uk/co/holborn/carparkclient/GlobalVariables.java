@@ -31,6 +31,7 @@ public class GlobalVariables {
     public static boolean AUTO_NIGHT_TIME = true;
     public static int NIGHT_TIME_START = 19;
     public static int NIGHT_TIME_END = 7;
+    public static boolean DEBUG_MODE = false;
 
     String configName = "config.xml";
     Properties appProp;
@@ -93,6 +94,9 @@ public class GlobalVariables {
                 NIGHT_TIME_START = Integer.parseInt(checkNullOrEmptyProperty("night_time_start"));
                 NIGHT_TIME_END = Integer.parseInt(checkNullOrEmptyProperty("night_time_end"));
             }
+            if (appProp.getProperty("debug_mode") != null) {
+                DEBUG_MODE =Boolean.parseBoolean(appProp.getProperty("debug_mode"));
+            }
             logger.info("Loaded configuration file");
         } catch (IOException ex) {
             logger.error(ex.getMessage());
@@ -120,7 +124,7 @@ public class GlobalVariables {
 
     private String checkNullProperty(String property) {
         String s = appProp.getProperty(property);
-        if (s == null){
+        if (s == null) {
             logger.error("The \"" + property + "\" property does not exist!");
             Alerter.showUnableToStartAlertAndOpenRunningDirectory(
                     "The \"" + property + "\" property does not exist!",

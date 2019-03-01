@@ -48,7 +48,9 @@ public class FinishController implements Initializable {
         Ticket t = mc.ticket;
         setAditionalMessage("");
         if (t != null) {
-            if (t.isPaid()) {
+            if (t.isPaidOnReceived()) {
+                setAditionalMessage("Your " + (t.isReceivedFromSmartcard() ? "smart card session" : "ticket") + " is already paid!");
+            } else if (t.isPaid()) {
                 if (t.getChange().compareTo(BigDecimal.ZERO) > 0) {
                     setAditionalMessage("Make sure to take your change of £" + t.getChange() + ".");
                 }
@@ -56,6 +58,7 @@ public class FinishController implements Initializable {
             } else if (t.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
                 setAditionalMessage("Don't forget to take the amount you inserted of £" + t.getAmountInTicketMachine() + ".");
             }
+
         }
     }
 

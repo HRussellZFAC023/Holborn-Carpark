@@ -20,13 +20,43 @@ public class Ticket {
     private BigDecimal change;
     private boolean paid;
     private int discount;
+    private boolean valid;
+    private boolean paidOnReceived;
+    private boolean receivedFromSmartcard;
 
     public Ticket() {
         price = BigDecimal.ZERO;
         amountInTicketMachine = BigDecimal.ZERO;
-        change =BigDecimal.ZERO;
+        change = BigDecimal.ZERO;
         paid = false;
         discount = 0;
+        paidOnReceived = false;
+        valid = false;
+        receivedFromSmartcard = false;
+    }
+
+    public boolean isReceivedFromSmartcard() {
+        return receivedFromSmartcard;
+    }
+
+    public void setReceivedFromSmartcard(boolean receivedFromSmartcard) {
+        this.receivedFromSmartcard = receivedFromSmartcard;
+    }
+
+    public boolean isPaidOnReceived() {
+        return paidOnReceived;
+    }
+
+    public void setPaidOnReceived(boolean paidOnReceived) {
+        this.paidOnReceived = paidOnReceived;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
     public int getDiscount() {
@@ -83,6 +113,14 @@ public class Ticket {
                 ", date_out=" + date_out +
                 ", price=" + price +
                 ", duration=" + duration +
+                ", duration_paying_for=" + duration_paying_for +
+                ", amountInTicketMachine=" + amountInTicketMachine +
+                ", change=" + change +
+                ", paid=" + paid +
+                ", discount=" + discount +
+                ", valid=" + valid +
+                ", paidOnReceived=" + paidOnReceived +
+                ", receivedFromSmartcard=" + receivedFromSmartcard +
                 '}';
     }
 
