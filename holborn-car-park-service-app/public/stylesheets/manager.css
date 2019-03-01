@@ -60,3 +60,10 @@ i {
 #logo-div{
   transform: translateY(10%);
 }
+.right{
+  margin-right: 75px;
+}
+
+.left{
+  margin-left: 75px;
+}
