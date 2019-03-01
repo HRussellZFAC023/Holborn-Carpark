@@ -13,12 +13,13 @@ class Report extends Component {
         super(props);
 
         this.state = {
-            tickets:            [],
-            carparks:           [],
-            selectedCarpark:    {name: ''},
-            startDate:          null,
-            endDate:            null,
-            redraw:             false
+            tickets:         [],
+            carparks:        [],
+            selectedCarpark: {name: ''},
+            startDate:       null,
+            endDate:         null,
+            redraw:          false,
+            username:        props.username
         };
 
         this.handleStartDate = (date) => {
@@ -188,6 +189,7 @@ class Report extends Component {
                             tickets={this.state.tickets}
                             carpark={this.state.selectedCarpark}
                             redraw={this.state.redraw}
+                            username={this.state.username}
                         />
                 }
             </section>

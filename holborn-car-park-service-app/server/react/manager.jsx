@@ -56,7 +56,7 @@ class DynamicContent extends React.Component {
             case "Settings":
                 return <Settings />;
             case "Report":
-                return <Report />;
+                return <Report username={this.state.username}/>;
             case "CarPark":
                 return <Carparks />;
             case "Tickets":
