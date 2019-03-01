@@ -78,7 +78,7 @@ public class TicketDetailsPopUpController implements Initializable {
     }
 
     public void back() {
-        mc.sceneManager.goBack();
+        mc.sceneManager.changeTo(Scenes.FINISH);
     }
 
 }
