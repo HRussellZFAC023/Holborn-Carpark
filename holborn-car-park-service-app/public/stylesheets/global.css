@@ -70,3 +70,9 @@ html{
     }
 
 }
+.horizontal-line{
+    height: 2px;
+    background-color: #e8e8e8;
+    margin-left: 10%;
+    margin-right: 10%;
+}
