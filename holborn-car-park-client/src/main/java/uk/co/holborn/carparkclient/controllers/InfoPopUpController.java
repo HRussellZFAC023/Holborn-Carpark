@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.Region;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,12 +27,11 @@ public class InfoPopUpController implements Initializable {
 
     public void setIndicatorVisible(boolean visible) {
         if (visible) {
-            indicator.setPrefHeight(110);
-            indicator.setPrefWidth(80);
+            info.setMinWidth(Region.USE_COMPUTED_SIZE);
         } else {
-            indicator.setPrefHeight(0);
-            indicator.setPrefWidth(0);
+            info.setMinWidth(500);
         }
+        indicator.setVisible(visible);
     }
 
 
