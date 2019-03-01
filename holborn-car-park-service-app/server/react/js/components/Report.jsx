@@ -137,7 +137,7 @@ class Report extends Component {
                                     <DatePicker
                                         selected={this.state.startDate}
                                         onChange={this.handleStartDate}
-                                        showTimeSelect
+                                        dateFormat="dd/MM/yyyy h:mm a"
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
                                         dateFormat="dd/MM/yyyy h:mm aa"
@@ -149,7 +149,7 @@ class Report extends Component {
                                     <DatePicker
                                         selected={this.state.endDate}
                                         onChange={this.handleEndDate}
-                                        showTimeSelect
+                                        dateFormat="dd/MM/yyyy h:mm a"
                                         timeFormat="HH:mm"
                                         timeIntervals={60}
                                         dateFormat="dd/MM/yyyy h:mm aa"
@@ -169,8 +169,13 @@ class Report extends Component {
 
                 {
                     this.state.tickets.length === 0
-                    ? (<div className="has-text-centered"> </div>)
-                    : <ReportSection/>
+                    ? (<div className="has-text-centered">No ticket data for selected period</div>)
+                    : <ReportSection
+                            startDate={this.state.startDate}
+                            endDate={this.state.endDate}
+                            tickets={this.state.tickets}
+                            carpark={this.state.selectedCarpark}
+                        />
                 }
             </section>
 
