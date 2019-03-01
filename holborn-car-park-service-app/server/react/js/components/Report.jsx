@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import DatePicker from "react-datepicker";
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf'
 
 const $ = require('jquery');
-
 
 import "react-datepicker/dist/react-datepicker.css";
 import ReportSection from "./ReportSection";
@@ -61,7 +62,22 @@ class Report extends Component {
                     console.error('', status, err.toString());
                 }
             });
-        }
+        };
+
+        this.printReport = () => {
+            const input = document.getElementById('to-print');
+            html2canvas(input)
+                .then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jsPDF({
+                        unit: 'in',
+                        format: [2000, 1020]
+                    });
+                    pdf.addImage(imgData, 'JPEG', 0, 0);
+                    // pdf.output('dataurlnewwindow');
+                    pdf.save("download.pdf");
+                });
+        };
     }
 
     componentDidMount() {
@@ -138,9 +154,6 @@ class Report extends Component {
                                         selected={this.state.startDate}
                                         onChange={this.handleStartDate}
                                         dateFormat="dd/MM/yyyy h:mm a"
-                                        timeFormat="HH:mm"
-                                        timeIntervals={60}
-                                        dateFormat="dd/MM/yyyy h:mm aa"
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Start date"
@@ -150,9 +163,6 @@ class Report extends Component {
                                         selected={this.state.endDate}
                                         onChange={this.handleEndDate}
                                         dateFormat="dd/MM/yyyy h:mm a"
-                                        timeFormat="HH:mm"
-                                        timeIntervals={60}
-                                        dateFormat="dd/MM/yyyy h:mm aa"
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Final date"
@@ -163,7 +173,7 @@ class Report extends Component {
                     </div>
                     <div className="column is-2 has-text-centered">
                         <button onClick={this.genReport} style={{marginBottom: 15}} className="button is-fullwidth is-large is-info">Generate</button>
-                        <button onClick={()=>window.print()} className="button is-fullwidth is-large is-info">Print</button>
+                        <button onClick={this.printReport} className="button is-fullwidth is-large is-info">Print</button>
                     </div>
                 </div>
 
