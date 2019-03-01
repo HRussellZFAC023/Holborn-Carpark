@@ -4,7 +4,7 @@ class NavBar extends Component {
     
     render() {
         return (
-            <section className="hero is-small gradient">
+            <section id="nav-bar" className="hero is-small gradient">
                 <div className="hero-body">
                     <nav className="navbar" role="navigation" aria-label="main navigation">
                         <div id="logo-div">

@@ -101,7 +101,7 @@ class Report extends Component {
     render() {
         return (
             <section>
-                <div className="columns">
+                <div id="report-settings" className="columns">
                     <div className="column">
                         <div className="card">
                             <header className="card-header">

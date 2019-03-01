@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 class ReportSection extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class ReportSection extends Component {
         };
 
         this.day = 24 * 60 * 60 * 1000;
+        this.visibleHeight = window.innerHeight - document.getElementById('nav-bar').scrollHeight - document.getElementById('report-settings').scrollHeight - 50;
 
         this.graphSlots = [];
         this.populateDays = (start_d, end_d) => {
@@ -90,27 +92,29 @@ class ReportSection extends Component {
 
     render(){
         return (
-            <section id="to-print" className="collumns">
-                <div className="collumn">
-                    <div className="has-text-centered">
+            <Scrollbars style={{height: this.visibleHeight }}>
+                <section id="to-print" className="collumns">
+                    <div className="collumn">
+                        <div className="has-text-centered">
                         <div className="title is-3">Report</div>
                     </div>
-                    <div className="tile">
-                        <Bar data={
-                            {
-                                labels: this.populateDays(new Date(this.state.startDate), new Date(this.state.endDate)),
-                                datasets: [{
-                                    label: "№ of cars",
-                                    backgroundColor: 'rgb(255, 99, 132)',
-                                    borderColor: 'rgb(255, 99, 132)',
-                                    data: this.ticketsPerWeek(),
-                                }]
+                        <div className="tile">
+                            <Bar data={
+                                {
+                                    labels: this.populateDays(new Date(this.state.startDate), new Date(this.state.endDate)),
+                                    datasets: [{
+                                        label: "№ of cars",
+                                        backgroundColor: 'rgb(255, 99, 132)',
+                                        borderColor: 'rgb(255, 99, 132)',
+                                        data: this.ticketsPerWeek(),
+                                    }]
+                                }
                             }
-                        }
-                        />
+                            />
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </Scrollbars>
         )
     }
 }
