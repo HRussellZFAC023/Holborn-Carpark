@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +24,13 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) throws Exception {
         log = LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
+        Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
+            log.trace("Handler caught exception: ");
+            for(int i = 0; i< throwable.getStackTrace().length; i++){
+                log.error(throwable.getStackTrace()[i]);
+            }
+        });
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         primaryStage.setFullScreen(true);
