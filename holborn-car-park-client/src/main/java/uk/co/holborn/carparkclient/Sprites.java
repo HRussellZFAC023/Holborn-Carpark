@@ -11,7 +11,8 @@ public enum Sprites {
     SMARTCARD_CHECK(new SpriteSettings("/img/sprites/smartcard_check_sprite.png", 4096, 10,99, 25)),
     PAYMENT_APPLE_PAY(new SpriteSettings("/img/sprites/apple_pay_contactless_sprite.png", 4096, 10, 25)),
     PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/sprites/card_pay_anim_sprite.png", 4096, 10, 99, 25)),
-    THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25));
+    THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25)),
+    COINS_IN(new SpriteSettings("/img/sprites/coins_in_sprite.png", 4096, 9, 81,1,0,25));
 
     private SpriteSettings spriteSettings;
 

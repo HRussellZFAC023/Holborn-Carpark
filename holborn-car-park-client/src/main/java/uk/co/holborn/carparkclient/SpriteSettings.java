@@ -17,6 +17,8 @@ public class SpriteSettings {
     private int slices;
     private int count;
     private int FPS;
+    private int offsetX;
+    private int offsetY;
     private Image image;
 
     /**
@@ -29,6 +31,45 @@ public class SpriteSettings {
      */
     SpriteSettings(String path, double scale, int slices, int count, int FPS) {
         this.path = path;
+        this.scaleToWidth = scale;
+        this.scaleToHeight = scale;
+        this.slices = slices;
+        this.count = count;
+        this.FPS = FPS;
+    }
+    /**
+     * Initialises a new SpriteSettings instance
+     * @param path the path of the file found under resources folder
+     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     * @param slices the number of slices for a column or row
+     * @param count the number of non empty frames the sprite has
+     * @param offset the offset to shift the image  with (both on x and y)
+     * @param FPS the speed at which the animation will be ran at
+     */
+    SpriteSettings(String path, double scale, int slices, int count, int offset, int FPS) {
+        this.path = path;
+        this.offsetX = offset;
+        this.offsetY = offset;
+        this.scaleToWidth = scale;
+        this.scaleToHeight = scale;
+        this.slices = slices;
+        this.count = count;
+        this.FPS = FPS;
+    }
+    /**
+     * Initialises a new SpriteSettings instance
+     * @param path the path of the file found under resources folder
+     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     * @param slices the number of slices for a column or row
+     * @param count the number of non empty frames the sprite has
+     * @param offsetX the offset to shift the image  with in the x axis
+     * @param offsetY the offset to shift the image  with in the y axis
+     * @param FPS the speed at which the animation will be ran at
+     */
+    SpriteSettings(String path, double scale, int slices, int count, int offsetX, int offsetY, int FPS) {
+        this.path = path;
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
         this.scaleToWidth = scale;
         this.scaleToHeight = scale;
         this.slices = slices;
@@ -78,6 +119,26 @@ public class SpriteSettings {
     public void setScaleTo(int scale) {
         this.scaleToHeight = scale;
         this.scaleToWidth = scale;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
     }
 
     public int getCount() {

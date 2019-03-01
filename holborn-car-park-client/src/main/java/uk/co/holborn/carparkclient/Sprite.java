@@ -23,6 +23,8 @@ public class Sprite {
     private int count;
     private int columns;
     private SpriteAnimation currentAnimation;
+    private int offsetX;
+    private int offsetY;
 
     /**
      * Initializes a sprite and its parameters from a {@link SpriteSettings} object
@@ -46,7 +48,7 @@ public class Sprite {
      * @param sheet      a string referencing an image file
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
-     * @deprecated  use {@link #Sprite(ImageView, SpriteSettings)} instead
+     * @deprecated use {@link #Sprite(ImageView, SpriteSettings)} instead
      */
     public Sprite(ImageView spriteView, String sheet, double width, double height) {
         this.spriteView = spriteView;
@@ -64,7 +66,7 @@ public class Sprite {
      * @param image      a Image object
      * @param width      the width of a single sprite cell
      * @param height     the height of a single sprite cell
-     * @deprecated  use {@link #Sprite(ImageView, SpriteSettings)} instead
+     * @deprecated use {@link #Sprite(ImageView, SpriteSettings)} instead
      */
     public Sprite(ImageView spriteView, Image image, double width, double height) {
         this.spriteView = spriteView;
@@ -93,8 +95,16 @@ public class Sprite {
      * @param height the height of a single sprite cell
      */
     public void setImage(Image image, double width, double height) {
-       setImage(image,width,height, (int) (spriteView.getImage().getWidth() / width));
+        setImage(image, width, height, (int) (spriteView.getImage().getWidth() / width));
     }
+
+    /**
+     * Set a new sprite from a Image reference.
+     *
+     * @param image  a Image object
+     * @param width  the width of a single sprite cell
+     * @param height the height of a single sprite cell
+     */
     public void setImage(Image image, double width, double height, int cells) {
         spriteView.setImage(image);
         rect = new Rectangle2D(0, 0, width, height);
@@ -149,9 +159,11 @@ public class Sprite {
         if (currentAnimation == null) play();
         else currentAnimation.playFromStart();
     }
+
     /**
      * Replays the current animation from the start a number of times
-     * @param cycles  the number of times to be played
+     *
+     * @param cycles the number of times to be played
      */
     public void replay(int cycles) {
         play(cycles);
@@ -188,9 +200,20 @@ public class Sprite {
         );
         setFPS(spriteSettings.getFPS());
         setSpritesCount(spriteSettings.getCount());
+        setOffset(spriteSettings.getOffsetX(), spriteSettings.getOffsetY());
         resetView();
     }
 
+    /**
+     * Set the offset the sprite will have
+     *
+     * @param offsetX the shifting on x axis
+     * @param offsetY the shifting on y axis
+     */
+    public void setOffset(int offsetX, int offsetY) {
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+    }
 
     /**
      * SpriteAnimation helps us transition the frames in a {@link Sprite}
@@ -218,8 +241,8 @@ public class Sprite {
          */
         protected void interpolate(double k) {
             final int index = Math.min((int) Math.floor(k * count), count - 1);
-            final int offsetX = 0;
-            final int offsetY = 0;
+            final int altOffsetX = offsetX;
+            final int aldOffsetY = offsetY;
             if (index != lastIndex) {
                 final double x = (index % columns) * rect.getWidth() + offsetX;
                 final double y = (double) (index / columns) * rect.getHeight() + offsetY;

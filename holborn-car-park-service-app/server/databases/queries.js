@@ -1,5 +1,5 @@
 exports.sockets = {
-    ticket_details: `SELECT     tickets._id, date_in, paid, valid, duration, date_out, hour_rate 
+    ticket_details: `SELECT     tickets._id, date_in, paid, valid, duration, date_out, hour_rate, valid 
                      FROM       tickets 
                      INNER JOIN carparks 
                      ON         tickets._carpark_id = carparks._id WHERE tickets._id = $1 AND tickets._carpark_id = $2`,
