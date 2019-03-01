@@ -37,7 +37,7 @@ public class LandingPageController implements Initializable {
         Animator.nodeFade(welcome, true);
     }
 
-    public void enableFetching(){
+    public void enableFetching() {
         String fetching = "Fetching...";
         if (mc.parking_spaces.isEmpty()) updateTextParkingSpaces(fetching);
         else parking_spaces.setText(mc.parking_spaces);
@@ -51,16 +51,18 @@ public class LandingPageController implements Initializable {
             socket.emit("fetch-carpark-details", (Ack) this::update);
         });
     }
+
     private void update(Object[] objects) {
-            updateTextParkingSpaces(objects[0] + "");
-            updateTextPrice("£" + objects[1]);
-            updateHappyHour((objects[2] + "").subSequence(0, 5) + " - " + (objects[3] + "").subSequence(0, 5));
+        updateTextParkingSpaces(objects[0] + "");
+        updateTextPrice("£" + objects[1]);
+        updateHappyHour(((boolean) objects[2] ? "Now" : "Unavailable"));
+
     }
 
     private void updateTextParkingSpaces(String message) {
         if (!mc.parking_spaces.equals(message)) {
             mc.parking_spaces = message;
-            Platform.runLater(()->parking_spaces.setText(message));
+            Platform.runLater(() -> parking_spaces.setText(message));
             Animator.nodeFade(parking_spaces, true);
         }
     }
@@ -68,7 +70,7 @@ public class LandingPageController implements Initializable {
     private void updateTextPrice(String message) {
         if (!mc.hourly_price.equals(message)) {
             mc.hourly_price = message;
-            Platform.runLater(()->price.setText(message));
+            Platform.runLater(() -> price.setText(message));
             Animator.nodeFade(price, true);
         }
     }
@@ -76,15 +78,17 @@ public class LandingPageController implements Initializable {
     private void updateHappyHour(String message) {
         if (!mc.happy_hour_time.equals(message)) {
             mc.happy_hour_time = message;
-            Platform.runLater(()-> happy_hour.setText(message));
+            Platform.runLater(() -> happy_hour.setText(message));
             Animator.nodeFade(happy_hour, true);
         }
     }
+
     @FXML
     public void smartcardCheck() {
         mc.sceneManager.changeTo(Scenes.SMARTCARD_CHECK);
         mc.startSession();
     }
+
     @FXML
     public void ticketCheck() {
         mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
