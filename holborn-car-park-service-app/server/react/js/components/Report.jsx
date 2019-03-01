@@ -17,7 +17,8 @@ class Report extends Component {
             carparks:           [],
             selectedCarpark:    {name: ''},
             startDate:          null,
-            endDate:            null
+            endDate:            null,
+            redraw:             false
         };
 
         this.handleStartDate = (date) => {
@@ -55,8 +56,9 @@ class Report extends Component {
                 },
                 success: (data) => {
                     this.setState({
-                        tickets: data
-                    })
+                        tickets: data,
+                        redraw: true
+                    }, () => {this.setState({redraw: false})})
                 },
                 error: (xhr, status, err) => {
                     console.error('', status, err.toString());
@@ -185,6 +187,7 @@ class Report extends Component {
                             endDate={this.state.endDate}
                             tickets={this.state.tickets}
                             carpark={this.state.selectedCarpark}
+                            redraw={this.state.redraw}
                         />
                 }
             </section>

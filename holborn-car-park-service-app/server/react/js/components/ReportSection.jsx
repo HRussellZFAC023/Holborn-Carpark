@@ -16,6 +16,7 @@ class ReportSection extends Component {
 
         this.graphSlots = [];
         this.populateDays = (start_d, end_d) => {
+            this.graphSlots = [];
             let all = [];
 
             let current = start_d.getTime();
@@ -72,6 +73,20 @@ class ReportSection extends Component {
             return all;
         };
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if(props.redraw === true){
+            return {
+                startDate:  props.startDate,
+                endDate:    props.endDate,
+                tickets:    props.tickets,
+                carpark:    props.carpark,
+            }
+        }
+
+        // Return null to indicate no change to state.
+        return null;
+    }
 
     render(){
         return (
