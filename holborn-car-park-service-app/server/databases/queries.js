@@ -29,7 +29,7 @@ exports.api = {
     },
     tickets: {
         get_all:          `SELECT * FROM tickets`,
-        get_all_specific: `SELECT * FROM tickets WHERE  _carpark_id = $1 AND date_in > to_timestamp($2 / 1000.0) AND date_in < to_timestamp($3 / 1000.0)`,
+        get_all_specific: `SELECT * FROM tickets WHERE  _carpark_id = $1 AND date_in > to_timestamp($2 / 1000.0) AND date_in < to_timestamp($3 / 1000.0) ORDER BY date_in`,
         delete_all:       `DELETE   FROM tickets`,
         get_one:          `SELECT * FROM tickets WHERE  _id = $1`,
         create:           `INSERT   INTO tickets VALUES ($1, to_timestamp($2 / 1000.0), null, $3, $4, $5)`,

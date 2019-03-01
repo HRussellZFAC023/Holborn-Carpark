@@ -26,7 +26,7 @@ module.exports = function (io) {
 
         if(typeof req.query._carpark_id  !== 'undefined'  &&
            typeof req.query.startDate    !== 'undefined'  &&
-           typeof req.query.endDate    !== 'undefined'
+           typeof req.query.endDate      !== 'undefined'
         ){
             let params = [req.query._carpark_id, new Date(req.query.startDate).valueOf(), new Date(req.query.endDate).valueOf()];
             try{
