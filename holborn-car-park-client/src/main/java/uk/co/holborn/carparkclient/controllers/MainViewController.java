@@ -20,7 +20,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
-
+/**
+ * The main view controller is the most important controller of them all.
+ * It controls everything from the {@link SceneManager} to the {@link Socket} connections
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.5
+ */
 public class MainViewController implements Initializable {
 
     private static MainViewController instance = null;
@@ -53,7 +59,12 @@ public class MainViewController implements Initializable {
     public static SpriteSheets spriteSheets;
     int pastHour = 0;
 
-
+    /**
+     * The constructor initialises the {@link GlobalVariables},
+     * grabbing everything from the configuration file to be used thorough the application. Then it
+     * creates a new {@link Socket} connection.
+     * In the end it makes sure that all the sprites are loaded in memory by {@link SpriteSheets}
+     */
     public MainViewController() {
         hourly_price = "";
         parking_spaces = "";
@@ -70,6 +81,13 @@ public class MainViewController implements Initializable {
         spriteSheets.load();
     }
 
+    /**
+     * This method gets called after all the constructors have
+     * done their work to prepare the ui before displaying it.
+     * In here we change the theme to default one (Which is light
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updater();
@@ -81,6 +99,9 @@ public class MainViewController implements Initializable {
         socketPreparation();
     }
 
+    /**
+     * Prepare all the socket events
+     */
     private void socketPreparation() {
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
@@ -126,14 +147,26 @@ public class MainViewController implements Initializable {
         socket.connect();
     }
 
+    /**
+     * Method that gives the instance of this class
+     * @return the class instance
+     */
     public static MainViewController getInstance() {
         return instance;
     }
 
+    /**
+     * Method that returns the current socket connection
+     * @return the current socket
+     */
     public Socket getSocket() {
         return socket;
     }
 
+    /**
+     * Method that returns the sprite sheets
+     * @return sprite sheets
+     */
     public SpriteSheets getSpriteSheets() {
         return spriteSheets;
     }
@@ -143,7 +176,8 @@ public class MainViewController implements Initializable {
     }
 
     /**
-     * Thread that changes the scene to the landing page when no interaction with the ui happened for a defined time
+     * This method starts a thread that changes the scene to the landing page when
+     * no interaction with the ui happened for a defined time
      */
     void startSession() {
         sessionStartTime = System.currentTimeMillis();
@@ -180,7 +214,8 @@ public class MainViewController implements Initializable {
     }
 
     /**
-     * Thread that updates the date and time
+     * Thread that updates the date and time,
+     * also switches the themes if auto nightime is turned on
      */
     private void updater() {
 //        activate to see fps
@@ -233,6 +268,9 @@ public class MainViewController implements Initializable {
         at.start();
     }
 
+    /**
+     * Method for the switch themes button that switches ... the themes (self explanatory)
+     */
     @FXML
     void switchTheme() {
         if (ThemeProvider.getInstance().getCurrentTheme() == Themes.LIGHT) {
@@ -243,6 +281,9 @@ public class MainViewController implements Initializable {
         updateThemeButton();
     }
 
+    /**
+     * Method that updates the switch themes button from the current theme
+     */
     private void updateThemeButton() {
         if (ThemeProvider.getInstance().getCurrentTheme() == Themes.DARK) {
             themeModeButton.setText("DAYTIME");
