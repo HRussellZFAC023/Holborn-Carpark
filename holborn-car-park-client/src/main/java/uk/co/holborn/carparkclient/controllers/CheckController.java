@@ -172,7 +172,7 @@ public class CheckController implements Initializable {
         SOCKET_EMIT = "fetch-smartcard";
         VALID_MESSAGE = "Your smart card is valid";
         INVALID_MESSAGE = "The smart card session is invalid! Please seek assistance from a member of staff.";
-        DOESNT_EXIST = "The smart card is invalid! Please seek assistance from a member of staff.";
+        DOESNT_EXIST = "The smart card could not be found! Please seek assistance from a member of staff.";
         isTicketFromSmartCard = true;
         setup();
     }

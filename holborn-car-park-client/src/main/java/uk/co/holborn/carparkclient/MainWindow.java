@@ -30,7 +30,7 @@ public class MainWindow extends Application {
         log = LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
         Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
-            log.trace("Handler caught exception: ");
+            log.error("Handler caught exception: " + throwable.getMessage());
             for (int i = 0; i < throwable.getStackTrace().length; i++) {
                 log.error(throwable.getStackTrace()[i]);
             }
@@ -51,7 +51,6 @@ public class MainWindow extends Application {
 
     /**
      * This method gets called when the application stops
-     *
      */
     @Override
     public void stop() {

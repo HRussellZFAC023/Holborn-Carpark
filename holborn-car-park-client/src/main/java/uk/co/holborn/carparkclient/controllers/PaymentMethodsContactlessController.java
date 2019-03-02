@@ -154,10 +154,10 @@ public class PaymentMethodsContactlessController implements Initializable {
                 Thread.sleep(2000);
                 if (approved) {
                     animateImageValidate(true);
-                    setMessage("Transaction Approved!");
+                    setMessage("Transaction approved!");
                 } else {
                     animateImageValidate(false);
-                    setMessage("Transaction Refused! Please try again or choose another payment method");
+                    setMessage("Transaction refused! Please try again or choose another payment method");
                     setCheckMode(false);
                 }
                 Thread.sleep(1000);

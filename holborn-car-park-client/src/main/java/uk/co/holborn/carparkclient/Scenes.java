@@ -60,6 +60,15 @@ public enum Scenes {
         }
     },
     /**
+     * Classic card payment scene
+     */
+    PAYMENT_METHODS_CLASSIC_CARD("/fxml/payment_methods_classic_card.fxml", new PaymentMethodsClassicCardController()) {
+        @Override
+        void onSceneEnter() {
+            ((PaymentMethodsClassicCardController) controller).setup();
+        }
+    },
+    /**
      * Contactless payment
      */
     PAYMENT_METHODS_CONTACTLESS("/fxml/payment_methods_contactless.fxml", new PaymentMethodsContactlessController()) {

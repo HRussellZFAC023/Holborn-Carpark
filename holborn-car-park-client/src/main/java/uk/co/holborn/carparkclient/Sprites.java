@@ -24,6 +24,10 @@ public enum Sprites {
      */
     PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/sprites/card_pay_anim_sprite.png", 4096, 10, 99, 25)),
     /**
+     * Classic card payment
+     */
+    PAYMENT_CARD_CLASSIC(new SpriteSettings("/img/sprites/classic_card_pay_sprite.png", 4096, 9, 25)),
+    /**
      * Thank you text animation
      */
     THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25)),

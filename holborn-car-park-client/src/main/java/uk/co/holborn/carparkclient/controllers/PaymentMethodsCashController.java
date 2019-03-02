@@ -74,7 +74,8 @@ public class PaymentMethodsCashController implements Initializable {
      */
     public void setup() {
         t = mc.ticket;
-        sprite.replay();
+        sprite.resetView();
+        Animator.nodePopIn(imageView, 0.6, e-> sprite.replay());
         due = t.getPrice().subtract(t.getAmountInTicketMachine());
         paid = t.getAmountInTicketMachine();
         change = new BigDecimal("0");
