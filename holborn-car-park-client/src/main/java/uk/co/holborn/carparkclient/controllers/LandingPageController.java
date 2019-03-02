@@ -134,8 +134,7 @@ public class LandingPageController implements Initializable {
      */
     @FXML
     public void smartcardCheck() {
-       // mc.sceneManager.changeTo(Scenes.SMARTCARD_CHECK);
-        mc.requestTicketValidity("955a3c49-0343-46cb-9566-6ddc4bcb7db6");
+        mc.sceneManager.changeTo(Scenes.SMARTCARD_CHECK);
         mc.startSession();
     }
 

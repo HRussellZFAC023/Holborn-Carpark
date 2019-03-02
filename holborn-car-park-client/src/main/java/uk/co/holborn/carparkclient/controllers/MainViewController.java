@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * It controls everything from the {@link SceneManager} to the {@link Socket} connections
  *
  * @author Vlad Alboiu
- * @version 1.0.5
+ * @version 1.0.6
  */
 public class MainViewController implements Initializable {
 
@@ -311,15 +311,63 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /**
+     * Sends ticket generation request to  the server. Once a response has been received,
+     * the method {@link #receivedTicket(Object[])} will be called with corresponding info
+     * @since 1.0.6
+     */
     public void requestTicket() {
         socket.emit("request-ticket", (Ack) this::receivedTicket);
     }
+
+    /**
+     * Method called once a response has been received from the server
+     * @param objects the objects received from the server
+     *                (index 0 contains the error code,
+     *                index 1 contains either the ticket or info message)
+     */
     public void receivedTicket(Object[] objects){
         System.out.println(objects[0]);
     }
+
+    /**
+     * Sends a request to the server to verify whether or not a ticket is valid for exit.
+     * This means the ticket has to exist, be valid and paid. Once these criteria are met, the ticket gets invalidated
+     * @param ticketID the ticket id to check
+     */
     public void requestTicketValidity(String ticketID){
         socket.emit("ticket-exit", ticketID,(Ack) objects ->{
-            System.out.println(objects[0]);
+            logger.info("Ticket exit request: " + ticketID + " Response:  " + objects[0] + " " + objects[1]);
+            if(objects[0].equals(200)){
+                receivedRequestResponse(true);
+            }else{
+                receivedRequestResponse(false);
+            }
+        });
+    }
+    /**
+     * Sends a request to the server to verify whether or not a ticket contained in the smart card is valid for exit.
+     * This means the ticket has to exist, be valid and paid. Once these criteria are met, the ticket gets invalidated
+     * @param smartcardID the smart ardID id to check
+     */
+    public void requestSmartcardValidity(String smartcardID){
+        socket.emit("smartcard-exit", smartcardID,(Ack) objects ->{
+            logger.info("Smartcard exit request: " + smartcardID + " Response:  " + objects[0] + " " + objects[1]);
+            if(objects[0].equals(200)){
+                receivedRequestResponse(true);
+            }else{
+                receivedRequestResponse(false);
+            }
+        });
+    }
+
+    /**
+     * Verifies whether or not the smart card is valid for entrance
+     * @param smartcardId the smart card id ot check
+     */
+    public void checkSmartcard(String smartcardId){
+        socket.emit("smartcard-enter", smartcardId,(Ack) objects ->{
+            logger.info("Smartcard enter request: " + smartcardId + " Response:  " + objects[0] + " " + objects[1]);
             if(objects[0].equals(200)){
                 receivedRequestResponse(true);
             }else{
