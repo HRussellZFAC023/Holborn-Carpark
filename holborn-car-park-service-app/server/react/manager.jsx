@@ -10,6 +10,7 @@ import Settings     from './js/components/Settings'
 import Tickets      from './js/components/Tickets'
 import Carparks     from './js/components/Carparks'
 import Employees    from './js/components/Employees'
+import Emails       from './js/components/Emails'
 
 const $ = require('jquery');
 
@@ -63,6 +64,8 @@ class DynamicContent extends React.Component {
                 return <Tickets />;
             case "Staff":
                 return <Employees />
+            case "Emails":
+                return <Emails />
             default:
                 return <Missing404 />
         }
