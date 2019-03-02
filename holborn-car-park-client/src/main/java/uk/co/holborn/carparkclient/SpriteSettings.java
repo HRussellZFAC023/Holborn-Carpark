@@ -23,11 +23,12 @@ public class SpriteSettings {
 
     /**
      * Initialises a new SpriteSettings instance
-     * @param path the path of the file found under resources folder
-     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     *
+     * @param path   the path of the file found under resources folder
+     * @param scale  the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
      * @param slices the number of slices for a column or row
-     * @param count the number of non empty frames the sprite has
-     * @param FPS the speed at which the animation will be ran at
+     * @param count  the number of non empty frames the sprite has
+     * @param FPS    the speed at which the animation will be ran at
      */
     SpriteSettings(String path, double scale, int slices, int count, int FPS) {
         this.path = path;
@@ -37,14 +38,16 @@ public class SpriteSettings {
         this.count = count;
         this.FPS = FPS;
     }
+
     /**
      * Initialises a new SpriteSettings instance
-     * @param path the path of the file found under resources folder
-     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     *
+     * @param path   the path of the file found under resources folder
+     * @param scale  the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
      * @param slices the number of slices for a column or row
-     * @param count the number of non empty frames the sprite has
+     * @param count  the number of non empty frames the sprite has
      * @param offset the offset to shift the image  with (both on x and y)
-     * @param FPS the speed at which the animation will be ran at
+     * @param FPS    the speed at which the animation will be ran at
      */
     SpriteSettings(String path, double scale, int slices, int count, int offset, int FPS) {
         this.path = path;
@@ -56,15 +59,17 @@ public class SpriteSettings {
         this.count = count;
         this.FPS = FPS;
     }
+
     /**
      * Initialises a new SpriteSettings instance
-     * @param path the path of the file found under resources folder
-     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
-     * @param slices the number of slices for a column or row
-     * @param count the number of non empty frames the sprite has
+     *
+     * @param path    the path of the file found under resources folder
+     * @param scale   the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     * @param slices  the number of slices for a column or row
+     * @param count   the number of non empty frames the sprite has
      * @param offsetX the offset to shift the image  with in the x axis
      * @param offsetY the offset to shift the image  with in the y axis
-     * @param FPS the speed at which the animation will be ran at
+     * @param FPS     the speed at which the animation will be ran at
      */
     SpriteSettings(String path, double scale, int slices, int count, int offsetX, int offsetY, int FPS) {
         this.path = path;
@@ -76,21 +81,25 @@ public class SpriteSettings {
         this.count = count;
         this.FPS = FPS;
     }
+
     /**
      * Initialises a new SpriteSettings instance
-     * @param path the path of the file found under resources folder
-     * @param scale the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
+     *
+     * @param path   the path of the file found under resources folder
+     * @param scale  the scale of the image (in pixels, i.e  4096; Note: if no scaling is used just add the original width or height)
      * @param slices the number of slices for a column or row
-     * @param FPS the speed at which the animation will be ran at
+     * @param FPS    the speed at which the animation will be ran at
      */
     SpriteSettings(String path, double scale, int slices, int FPS) {
         this.path = path;
         this.scaleToWidth = scale;
         this.scaleToHeight = scale;
         this.slices = slices;
-        this.count = slices*slices;
+        this.count = slices * slices;
         this.FPS = FPS;
     }
+
+    //just getters and setters
 
     String getPath() {
         return path;
