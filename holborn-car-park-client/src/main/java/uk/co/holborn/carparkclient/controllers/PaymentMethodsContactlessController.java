@@ -16,6 +16,12 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The payment contactless controller handles the interaction of the contatcless payment screen
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.0
+ */
 public class PaymentMethodsContactlessController implements Initializable {
     @FXML
     Label price;
@@ -38,13 +44,26 @@ public class PaymentMethodsContactlessController implements Initializable {
     private boolean firstTime;
     Thread transactionThread;
 
+    /**
+     * This method gets called after all the constructors have
+     * done their work to prepare the ui before displaying it.
+     * In here we change the theme to default one (Which is light
+     *
+     * @param location
+     * @param resources
+     * @since 1.0.0
+     */
     @Override
-
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
         toggleGroup = new ToggleGroup();
     }
 
+    /**
+     * Set all the toggles disabled
+     *
+     * @since 1.0.0
+     */
     private void setTogglesDisabled() {
         for (Toggle tg : toggleGroup.getToggles()) {
             if (tg.isSelected()) ((ToggleButton) tg).setDisable(true);
@@ -52,6 +71,12 @@ public class PaymentMethodsContactlessController implements Initializable {
         }
     }
 
+    /**
+     * Show the sprite and the update it accordingly
+     *
+     * @param sp the sprite for the image to be updated with
+     * @since 1.0.0
+     */
     private void popInSprite(Sprites sp) {
         if (sprite == null) sprite = new Sprite(imageView, mc.getSpriteSheets().getSpriteSettings(sp));
         else {
@@ -66,18 +91,27 @@ public class PaymentMethodsContactlessController implements Initializable {
         } else {
             sprite.replay();
             Animator.nodePopIn(imageView, 0.0, e -> {
-//            sprite.replay();
             });
         }
 
 
     }
 
+    /**
+     * Go back to the previous scene
+     *
+     * @since 1.0.0
+     */
     @FXML
     public void back() {
         mc.sceneManager.goBack();
     }
 
+    /**
+     * Configure the toggles
+     *
+     * @since 1.0.0
+     */
     private void configureToggles() {
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().add((ToggleButton) toggleVbox.getChildren().get(0));
@@ -99,10 +133,13 @@ public class PaymentMethodsContactlessController implements Initializable {
         });
     }
 
-    private void verifyTransaction() {
-        ///TODO <- HARDWARE MISSING: verify the card or apple pay transaction through the nfc reader, get response back
-    }
 
+    /**
+     * Simulate a transaction happening (since there's no hardware we can test this)
+     *
+     * @param approved whether or not to approve the transaction
+     * @since 1.0.0
+     */
     private void fakeTransaction(boolean approved) {
         if (transactionThread != null) transactionThread.interrupt();
         transactionThread = new Thread(() -> {
@@ -134,37 +171,77 @@ public class PaymentMethodsContactlessController implements Initializable {
         transactionThread.start();
     }
 
+    /**
+     * Approve the transaction button
+     *
+     * @since 1.0.0
+     */
     @FXML
     private void transactionApproved() {
         fakeTransaction(true);
 
     }
 
+    /**
+     * Refuse the transaction button
+     *
+     * @since 1.0.0
+     */
     @FXML
     private void transactionRefused() {
         fakeTransaction(false);
     }
 
+    /**
+     * Push the sprite out, hiding it off the screen
+     *
+     * @since 1.0.0
+     */
     private void spritePushOut() {
         sprite.pause();
         Animator.nodePushOut(imageView);
     }
 
+    /**
+     * Check mode reefers to when the transaction is being verified for approval
+     *
+     * @param checkMode true or false
+     * @since 1.0.0
+     */
     private void setCheckMode(boolean checkMode) {
         toggleVbox.setDisable(checkMode);
         backButton.setVisible(!checkMode);
     }
 
+    /**
+     * Set the validation image
+     *
+     * @param valid true or false
+     * @since 1.0.0
+     */
     private void animateImageValidate(boolean valid) {
         imageValidate.setImage(new Image(valid ? "/img/checkmark.png" : "/img/x mark.png"));
         imageValidateShow(true);
     }
 
+    /**
+     * Show or hide the validation image
+     *
+     * @param show true or false
+     * @since 1.0.0
+     */
     private void imageValidateShow(boolean show) {
         if (show) Animator.nodePopIn(imageValidate);
         else Animator.nodePushOut(imageValidate);
     }
 
+    /**
+     * This method prepares the ui before showing, resenting the sprite,
+     * clearing the textfield, etc.
+     * This is called every time the scene manager switches to this scene.
+     *
+     * @since 1.0.0
+     */
     public void setup() {
         firstTime = true;
         imageValidate.setOpacity(0);
@@ -181,6 +258,13 @@ public class PaymentMethodsContactlessController implements Initializable {
         price.setText("£" + (mc.ticket.getPrice().subtract(mc.ticket.getAmountInTicketMachine())));
     }
 
+    /**
+     * This method prepares the ui before showing, resenting the sprite,
+     * clearing the textfield, etc.
+     * This is called every time the scene manager switches to this scene.
+     *
+     * @since 1.0.0
+     */
     private void setMessage(String message) {
         Platform.runLater(() -> {
             infoText.setText(message);
