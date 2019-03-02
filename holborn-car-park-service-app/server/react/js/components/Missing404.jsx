@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 
+/**
+ * Component used to display a 404 page in case the user somehow tries to redirect to a non-existing scene
+ */
 class Missing404 extends Component {
 
     render() {
