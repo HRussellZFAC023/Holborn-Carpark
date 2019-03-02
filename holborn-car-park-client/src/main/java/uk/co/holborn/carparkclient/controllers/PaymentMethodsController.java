@@ -57,7 +57,7 @@ public class PaymentMethodsController implements Initializable {
      */
     @FXML
     private void cardPayment() {
-        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CASH);
+        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CLASSIC_CARD);
     }
     /**
      * Switch to compactness payment screen
