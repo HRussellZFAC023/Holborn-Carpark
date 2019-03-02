@@ -39,8 +39,10 @@ public class Alerter {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == showLocation) {
             openRunningDirectory();
+            System.exit(-1);
+        }else{
+            System.exit(-1);
         }
-        System.out.println();
     }
 
     public static void showUnableToStartAlert(String header, String content) {
