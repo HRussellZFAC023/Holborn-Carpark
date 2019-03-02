@@ -12,6 +12,12 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The payment cash controller handles the interaction of the cash payment screen
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.1
+ */
 public class PaymentMethodsCashController implements Initializable {
 
     @FXML
@@ -31,17 +37,38 @@ public class PaymentMethodsCashController implements Initializable {
     private BigDecimal change;
     private Sprite sprite;
 
+    /**
+     * This method gets called after all the constructors have
+     * done their work to prepare the ui before displaying it.
+     * In here we change the theme to default one (Which is light
+     *
+     * @param location
+     * @param resources
+     * @since 1.0.0
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
         sprite = new Sprite(imageView, mc.getSpriteSheets().getSpriteSettings(Sprites.COINS_IN));
     }
 
+    /**
+     * Go back to the previous scene
+     *
+     * @since 1.0.0
+     */
     @FXML
     public void back() {
         mc.sceneManager.goBack();
     }
 
+    /**
+     * This method prepares the ui before showing, resenting the sprite,
+     * clearing the textfield, etc.
+     * This is called every time the scene manager switches to this scene.
+     *
+     * @since 1.0.1
+     */
     public void setup() {
         t = mc.ticket;
         sprite.replay();
@@ -54,7 +81,13 @@ public class PaymentMethodsCashController implements Initializable {
         updateUI();
     }
 
-    public void pay() {
+    /**
+     * Method that calculates the amounts and updates the screen
+     *
+     * @since 1.0.1
+     */
+    @FXML
+    void pay() {
         BigDecimal amount;
         try {
             amount = new BigDecimal(inputAmount.getText());
@@ -77,21 +110,37 @@ public class PaymentMethodsCashController implements Initializable {
         updateUI();
     }
 
+    /**
+     * Update the ui text
+     *
+     * @since 1.0.1
+     */
     private void updateUI() {
         setAmoundDue("£" + due);
         setPaidAmount("£" + paid);
     }
 
+    /**
+     * Animate the amount due label and update its text
+     *
+     * @param amount the amount to update the label with
+     * @since 1.0.1
+     */
     private void setAmoundDue(String amount) {
         price_due.setText(amount);
         Animator.nodeFade(price_due, true);
     }
 
+    /**
+     * Animate the paid amount label and update its text
+     *
+     * @param amount the amount to update the label with
+     * @since 1.0.1
+     */
     private void setPaidAmount(String amount) {
         price_paid.setText(amount);
         Animator.nodeFade(price_paid, true);
     }
-
 
 
 }
