@@ -24,6 +24,7 @@ public class FinishController implements Initializable {
     private Logger logger;
     private MainViewController mc;
     Sprite sprite;
+    Ticket ticket;
     Thread t;
 
     public FinishController() {
@@ -45,18 +46,18 @@ public class FinishController implements Initializable {
         startFinishedChangeDelay();
         setMessage("Thank you for visiting us! Have a safe journey!");
         animateImageShow();
-        Ticket t = mc.ticket;
+         ticket= mc.ticket;
         setAditionalMessage("");
-        if (t != null) {
-            if (t.isPaidOnReceived()) {
-                setAditionalMessage("Your " + (t.isReceivedFromSmartcard() ? "smart card session" : "ticket") + " is already paid!");
-            } else if (t.isPaid()) {
-                if (t.getChange().compareTo(BigDecimal.ZERO) > 0) {
-                    setAditionalMessage("Make sure to take your change of £" + t.getChange() + ".");
+        if (ticket != null) {
+            if (ticket.isPaidOnReceived()) {
+                setAditionalMessage("Your " + (ticket.isReceivedFromSmartcard() ? "smart card session" : "ticket") + " is already paid!");
+            } else if (ticket.isPaid()) {
+                if (ticket.getChange().compareTo(BigDecimal.ZERO) > 0) {
+                    setAditionalMessage("Make sure to take your change of £" + ticket.getChange() + ".");
                 }
-                mc.emitTicketPaid();
-            } else if (t.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
-                setAditionalMessage("Don't forget to take the amount you inserted of £" + t.getAmountInTicketMachine() + ".");
+                emitTicketPaid();
+            } else if (ticket.getAmountInTicketMachine().compareTo(BigDecimal.ZERO) > 0) {
+                setAditionalMessage("Don't forget to take the amount you inserted of £" + ticket.getAmountInTicketMachine() + ".");
             }
 
         }
@@ -102,4 +103,8 @@ public class FinishController implements Initializable {
         Animator.nodeFade(infoText, true);
     }
 
+    void emitTicketPaid() {
+        Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
+        mc.getSocket().emit("ticket-paid", params);
+    }
 }

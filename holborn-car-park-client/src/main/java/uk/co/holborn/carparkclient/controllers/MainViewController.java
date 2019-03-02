@@ -251,9 +251,5 @@ public class MainViewController implements Initializable {
         }
     }
 
-    void emitTicketPaid() {
-        Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
-        socket.emit("ticket-paid", params);
-    }
 
 }
