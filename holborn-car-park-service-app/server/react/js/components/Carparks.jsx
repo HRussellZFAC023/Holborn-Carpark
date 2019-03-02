@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 
+/**
+ * Component used to display all existing car parks and functions related to them
+ */
 class Carparks extends Component {
 
 
