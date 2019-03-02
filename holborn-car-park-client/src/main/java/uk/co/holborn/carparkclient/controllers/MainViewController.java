@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+
 /**
  * The main view controller is the most important controller of them all.
  * It controls everything from the {@link SceneManager} to the {@link Socket} connections
@@ -85,8 +86,10 @@ public class MainViewController implements Initializable {
      * This method gets called after all the constructors have
      * done their work to prepare the ui before displaying it.
      * In here we change the theme to default one (Which is light
+     *
      * @param location
      * @param resources
+     * @since 1.0.0
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -101,13 +104,15 @@ public class MainViewController implements Initializable {
 
     /**
      * Prepare all the socket events
+     *
+     * @since 1.0.1
      */
     private void socketPreparation() {
         socket.on(Socket.EVENT_CONNECT, args_cn -> {
             logger.info("Connected to the web server. Authorising...");
             popup.show("Connected! Authorising...");
             disconnectedUI(true);
-            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID,GlobalVariables.CAR_PARK_NAME, (Ack) objects -> {
+            socket.emit("authorisation", GlobalVariables.CAR_PARK_ID, GlobalVariables.CAR_PARK_NAME, (Ack) objects -> {
                 if (objects[0].equals(200)) {
                     popup.show("Authorised", false);
                     popup.removePopUp();
@@ -149,7 +154,9 @@ public class MainViewController implements Initializable {
 
     /**
      * Method that gives the instance of this class
+     *
      * @return the class instance
+     * @since 1.0.1
      */
     public static MainViewController getInstance() {
         return instance;
@@ -157,7 +164,9 @@ public class MainViewController implements Initializable {
 
     /**
      * Method that returns the current socket connection
+     *
      * @return the current socket
+     * @since 1.0.1
      */
     public Socket getSocket() {
         return socket;
@@ -165,12 +174,20 @@ public class MainViewController implements Initializable {
 
     /**
      * Method that returns the sprite sheets
+     *
      * @return sprite sheets
+     * @since 1.0.5
      */
     public SpriteSheets getSpriteSheets() {
         return spriteSheets;
     }
 
+    /**
+     * Set the ui in a disabled state, unable to interact with
+     *
+     * @param enabled whether or not to activate this state
+     * @since 1.0.1
+     */
     private void disconnectedUI(boolean enabled) {
         sceneAnchor.setDisable(enabled);
     }
@@ -178,6 +195,8 @@ public class MainViewController implements Initializable {
     /**
      * This method starts a thread that changes the scene to the landing page when
      * no interaction with the ui happened for a defined time
+     *
+     * @since 1.0.3
      */
     void startSession() {
         sessionStartTime = System.currentTimeMillis();
@@ -216,6 +235,8 @@ public class MainViewController implements Initializable {
     /**
      * Thread that updates the date and time,
      * also switches the themes if auto nightime is turned on
+     *
+     * @since 1.0.1
      */
     private void updater() {
 //        activate to see fps
@@ -270,6 +291,8 @@ public class MainViewController implements Initializable {
 
     /**
      * Method for the switch themes button that switches ... the themes (self explanatory)
+     *
+     * @since 1.0.4
      */
     @FXML
     void switchTheme() {
@@ -283,6 +306,8 @@ public class MainViewController implements Initializable {
 
     /**
      * Method that updates the switch themes button from the current theme
+     *
+     * @since 1.0.4
      */
     private void updateThemeButton() {
         if (ThemeProvider.getInstance().getCurrentTheme() == Themes.DARK) {
