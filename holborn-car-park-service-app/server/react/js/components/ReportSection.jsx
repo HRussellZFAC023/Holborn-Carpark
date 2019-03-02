@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-
+/**
+ * Component used to render the report into a dedicated section that is then printable
+ */
 class ReportSection extends Component {
     constructor(props) {
         super(props);
@@ -16,9 +18,22 @@ class ReportSection extends Component {
         };
 
         this.day = 24 * 60 * 60 * 1000;
+
+
+        /**
+         * Used to set the scrolling viewport of the printable report
+         * @type {number}
+         */
         this.visibleHeight = window.innerHeight - document.getElementById('nav-bar').scrollHeight - document.getElementById('report-settings').scrollHeight - 50;
 
+
         this.graphSlots = [];
+        /**
+         * Function that creates the array with all labels for the graph
+         * @param start_d
+         * @param end_d
+         * @returns {Array}
+         */
         this.populateDays = (start_d, end_d) => {
             this.graphSlots = [];
             let all = [];
@@ -62,6 +77,10 @@ class ReportSection extends Component {
             return all;
         };
 
+        /**
+         * Function that calculates and allocates the ticket numbers in the labelled slots on the graph
+         * @returns {any[]}
+         */
         this.ticketsPerWeek = () => {
             let all = new Array (10).fill(0);
 
@@ -77,6 +96,11 @@ class ReportSection extends Component {
             return all;
         };
 
+        /**
+         * Function that returns a nice human readable date
+         * @param date
+         * @returns {string}
+         */
         this.formatDate = (date) => {
             let monthNames = [
                 "January", "February", "March",
@@ -93,6 +117,12 @@ class ReportSection extends Component {
         }
     };
 
+    /**
+     * React function that re-renders the report only if a redraw has been specified from the parent component
+     * @param props
+     * @param state
+     * @returns {*}
+     */
     static getDerivedStateFromProps(props, state) {
         if(props.redraw === true){
             return {
@@ -108,8 +138,11 @@ class ReportSection extends Component {
     }
 
     render(){
+        /**
+         * This loop calculates the total revenue from tickets that have been payed.
+         * Note that tickets that are still in the car park and therefore unpaid are disregarded
+         */
         let drevenue = 0;
-
         for(let i = 0; i < this.state.tickets.length; ++i){
             if(this.state.tickets[i].amount_paid) {
                 drevenue += this.state.tickets[i].amount_paid;
