@@ -21,21 +21,21 @@ class DynamicContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            scene:          'Dashboard',
+            scene:          window.localStorage.getItem('scene') ? window.localStorage.getItem('scene') : 'Dashboard',
             showSettings:   false,
             username:       null
         };
+
         this.setScene = (nScene) => {
             this.setState({ scene: nScene })
         };
+
         this.togglePopup = () => {
             this.setState({
                 showSettings: !this.state.showSettings
             });
-        }
-
+        };
     }
-
 
     /**
      * When the component mounts the ajax request gets the username of the currently logged in user
@@ -63,18 +63,25 @@ class DynamicContent extends React.Component {
     getScene() {
         switch (this.state.scene) {
             case "Dashboard":
+                window.localStorage.setItem("scene", "Dashboard");
                 return <Dash username={this.state.username}/>;
             case "Settings":
+                window.localStorage.setItem("scene", "Settings");
                 return <Settings />;
             case "Report":
+                window.localStorage.setItem("scene", "Report");
                 return <Report username={this.state.username}/>;
             case "CarPark":
+                window.localStorage.setItem("scene", "CarPark");
                 return <Carparks />;
             case "Tickets":
+                window.localStorage.setItem("scene", "Tickets");
                 return <Tickets />;
             case "Staff":
+                window.localStorage.setItem("scene", "Staff");
                 return <Employees />;
             case "Emails":
+                window.localStorage.setItem("scene", "Emails");
                 return <Emails />;
             default:
                 return <Missing404 />

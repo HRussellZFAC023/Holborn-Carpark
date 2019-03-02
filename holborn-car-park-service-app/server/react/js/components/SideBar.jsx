@@ -6,7 +6,7 @@ import React, {Component} from 'react'
 class SideBar extends Component {
     constructor(props) {
         super(props);
-        this.state = {activeTab: 'Dashboard'};
+        this.state = {activeTab: window.localStorage.getItem('scene') ? window.localStorage.getItem('scene') : 'Dashboard'};
     }
 
     render() {
