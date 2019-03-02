@@ -33,6 +33,7 @@ public class MainWindow extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
+        primaryStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/client_icon.png"))) ;
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         scene = new Scene(root, 1280, 768);
