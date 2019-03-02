@@ -18,22 +18,28 @@ import uk.co.holborn.carparkclient.controllers.MainViewController;
  */
 public class MainWindow extends Application {
     Logger log;
-   Scene scene;
+    Scene scene;
 
+    /**
+     * The start methods prepares the UI to be shown
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         log = LogManager.getLogger(getClass().getName());
         log.info("-----------Application start------------");
         Thread.currentThread().setUncaughtExceptionHandler((thread, throwable) -> {
             log.trace("Handler caught exception: ");
-            for(int i = 0; i< throwable.getStackTrace().length; i++){
+            for (int i = 0; i < throwable.getStackTrace().length; i++) {
                 log.error(throwable.getStackTrace()[i]);
             }
         });
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
-        primaryStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/client_icon.png"))) ;
+        primaryStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/client_icon.png")));
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
         scene = new Scene(root, 1280, 768);
@@ -44,6 +50,11 @@ public class MainWindow extends Application {
         primaryStage.show();
     }
 
+    /**
+     * This method gets called when the application stops
+     *
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         MainViewController mc = MainViewController.getInstance();
@@ -52,6 +63,11 @@ public class MainWindow extends Application {
         mc.getSocket().close();
     }
 
+    /**
+     * Launching the app
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
