@@ -14,30 +14,33 @@ class SideBar extends Component {
                 </p>
                 <ul className="menu-list">
                     <li><a onClick={() => this.__setScene("Dashboard")}
-                           className={(this.state.activeTab === "Dashboard") ? "is-active" : ""}><i
-                        className="fas fa-home"/> Dashboard</a></li>
+                           className={(this.state.activeTab === "Dashboard") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-home"/>  </span>Dashboard</a></li>
                     <li><a onClick={() => this.__setScene("Report")}
-                           className={(this.state.activeTab === "Report") ? "is-active" : ""}>
-                        <i className="fas fa-file-contract"/> Report</a></li>
+                           className={(this.state.activeTab === "Report") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-file-contract"/> </span>Report</a></li>
+                    <li><a onClick={() => this.__setScene("Emails")}
+                           className={(this.state.activeTab === "Emails") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-envelope"/> </span>Report Emails</a></li>
                 </ul>
                 <p className="menu-label">
                     Status update
                 </p>
                 <ul className="menu-list">
                     <li><a onClick={() => this.__setScene("CarPark")}
-                           className={(this.state.activeTab === "CarPark") ? "is-active" : ""}>
-                        <i className="fas fa-car"/> Car Parks</a></li>
+                           className={(this.state.activeTab === "CarPark") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-car"/> </span>Car Parks</a></li>
                     <li><a onClick={() => this.__setScene("Tickets")}
-                           className={(this.state.activeTab === "Tickets") ? "is-active" : ""}>
-                        <i className="fas fa-ticket-alt"/>Tickets</a></li>
+                           className={(this.state.activeTab === "Tickets") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-ticket-alt"/></span>Tickets</a></li>
                 </ul>
                 <p className="menu-label">
                     Admin Controls
                 </p>
                 <ul className="menu-list">
                     <li><a onClick={() => this.__setScene("Staff")}
-                           className={(this.state.activeTab === "Staff") ? "is-active" : ""}>
-                        <i className="fas fa-business-time"/> Employees</a></li>
+                           className={(this.state.activeTab === "Staff") ? "is-active" : ""}><span className="icon">
+                        <i className="fas fa-business-time"/> </span>Employees</a></li>
                 </ul>
             </aside>
         )
