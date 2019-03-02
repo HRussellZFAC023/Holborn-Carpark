@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+/**
+ * Component used to display all existing users and functions related to them
+ */
 class Employees extends Component {
     constructor(props) {
         super(props);
