@@ -141,8 +141,8 @@ class Emails extends Component {
                         </div>
 
                         <div className="column is-2 has-text-centered">
-                                <button onClick={this.updatePref} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info">Update</button>
-                            <button onClick={this.previewEmail} className="button is-fullwidth is-large is-info">Preview</button>
+                                <button onClick={this.updatePref} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Update</button>
+                            <button onClick={this.previewEmail} className="button is-fullwidth is-large is-info gradient">Preview</button>
                         </div>
                     </div>
                 </section>
