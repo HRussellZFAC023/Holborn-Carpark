@@ -4,7 +4,7 @@
   <groupId>uk.co.holborn.carparkclient</groupId>
   <artifactId>holborn-car-park-client</artifactId>
   <name>Holborn Car Park Client</name>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <organization>
     <name>Holborn Car Park Services</name>
   </organization>
