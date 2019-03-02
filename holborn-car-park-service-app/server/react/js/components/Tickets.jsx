@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 
+/**
+ * Component used to display all existing tickets  and functions related to them
+ */
 class Tickets extends Component {
 
     render() {
