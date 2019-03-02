@@ -122,15 +122,11 @@ class Report extends Component {
          * Function to print the report by first converting the html to SVG then the SVG to PNG and finally the PNG to PDF
          */
         this.printReport = () => {
-            const input = document.getElementById('to-print');
-            html2canvas(input)
+            html2canvas(document.querySelector('#to-print'), {scale: 1})
                 .then((canvas) => {
                     const imgData = canvas.toDataURL('image/png');
-                    const pdf = new jsPDF({
-                        unit: 'in',
-                        format: [2000, 1020]
-                    });
-                    pdf.addImage(imgData, 'JPEG', 0, 0);
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    pdf.addImage(imgData, 'PNG', 0, 0, 211, 298);
                     // pdf.output('dataurlnewwindow');
                     pdf.save("download.pdf");
                 });
