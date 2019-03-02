@@ -52,7 +52,7 @@ public class MainViewController implements Initializable {
     public Ticket ticket;
     String hourly_price;
     String parking_spaces;
-    String happy_hour_time;
+    String happy_hour;
     private final Logger logger;
     public boolean happyHour = false;
     private Long sessionStartTime;
@@ -68,7 +68,7 @@ public class MainViewController implements Initializable {
     public MainViewController() {
         hourly_price = "";
         parking_spaces = "";
-        happy_hour_time = "";
+        happy_hour = "";
         GlobalVariables globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {

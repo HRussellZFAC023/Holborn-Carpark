@@ -64,8 +64,8 @@ public class LandingPageController implements Initializable {
         else parking_spaces.setText(mc.parking_spaces);
         if (mc.hourly_price.isEmpty()) updateTextPrice(fetching);
         else price.setText(mc.hourly_price);
-        if (mc.happy_hour_time.isEmpty()) updateHappyHour(fetching);
-        else happy_hour.setText(mc.happy_hour_time);
+        if (mc.happy_hour.isEmpty()) updateHappyHour(fetching);
+        else happy_hour.setText(mc.happy_hour);
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
         socket.on("update-carpark-details", objects -> socket.emit("fetch-carpark-details", (Ack) this::update));
@@ -80,7 +80,7 @@ public class LandingPageController implements Initializable {
     private void update(Object[] objects) {
         updateTextParkingSpaces(objects[0] + "");
         updateTextPrice("£" + objects[1]);
-        updateHappyHour(((boolean) objects[2] ? "Now" : "Unavailable"));
+        updateHappyHour(((objects[2]).equals(true) ? "Now" : "Unavailable"));
 
     }
 
@@ -119,8 +119,8 @@ public class LandingPageController implements Initializable {
      * @since 1.0.2
      */
     private void updateHappyHour(String message) {
-        if (!mc.happy_hour_time.equals(message)) {
-            mc.happy_hour_time = message;
+        if (!mc.happy_hour.equals(message)) {
+            mc.happy_hour = message;
             Platform.runLater(() -> happy_hour.setText(message));
             Animator.nodeFade(happy_hour, true);
         }
