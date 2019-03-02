@@ -26,14 +26,14 @@ class Dash extends Component {
     render() {
         return (
             <main>
-                <section className="hero is-small is-info gradient2">
+                <section className="hero is-small is-info gradient">
                     <div className="hero-body">
                         <div className="container">
                             <h1 className="title">
                                 Welcome, {this.state.username}
                             </h1>
                             <h2 className="subtitle">
-                                Here is the current dashboard:
+                                Here is the current dashboard
                             </h2>
                         </div>
                     </div>
