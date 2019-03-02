@@ -11,8 +11,6 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.util.Duration;
 
-import java.util.List;
-
 /**
  * Animator class implements all the animations used during runtime
  *
@@ -221,9 +219,10 @@ public class Animator {
         );
     }
 
-    public static void nodePopIn(Node node, double startframe){
+    public static void nodePopIn(Node node, double startframe) {
         nodePopIn(node, 0.2, null);
     }
+
     public static void nodePopIn(Node node, double startframe, EventHandler<ActionEvent> eventHandler) {
         Timeline timeline = new Timeline();
         node.setOpacity(0);
@@ -245,34 +244,5 @@ public class Animator {
         timeline.play();
     }
 
-    public static void nodeTranslateY(Node node, double startY, double endY, double startFrame, double endAfter) {
-        Timeline timeline = new Timeline();
-        node.setTranslateY(startY);
-        timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(startFrame), new KeyValue(node.translateYProperty(), startY, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(startFrame + endAfter), new KeyValue(node.translateYProperty(), endY, Interpolator.EASE_IN))
-        );
-        timeline.play();
-    }
 
-    public static void nodeOpacityChange(Node node, double startOp, double endOP, double startFrame, double endAfter) {
-        Timeline timeline = new Timeline();
-        node.setOpacity(startOp);
-        timeline.getKeyFrames().addAll(
-                new KeyFrame(Duration.seconds(startFrame), new KeyValue(node.opacityProperty(), startOp, Interpolator.EASE_IN)),
-                new KeyFrame(Duration.seconds(startFrame + endAfter), new KeyValue(node.opacityProperty(), endOP, Interpolator.EASE_IN))
-        );
-        timeline.play();
-    }
-
-    public static void animation_ticket_check(List<Node> nodes) {
-        nodes.get(0).setOpacity(0);
-        nodes.get(1).setOpacity(0);
-        nodes.get(1).setTranslateY(40);
-        nodes.get(2).setOpacity(0);
-        nodePopIn(nodes.get(0), 0.5);
-        nodePopIn(nodes.get(1), 0.9);
-        nodeOpacityChange(nodes.get(2), 0, 1, 0.9, 0.4);
-        nodeTranslateY(nodes.get(1), 40, 0, 1.4, 0.9);
-    }
 }
