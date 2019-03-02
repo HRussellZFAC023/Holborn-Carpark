@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Time from './Clock'
+import Notify from'./Notify'
 
 class Dash extends Component {
     constructor(props) {
@@ -64,6 +65,20 @@ class Dash extends Component {
                         </div>
                     </article>
                 </section>
+                <div className="columns">
+                    <section className="column panel">
+                        <p className="panel-heading">Customers</p>
+                        <div className="panel-block">
+                            <button className="button is-default is-outlined is-fullwidth">View Data</button>
+                        </div>
+                    </section>
+                    <section className="column panel">
+                        <p className="panel-heading">Notifications</p>
+                        <div className="panel-block">
+                            <Notify message="No new notifications" />
+                        </div>
+                    </section>
+                </div>
             </main>
         )
     }
