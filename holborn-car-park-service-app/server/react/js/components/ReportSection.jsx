@@ -24,7 +24,11 @@ class ReportSection extends Component {
          * Used to set the scrolling viewport of the printable report
          * @type {number}
          */
-        this.visibleHeight = window.innerHeight - document.getElementById('nav-bar').scrollHeight - document.getElementById('report-settings').scrollHeight - 50;
+        this.visibleHeight = window.innerHeight
+            - document.getElementById('nav-bar').scrollHeight
+            - document.getElementById('report-settings').scrollHeight
+            - document.getElementById('report-title').scrollHeight
+            - 50;
 
 
         this.graphSlots = [];

@@ -159,7 +159,7 @@ class Report extends Component {
     render() {
         return (
             <main>
-                <section className="hero is-small is-info gradient">
+                <section id="report-title" className="hero is-small is-info gradient">
                     <div className="hero-body">
                         <div className="container">
                             <h1 className="title">
