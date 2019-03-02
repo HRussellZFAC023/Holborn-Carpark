@@ -14,7 +14,9 @@ import Emails       from './js/components/Emails'
 
 const $ = require('jquery');
 
-
+/**
+ * Main component which includes all other components and defines functions to switch between scenes
+ */
 class DynamicContent extends React.Component {
     constructor(props) {
         super(props);
@@ -35,6 +37,10 @@ class DynamicContent extends React.Component {
     }
 
 
+    /**
+     * When the component mounts the ajax request gets the username of the currently logged in user
+     * Since this components only gets mounted once it ensures that the name is not queried on every re-render
+     */
     componentDidMount () {
         $.ajax({
             url: '/utility/name',
@@ -50,6 +56,10 @@ class DynamicContent extends React.Component {
         });
     }
 
+    /**
+     * Function that switches between the different scenes
+     * @returns {*}
+     */
     getScene() {
         switch (this.state.scene) {
             case "Dashboard":
@@ -63,9 +73,9 @@ class DynamicContent extends React.Component {
             case "Tickets":
                 return <Tickets />;
             case "Staff":
-                return <Employees />
+                return <Employees />;
             case "Emails":
-                return <Emails />
+                return <Emails />;
             default:
                 return <Missing404 />
         }
