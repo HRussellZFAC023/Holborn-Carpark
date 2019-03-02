@@ -20,6 +20,14 @@ import uk.co.holborn.carparkclient.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The check controller handles the interactions of the checking UI.
+ * Instead of creating two FXML UI's and controllers,
+ * I've reworked the controller to support  both modes.
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.2
+ */
 public class CheckController implements Initializable {
 
     String VALID_MESSAGE;
@@ -50,6 +58,12 @@ public class CheckController implements Initializable {
     Sprite sprite;
     private boolean isTicketFromSmartCard;
 
+    /**
+     * The constructor initialises the logger and gets the necessary
+     * variables from the main view controller
+     *
+     * @since 1.0.0
+     */
     public CheckController() {
         logger = LogManager.getLogger(getClass().getName());
         mc = MainViewController.getInstance();
@@ -58,6 +72,14 @@ public class CheckController implements Initializable {
     }
 
 
+    /**
+     * This method gets called after all the constructors have
+     * done their work to prepare the ui before displaying it.
+     *
+     * @param location
+     * @param resources
+     * @since 1.0.0
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sprite = new Sprite(ticket_image, mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
@@ -90,7 +112,7 @@ public class CheckController implements Initializable {
                                 mc.ticket.setPaidOnReceived(true);
                                 mc.sceneManager.changeTo(Scenes.FINISH);
                             }
-                        }else{
+                        } else {
                             setInvalidUI(INVALID_MESSAGE);
                         }
                     } else {
@@ -102,6 +124,13 @@ public class CheckController implements Initializable {
 
     }
 
+    /**
+     * This method prepares the ui before showing, resenting the sprite,
+     * clearing the textfield, etc.
+     * This is called every time the scene manager switches to this scene.
+     *
+     * @since 1.0.1
+     */
     private void setup() {
         resetAnimPoses();
         validationUI(false);
@@ -111,12 +140,11 @@ public class CheckController implements Initializable {
         animateImageShow();
     }
 
-    private void setInvalidUI(String text) {
-        animateImageValidate(false);
-        setMessage(text);
-        Platform.runLater(() -> backButton.setVisible(true));
-    }
-
+    /**
+     * Prepares the check mode for  tickets
+     *
+     * @since 1.0.2
+     */
     public void setTicketMode() {
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
         INFO = "Please insert your ticket";
@@ -128,6 +156,11 @@ public class CheckController implements Initializable {
         setup();
     }
 
+    /**
+     * Prepares the check mode for smart cards
+     *
+     * @since 1.0.2
+     */
     public void setSmartcardMode() {
         sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.SMARTCARD_CHECK));
         INFO = "Please bring your smart card near the reader";
@@ -139,16 +172,23 @@ public class CheckController implements Initializable {
         setup();
     }
 
-    @FXML
-    private void goToPayment() {
-        mc.sceneManager.changeTo(Scenes.TICKET_CHECK);
-    }
 
+    /**
+     * Go back to the previous scene
+     *
+     * @since 1.0.0
+     */
     @FXML
     private void back() {
         mc.sceneManager.goBack();
     }
 
+    /**
+     * Set the validation ui, displaying the text field and back button
+     *
+     * @param show if to show the ui or not
+     * @since 1.0.1
+     */
     private void validationUI(boolean show) {
         backButton.setVisible(!show);
         checkTicketField.setDisable(show);
@@ -157,17 +197,45 @@ public class CheckController implements Initializable {
         } else Animator.nodePopIn(checkTicketField, 0.2);
     }
 
+    /**
+     * Set the invalid UI, displaying a message
+     * and displaying the red X image
+     *
+     * @param text the message to be shown
+     * @since 1.0.1
+     */
+    private void setInvalidUI(String text) {
+        animateImageValidate(false);
+        setMessage(text);
+        Platform.runLater(() -> backButton.setVisible(true));
+    }
+
+    /**
+     * Animate the image, giving it a pop effect
+     *
+     * @since 1.0.1
+     */
     private void animateImageShow() {
         Animator.nodePopIn(ticket_image, 0.6, e -> {
             sprite.replay();
         });
     }
 
+    /**
+     * Animate hiding the sprite
+     *
+     * @since 1.0.1
+     */
     private void animateTicketUIHide() {
         sprite.pause();
         Animator.nodePushOut(ticket_image);
     }
 
+    /**
+     * Reset animations poses
+     *
+     * @since 1.0.1
+     */
     private void resetAnimPoses() {
         sprite.resetView();
         ticket_image_validated.setOpacity(0);
@@ -176,11 +244,24 @@ public class CheckController implements Initializable {
         ticket_image_validated.setScaleY(0);
     }
 
+    /**
+     * Animate image validation image (pop in and displaying either the red X or green check mark image)
+     *
+     * @param valid
+     * @since 1.0.1
+     */
     private void animateImageValidate(boolean valid) {
         ticket_image_validated.setImage(new Image(valid ? "/img/checkmark.png" : "/img/x mark.png"));
         Animator.nodePopIn(ticket_image_validated);
     }
 
+    /**
+     * This method prepares the ui before showing, resenting the sprite,
+     * clearing the textfield, etc.
+     * This is called every time the scene manager switches to this scene.
+     *
+     * @since 1.0.1
+     */
     private void setMessage(String message) {
         Platform.runLater(() -> {
             infoText.setText(message);
