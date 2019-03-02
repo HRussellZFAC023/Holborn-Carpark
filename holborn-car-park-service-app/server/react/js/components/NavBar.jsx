@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 
+/**
+ * Component used to display the nav bar which contains the company logo and user dropdown menu
+ */
 class NavBar extends Component {
     
     render() {
