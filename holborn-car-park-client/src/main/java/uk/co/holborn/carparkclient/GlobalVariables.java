@@ -4,16 +4,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 
 /**
- * Class that provides all the global variables used during runtime loaded from a configuration file
+ * Class that provides all the global variables used
+ * during runtime loaded from a configuration file
  *
  * @author Vlad Alboiu
- * @version 1.0
+ * @version 1.0.1
  */
 public class GlobalVariables {
     private Logger logger = LogManager.getLogger(getClass().getName());
@@ -31,7 +29,6 @@ public class GlobalVariables {
     public static boolean AUTO_NIGHT_TIME = true;
     public static int NIGHT_TIME_START = 19;
     public static int NIGHT_TIME_END = 7;
-    public static boolean DEBUG_MODE = false;
 
     String configName = "config.xml";
     Properties appProp;
@@ -39,7 +36,7 @@ public class GlobalVariables {
     private InputStream input = null;
 
     /**
-     * Constructor
+     * Constructor loads the file
      */
     public GlobalVariables() {
         loadFile();
@@ -94,9 +91,6 @@ public class GlobalVariables {
                 NIGHT_TIME_START = Integer.parseInt(checkNullOrEmptyProperty("night_time_start"));
                 NIGHT_TIME_END = Integer.parseInt(checkNullOrEmptyProperty("night_time_end"));
             }
-            if (appProp.getProperty("debug_mode") != null) {
-                DEBUG_MODE =Boolean.parseBoolean(appProp.getProperty("debug_mode"));
-            }
             logger.info("Loaded configuration file");
         } catch (IOException ex) {
             logger.error(ex.getMessage());
@@ -122,6 +116,11 @@ public class GlobalVariables {
         }
     }
 
+    /**
+     * Method that checks if the property is null or not
+     * @param property the property to be checked
+     * @return true or false
+     */
     private String checkNullProperty(String property) {
         String s = appProp.getProperty(property);
         if (s == null) {
@@ -134,7 +133,11 @@ public class GlobalVariables {
         }
         return s;
     }
-
+    /**
+     * Method that checks if the property is null or empty
+     * @param property the property to be checked
+     * @return true or false
+     */
     private String checkNullOrEmptyProperty(String property) {
         String s = checkNullProperty(property);
         if (s.isEmpty()) {
@@ -148,14 +151,4 @@ public class GlobalVariables {
         return s;
     }
 
-    private Date convertToHours(String time) {
-        DateFormat sdf = new SimpleDateFormat("HH:mm");
-        try {
-            return sdf.parse(time);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            System.exit(-1);
-        }
-        return null;
-    }
 }
