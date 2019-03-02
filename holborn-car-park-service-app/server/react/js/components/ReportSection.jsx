@@ -108,13 +108,15 @@ class ReportSection extends Component {
     }
 
     render(){
-        let revenue = 0;
+        let drevenue = 0;
 
         for(let i = 0; i < this.state.tickets.length; ++i){
             if(this.state.tickets[i].amount_paid) {
-                revenue += this.state.tickets[i].amount_paid;
+                drevenue += this.state.tickets[i].amount_paid;
             }
         }
+
+        let revenue = drevenue.toFixed(2);
 
         return (
             <Scrollbars
