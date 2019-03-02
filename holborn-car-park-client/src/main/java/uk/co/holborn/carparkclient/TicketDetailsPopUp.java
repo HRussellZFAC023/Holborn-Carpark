@@ -10,6 +10,12 @@ import java.io.IOException;
 
 import static javafx.scene.layout.AnchorPane.*;
 
+/**
+ * Class that implements a easy way to display ticket informations on screen
+ *
+ * @author Vlad Alboiu
+ * @version 1.0
+ */
 public class TicketDetailsPopUp {
     private AnchorPane blurrAnchor;
     private AnchorPane mainAnchor;
@@ -18,6 +24,12 @@ public class TicketDetailsPopUp {
     private boolean alreadyOn;
     private boolean debug_mode = false;
 
+    /**
+     * The constructor takes two parameters
+     *
+     * @param mainAnchor  the anchor for the ticket detail pane to be a child of
+     * @param blurrAnchor the anchor that will get blurred on show
+     */
     public TicketDetailsPopUp(AnchorPane mainAnchor, AnchorPane blurrAnchor) {
         this.mainAnchor = mainAnchor;
         this.blurrAnchor = blurrAnchor;
@@ -40,12 +52,20 @@ public class TicketDetailsPopUp {
         blurrAnchor.setCacheHint(CacheHint.SPEED);
     }
 
+    /**
+     * Removes the pane from the screen
+     */
     public void remove() {
         blurrAnchor.setEffect(null);
         alreadyOn = false;
         if (mainAnchor.getChildren().size() > 1) mainAnchor.getChildren().remove(1);
     }
 
+    /**
+     * Displays the ticket details popup for a specific ticket
+     *
+     * @param ticket the ticket for which the information will be displayed
+     */
     public void show(Ticket ticket) {
         if (!debug_mode)
             if (!alreadyOn) {
