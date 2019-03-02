@@ -21,9 +21,9 @@ import static javafx.scene.layout.AnchorPane.*;
  * @see Scenes
  */
 public class SceneManager {
-    private Logger logger;
-    private AnchorPane scenePane;
-    private Stack<Scenes> sceneStack;
+    private final Logger logger;
+    private final AnchorPane scenePane;
+    private final Stack<Scenes> sceneStack;
     private Scenes currentScene;
     private AnchorPane sc;
     private boolean animationFinished;

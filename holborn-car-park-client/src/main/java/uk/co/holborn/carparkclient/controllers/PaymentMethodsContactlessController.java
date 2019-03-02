@@ -24,25 +24,32 @@ import java.util.ResourceBundle;
  */
 public class PaymentMethodsContactlessController implements Initializable {
     @FXML
+    private
     Label price;
     @FXML
+    private
     Label amountText;
     @FXML
+    private
     ImageView imageView;
     @FXML
+    private
     Label infoText;
     @FXML
+    private
     VBox toggleVbox;
     @FXML
+    private
     ImageView imageValidate;
     @FXML
+    private
     Button backButton;
-    ToggleGroup toggleGroup;
+    private ToggleGroup toggleGroup;
 
     private MainViewController mc;
     private Sprite sprite;
     private boolean firstTime;
-    Thread transactionThread;
+    private Thread transactionThread;
 
     /**
      * This method gets called after all the constructors have
@@ -85,9 +92,7 @@ public class PaymentMethodsContactlessController implements Initializable {
         }
         if (firstTime) {
             firstTime = false;
-            Animator.nodePopIn(imageView, 0.4, e -> {
-                sprite.replay();
-            });
+            Animator.nodePopIn(imageView, 0.4, e -> sprite.replay());
         } else {
             sprite.replay();
             Animator.nodePopIn(imageView, 0.0, e -> {
@@ -162,7 +167,7 @@ public class PaymentMethodsContactlessController implements Initializable {
                     mc.ticket.setPaid(true);
                     mc.sceneManager.changeTo(Scenes.FINISH);
                 }
-            } catch (InterruptedException e) {
+            } catch (InterruptedException ignored) {
 
             }
         });
@@ -221,19 +226,10 @@ public class PaymentMethodsContactlessController implements Initializable {
      */
     private void animateImageValidate(boolean valid) {
         imageValidate.setImage(new Image(valid ? "/img/checkmark.png" : "/img/x mark.png"));
-        imageValidateShow(true);
+        Animator.nodePopIn(imageValidate);
     }
 
-    /**
-     * Show or hide the validation image
-     *
-     * @param show true or false
-     * @since 1.0.0
-     */
-    private void imageValidateShow(boolean show) {
-        if (show) Animator.nodePopIn(imageValidate);
-        else Animator.nodePushOut(imageValidate);
-    }
+
 
     /**
      * This method prepares the ui before showing, resenting the sprite,
@@ -266,9 +262,7 @@ public class PaymentMethodsContactlessController implements Initializable {
      * @since 1.0.0
      */
     private void setMessage(String message) {
-        Platform.runLater(() -> {
-            infoText.setText(message);
-        });
+        Platform.runLater(() -> infoText.setText(message));
         Animator.nodeFade(infoText, true);
     }
 

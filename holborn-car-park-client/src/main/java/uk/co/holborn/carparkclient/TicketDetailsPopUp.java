@@ -17,12 +17,11 @@ import static javafx.scene.layout.AnchorPane.*;
  * @version 1.0
  */
 public class TicketDetailsPopUp {
-    private AnchorPane blurrAnchor;
-    private AnchorPane mainAnchor;
+    private final AnchorPane blurrAnchor;
+    private final AnchorPane mainAnchor;
     private AnchorPane root;
     private TicketDetailsPopUpController tc;
     private boolean alreadyOn;
-    private boolean debug_mode = false;
 
     /**
      * The constructor takes two parameters
@@ -67,6 +66,7 @@ public class TicketDetailsPopUp {
      * @param ticket the ticket for which the information will be displayed
      */
     public void show(Ticket ticket) {
+        boolean debug_mode = false;
         if (!debug_mode)
             if (!alreadyOn) {
                 setBottomAnchor(root, 0.0);

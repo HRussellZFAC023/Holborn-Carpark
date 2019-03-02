@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
  * @author Vlad Alboiu
  * @version 1.0.0
  */
+@SuppressWarnings({"ALL", "SameParameterValue"})
 public class SpriteSettings {
     private String path;
     private double scaleToWidth;
@@ -71,7 +72,7 @@ public class SpriteSettings {
      * @param offsetY the offset to shift the image  with in the y axis
      * @param FPS     the speed at which the animation will be ran at
      */
-    SpriteSettings(String path, double scale, int slices, int count, int offsetX, int offsetY, int FPS) {
+    SpriteSettings(String path, double scale, @SuppressWarnings("SameParameterValue") int slices, int count, int offsetX, int offsetY, int FPS) {
         this.path = path;
         this.offsetX = offsetX;
         this.offsetY = offsetY;

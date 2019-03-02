@@ -17,7 +17,7 @@ public enum Themes {
      */
     DARK("/css/dark.css");
 
-    private String stylesheetPath;
+    private final String stylesheetPath;
 
     /**
      * Constructor for a the theme

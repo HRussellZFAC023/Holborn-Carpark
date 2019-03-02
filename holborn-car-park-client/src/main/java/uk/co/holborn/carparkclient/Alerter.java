@@ -16,7 +16,7 @@ import java.util.Optional;
  * @version 1.0
  */
 public class Alerter {
-    private static String OS = System.getProperty("os.name").toLowerCase();
+    private static final String OS = System.getProperty("os.name").toLowerCase();
 
     /**
      * Show a customised alert
@@ -27,7 +27,7 @@ public class Alerter {
      * @param alertType    the type of the alert
      * @param onCloseEvent event triggered once the alert gets closed
      */
-    public static void showAlert(String title, String header, String content, Alert.AlertType alertType, EventHandler<DialogEvent> onCloseEvent) {
+    private static void showAlert(String title, String header, String content, Alert.AlertType alertType, EventHandler<DialogEvent> onCloseEvent) {
         Alert a = getAlert(title, header, content, alertType);
         a.setOnCloseRequest(onCloseEvent);
         a.showAndWait();
@@ -43,7 +43,7 @@ public class Alerter {
      * @param alertType the type of the alert
      * @return the alert
      */
-    public static Alert getAlert(String title, String header, String content, Alert.AlertType alertType) {
+    private static Alert getAlert(String title, String header, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(header);
@@ -85,9 +85,7 @@ public class Alerter {
      * @param content the information displayed
      */
     public static void showUnableToStartAlert(String header, String content) {
-        showAlert("Unable to start", header, content, Alert.AlertType.ERROR, t -> {
-            System.exit(-1);
-        });
+        showAlert("Unable to start", header, content, Alert.AlertType.ERROR, t -> System.exit(-1));
 
     }
 
@@ -97,7 +95,7 @@ public class Alerter {
      * <p>On windows, it opens File Explorer</p>
      * <p>On linux, it opens the default file explorer/p>
      */
-    public static void openRunningDirectory() {
+    private static void openRunningDirectory() {
         File currentJavaJarFile = new File(Alerter.class.getProtectionDomain().getCodeSource().getLocation().getPath());
         String currentJavaJarFilePath = currentJavaJarFile.getAbsolutePath();
         String currentRootDirectoryPath = currentJavaJarFilePath.replace(currentJavaJarFile.getName(), "");
@@ -114,7 +112,7 @@ public class Alerter {
      * Method that says whether or not the current platform is Windows
      * @return true or false
      */
-    public static boolean isWindows() {
+    private static boolean isWindows() {
 
         return (OS.contains("win"));
 
@@ -123,7 +121,7 @@ public class Alerter {
      * Method that says whether or not the current platform is MacOS
      * @return true or false
      */
-    public static boolean isMac() {
+    private static boolean isMac() {
 
         return (OS.contains("mac"));
 
@@ -133,7 +131,7 @@ public class Alerter {
      * Method that says whether or not the current platform is Unix based system
      * @return true or false
      */
-    public static boolean isUnix() {
+    private static boolean isUnix() {
 
         return (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"));
 

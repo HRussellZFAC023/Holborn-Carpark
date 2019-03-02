@@ -58,8 +58,8 @@ public enum Scenes {
     };
 
     Object controller;
-    String fxmlLocation;
-    AnchorPane root;
+    private final String fxmlLocation;
+    private AnchorPane root;
 
     /**
      * The constructor takes as a parameter the location of the FXML file
@@ -100,7 +100,7 @@ public enum Scenes {
      *
      * @return resource URL
      */
-    protected URL getURLResource() {
+    private URL getURLResource() {
         return getClass().getResource(fxmlLocation);
     }
 

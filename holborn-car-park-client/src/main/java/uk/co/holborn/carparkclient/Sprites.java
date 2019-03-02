@@ -14,12 +14,12 @@ public enum Sprites {
     THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25)),
     COINS_IN(new SpriteSettings("/img/sprites/coins_in_sprite.png", 4096, 9, 81, 1, 0, 25));
 
-    private SpriteSettings spriteSettings;
+    private final SpriteSettings spriteSettings;
 
     /**
      * Constructor that assigns SpriteSettings for each Sprite
      *
-     * @param spriteSettings
+     * @param spriteSettings the settings to update the sprite with
      */
     Sprites(SpriteSettings spriteSettings) {
         this.spriteSettings = spriteSettings;

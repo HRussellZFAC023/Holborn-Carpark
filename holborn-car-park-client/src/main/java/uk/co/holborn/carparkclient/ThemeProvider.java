@@ -21,6 +21,7 @@ import javafx.util.Duration;
  * @version 1.0
  * @see Themes
  */
+@SuppressWarnings("ALL")
 public class ThemeProvider {
     private  Scene scene;
     private  Themes currentTheme;

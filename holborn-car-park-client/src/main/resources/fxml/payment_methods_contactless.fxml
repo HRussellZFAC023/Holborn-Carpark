@@ -13,113 +13,125 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-      <GridPane layoutX="-106.0" prefHeight="795.0" prefWidth="1358.0" AnchorPane.bottomAnchor="-27.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<!--suppress XmlHighlighting -->
+<AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane layoutX="-106.0" prefHeight="795.0" prefWidth="1358.0" AnchorPane.bottomAnchor="-27.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="685.0" minWidth="230.81134033203125" prefWidth="495.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1009.8961486816406" minWidth="10.0" prefWidth="717.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="685.0" minWidth="230.81134033203125"
+                               prefWidth="495.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="1009.8961486816406" minWidth="10.0" prefWidth="717.0"/>
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
         </rowConstraints>
-         <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                              <RowConstraints maxHeight="195.08627319335938" minHeight="10.0" prefHeight="69.77748107910156" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="530.9987373352051" minHeight="10.0" prefHeight="520.2225189208984" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                          <children>
-                              <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please insert your ticket" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                                  <font>
-                                      <Font name="Avenir Roman" size="34.0" />
-                                  </font>
-                              </Label>
-                              <ImageView fx:id="imageView" fitHeight="526.0" fitWidth="526.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                  <image>
-                                      <Image url="@../img/validate_ticket_comp/background.png" />
-                                  </image>
-                              </ImageView>
-                        <ImageView fx:id="imageValidate" fitHeight="313.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                           <image>
-                              <Image url="@../img/checkmark.png" />
-                           </image>
-                        </ImageView>
-                          </children>
-                      </GridPane>
-               </children>
-            </AnchorPane>
-            <VBox fx:id="toggleVbox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="462.0" prefWidth="346.0" spacing="10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <children>
-                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="271.0" prefWidth="344.0" styleClass="toggle_card" text="Debit/Credit Card" textAlignment="CENTER" wrapText="true" />
-                  <ToggleButton contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="271.0" prefWidth="344.0" styleClass="toggle_card" text="Debit/Credit Card" textAlignment="CENTER" wrapText="true">
-                     <graphic>
-                        <ImageView fitHeight="140.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/Apple_Pay_Mark_RGB_SMALL.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </ToggleButton>
-               </children>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </VBox>
-         </children>
-         <padding>
-            <Insets bottom="160.0" left="40.0" />
-         </padding>
-      </GridPane>
-          <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-              <children>
-                  <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                      <columnConstraints>
-                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      </columnConstraints>
-                      <rowConstraints>
-                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      </rowConstraints>
-                      <children>
-                          <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="BACK" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                              <font>
-                                  <Font size="40.0" />
-                              </font>
-                          </Button>
-                  <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Avenir Next Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Avenir Next Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="payButton" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#transactionApproved" prefHeight="78.0" prefWidth="270.0" styleClass="button_action_round" text="APPROVE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Button>
-                  <Button contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#transactionRefused" prefHeight="78.0" prefWidth="266.0" styleClass="button_action_round" text="REFUSE" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Button>
-                      </children>
-                  </GridPane>
-              </children>
-          </AnchorPane>
-    </children>
+        <padding>
+            <Insets bottom="160.0" left="40.0"/>
+        </padding>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="0.0">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="10.0" prefWidth="100.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints maxHeight="195.08627319335938" minHeight="10.0"
+                                    prefHeight="69.77748107910156" vgrow="SOMETIMES"/>
+                    <RowConstraints maxHeight="530.9987373352051" minHeight="10.0" prefHeight="520.2225189208984"
+                                    vgrow="SOMETIMES"/>
+                </rowConstraints>
+                <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER"
+                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="177.0"
+                       prefWidth="847.0" styleClass="scene_top_title" text="Please insert your ticket"
+                       textAlignment="CENTER" textFill="#6b6a6a" wrapText="true" GridPane.columnIndex="1"
+                       GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <font>
+                        <Font name="Avenir Roman" size="34.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="imageView" fitHeight="526.0" fitWidth="526.0" pickOnBounds="true"
+                           preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                           GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                </ImageView>
+                <ImageView fx:id="imageValidate" fitHeight="313.0" fitWidth="313.0" pickOnBounds="true"
+                           preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                           GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <Image url="@../img/checkmark.png"/>
+                </ImageView>
+            </GridPane>
+        </AnchorPane>
+        <VBox fx:id="toggleVbox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="462.0" prefWidth="346.0"
+              spacing="10.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets/>
+            </GridPane.margin>
+            <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="271.0"
+                          prefWidth="344.0" styleClass="toggle_card" text="Debit/Credit Card"
+                          textAlignment="CENTER" wrapText="true"/>
+            <ToggleButton contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="1.7976931348623157E308"
+                          mnemonicParsing="false" prefHeight="271.0" prefWidth="344.0" styleClass="toggle_card"
+                          text="Debit/Credit Card" textAlignment="CENTER" wrapText="true">
+                <graphic>
+                    <ImageView fitHeight="140.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/Apple_Pay_Mark_RGB_SMALL.png"/>
+                    </ImageView>
+                </graphic>
+            </ToggleButton>
+        </VBox>
+    </GridPane>
+    <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0"
+                    styleClass="button_back" text="BACK" textAlignment="CENTER" GridPane.halignment="CENTER"
+                    GridPane.rowIndex="1">
+                <font>
+                    <Font size="40.0"/>
+                </font>
+            </Button>
+            <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757"
+                   GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                <font>
+                    <Font name="Avenir Next Bold" size="13.0"/>
+                </font>
+            </Label>
+            <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b"
+                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <font>
+                    <Font name="Avenir Next Bold" size="13.0"/>
+                </font>
+            </Label>
+            <Button fx:id="payButton" contentDisplay="CENTER" mnemonicParsing="false"
+                    nodeOrientation="LEFT_TO_RIGHT" onAction="#transactionApproved" prefHeight="78.0"
+                    prefWidth="270.0" styleClass="button_action_round" text="APPROVE" textAlignment="CENTER"
+                    GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                <font>
+                    <Font size="40.0"/>
+                </font>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT"
+                    onAction="#transactionRefused" prefHeight="78.0" prefWidth="266.0"
+                    styleClass="button_action_round" text="REFUSE" textAlignment="CENTER"
+                    GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <font>
+                    <Font size="40.0"/>
+                </font>
+            </Button>
+        </GridPane>
+    </AnchorPane>
 </AnchorPane>

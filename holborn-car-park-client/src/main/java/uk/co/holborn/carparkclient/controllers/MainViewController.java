@@ -48,17 +48,16 @@ public class MainViewController implements Initializable {
     Button themeModeButton;
     public SceneManager sceneManager;
     private Socket socket;
-    private GlobalVariables globalVariables;
     private InfoPopUp popup;
     public Ticket ticket;
     String hourly_price;
     String parking_spaces;
     String happy_hour_time;
-    private Logger logger;
+    private final Logger logger;
     public boolean happyHour = false;
     private Long sessionStartTime;
-    public static SpriteSheets spriteSheets;
-    int pastHour = 0;
+    private static SpriteSheets spriteSheets;
+    private int pastHour = 0;
 
     /**
      * The constructor initialises the {@link GlobalVariables},
@@ -70,7 +69,7 @@ public class MainViewController implements Initializable {
         hourly_price = "";
         parking_spaces = "";
         happy_hour_time = "";
-        globalVariables = new GlobalVariables();
+        GlobalVariables globalVariables = new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
             socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);
@@ -123,13 +122,11 @@ public class MainViewController implements Initializable {
                 } else {
                     logger.error("Unauthorised access! Please check that the information from the config file are correct or check the database connection.");
                     popup.removePopUp();
-                    Platform.runLater((() -> {
-                        Alerter.showUnableToStartAlert(
-                                "Unauthorised access!",
-                                "You are not authorised to access the web service. " +
-                                        "Please make sure the configuration details given by your administrator are correct and try again."
-                        );
-                    }));
+                    Platform.runLater((() -> Alerter.showUnableToStartAlert(
+                            "Unauthorised access!",
+                            "You are not authorised to access the web service. " +
+                                    "Please make sure the configuration details given by your administrator are correct and try again."
+                    )));
 
                 }
             });

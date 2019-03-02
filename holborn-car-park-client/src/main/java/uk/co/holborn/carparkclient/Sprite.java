@@ -19,7 +19,7 @@ import javafx.util.Duration;
  * @see SpriteSettings
  */
 public class Sprite {
-    private ImageView spriteView;
+    private final ImageView spriteView;
     private Rectangle2D rect;
     private int fps = 60;
     private int count;
@@ -84,7 +84,7 @@ public class Sprite {
      * @param width  the width of a single sprite cell
      * @param height the height of a single sprite cell
      */
-    public void setSheet(String sheet, double width, double height) {
+    private void setSheet(String sheet, double width, double height) {
         setImage(new Image(getClass().getResource(sheet).toExternalForm()), width, height);
     }
 
@@ -96,7 +96,7 @@ public class Sprite {
      * @param width  the width of a single sprite cell
      * @param height the height of a single sprite cell
      */
-    public void setImage(Image image, double width, double height) {
+    private void setImage(Image image, double width, double height) {
         setImage(image, width, height, (int) (spriteView.getImage().getWidth() / width));
     }
 
@@ -107,7 +107,7 @@ public class Sprite {
      * @param width  the width of a single sprite cell
      * @param height the height of a single sprite cell
      */
-    public void setImage(Image image, double width, double height, int cells) {
+    private void setImage(Image image, double width, double height, int cells) {
         spriteView.setImage(image);
         rect = new Rectangle2D(0, 0, width, height);
         resetView();
@@ -123,7 +123,7 @@ public class Sprite {
     /**
      * Play the animation indefinitely
      */
-    public void play() {
+    private void play() {
         play(Animation.INDEFINITE);
     }
 
@@ -132,7 +132,7 @@ public class Sprite {
      *
      * @param cycles the number of times the animation will play
      */
-    public void play(int cycles) {
+    private void play(int cycles) {
         this.currentAnimation = new SpriteAnimation(Duration.seconds((double) (count / fps)), cycles);
         this.currentAnimation.play();
     }
@@ -143,7 +143,7 @@ public class Sprite {
      *
      * @param count number of sprites on the sprite sheet
      */
-    public void setSpritesCount(int count) {
+    private void setSpritesCount(int count) {
         this.count = count;
     }
 
@@ -177,7 +177,7 @@ public class Sprite {
      *
      * @param fps the new FPS (default: 60)
      */
-    public void setFPS(int fps) {
+    private void setFPS(int fps) {
         this.fps = fps;
     }
 
@@ -212,7 +212,7 @@ public class Sprite {
      * @param offsetX the shifting on x axis
      * @param offsetY the shifting on y axis
      */
-    public void setOffset(int offsetX, int offsetY) {
+    private void setOffset(int offsetX, int offsetY) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
     }
@@ -220,7 +220,7 @@ public class Sprite {
     /**
      * SpriteAnimation helps us transition the frames in a {@link Sprite}
      */
-    public class SpriteAnimation extends Transition {
+    class SpriteAnimation extends Transition {
 
         private int lastIndex;
 
@@ -230,7 +230,7 @@ public class Sprite {
          * @param duration   the duration of the animation
          * @param cycleCount the number of times the animation will play
          */
-        public SpriteAnimation(Duration duration, int cycleCount) {
+        SpriteAnimation(Duration duration, int cycleCount) {
             setCycleDuration(duration);
             setInterpolator(Interpolator.LINEAR);
             setCycleCount(cycleCount);

@@ -18,7 +18,7 @@ import javafx.util.Duration;
  * @version 1.0.1
  */
 public class Animator {
-    public static void nodeFade(Node node, boolean in, double keyFrameTime) {
+    private static void nodeFade(Node node, boolean in, double keyFrameTime) {
         double opacityEnd, opacityStart;
         Timeline timeline = new Timeline();
         double fadeInPopOffset = 0.2;
@@ -58,7 +58,7 @@ public class Animator {
         nodeBlurr(node, 60, 0.3);
     }
 
-    public static void nodeBlurr(Node node, double blurrRadius, double keyFrameTime) {
+    private static void nodeBlurr(Node node, double blurrRadius, double keyFrameTime) {
         Timeline timeline = new Timeline();
         gaussian_blurr_keyframes(node, blurrRadius, keyFrameTime, timeline);
         timeline.play();
@@ -83,11 +83,11 @@ public class Animator {
         timeline.play();
     }
 
-    public static void gaussian_blurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
+    private static void gaussian_blurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
         gaussian_blurr_keyframes(node, blurrRadius, 0, keyFrame, timeline);
     }
 
-    public static void gaussian_blurr_keyframes(Node node, double blurrRadius, double start_keyframe, double end_keyframe, Timeline timeline) {
+    private static void gaussian_blurr_keyframes(Node node, double blurrRadius, double start_keyframe, double end_keyframe, Timeline timeline) {
         GaussianBlur gb = new GaussianBlur();
         gb.setRadius(0);
         node.setEffect(gb);
@@ -108,7 +108,7 @@ public class Animator {
         );
     }
 
-    public static void reverseBlurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
+    private static void reverseBlurr_keyframes(Node node, double blurrRadius, double keyFrame, Timeline timeline) {
         GaussianBlur gb = new GaussianBlur();
         double blurrFadeThreshold = 0.4;
         gb.setRadius(blurrRadius);
@@ -119,7 +119,7 @@ public class Animator {
         );
     }
 
-    public static void nodePopInCard_keyframes(Node node, double endKeyframe, Timeline timeline) {
+    private static void nodePopInCard_keyframes(Node node, double endKeyframe, Timeline timeline) {
         node.setOpacity(0);
         node.setScaleX(0);
         node.setScaleY(0);
@@ -141,7 +141,7 @@ public class Animator {
         );
     }
 
-    public static void nodePushOutCard_keyframes(Node node, double endKeyframe, Timeline timeline) {
+    private static void nodePushOutCard_keyframes(Node node, double endKeyframe, Timeline timeline) {
         node.setOpacity(1);
         node.setScaleX(1);
         node.setScaleY(1);

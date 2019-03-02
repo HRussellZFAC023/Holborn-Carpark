@@ -15,8 +15,10 @@ import javafx.scene.layout.Region;
 public class InfoPopUpController{
 
     @FXML
+    private
     Label info;
     @FXML
+    private
     ProgressIndicator indicator;
 
     /**

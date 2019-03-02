@@ -17,8 +17,7 @@ import uk.co.holborn.carparkclient.controllers.MainViewController;
  * @version 1.0
  */
 public class MainWindow extends Application {
-    Logger log;
-    Scene scene;
+    private Logger log;
 
     /**
      * The start methods prepares the UI to be shown
@@ -42,7 +41,7 @@ public class MainWindow extends Application {
         primaryStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/client_icon.png")));
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("");
-        scene = new Scene(root, 1280, 768);
+        Scene scene = new Scene(root, 1280, 768);
         new ThemeProvider(scene, Themes.LIGHT);
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(600);
@@ -53,10 +52,9 @@ public class MainWindow extends Application {
     /**
      * This method gets called when the application stops
      *
-     * @throws Exception
      */
     @Override
-    public void stop() throws Exception {
+    public void stop() {
         MainViewController mc = MainViewController.getInstance();
         log.info("-----------Application end------------");
         System.exit(0);

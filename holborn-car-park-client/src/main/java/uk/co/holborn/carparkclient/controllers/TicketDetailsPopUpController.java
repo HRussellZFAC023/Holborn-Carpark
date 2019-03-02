@@ -22,25 +22,34 @@ import java.util.ResourceBundle;
 public class TicketDetailsPopUpController implements Initializable {
 
     @FXML
+    private
     Label date_in;
     @FXML
+    private
     Label date_check_out;
     @FXML
+    private
     Label price;
     @FXML
+    private
     Label duration;
     @FXML
+    private
     Label duration_paying_for;
     @FXML
+    private
     Label discount;
     @FXML
+    private
     Label discountFrom;
     @FXML
+    private
     Label discountSave;
     @FXML
+    private
     Button payButton;
-    MainViewController mc;
-    Scenes location;
+    private MainViewController mc;
+    private Scenes location;
 
     /**
      * Method that prepares the ui

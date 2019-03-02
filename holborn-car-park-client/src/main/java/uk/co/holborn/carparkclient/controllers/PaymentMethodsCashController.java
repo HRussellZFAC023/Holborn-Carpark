@@ -21,16 +21,21 @@ import java.util.ResourceBundle;
 public class PaymentMethodsCashController implements Initializable {
 
     @FXML
+    private
     Button backButton;
     @FXML
+    private
     TextField inputAmount;
     @FXML
+    private
     ImageView imageView;
     @FXML
+    private
     Label price_due;
     @FXML
+    private
     Label price_paid;
-    Ticket t;
+    private Ticket t;
     private MainViewController mc;
     private BigDecimal due;
     private BigDecimal paid;

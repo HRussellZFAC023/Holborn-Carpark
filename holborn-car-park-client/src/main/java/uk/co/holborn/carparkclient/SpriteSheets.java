@@ -17,8 +17,8 @@ import java.util.Map;
  * @see SpriteSettings
  */
 public class SpriteSheets {
-    private Logger log;
-    private Map<Sprites, SpriteSettings> spriteSettingsMap;
+    private final Logger log;
+    private final Map<Sprites, SpriteSettings> spriteSettingsMap;
     private boolean loadedAll;
 
     /**

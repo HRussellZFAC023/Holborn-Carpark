@@ -27,14 +27,17 @@ public class LandingPageController implements Initializable {
 
     private MainViewController mc;
     @FXML
+    private
     Label welcome;
     @FXML
+    private
     Label parking_spaces;
     @FXML
+    private
     Label price;
     @FXML
+    private
     Label happy_hour;
-    Logger logger;
 
     /**
      * Method that prepares the ui
@@ -46,7 +49,7 @@ public class LandingPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
-        logger = LogManager.getLogger(getClass().getName());
+        Logger logger = LogManager.getLogger(getClass().getName());
 
         welcome.setText(GlobalVariables.LANDING_PAGE_WELCOME);
         Animator.nodeFade(welcome, true);
@@ -67,9 +70,7 @@ public class LandingPageController implements Initializable {
         else happy_hour.setText(mc.happy_hour_time);
         Socket socket = mc.getSocket();
         socket.emit("fetch-carpark-details", (Ack) this::update);
-        socket.on("update-carpark-details", objects -> {
-            socket.emit("fetch-carpark-details", (Ack) this::update);
-        });
+        socket.on("update-carpark-details", objects -> socket.emit("fetch-carpark-details", (Ack) this::update));
     }
 
     /**

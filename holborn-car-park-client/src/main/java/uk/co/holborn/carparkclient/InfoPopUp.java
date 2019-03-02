@@ -17,11 +17,11 @@ import static javafx.scene.layout.AnchorPane.*;
  * @version 1.0.1
  */
 public class InfoPopUp {
-    private AnchorPane mainAnchor;
+    private final AnchorPane mainAnchor;
     private AnchorPane root;
     private InfoPopUpController infoPopUpController;
     private boolean alreadyOn;
-    private boolean debug_mode = false;
+    private final boolean debug_mode = false;
 
     /**
      * Initialising the popup

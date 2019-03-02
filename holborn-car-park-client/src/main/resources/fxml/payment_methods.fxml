@@ -11,117 +11,123 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="2000.0" minWidth="800.0" prefWidth="1063.9404296875"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="250.0" minHeight="100.0" prefHeight="174.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="506.7761764526367" minHeight="100.66668701171875" prefHeight="385.0"
+                            vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="240.5" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <GridPane hgap="20.0" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="2000.0" minWidth="800.0" prefWidth="1063.9404296875" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="250.0" minHeight="100.0" prefHeight="174.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="506.7761764526367" minHeight="100.66668701171875" prefHeight="385.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="304.7414855957031" minHeight="10.0" prefHeight="240.5" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
-            <children>
-                <GridPane hgap="20.0" GridPane.rowIndex="1">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                    <children>
-                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#cashPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Cash" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true">
-                            <graphic>
-                                <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../img/cash_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Avenir Heavy" size="27.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Button>
-                        <Button contentDisplay="TOP" disable="true" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#cardPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Credit / Debit Card" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="1">
-                            <graphic>
-                                <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../img/card_icon.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Avenir Heavy" size="27.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Button>
-                        <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false" onAction="#contactlessPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card" text="Contactless" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true" GridPane.columnIndex="2">
-                            <graphic>
-                                <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../img/contactless%20payment.png" />
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                            <font>
-                                <Font name="Avenir Heavy" size="27.0" />
-                            </font>
-                            <GridPane.margin>
-                                <Insets />
-                            </GridPane.margin>
-                        </Button>
-                    </children>
-               <GridPane.margin>
-                  <Insets left="40.0" right="40.0" />
-               </GridPane.margin>
-                </GridPane>
-                <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" prefHeight="177.0" prefWidth="847.0" styleClass="scene_top_title" text="Please choose your payment method" textAlignment="CENTER" textFill="#6b6a6a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                    <font>
-                        <Font name="Avenir Roman" size="34.0" />
-                    </font>
-                </Label>
-            </children>
+            <GridPane.margin>
+                <Insets left="40.0" right="40.0"/>
+            </GridPane.margin>
+            <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false"
+                    onAction="#cashPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card"
+                    text="Cash" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true">
+                <graphic>
+                    <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/cash_icon.png"/>
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Avenir Heavy" size="27.0"/>
+                </font>
+                <GridPane.margin>
+                    <Insets/>
+                </GridPane.margin>
+            </Button>
+            <Button contentDisplay="TOP" disable="true" graphicTextGap="80.0" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false"
+                    onAction="#cardPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card"
+                    text="Credit / Debit Card" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true"
+                    GridPane.columnIndex="1">
+                <graphic>
+                    <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../img/card_icon.png"/>
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Avenir Heavy" size="27.0"/>
+                </font>
+                <GridPane.margin>
+                    <Insets/>
+                </GridPane.margin>
+            </Button>
+            <Button contentDisplay="TOP" graphicTextGap="80.0" maxHeight="1.7976931348623157E308"
+                    maxWidth="1.7976931348623157E308" minHeight="200.0" minWidth="200.0" mnemonicParsing="false"
+                    onAction="#contactlessPayment" prefHeight="400.0" prefWidth="400.0" styleClass="button_card"
+                    text="Contactless" textAlignment="CENTER" textFill="#5b5b5b" wrapText="true"
+                    GridPane.columnIndex="2">
+                <graphic>
+                    <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    </ImageView>
+                </graphic>
+                <font>
+                    <Font name="Avenir Heavy" size="27.0"/>
+                </font>
+                <GridPane.margin>
+                    <Insets/>
+                </GridPane.margin>
+            </Button>
         </GridPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0" styleClass="button_back" text="CANCEL" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-                     <font>
-                        <Font name="Avenir Next Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Avenir Next Bold" size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-            </GridPane>
-         </children>
-      </AnchorPane>
-    </children>
+        <Label fx:id="infoText" alignment="CENTER" contentDisplay="CENTER" prefHeight="177.0" prefWidth="847.0"
+               styleClass="scene_top_title" text="Please choose your payment method" textAlignment="CENTER"
+               textFill="#6b6a6a" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <font>
+                <Font name="Avenir Roman" size="34.0"/>
+            </font>
+        </Label>
+    </GridPane>
+    <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0">
+        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <Button fx:id="backButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    nodeOrientation="LEFT_TO_RIGHT" onAction="#back" prefHeight="77.0" prefWidth="263.0"
+                    styleClass="button_back" text="CANCEL" textAlignment="CENTER" GridPane.halignment="CENTER"
+                    GridPane.rowIndex="1">
+                <font>
+                    <Font size="40.0"/>
+                </font>
+            </Button>
+            <Label fx:id="amountText" styleClass="ticket_detail_info_label" text="Amount" textFill="#575757"
+                   GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                <font>
+                    <Font name="Avenir Next Bold" size="13.0"/>
+                </font>
+            </Label>
+            <Label fx:id="price" styleClass="ticket_detail_info_label_bigger" text="£00.00" textFill="#6b6b6b"
+                   GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                <font>
+                    <Font name="Avenir Next Bold" size="13.0"/>
+                </font>
+            </Label>
+        </GridPane>
+    </AnchorPane>
 </AnchorPane>

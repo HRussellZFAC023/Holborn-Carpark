@@ -13,17 +13,20 @@ import java.util.ResourceBundle;
  * The check controller handles the interactions of the payment methods UI.
  *
  * @author Vlad Alboiu
- * @version 1.0.1
+ * @version 1.0.2
  */
 public class PaymentMethodsController implements Initializable {
 
     @FXML
     Button backButton;
     @FXML
+    private
     Label infoText;
     @FXML
+    private
     Label amountText;
     @FXML
+    private
     Label price;
     private MainViewController mc;
 
@@ -50,10 +53,13 @@ public class PaymentMethodsController implements Initializable {
         mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CASH);
     }
 
-
+    /**
+     * Switch to cclass ard payment screen
+     * @since 1.0.2
+     */
     @FXML
     private void cardPayment() {
-
+        mc.sceneManager.changeTo(Scenes.PAYMENT_METHODS_CASH);
     }
     /**
      * Switch to compactness payment screen

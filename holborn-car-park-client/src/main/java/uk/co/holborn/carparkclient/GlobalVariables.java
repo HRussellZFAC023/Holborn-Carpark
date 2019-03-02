@@ -14,10 +14,10 @@ import java.util.Properties;
  * @version 1.0.1
  */
 public class GlobalVariables {
-    private Logger logger = LogManager.getLogger(getClass().getName());
+    private final Logger logger = LogManager.getLogger(getClass().getName());
 
 
-    static String APP_NAME = "Holborn Car Park System";
+    private static final String APP_NAME = "Holborn Car Park System";
     public static String CAR_PARK_NAME = "";
     static String MAIN_WINDOW_NAME = "";
     public static String LANDING_PAGE_WELCOME = "";
@@ -30,8 +30,8 @@ public class GlobalVariables {
     public static int NIGHT_TIME_START = 19;
     public static int NIGHT_TIME_END = 7;
 
-    String configName = "config.xml";
-    Properties appProp;
+    private final String configName = "config.xml";
+    private Properties appProp;
     private OutputStream output = null;
     private InputStream input = null;
 

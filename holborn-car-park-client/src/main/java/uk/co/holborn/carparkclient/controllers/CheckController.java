@@ -30,32 +30,39 @@ import java.util.ResourceBundle;
  */
 public class CheckController implements Initializable {
 
-    String VALID_MESSAGE;
-    String INVALID_MESSAGE;
-    String DOESNT_EXIST;
-    String SOCKET_EMIT;
-    String INFO;
+    private String VALID_MESSAGE;
+    private String INVALID_MESSAGE;
+    private String DOESNT_EXIST;
+    private String SOCKET_EMIT;
+    private String INFO;
 
     @FXML
+    private
     TextField checkTicketField;
     @FXML
+    private
     Label infoText;
     @FXML
+    private
     ImageView ticket_image;
     @FXML
+    private
     ImageView ticket_image_validated;
     @FXML
+    private
     AnchorPane mainAnchorPane;
     @FXML
+    private
     AnchorPane blurrAnchorPane;
     @FXML
+    private
     Button backButton;
-    Socket socket;
-    TicketDetailsPopUp tp;
-    private Logger logger;
-    private MainViewController mc;
-    private Gson gson;
-    Sprite sprite;
+    private final Socket socket;
+    private TicketDetailsPopUp tp;
+    private final Logger logger;
+    private final MainViewController mc;
+    private final Gson gson;
+    private Sprite sprite;
     private boolean isTicketFromSmartCard;
 
     /**
@@ -216,9 +223,7 @@ public class CheckController implements Initializable {
      * @since 1.0.1
      */
     private void animateImageShow() {
-        Animator.nodePopIn(ticket_image, 0.6, e -> {
-            sprite.replay();
-        });
+        Animator.nodePopIn(ticket_image, 0.6, e -> sprite.replay());
     }
 
     /**
@@ -263,9 +268,7 @@ public class CheckController implements Initializable {
      * @since 1.0.1
      */
     private void setMessage(String message) {
-        Platform.runLater(() -> {
-            infoText.setText(message);
-        });
+        Platform.runLater(() -> infoText.setText(message));
         Animator.nodeFade(infoText, true);
     }
 

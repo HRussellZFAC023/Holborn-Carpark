@@ -27,22 +27,24 @@ import java.util.ResourceBundle;
  */
 public class FinishController implements Initializable {
     @FXML
+    private
     Label infoText;
     @FXML
+    private
     Label aditionalInfo;
     @FXML
+    private
     ImageView ticket_image;
-    private Logger logger;
-    private MainViewController mc;
-    Sprite sprite;
-    Ticket ticket;
-    Thread t;
+    private final MainViewController mc;
+    private Sprite sprite;
+    private Ticket ticket;
+    private Thread t;
 
     /**
      * Constructor
      */
     public FinishController() {
-        logger = LogManager.getLogger(getClass().getName());
+        Logger logger = LogManager.getLogger(getClass().getName());
         mc = MainViewController.getInstance();
     }
 
@@ -66,7 +68,7 @@ public class FinishController implements Initializable {
     public void setup() {
         sprite.resetView();
         startFinishedChangeDelay();
-        setMessage("Thank you for visiting us! Have a safe journey!");
+        setMessage();
         animateImageShow();
         ticket = mc.ticket;
         setAditionalMessage("");
@@ -100,9 +102,7 @@ public class FinishController implements Initializable {
         t = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 if ((System.currentTimeMillis()) - startTime >= finishTime) {
-                    Platform.runLater(() -> {
-                        mc.sceneManager.reverseTo(Scenes.LANDING);
-                    });
+                    Platform.runLater(() -> mc.sceneManager.reverseTo(Scenes.LANDING));
                     Thread.currentThread().interrupt();
                 }
             }
@@ -116,17 +116,14 @@ public class FinishController implements Initializable {
      * Animate image showing in
      */
     private void animateImageShow() {
-        Animator.nodePopIn(ticket_image, 0.6, e -> {
-            sprite.replay(1);
-        });
+        Animator.nodePopIn(ticket_image, 0.6, e -> sprite.replay(1));
     }
 
     /**
      * Inform the user with a message
-     * @param message the message to inform the user with
      */
-    private void setMessage(String message) {
-        infoText.setText(message);
+    private void setMessage() {
+        infoText.setText("Thank you for visiting us! Have a safe journey!");
         Animator.nodeFade(infoText, true);
     }
 
@@ -143,7 +140,7 @@ public class FinishController implements Initializable {
      * Emit a paid event to the socket that
      * updates the values in the database  by the webservice
      */
-    void emitTicketPaid() {
+    private void emitTicketPaid() {
         Object[] params = new Object[]{true, "" + ticket.getDuration(), "" + ticket.getDate_out(), "" + ticket.get_id(), "" + ticket.getPrice()};
         mc.getSocket().emit("ticket-paid", params);
     }
