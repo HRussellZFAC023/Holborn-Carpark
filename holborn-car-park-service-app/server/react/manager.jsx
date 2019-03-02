@@ -10,11 +10,10 @@ import Settings     from './js/components/Settings'
 import Tickets      from './js/components/Tickets'
 import Carparks     from './js/components/Carparks'
 import Employees    from './js/components/Employees'
-<<<<<<< HEAD
 import Emails       from './js/components/Emails'
-=======
-import HappyHour from './js/components/HappyHour';
->>>>>>> feature - implemented the hapy hour ui and modified the dash
+import HappyHour    from './js/components/HappyHour';
+import Pricing      from './js/components/Pricing';
+
 
 const $ = require('jquery');
 
@@ -89,6 +88,10 @@ class DynamicContent extends React.Component {
                 return <Emails />;
             case "Happy Hour":
                 return <HappyHour/>
+            case "Price":{
+                return <Pricing/>
+            }
+
             default:
                 return <Missing404 />
         }

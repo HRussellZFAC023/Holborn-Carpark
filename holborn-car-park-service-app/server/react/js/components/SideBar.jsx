@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 
 /**
  * Component that renders the navigational side bar and immediately activates the Dashboard scene
@@ -12,7 +12,7 @@ class SideBar extends Component {
     render() {
         return (
             <aside className="menu aside text-is-centerd">
-                 <p className="menu-label">
+                <p className="menu-label">
                     General
                 </p>
                 <ul className="menu-list">
@@ -41,20 +41,25 @@ class SideBar extends Component {
                     Admin Controls
                 </p>
                 <ul className="menu-list">
+                    <li><a onClick={() => this.__setScene("Happy Hour")}
+                        className={(this.state.activeTab === "Happy Hour") ? "is-active" : ""}>
+                        <i className="fas fa-smile-beam" /> Happy Hour</a></li>
+                    <li><a onClick={() => this.__setScene("Price")}
+                        className={(this.state.activeTab === "Price") ? "is-active" : ""}>
+                        <i className="fas fa-pound-sign" /> Pricing</a></li>
                     <li><a onClick={() => this.__setScene("Staff")}
-                           className={(this.state.activeTab === "Staff") ? "is-active gradient" : ""}><span className="icon">
-                        <i className="fas fa-business-time"/> </span>Employees</a></li>
+                        className={(this.state.activeTab === "Staff") ? "is-active" : ""}>
+                        <i className="fas fa-business-time" /> Employees</a></li>
                 </ul>
             </aside>
         )
     }
 
     __setScene(content) {
-        this.setState({activeTab: content});
+        this.setState({ activeTab: content });
         this.props.setScene(content);
     }
 }
 
 export default SideBar;
-
 

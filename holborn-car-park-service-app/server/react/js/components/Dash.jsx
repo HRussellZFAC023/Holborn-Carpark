@@ -85,7 +85,7 @@ class Dash extends Component {
                 </div>
                 <footer class="footer">
                     <div class="content has-text-centered">
-                        <p> <strong>Tip!</strong> You can create notification messages in setting </p>
+                        <p> <strong>Tip!</strong> You can create notification messages in settings </p>
                     </div>
                 </footer>
             </main>

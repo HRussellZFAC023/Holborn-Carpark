@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
+import { Slider } from 'material-ui-slider';
 import "react-datepicker/dist/react-datepicker.css";
-import DatePicker from "react-datepicker";
 import swal from 'sweetalert';
 
-class HappyHour extends Component {
+class Pricing extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
+      price:0,
       selectedCarpark: { name: '' }
     };
-    this.dateChanged = this.dateChanged.bind(this);
+    this.priceChanged = this.dateChanged.bind(this);
   }
 
 
-  dateChanged(d) {
-    this.setState({ date: d });
+  dateChanged(p) {
+    this.setState({ price: p });
   }
-  
+
   confirm() {
     swal({
       title: "Are you sure?",
       text:
-        `You are about to create the following happy hour: \n
-       Date: \n ${this.state.date}\n 
-       Carpark: \n ${this.state.selectedCarpark.name}\n
-       For one hour, the hourly rate will be reduced to zero.
+        `You are about change the prices: \n
+        Price: \n £${this.state.price}\n
+        Carpark: \n ${this.state.selectedCarpark.name}\n
+       The cost reflects how much is paid per hour.
       `,
       icon: "warning",
       buttons: true,
@@ -47,20 +47,18 @@ class HappyHour extends Component {
   send() {
     //send the data...
   }
-  
 
   render() {
     return (
       <main className="hero-body has-text-centered">
-        <h1 className="title is-1">Happy Hour!</h1>
-        <h2 className="subtitle is-4">Open the barriers and let the cars go free.</h2>
+        <h1 className="title is-1">Pricing</h1>
+        <h2 className="subtitle is-4">Here you can change the hourly fee.</h2>
         <div className="field">
-          <h1 className="content">Select time and date: </h1>
-          <DatePicker
-            selected={this.state.date}
-            onChange={this.dateChanged}
-            showTimeSelect
-            dateFormat="Pp"
+          <h1  className="content">Input an hourly rate: £{this.state.price}</h1>
+          <Slider
+            value={this.state.value}
+            aria-labelledby="label"
+            onChange={this.priceChanged}
           />
         </div>
         <div className="field">
@@ -71,16 +69,13 @@ class HappyHour extends Component {
               <option>Staines</option>
             </select>
           </div>
-        </div>
-        <br />
+        </div><br />
         <div className="content field" >
-          <button onClick={() => this.confirm()} className="button is-large is-success">Start!</button>
+          <button onClick={() => this.confirm()} className="button is-large is-success">Change!</button>
         </div>
       </main>
     );
   }
 }
 
-export default HappyHour;
-
-
+export default Pricing;
