@@ -137,7 +137,6 @@ public class MainViewController implements Initializable {
             popup.show("Reconnecting...");
             disconnectedUI(true);
         });
-        socket.on(Socket.EVENT_CONNECT_ERROR, args_cni -> System.out.println("Err" + args_cni[0]));
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
             logger.warn("Disconnected");
             disconnectedUI(true);
@@ -312,5 +311,25 @@ public class MainViewController implements Initializable {
         }
     }
 
+    public void requestTicket() {
+        socket.emit("request-ticket", (Ack) this::receivedTicket);
+    }
+    public void receivedTicket(Object[] objects){
+        System.out.println(objects[0]);
+    }
+    public void requestTicketValidity(String ticketID){
+        socket.emit("ticket-exit", ticketID,(Ack) objects ->{
+            System.out.println(objects[0]);
+            if(objects[0].equals(200)){
+                receivedRequestResponse(true);
+            }else{
+                receivedRequestResponse(false);
+            }
+        });
+    }
+    public void receivedRequestResponse(boolean allowed){
+        System.out.println(allowed);
+
+    }
 
 }
