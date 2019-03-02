@@ -18,10 +18,10 @@ import java.util.ResourceBundle;
 /**
  * Landing pages provides the default " home screen" for the app. proving paths
  * to all the other scenes and providing the user with useful i
- * nformation in real time (such as the number of parking spaces and so on)
+ * information in real time (such as the number of parking spaces and so on)
  *
  * @author Vlad Alboiu
- * @version 1.0.4
+ * @version 1.0.3
  */
 public class LandingPageController implements Initializable {
 
@@ -41,6 +41,7 @@ public class LandingPageController implements Initializable {
      *
      * @param location
      * @param resources
+     * @since 1.0.0
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,6 +55,7 @@ public class LandingPageController implements Initializable {
     /**
      * This method first asks the server for ui information and then
      * every time a change has been made on the server, it will update it dynamically
+     * @since 1.0.2
      */
     public void enableFetching() {
         String fetching = "Fetching...";
@@ -74,6 +76,7 @@ public class LandingPageController implements Initializable {
      * Update the information provided by the given object from the socker
      *
      * @param objects received from the socket
+     * @since 1.0.2
      */
     private void update(Object[] objects) {
         updateTextParkingSpaces(objects[0] + "");
@@ -86,6 +89,7 @@ public class LandingPageController implements Initializable {
      * Method that updates and animates the number of free parking spaces label
      *
      * @param message string to be displayed
+     * @since 1.0.2
      */
     private void updateTextParkingSpaces(String message) {
         if (!mc.parking_spaces.equals(message)) {
@@ -99,6 +103,7 @@ public class LandingPageController implements Initializable {
      * Method that updates and animates the price
      *
      * @param message string to be displayed
+     * @since 1.0.2
      */
     private void updateTextPrice(String message) {
         if (!mc.hourly_price.equals(message)) {
@@ -112,6 +117,7 @@ public class LandingPageController implements Initializable {
      * Method that updates and animates the happy hour state
      *
      * @param message string to be displayed
+     * @since 1.0.2
      */
     private void updateHappyHour(String message) {
         if (!mc.happy_hour_time.equals(message)) {
@@ -124,6 +130,8 @@ public class LandingPageController implements Initializable {
     /**
      * Method that changes the scene to the smartcard check.
      * It also starts the session countdown
+     *
+     * @since 1.0.3
      */
     @FXML
     public void smartcardCheck() {
@@ -134,6 +142,8 @@ public class LandingPageController implements Initializable {
     /**
      * Method that changes the scene to the ticket check.
      * It also starts the session countdown
+     *
+     * @since 1.0.0
      */
     @FXML
     public void ticketCheck() {
