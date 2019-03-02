@@ -22,11 +22,28 @@ class Report extends Component {
             username:        props.username
         };
 
+        this.day = 24 * 60 * 60 * 1000;
+
+        this.addDays = (date, days) => {
+            return new Date(date.getTime() + days * this.day);
+        };
+
+        this.populateDates = (start_d, end_d) => {
+            let all = [];
+
+            for(let i = 0; i < (end_d.getTime() - start_d.getTime()) / this.day; ++i){
+                all.push(this.addDays(start_d, i));
+            }
+
+            return all;
+        };
+
         this.handleStartDate = (date) => {
             this.setState({
                 startDate: date
             });
         };
+
         this.handleEndDate = (date) => {
             this.setState({
                 endDate: date
@@ -160,6 +177,7 @@ class Report extends Component {
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Start date"
+                                        excludeDates={this.populateDates(this.addDays(new Date(), 1), this.addDays(new Date(), 3650))}
                                     />
                                     <p style={{ display: "inline" }}>&nbsp;-&nbsp;To:&nbsp;&nbsp;</p>
                                     <DatePicker
@@ -169,6 +187,7 @@ class Report extends Component {
                                         todayButton={"Today"}
                                         className={"input is-small"}
                                         placeholderText="Final date"
+                                        excludeDates={this.populateDates(this.addDays(new Date(), 1), this.addDays(new Date(), 3650))}
                                     />
                                 </div>
                             </div>
