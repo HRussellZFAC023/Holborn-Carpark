@@ -17,7 +17,7 @@ class Report extends Component {
             carparks:        [],
             selectedCarpark: {name: ''},
             startDate:       null,
-            endDate:         null,
+            endDate:         new Date(),
             redraw:          false,
             username:        props.username
         };
