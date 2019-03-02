@@ -8,6 +8,9 @@ const $ = require('jquery');
 import "react-datepicker/dist/react-datepicker.css";
 import ReportSection from "./ReportSection";
 
+/**
+ * Component used to render the report scene including the report section sub component
+ */
 class Report extends Component {
     constructor(props) {
         super(props);
@@ -24,10 +27,24 @@ class Report extends Component {
 
         this.day = 24 * 60 * 60 * 1000;
 
+        /**
+         * Function that adds a number of days to the specified date
+         * @param date
+         * @param days
+         * @returns {Date}
+         */
         this.addDays = (date, days) => {
             return new Date(date.getTime() + days * this.day);
         };
 
+        /**
+         * Function that fills an array with every date between the two specified.
+         * For example if the input dates are 01/01/2001 and 04/01/2001
+         * The output will be [01/01/2001, 02/01/2001, 03/01/2001, 04/01/2001]
+         * @param start_d
+         * @param end_d
+         * @returns {Array}
+         */
         this.populateDates = (start_d, end_d) => {
             let all = [];
 
@@ -38,18 +55,30 @@ class Report extends Component {
             return all;
         };
 
+        /**
+         * Function that makes sure there is a re-render whenever start date is changed
+         * @param date
+         */
         this.handleStartDate = (date) => {
             this.setState({
                 startDate: date
             });
         };
 
+        /**
+         * Function that makes sure there is a re-render whenever end date is changed
+         * @param date
+         */
         this.handleEndDate = (date) => {
             this.setState({
                 endDate: date
             });
         };
 
+        /**
+         * Change selected car park (can probably make it more efficient...)
+         * @param cp
+         */
         this.changeSelectedCP = (cp) => {
             if(this.state.selectedCarpark.name === cp.currentTarget.textContent) return;
 
@@ -62,6 +91,11 @@ class Report extends Component {
             }
         };
 
+        /**
+         * When the Generate button is pressed this ajax request triggers, causing the redraw parameter to be passed
+         * twice one after the other. It first gets set to true to force the re-render then, straight after that
+         * it sets it back to false to prevent further re-renders unless the Generate button is pressed
+         */
         this.genReport = () => {
             //get tickets
             $.ajax({
@@ -84,6 +118,9 @@ class Report extends Component {
             });
         };
 
+        /**
+         * Function to print the report by first converting the html to SVG then the SVG to PNG and finally the PNG to PDF
+         */
         this.printReport = () => {
             const input = document.getElementById('to-print');
             html2canvas(input)
@@ -100,6 +137,9 @@ class Report extends Component {
         };
     }
 
+    /**
+     * Whenever the component mounts the list of available car parks should be updated
+     */
     componentDidMount() {
         $.ajax({
             url: '/api/carparks/',
@@ -200,6 +240,9 @@ class Report extends Component {
                 </div>
 
                 {
+                    /**
+                     * Conditionally render the report section
+                     */
                     this.state.tickets.length === 0
                     ? (<div className="has-text-centered">No ticket data for selected period</div>)
                     : <ReportSection
