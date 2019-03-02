@@ -33,6 +33,15 @@ module.exports = function (io) {
             await socket_functions.ticket_exit(io, t_id, carpark_id, callback);
 
         });
+        socket.on("smartcard-enter", async function (s_id, callback) {
+            await socket_functions.smartcard_enter(io, s_id,carpark_id, callback);
+
+        });
+        socket.on("smartcard-exit", async function (s_id, callback) {
+            await socket_functions.smartcard_exit(io, s_id,carpark_id, callback);
+
+        });
+
 
     });
 };
