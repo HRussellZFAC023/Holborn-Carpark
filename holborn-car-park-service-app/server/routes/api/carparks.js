@@ -84,10 +84,12 @@ module.exports = function(io) {
         res.status(200).json(json_resp.success.delete);
     });
 
-    //Create a ticket (attached to a carpark id)
+    /**
+     * Create a car park
+     */
     router.post('/', verify.UserAuth, async function (req, res) {
         let c_id = UUID();
-        const params = [c_id, req.body.name, req.body.hour_rate, req.body.postcode, req.body.parking_places];
+        const params = [c_id, req.body.name, req.body.hour_rate, req.body.postcode, req.body.parking_places, req.body.happy_hour_start];
 
         try{
             await carpark_db.query(query.api.carparks.create, params);
@@ -106,6 +108,8 @@ module.exports = function(io) {
      * @param hour_rate         double
      * @param postcode          string
      * @param parking_places    int
+     * @param happy_hour_start  date
+     * @param happy_hour        boolean
      */
     router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         let c_id = req.path.replace(/\//g, '');
@@ -113,7 +117,9 @@ module.exports = function(io) {
         if(typeof req.body.name             === 'undefined' &&
            typeof req.body.hour_rate        === 'undefined' &&
            typeof req.body.postcode         === 'undefined' &&
-           typeof req.body.parking_places   === 'undefined')
+           typeof req.body.parking_places   === 'undefined' &&
+           typeof req.body.happy_hour_start === 'undefined' &&
+           typeof req.body.happy_hour       === 'undefined')
         {
             return res.status(500).json(json_resp.error.invalid_carpark_update);
         }
@@ -153,6 +159,26 @@ module.exports = function(io) {
         if (typeof req.body.parking_places !== 'undefined') {
             try{
             await carpark_db.query(query.api.carparks.update.parking_places, [c_id, req.body.parking_places]);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).json(json_resp.error.internal);
+            }
+        }
+
+        if (typeof req.body.happy_hour_start !== 'undefined') {
+            try{
+                await carpark_db.query(query.api.carparks.update.happy_hour_start, [c_id, req.body.happy_hour_start]);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).json(json_resp.error.internal);
+            }
+        }
+
+        if (typeof req.body.happy_hour !== 'undefined') {
+            try{
+                await carpark_db.query(query.api.carparks.update.happy_hour, [c_id, req.body.happy_hour]);
             }
             catch (db_err) {
                 debug(db_err);

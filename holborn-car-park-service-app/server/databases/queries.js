@@ -49,13 +49,15 @@ exports.api = {
         get_all:    `SELECT * FROM carparks`,
         delete_all: `DELETE   FROM carparks`,
         get_one:    `SELECT * FROM carparks WHERE  _id = $1`,
-        create:     `INSERT   INTO carparks VALUES ($1, $2, $3, $4, $5)`,
+        create:     `INSERT   INTO carparks VALUES ($1, $2, $3, $4, $5, to_timestamp($6 / 1000.0), false)`,
         update: {
-            name:             `UPDATE carparks SET name           = $2 WHERE _id = $1`,
-            hour_rate:        `UPDATE carparks SET hour_rate      = $2 WHERE _id = $1`,
-            postcode:         `UPDATE carparks SET postcode       = $2 WHERE _id = $1`,
-            parking_places:   `UPDATE carparks SET parking_places = $2 WHERE _id = $1`,
-            duration:         `UPDATE carparks SET duration       = $2 WHERE _id = $1`
+            name:             `UPDATE carparks SET name             = $2 WHERE _id = $1`,
+            hour_rate:        `UPDATE carparks SET hour_rate        = $2 WHERE _id = $1`,
+            postcode:         `UPDATE carparks SET postcode         = $2 WHERE _id = $1`,
+            parking_places:   `UPDATE carparks SET parking_places   = $2 WHERE _id = $1`,
+            duration:         `UPDATE carparks SET duration         = $2 WHERE _id = $1`,
+            happy_hour:       `UPDATE carparks SER happy_hour       = $2 WHERE _id = $1`,
+            happy_hour_start: `UPDATE carparks SER happy_hour_start = $2 WHERE _id = $1`
         },
         delete_one: `DELETE   FROM carparks WHERE _id = $1`
     },
