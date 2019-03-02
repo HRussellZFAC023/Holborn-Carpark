@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 
+/**
+ * Component that renders the navigational side bar and immediately activates the Dashboard scene
+ */
 class SideBar extends Component {
     constructor(props) {
         super(props);
