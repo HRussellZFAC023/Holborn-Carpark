@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Ionut-Vlad Alboiu. All rights reserved.
+ * Copyright (c) 2019. Ionut-Vlad Alboiu.
  */
 
 package uk.co.holborn.carparkclient.controllers;

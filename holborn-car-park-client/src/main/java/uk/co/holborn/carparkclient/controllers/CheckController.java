@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Ionut-Vlad Alboiu.
+ */
+
 package uk.co.holborn.carparkclient.controllers;
 
 import com.google.gson.Gson;

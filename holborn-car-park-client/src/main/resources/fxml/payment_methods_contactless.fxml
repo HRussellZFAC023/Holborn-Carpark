@@ -13,6 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--
+  ~ Copyright (c) 2019. Ionut-Vlad Alboiu.
+  -->
+
 <!--suppress XmlHighlighting -->
 
 <AnchorPane fx:id="mainAnchorPane" prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
