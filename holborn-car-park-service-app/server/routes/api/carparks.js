@@ -137,7 +137,8 @@ module.exports = function(io) {
                 return res.status(500).json(json_resp.error.internal);
             }
 
-            socket_functions.emit_update(io, c_id);}
+            socket_functions.emit_update(io, c_id);
+        }
 
         if (typeof req.body.postcode !== 'undefined') {
             try {
