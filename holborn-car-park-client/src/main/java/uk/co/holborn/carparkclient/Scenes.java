@@ -15,41 +15,62 @@ import java.net.URL;
  * @version 1.0.1
  */
 public enum Scenes {
+    /**
+     * Landing scene
+     */
     LANDING("/fxml/landing_page.fxml", new LandingPageController()) {
         @Override
         void onSceneEnter() {
         }
     },
+    /**
+     * Ticket check scene
+     */
     TICKET_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setTicketMode();
         }
     },
+    /**
+     * Smart card check scene
+     */
     SMARTCARD_CHECK("/fxml/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setSmartcardMode();
         }
     },
+    /**
+     * Payment methods scene
+     */
     PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsController) controller).setup();
         }
     },
+    /**
+     * Cash payment scene
+     */
     PAYMENT_METHODS_CASH("/fxml/payment_methods_cash.fxml", new PaymentMethodsCashController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsCashController) controller).setup();
         }
     },
+    /**
+     * Contactless payment
+     */
     PAYMENT_METHODS_CONTACTLESS("/fxml/payment_methods_contactless.fxml", new PaymentMethodsContactlessController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsContactlessController) controller).setup();
         }
     },
+    /**
+     * Finish screen payment
+     */
     FINISH("/fxml/finish.fxml", new FinishController()) {
         @Override
         void onSceneEnter() {

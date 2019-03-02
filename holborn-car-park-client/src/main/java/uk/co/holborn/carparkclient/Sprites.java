@@ -7,11 +7,29 @@ package uk.co.holborn.carparkclient;
  * @version 1.0.3
  */
 public enum Sprites {
+    /**
+     * Ticket insert animation
+     */
     TICKET_INSERT(new SpriteSettings("/img/sprites/ticket_insert_sprite.png", 4096, 9, 25)),
+    /**
+     * Smart card animation
+     */
     SMARTCARD_CHECK(new SpriteSettings("/img/sprites/smartcard_check_sprite.png", 4096, 10, 99, 25)),
+    /**
+     * ApplePay payment animation
+     */
     PAYMENT_APPLE_PAY(new SpriteSettings("/img/sprites/apple_pay_contactless_sprite.png", 4096, 10, 25)),
+    /**
+     * Contactless card animation
+     */
     PAYMENT_CARD_CONTACTLESS(new SpriteSettings("/img/sprites/card_pay_anim_sprite.png", 4096, 10, 99, 25)),
+    /**
+     * Thank you text animation
+     */
     THANK_YOU(new SpriteSettings("/img/sprites/thank_you_sprite.png", 4096, 6, 25)),
+    /**
+     *Inserting coins
+     */
     COINS_IN(new SpriteSettings("/img/sprites/coins_in_sprite.png", 4096, 9, 81, 1, 0, 25));
 
     private final SpriteSettings spriteSettings;

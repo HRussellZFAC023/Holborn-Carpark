@@ -63,8 +63,6 @@ public class MainWindow extends Application {
 
     /**
      * Launching the app
-     *
-     * @param args
      */
     public static void main(String[] args) {
         launch(args);
