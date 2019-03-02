@@ -47,8 +47,6 @@ public class PaymentMethodsCashController implements Initializable {
      * done their work to prepare the ui before displaying it.
      * In here we change the theme to default one (Which is light
      *
-     * @param location
-     * @param resources
      * @since 1.0.0
      */
     @Override

@@ -22,8 +22,8 @@ public class MainWindow extends Application {
     /**
      * The start methods prepares the UI to be shown
      *
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage the stage that will be shown
+     * @throws Exception exception on loading the fxml file
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

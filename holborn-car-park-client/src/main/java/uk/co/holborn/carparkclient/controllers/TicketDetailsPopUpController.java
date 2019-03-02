@@ -54,8 +54,6 @@ public class TicketDetailsPopUpController implements Initializable {
     /**
      * Method that prepares the ui
      *
-     * @param location
-     * @param resources
      * @since 1.0.0
      */
     @Override

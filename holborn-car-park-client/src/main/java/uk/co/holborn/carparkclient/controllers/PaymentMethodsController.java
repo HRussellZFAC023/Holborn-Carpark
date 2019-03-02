@@ -34,8 +34,6 @@ public class PaymentMethodsController implements Initializable {
      * This method gets called after all the constructors have
      * done their work to prepare the ui before displaying it.
      *
-     * @param location
-     * @param resources
      * @since 1.0.0
      */
     @Override
