@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 
+/**
+ * Component that renders the user settings page
+ */
 class Settings extends Component {
 
     render() {
         return (
             <section className="modal is-active">
-                <div className="modal-background"></div>
+                <div className="modal-background"> </div>
                 <div className="modal-card">
                     <header className="modal-card-head">
                         <p className="modal-card-title">Settings</p>
-                        <button onClick={() => this.props.togglePopup()} className="delete" aria-label="close"></button>
+                        <button onClick={() => this.props.togglePopup()} className="delete" aria-label="close"> </button>
                     </header>
 
 
