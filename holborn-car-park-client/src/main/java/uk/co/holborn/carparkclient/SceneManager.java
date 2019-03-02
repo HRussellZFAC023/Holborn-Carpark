@@ -101,6 +101,7 @@ public class SceneManager {
     /**
      * Reverse to the specified scene
      * Note: this method clears the scene stack
+     *
      * @param scene where to reverse to
      */
     public void reverseTo(Scenes scene) {
