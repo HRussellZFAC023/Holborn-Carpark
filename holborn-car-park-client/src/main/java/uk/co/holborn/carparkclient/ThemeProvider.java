@@ -19,6 +19,7 @@ import javafx.util.Duration;
  *
  * @author Vlad Alboiu
  * @version 1.0
+ * @see Themes
  */
 public class ThemeProvider {
     private  Scene scene;

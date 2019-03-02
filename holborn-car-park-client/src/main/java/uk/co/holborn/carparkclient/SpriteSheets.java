@@ -14,6 +14,7 @@ import java.util.Map;
  *
  * @author Vlad Alboiu
  * @version 1.0.1
+ * @see SpriteSettings
  */
 public class SpriteSheets {
     private Logger log;

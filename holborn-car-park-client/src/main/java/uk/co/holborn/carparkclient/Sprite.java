@@ -15,6 +15,8 @@ import javafx.util.Duration;
  *
  * @author Vlad Alboiu
  * @version 1.0.3
+ * @see Sprites
+ * @see SpriteSettings
  */
 public class Sprite {
     private ImageView spriteView;
