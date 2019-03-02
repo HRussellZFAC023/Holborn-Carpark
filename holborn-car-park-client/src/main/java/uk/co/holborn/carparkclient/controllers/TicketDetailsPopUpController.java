@@ -13,6 +13,12 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+/**
+ * The check controller handles the interactions of the ticket details UI.
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.1
+ */
 public class TicketDetailsPopUpController implements Initializable {
 
     @FXML
@@ -36,11 +42,24 @@ public class TicketDetailsPopUpController implements Initializable {
     MainViewController mc;
     Scenes location;
 
+    /**
+     * Method that prepares the ui
+     *
+     * @param location
+     * @param resources
+     * @since 1.0.0
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mc = MainViewController.getInstance();
     }
 
+    /**
+     * Method that updates the screen values from the ticket
+     *
+     * @param ticket the ticket to update the on screen label values with
+     * @since 1.0.0
+     */
     public void setTicket(Ticket ticket) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm d/MM/yyyy");
         date_in.setText(dateFormat.format(ticket.getDate_in()));
@@ -54,7 +73,7 @@ public class TicketDetailsPopUpController implements Initializable {
 
         hours = ticket.getDuration_paying_for() == 1 ? " hour" : " hours";
         duration_paying_for.setText((ticket.getDuration_paying_for()) + hours);
-        BigDecimal discountedPrice = BigDecimal.ZERO;
+        BigDecimal discountedPrice;
         BigDecimal originakPrice = ticket.getPrice();
         discount.setText("Discount (" + (ticket.getDiscount() > 0 ? ticket.getDiscount() + "%" : "unavailable") + ")");
 
@@ -63,20 +82,28 @@ public class TicketDetailsPopUpController implements Initializable {
         discountFrom.setText("£" + originakPrice);
         discountSave.setText("£" + (originakPrice.subtract(discountedPrice)));
         ticket.setPrice(discountedPrice);
-        if(ticket.getPrice().compareTo(BigDecimal.ZERO)==0){
+        if (ticket.getPrice().compareTo(BigDecimal.ZERO) == 0) {
             payButton.setText("VALIDATE");
             location = Scenes.FINISH;
             ticket.setPaid(true);
-        }else{
+        } else {
             payButton.setText("PAY");
             location = Scenes.PAYMENT_METHODS;
         }
     }
 
+    /**
+     * Go to payment or if the ticket has the price 0, allow to leave
+     */
     public void goToPayment() {
         mc.sceneManager.changeTo(location);
     }
 
+    /**
+     * Go back to the previous scene
+     *
+     * @since 1.0.0
+     */
     public void back() {
         mc.sceneManager.changeTo(Scenes.FINISH);
     }
