@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Time from './Clock'
-import Notify from'./Notify'
+import Notify from './Notify'
+const $ = require('jquery');
 
 class Dash extends Component {
     constructor(props) {
         super(props);
         this.state = {
             username: props.username,
+            carparks: []
         };
     }
 
@@ -16,9 +18,9 @@ class Dash extends Component {
 
     static getDerivedStateFromProps(props, state) {
 
-        if(props.username !== state.username){
+        if (props.username !== state.username) {
 
-            return {username: props.username};
+            return { username: props.username };
         }
         // Return null to indicate no change to state.
         return null;
@@ -61,10 +63,12 @@ class Dash extends Component {
                     <article className="level-item has-text-centered">
                         <div>
                             <p className="heading">Time</p>
-                            <Time/>
+                            <Time />
                         </div>
                     </article>
                 </section>
+                {/* these are low prioty features to make the dashboard look correct*/}
+                {/* notifications should be creatable in settings */}
                 <div className="columns">
                     <section className="column panel">
                         <p className="panel-heading">Customers</p>
@@ -79,6 +83,11 @@ class Dash extends Component {
                         </div>
                     </section>
                 </div>
+                <footer class="footer">
+                    <div class="content has-text-centered">
+                        <p> <strong>Tip!</strong> You can create notification messages in setting </p>
+                    </div>
+                </footer>
             </main>
         )
     }
