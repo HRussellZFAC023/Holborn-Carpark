@@ -1,15 +1,15 @@
-const debug             = require('debug')('holborn-car-park-service-app: socket');
+const debug = require('debug')('holborn-car-park-service-app: socket');
 
-const socket_functions  = require('./socket_functions');
+const socket_functions = require('./socket_functions');
 
 
 module.exports = function (io) {
     io.on('connection', function (socket) {
         let carpark_id = null;
         debug('Socket connected: ' + socket.handshake.address.substring(socket.handshake.address.lastIndexOf(':') + 1));
-        socket_functions.authorise(socket, function (code,carparkid) {
+        socket_functions.authorise(socket, function (code, carparkid) {
             carpark_id = carparkid;
-            if(code == 200){
+            if (code == 200) {
                 socket.join(carpark_id);
                 debug(socket.handshake.address.substring(socket.handshake.address.lastIndexOf(':') + 1) + " joined in : " + carpark_id);
             }
@@ -25,6 +25,13 @@ module.exports = function (io) {
         });
         socket.on('ticket-paid', async function (paid, duration, date_out, _id, amount_paid) {
             await socket_functions.ticket_paid(paid, duration, date_out, _id, amount_paid, carpark_id);
+        });
+        socket.on("request-ticket", async function (callback) {
+            await socket_functions.request_ticket(io, carpark_id, callback);
+        });
+        socket.on("ticket-exit", async function (t_id, callback) {
+            await socket_functions.ticket_exit(io, t_id, carpark_id, callback);
+
         });
 
     });

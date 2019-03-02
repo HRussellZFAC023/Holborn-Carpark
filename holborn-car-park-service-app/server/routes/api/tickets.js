@@ -193,7 +193,7 @@ module.exports = function (io) {
     router.post('/validate', verify.UserAuth, async function (req, res) {
         let t_id = req.body._id;
         let c_id = req.body._carpark_id; //provided by the carpark requesting validation
-        const params = [t_id];
+        const params = [t_id, c_id];
 
         let db_res;
         try{

@@ -1,6 +1,7 @@
 const moment = require('moment');
 const debug = require('debug')('holborn-car-park-service-app: socket_functions');
 
+const UUID = require('uuid/v4');
 const carpark_db = require('../databases/carpark_db_conn');
 const verify = require('../javascripts/verify');
 const queries = require('../databases/queries');
@@ -38,7 +39,7 @@ exports.fetch_smartcard_details = async function (_id, carpark_id, callback) {
             if (code === 200) ticket.discount = db_res.rows[0].discount;
             return callback(code, details, ticket)
         });
-    }else{
+    } else {
         return callback(404, "Smart card could not be found: " + _id, null)
     }
 };
@@ -105,17 +106,64 @@ exports.authorise = function (socket, carparkid_cb) {
         });
     });
 };
-exports.smartcard_exit =function (socket, carparkid_cb) {
+exports.smartcard_exit = function (socket, carparkid_cb) {
     //TODO<- smartcard exit
 };
-exports.smartcard_enter = function (socket, carparkid_cb) {
-    //TODO<- smartcard enter
+exports.smartcard_enter = async function (io, s_id, c_id, cb) {
+    const params = [s_id];
+    let db_res;
+    try {
+        db_res = await carpark_db.query(queries.api.smartcards.get_one);
+    } catch (db_err) {
+        debug(db_err);
+        return cb(500, null);
+    }
+    if(db_res.rows[0]._carpark_id !== c_id) cb(406, null);
+    if(db_res.rows[0].ticket_id === null){
+        let generatedTicket ;
+        request_ticket(io, c_id, generatedTicket);
+        //TODO
+    }
+    return cb(200, db_res.rows[0]);
+
 };
-exports.ticket_exit = function (socket, carparkid_cb) {
-    //TODO<- ticket exit
+exports.ticket_exit = async function (io, t_id, c_id, cb) {
+    const params = [t_id, c_id];
+    let db_res;
+    try {
+        db_res = await carpark_db.query(queries.api.tickets.validate, params);
+    } catch (db_err) {
+        debug(db_err);
+        return cb(500, null);
+    }
+    if(!db_res.rows[0]) return cb(404, null);
+    if (db_res.rows[0].valid !== true) return cb(406,null); //not valid
+    if (db_res.rows[0].paid !== true) return cb(403,null); // not paid
+    return cb(200, db_res.rows[0]);
+
 };
-exports.request_ticket = function (socket, carparkid_cb) {
-    //TODO<- ticket request
+exports.request_ticket = async function (io, c_id, cb) {
+    //generate a ticket
+    let t_id = UUID();
+    const params = [t_id, Date.now(), false, true, c_id];
+    try {
+        await carpark_db.query(queries.api.tickets.create, params);
+    } catch (db_err) {
+        debug(db_err);
+    }
+    this.emit_update(io, c_id);
+
+    //and get the newly generated ticket
+    const params1 = [t_id];
+    let db_res;
+    try {
+        db_res = await carpark_db.query(queries.api.tickets.get_one, params1);
+    } catch (db_err) {
+        debug(db_err);
+    }
+    return cb(db_res.rows[0]);
+
+
 };
 exports.emit_update = function (io, _id) {
     io.sockets.in(_id).emit('update-carpark-details');

@@ -43,7 +43,7 @@ exports.api = {
             valid:      `UPDATE tickets SET valid     = $2                          WHERE _id = $1`
         },
         delete_one: `DELETE   FROM tickets WHERE _id = $1`,
-        validate:   `SELECT * FROM tickets WHERE _id = $1`
+        validate:   `SELECT * FROM tickets WHERE _id = $1 AND _carpark_id = $2`
     },
     carparks: {
         get_all:    `SELECT * FROM carparks`,
