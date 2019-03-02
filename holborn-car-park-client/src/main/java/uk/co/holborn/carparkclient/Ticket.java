@@ -24,6 +24,9 @@ public class Ticket {
     private boolean paidOnReceived;
     private boolean receivedFromSmartcard;
 
+    /**
+     * A ticket constructor
+     */
     public Ticket() {
         price = BigDecimal.ZERO;
         amountInTicketMachine = BigDecimal.ZERO;
@@ -34,6 +37,8 @@ public class Ticket {
         valid = false;
         receivedFromSmartcard = false;
     }
+
+    // getters and setters
 
     public boolean isReceivedFromSmartcard() {
         return receivedFromSmartcard;
