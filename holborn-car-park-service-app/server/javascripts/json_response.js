@@ -97,6 +97,15 @@ module.exports = {
                 hour_rate:      'double',
                 postcode:       'string ("HH000HH")'
             }
+        },
+        invalid_autoreport_update: {
+            type:    'invalid update',
+            message: 'Possible parameters listed in .params',
+            params: {
+                time_period:  'integer',
+                last_sent:    'Date.now()',
+                user_id:      'uuid'
+            }
         }
     },
     success: {
