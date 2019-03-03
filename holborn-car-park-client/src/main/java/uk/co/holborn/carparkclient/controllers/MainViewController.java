@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
+import uk.co.holborn.carparkclient.Networking.Server;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -62,7 +63,7 @@ public class MainViewController implements Initializable {
     private Long sessionStartTime;
     private static SpriteSheets spriteSheets;
     private int pastHour = 0;
-//    private static Server server;
+    private static Server server;
 
     /**
      * The constructor initialises the {@link GlobalVariables},
@@ -84,8 +85,8 @@ public class MainViewController implements Initializable {
         instance = this;
         spriteSheets = new SpriteSheets();
         spriteSheets.load();
-//        server = new Server(GlobalVariables.SERVER_LISTEN_PORT);
-//        server.start();
+        server = new Server(GlobalVariables.SERVER_LISTEN_PORT);
+        server.start();
     }
 
     /**
@@ -322,9 +323,9 @@ public class MainViewController implements Initializable {
      * Get the running server instance
      * @return the running server
      */
-//    public  Server getServer() {
-//        return server;
-//    }
+    public  Server getServer() {
+        return server;
+    }
 
     /**
      * Sends ticket generation request to  the server. Once a response has been received,
