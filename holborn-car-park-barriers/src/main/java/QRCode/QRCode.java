@@ -1,3 +1,5 @@
+package QRCode;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
@@ -35,8 +37,7 @@ public class QRCode extends Canvas {
     }
 
     private void formatFile() {
-        String file = "AlphaToInt.txt";
-        //String file = "IntToAlpha.txt";
+        String file = "Inputs/AlphaToInt.txt";
         try (
                 Scanner scan = new Scanner(new File(file))
         ) {
@@ -666,7 +667,7 @@ public class QRCode extends Canvas {
     private int[] getErrorCorrectionCodewords(int[] vals, int codewords) {
         int[] poly = getPoly(codewords);
         int[] startExp = new int[]{vals.length + codewords};
-        int[] alpInt = getAlpIntTable("AlphaToInt.txt", true), intAlp = getAlpIntTable("IntToAlpha.txt", false);
+        int[] alpInt = getAlpIntTable("Inputs/AlphaToInt.txt", true), intAlp = getAlpIntTable("Inputs/IntToAlpha.txt", false);
         int alpMult = intAlp[vals[0]];
         int[] prev = Arrays.copyOf(poly, poly.length);
         for (int pos = 0; pos < poly.length; pos++) {
@@ -915,7 +916,7 @@ public class QRCode extends Canvas {
 
     private int getVersion(int length, int mode, int errLvl) {
         try {
-            Scanner scan = new Scanner(new File("CharLevels.txt"));
+            Scanner scan = new Scanner(new File("Inputs/CharLevels.txt"));
             while (scan.hasNext()) {
                 int version = scan.nextInt();
                 scan.nextLine();
@@ -948,7 +949,7 @@ public class QRCode extends Canvas {
 
     private int[] getPoly(int codewords) {
         int[] polyDef = new int[0];
-        try (Scanner scan = new Scanner(new File("PolynomialTable.txt"))) {
+        try (Scanner scan = new Scanner(new File("Inputs/PolynomialTable.txt"))) {
             for (int pos = 0; pos < codewords - 7; pos++) {
                 scan.nextLine();
             }
@@ -980,7 +981,7 @@ public class QRCode extends Canvas {
     }
 
     private String getLine(int errLvl) throws IOException {
-        Scanner scan = new Scanner(new File("ErrorCorrection.txt"));
+        Scanner scan = new Scanner(new File("Inputs/ErrorCorrection.txt"));
         while (Integer.parseInt(scan.nextLine()) < version) {
             for (int pos = 0; pos < 4; pos++) {
                 scan.nextLine();
@@ -1008,7 +1009,7 @@ public class QRCode extends Canvas {
     private int[] getAlignmentCentres() {
         int[] centreLocations = new int[0];
         if (version != 1) {
-            try (Scanner scan = new Scanner(new File("AlignmentPatternLocations.txt"))) {
+            try (Scanner scan = new Scanner(new File("Inputs/AlignmentPatternLocations.txt"))) {
                 for (int pos = 0; pos < version - 1; pos++) {
                     scan.nextLine();
                 }
@@ -1023,7 +1024,7 @@ public class QRCode extends Canvas {
 
     private String getFormatInfo(int[] verStor) {
         String bitString = "";
-        try (Scanner scan = new Scanner(new File("FormatInfo.txt"))) {
+        try (Scanner scan = new Scanner(new File("Inputs/FormatInfo.txt"))) {
             for (int pos = 1; pos < verStor[0]; pos++) {
                 scan.nextLine();
                 for (int matVer = 0; matVer < 8; matVer++) {
@@ -1043,7 +1044,7 @@ public class QRCode extends Canvas {
 
     private String getVersionInfo() {
         String bitString = "";
-        try (Scanner scan = new Scanner(new File("VersionInfo.txt"))) {
+        try (Scanner scan = new Scanner(new File("Inputs/VersionInfo.txt"))) {
             for (int pos = 0; pos < version - 7; pos++) {
                 scan.nextLine();
 
@@ -1057,7 +1058,7 @@ public class QRCode extends Canvas {
 
     private String remainderBits(int version) {
         int rem = 0;
-        try (Scanner scan = new Scanner(new File("RemainderBits.txt"))) {
+        try (Scanner scan = new Scanner(new File("Inputs/RemainderBits.txt"))) {
             for (int pos = 0; pos < version - 1; pos++) {
                 scan.nextLine();
             }

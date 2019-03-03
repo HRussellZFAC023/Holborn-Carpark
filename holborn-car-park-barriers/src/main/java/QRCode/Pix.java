@@ -1,3 +1,5 @@
+package QRCode;
+
 public class Pix {
 
     private boolean state;
