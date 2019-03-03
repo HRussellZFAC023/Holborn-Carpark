@@ -73,6 +73,7 @@ public class Barrier extends Thread {
                         switch (input) {//Switch case to process the command received, if any
                             case ("Halt"):
                                 endConnection();//Initiate the termination of the connection to the client
+                                socket.close();//Close the socket
                                 break;
                             case ("Update")://Request an update of the carpark details from the client
                                 getCarparkDetails();
@@ -200,7 +201,7 @@ public class Barrier extends Thread {
     }//Check with the server if the ticket is valid
 
     /**
-     * Method that terminates the connection with teh client.
+     * Method that terminates the connection with the client.
      *
      * @since 1.0.0
      */
@@ -211,8 +212,6 @@ public class Barrier extends Thread {
         try {
             //Send the closing command to the server
             getPrinter().println("Halt");
-            /*//Close the socket
-            socket.close();*/
             connected = false;//Set connected to false
         } catch (IOException e) {
             System.out.println("Error whilst closing socket connection.");
