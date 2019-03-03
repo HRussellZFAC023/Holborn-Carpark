@@ -358,8 +358,9 @@ public class Barrier extends Thread {
      */
     private void waitForPriority() {
         while (handling) {//While another method is communicating with the client
-            sleep(5);//Wait up to 5 milliseconds
+            sleep(100);//Wait up to 5 milliseconds
         }
+
     }//Wait for priority to communicate with the client
 
     /**

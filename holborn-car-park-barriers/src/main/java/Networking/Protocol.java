@@ -74,6 +74,9 @@ public class Protocol {
         } catch (Exception e) {//Throw a no connection error to cause the barrier to try and re-connect to the client
             throw new NoConnectionError("No connection to the server.");
         }
+        if (answer.equalsIgnoreCase("ListenUp.")){
+            return checkTicket(ID, scan, out);
+        }
         return Boolean.parseBoolean(answer);
     }//Checks if the input ID from the barrier is a valid ticket to leave the carpark
 
@@ -98,6 +101,9 @@ public class Protocol {
             }
         } catch (Exception e) {//Throw a no connection error to cause the barrier to try and re-connect to the client
             throw new NoConnectionError("No connection to the server.");
+        }
+        if (answer.equalsIgnoreCase("ListenUp.")){
+            return checkTicket(ID, scan, out);
         }
         return Boolean.parseBoolean(answer);//Return if the smartcard is valid or not
     }//Gets the validity of the inputted smartcard ID
