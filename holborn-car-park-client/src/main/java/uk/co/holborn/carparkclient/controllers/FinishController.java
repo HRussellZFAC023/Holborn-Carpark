@@ -100,6 +100,9 @@ public class FinishController implements Initializable {
         mc.sceneManager.reverseTo(Scenes.LANDING);
     }
 
+    /**
+     * Start a delay thread
+     */
     private void startFinishedChangeDelay() {
         long startTime = System.currentTimeMillis();
         int finishTime = GlobalVariables.TRANSACTION_FINISHED_DELAY_S * 1000;
