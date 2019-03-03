@@ -105,8 +105,8 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     if(db_res1.rows[0].happy_hour!== null){
         let ticketEnterDate = new Date(ticket.date_in);
         let happyHourStartTime = new Date(db_res1.rows[0].happy_hour_start_time);
-        debug(ticketEnterDate);
-        debug(happyHourStartTime);
+        // debug(ticketEnterDate);
+        // debug(happyHourStartTime);
         debug(ticketEnterDate >= happyHourStartTime)
         if(db_res1.rows[0].happy_hour=== true && ticketEnterDate >= happyHourStartTime) ticket.price = 0;
         else{
