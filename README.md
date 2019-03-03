@@ -14,8 +14,6 @@ Documentations
 
 - [Group report writeup](https://docs.google.com/document/d/1Vk6iX0BysQidZeoMgF_f7MXtQpuimcAJj-XgpePxWF0/edit?usp=sharing)
 
-- [Group final presentation](https://docs.google.com/presentation/d/1rHr7iDwA-wuzsfoC_S-Do-imc_da0u5B0UlQuy09KUk/edit?usp=sharing)
-
 The Holy Grail
 --------------
 1. Create a new branch and switch to it.
