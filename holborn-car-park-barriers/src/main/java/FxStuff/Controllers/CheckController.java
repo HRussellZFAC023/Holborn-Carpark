@@ -92,12 +92,6 @@ public class CheckController implements Initializable {
                 validationUI(true);
                 if (mc.checkTicket(newValue, isTicketFromSmartCard)) {
                     Platform.runLater(() -> animateImageValidate(true));
-                    try {
-                        Thread.sleep(2000);
-                    } catch
-                    (Exception e) {
-                        System.out.println("Problems sleeping the thread.");
-                    }
                     //mc.getSceneManager().changeTo(Scenes.LEAVE);
                     mc.getSceneManager().goBack();
                 } else {

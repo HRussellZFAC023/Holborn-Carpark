@@ -129,8 +129,8 @@ public class MultiServerThread extends Thread {
                 case ("Update")://Retireve the carpark details and send them to the barrier
                     System.out.println("Recieved update request");
                     //TODO Get carpark info
-                    Object[] infoStuff = new Object[]{"Some", 2.50, "05:30 ", "06:30 "};
-                    print.println((new Gson()).toJson(infoStuff));
+                    String infoStuff = "Some&2.50&Unavaliable";
+                    print.println(infoStuff);
                     System.out.println("Sent update request.");
                     break;
                 default://If the wrong command was sent send null back

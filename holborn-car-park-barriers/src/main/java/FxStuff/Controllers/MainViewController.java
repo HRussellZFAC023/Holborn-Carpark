@@ -116,7 +116,7 @@ public class MainViewController implements Initializable {
         return logger;
     }
 
-    public Object[] getCarparkDetails() {
+    public String[] getCarparkDetails() {
         return barrier.getCarparkDetails();
     }
 

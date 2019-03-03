@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Ionut-Vlad Alboiu.
+ */
+
 package FxStuff;
 
 import javafx.animation.Timeline;
@@ -12,16 +16,27 @@ import java.util.Stack;
 import static javafx.scene.layout.AnchorPane.*;
 
 /**
- * Scene manager handles the UI changes
+ * SceneManager handles the scene changes and animation. It knows the current scene,
+ * keeps track of the old scenes stack so going back happens seamless.
+ * All the scenes are added on the provided AnchorPane as a parameter.
+ *
+ * @author Vlad Alboiu
+ * @version 1.0.2
+ * @see Scenes
  */
 public class SceneManager {
-    private Logger logger;
-    private AnchorPane scenePane;
-    private Stack<Scenes> sceneStack;
+    private final Logger logger;
+    private final AnchorPane scenePane;
+    private final Stack<Scenes> sceneStack;
     private Scenes currentScene;
     private AnchorPane sc;
     private boolean animationFinished;
 
+    /**
+     * Constructor
+     *
+     * @param scenePane to be used for all the scenes
+     */
     public SceneManager(AnchorPane scenePane) {
         logger = LogManager.getLogger(getClass().getName());
         this.scenePane = scenePane;
@@ -29,6 +44,11 @@ public class SceneManager {
         animationFinished = true;
     }
 
+    /**
+     * Change to the provided scene
+     *
+     * @param scene wanted scene
+     */
     public void changeTo(Scenes scene) {
         if (animationFinished) {
             if (currentScene != null && currentScene != scene) {
@@ -38,10 +58,21 @@ public class SceneManager {
         }
     }
 
+    /**
+     * Display the provided scene
+     *
+     * @param scene to display
+     */
     private void displayScene(Scenes scene) {
         displayScene(scene, false);
     }
 
+    /**
+     * Display the provided scene
+     *
+     * @param scene    to display
+     * @param reversed animation or not
+     */
     private void displayScene(Scenes scene, boolean reversed) {
         if (currentScene == null || currentScene != scene) {
             currentScene = scene;
@@ -51,18 +82,42 @@ public class SceneManager {
             setLeftAnchor(sc, 0.0);
             setTopAnchor(sc, 0.0);
             Platform.runLater(() -> {
-                scenePane.getChildren().add(sc);
-                animateShowIn(reversed);
+                try {
+                    scenePane.getChildren().add(sc);
+                    animateShowIn(reversed);
+                } catch (IllegalArgumentException e) {
+                    logger.error("Tried to add duplicate pane!");
+                }
+
             });
         }
     }
 
+    /**
+     * Switch to the previous scene
+     */
     public void goBack() {
         if (animationFinished) {
             displayScene(sceneStack.pop(), true);
         }
     }
 
+    /**
+     * Reverse to the specified scene
+     * Note: this method clears the scene stack
+     *
+     * @param scene where to reverse to
+     */
+    public void reverseTo(Scenes scene) {
+        sceneStack.clear();
+        displayScene(scene, true);
+    }
+
+    /**
+     * Display the scenes animations
+     *
+     * @param reversed animation
+     */
     private void animateShowIn(boolean reversed) {
         animationFinished = false;
         Timeline timeline = new Timeline();
@@ -87,6 +142,18 @@ public class SceneManager {
         timeline.play();
     }
 
+    /**
+     * Provides the actual scene
+     *
+     * @return currentScene
+     */
+    public Scenes getCurrentScene() {
+        return currentScene;
+    }
+
+    /**
+     * Clear scenes stack
+     */
     public void clearSceneQueue() {
         sceneStack.clear();
     }

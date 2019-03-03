@@ -50,12 +50,12 @@ public class LandingInPageController implements Initializable {
         update(mainCont.getCarparkDetails());
     }
 
-    private void update(Object[] objects) {
+    private void update(String[] data) {
         Platform.runLater(() -> {
             System.out.println("Updating");
-            updateTextParkingSpaces(objects[0] + "");
-            updateTextPrice("£" + objects[1]);
-            updateHappyHour((objects[2] + "").subSequence(0, 5) + " - " + (objects[3] + "").subSequence(0, 5));
+            updateTextParkingSpaces(data[0] + "");
+            updateTextPrice("£" + data[1]);
+            updateHappyHour(data[2]);
         });
     }
 

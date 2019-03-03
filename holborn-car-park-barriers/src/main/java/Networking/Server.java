@@ -2,6 +2,7 @@ package Networking;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +46,11 @@ public class Server extends Thread {
      */
     public void shutdown() {
         stopListening();//Stop the server listening for more connections
-        for (int pos = connections.size() - 1; pos >= 0; pos--) {//Loop through every connection
-            connections.get(pos).shutdown();//Set it to terminate the connection.
-            connections.remove(pos);//Remove the server from the list.
+        if (connections.size() > 0) {
+            for (int pos = connections.size() - 1; pos >= 0; pos--) {//Loop through every connection
+                connections.get(pos).shutdown();//Set it to terminate the connection.
+                connections.remove(pos);//Remove the server from the list.
+            }
         }
     }//Stops the server listening for more connections then closes all current connenctions
 
@@ -56,8 +59,8 @@ public class Server extends Thread {
      *
      * @since 1.0.0
      */
-    public void update(){
-        for (MultiServerThread con: connections){//Loop through all the connected barriers
+    public void update() {
+        for (MultiServerThread con : connections) {//Loop through all the connected barriers
             con.update();//Set the barrier to request the carpark details off of the server
         }
     }//Makes all the connected barriers update the carpark info
@@ -69,6 +72,7 @@ public class Server extends Thread {
      */
     private void stopListening() {
         listening = false;//Set listening to false to stop the thread connecting to more barriers
+        //Socket terminateSocket = ;
     }//Stops the thread accepting connections
 
     /**
@@ -81,11 +85,13 @@ public class Server extends Thread {
     public void run() {
         try (ServerSocket serverSocketIn = new ServerSocket(port)) {
             //While listening for connections
+            int barrier = 0;
             while (listening) {
                 //Wait for a device to try and connect on the listening port, then given a new port to use and a thread to run it
                 MultiServerThread newServer = new MultiServerThread(serverSocketIn.accept());
                 //Add the new connection to the list of connections
                 connections.add(newServer);
+                newServer.setName("Barrier: " + barrier++);
                 //Start the newServer thread.
                 newServer.start();
             }

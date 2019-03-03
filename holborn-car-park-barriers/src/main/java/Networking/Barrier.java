@@ -80,7 +80,7 @@ public class Barrier extends Thread {
                                 break;
                         }
                     }
-                } catch (IOException e) {
+                } catch (Exception ignore) {
                     disconnected();//Reconnect if disconnected
                 }
             } else {
@@ -188,7 +188,7 @@ public class Barrier extends Thread {
         boolean valid = false;//Set the validity of the ticket to false
         try {
             //Validate the smartcard using the protocol
-            valid =  new Protocol().validateSmartCard(ID, getScanner(), getPrinter());
+            valid = new Protocol().validateSmartCard(ID, getScanner(), getPrinter());
         } catch (IOException e) {
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
@@ -327,20 +327,20 @@ public class Barrier extends Thread {
      * @return Returns a 4 element object array with the carpark details on it.
      * @since 1.0.0
      */
-    public Object[] getCarparkDetails() {
+    public String[] getCarparkDetails() {
         waitForPriority();//Wait for priority to communicate with the client
         handling = true;//Set the concurrency boolean to true so that no other methods use it
-        Object[] details;//Create the Object array to store the information
+        String[] details;//Create the String array to store the information
         try {
             PrintWriter out = getPrinter();//Get the input and output streams
             Scanner scan = getScanner();
             //Get the string version of the Object array
             String detailsString = new Protocol().update(scan, out);
             //Convert the string to the Object array
-            details = new Gson().fromJson(detailsString, Object[].class);
+            details = detailsString.split("&");
         } catch (IOException e) {
             //return a default set of values
-            details = new Object[]{"Unavailable",99.99,"00:00 ", "00:00 "};
+            details = new String[]{"Unavailable", "99.99","Unavailable"};
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
             disconnected();//Attempt to reconnect

@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2019. Ionut-Vlad Alboiu.
+ * And me?
+ */
 package FxStuff;
 
 import org.apache.logging.log4j.LogManager;
@@ -6,7 +10,32 @@ import org.apache.logging.log4j.Logger;
 import java.io.*;
 import java.util.Properties;
 
+/**
+ * Class that provides all the global variables used
+ * during runtime loaded from a configuration file
+ *
+ * @author Vlad Alboiu
+ * @author Cameron
+ * @version 1.0.1
+ */
 public class GlobalVariables {
+
+    private static final String APP_NAME = "Holborn Car Park System";
+    public static String CAR_PARK_NAME = "";
+    static String MAIN_WINDOW_NAME = "";
+    public static String LANDING_PAGE_WELCOME = "";
+    public static String CAR_PARK_ID = "";
+    public static String WEBSERVICE_SOCKET = "";
+    public static int SESSION_TIMEOUT_S = 300;
+    public static int SESSION_TIMEOUT_POPUP_DURATION_S = 3;
+    public static int TRANSACTION_FINISHED_DELAY_S = 10;
+    public static boolean AUTO_NIGHT_TIME = true;
+    public static int NIGHT_TIME_START = 19;
+    public static int NIGHT_TIME_END = 7;
+
+    private OutputStream output = null;
+    private InputStream input = null;
+
     static String app_name = "";
     static String car_park_name = "";
     static String main_window_name = "";
@@ -17,15 +46,12 @@ public class GlobalVariables {
 
     public static String webservice_socket = "";
 
-    String configName = "config.xml";
-    Properties appProp;
+    private String configName = "config.xml";
+    private Properties appProp;
 
     public GlobalVariables() {
         loadFile();
     }
-
-    private OutputStream output = null;
-    private InputStream input = null;
 
     private void loadFile() {
         appProp = new Properties();
