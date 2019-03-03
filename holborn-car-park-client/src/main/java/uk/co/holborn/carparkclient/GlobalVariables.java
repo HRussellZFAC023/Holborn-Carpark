@@ -33,6 +33,7 @@ public class GlobalVariables {
     public static boolean AUTO_NIGHT_TIME = true;
     public static int NIGHT_TIME_START = 19;
     public static int NIGHT_TIME_END = 7;
+    public static int  SERVER_LISTEN_PORT= 4444;
 
     private final String configName = "config.xml";
     private Properties appProp;
@@ -68,6 +69,7 @@ public class GlobalVariables {
                 appProp.setProperty("night_time_start", "19");
                 appProp.setProperty("night_time_end", "7");
                 appProp.setProperty("transaction_finished_delay", "10");
+                appProp.setProperty("server_listen_port", "4444");
                 appProp.storeToXML(output, null);
                 logger.info("Configuration file created! ");
                 logger.error("Please modify the config file with the received information " +
@@ -91,6 +93,7 @@ public class GlobalVariables {
             SESSION_TIMEOUT_S = Integer.parseInt(checkNullOrEmptyProperty("session_timeout_seconds"));
             SESSION_TIMEOUT_POPUP_DURATION_S = Integer.parseInt(checkNullOrEmptyProperty("session_timeout_popup_duration"));
             AUTO_NIGHT_TIME = Boolean.parseBoolean(checkNullOrEmptyProperty("auto_night_time"));
+            SERVER_LISTEN_PORT = Integer.parseInt(checkNullOrEmptyProperty("server_listen_port"));
             if (AUTO_NIGHT_TIME) {
                 NIGHT_TIME_START = Integer.parseInt(checkNullOrEmptyProperty("night_time_start"));
                 NIGHT_TIME_END = Integer.parseInt(checkNullOrEmptyProperty("night_time_end"));

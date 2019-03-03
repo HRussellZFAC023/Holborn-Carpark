@@ -16,4 +16,5 @@
     <entry key="night_time_start">19</entry>
     <entry key="night_time_end">7</entry>
     <entry key="debug_mode">true</entry>
+    <entry key="server_listen_port">4444</entry>
 </properties>

@@ -62,6 +62,7 @@ public class MainViewController implements Initializable {
     private Long sessionStartTime;
     private static SpriteSheets spriteSheets;
     private int pastHour = 0;
+//    private static Server server;
 
     /**
      * The constructor initialises the {@link GlobalVariables},
@@ -73,7 +74,7 @@ public class MainViewController implements Initializable {
         hourly_price = "";
         parking_spaces = "";
         happy_hour = "";
-        GlobalVariables globalVariables = new GlobalVariables();
+        new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
         try {
             socket = IO.socket(GlobalVariables.WEBSERVICE_SOCKET);
@@ -83,6 +84,8 @@ public class MainViewController implements Initializable {
         instance = this;
         spriteSheets = new SpriteSheets();
         spriteSheets.load();
+//        server = new Server(GlobalVariables.SERVER_LISTEN_PORT);
+//        server.start();
     }
 
     /**
@@ -316,8 +319,17 @@ public class MainViewController implements Initializable {
     }
 
     /**
+     * Get the running server instance
+     * @return the running server
+     */
+//    public  Server getServer() {
+//        return server;
+//    }
+
+    /**
      * Sends ticket generation request to  the server. Once a response has been received,
      * the method {@link #receivedTicket(Object[])} will be called with corresponding info
+     *
      * @since 1.0.6
      */
     public void requestTicket() {
@@ -326,40 +338,44 @@ public class MainViewController implements Initializable {
 
     /**
      * Method called once a response has been received from the server
+     *
      * @param objects the objects received from the server
      *                (index 0 contains the error code,
      *                index 1 contains either the ticket or info message)
      */
-    public void receivedTicket(Object[] objects){
+    public void receivedTicket(Object[] objects) {
         System.out.println(objects[0]);
     }
 
     /**
      * Sends a request to the server to verify whether or not a ticket is valid for exit.
      * This means the ticket has to exist, be valid and paid. Once these criteria are met, the ticket gets invalidated
+     *
      * @param ticketID the ticket id to check
      */
-    public void requestTicketValidity(String ticketID){
-        socket.emit("ticket-exit", ticketID,(Ack) objects ->{
+    public void requestTicketValidity(String ticketID) {
+        socket.emit("ticket-exit", ticketID, (Ack) objects -> {
             logger.info("Ticket exit request: " + ticketID + " Response:  " + objects[0] + " " + objects[1]);
-            if(objects[0].equals(200)){
+            if (objects[0].equals(200)) {
                 receivedRequestResponse(true);
-            }else{
+            } else {
                 receivedRequestResponse(false);
             }
         });
     }
+
     /**
      * Sends a request to the server to verify whether or not a ticket contained in the smart card is valid for exit.
      * This means the ticket has to exist, be valid and paid. Once these criteria are met, the ticket gets invalidated
+     *
      * @param smartcardID the smart ardID id to check
      */
-    public void requestSmartcardValidity(String smartcardID){
-        socket.emit("smartcard-exit", smartcardID,(Ack) objects ->{
+    public void requestSmartcardValidity(String smartcardID) {
+        socket.emit("smartcard-exit", smartcardID, (Ack) objects -> {
             logger.info("Smartcard exit request: " + smartcardID + " Response:  " + objects[0] + " " + objects[1]);
-            if(objects[0].equals(200)){
+            if (objects[0].equals(200)) {
                 receivedRequestResponse(true);
-            }else{
+            } else {
                 receivedRequestResponse(false);
             }
         });
@@ -367,19 +383,21 @@ public class MainViewController implements Initializable {
 
     /**
      * Verifies whether or not the smart card is valid for entrance
+     *
      * @param smartcardId the smart card id ot check
      */
-    public void checkSmartcard(String smartcardId){
-        socket.emit("smartcard-enter", smartcardId,(Ack) objects ->{
+    public void checkSmartcard(String smartcardId) {
+        socket.emit("smartcard-enter", smartcardId, (Ack) objects -> {
             logger.info("Smartcard enter request: " + smartcardId + " Response:  " + objects[0] + " " + objects[1]);
-            if(objects[0].equals(200)){
+            if (objects[0].equals(200)) {
                 receivedRequestResponse(true);
-            }else{
+            } else {
                 receivedRequestResponse(false);
             }
         });
     }
-    public void receivedRequestResponse(boolean allowed){
+
+    public void receivedRequestResponse(boolean allowed) {
         System.out.println(allowed);
 
     }

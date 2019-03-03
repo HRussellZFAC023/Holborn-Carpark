@@ -59,9 +59,11 @@ public class MainWindow extends Application {
     @Override
     public void stop() {
         MainViewController mc = MainViewController.getInstance();
+//        mc.getServer().shutdown();
         log.info("-----------Application end------------");
-        System.exit(0);
+        mc.getSocket().disconnect();
         mc.getSocket().close();
+        System.exit(0);
     }
 
     /**
