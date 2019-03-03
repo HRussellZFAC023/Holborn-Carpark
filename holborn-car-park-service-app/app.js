@@ -29,6 +29,7 @@ require('./server/sockets/socket')(io);
  */
 const mainRoutes    = require('./server/routes/main');
 const utilityRoutes = require('./server/routes/utility');
+const testRoutes    = require('./server/javascripts/mailer'); // this needs a refactor big time
 
 /**
  * API routes declaration
@@ -75,6 +76,7 @@ app.use(express.static(path.join(__dirname, 'public', 'resources')));
 app.use(express.static(path.join(__dirname, 'public', 'stylesheets')));
 app.use(mainRoutes);
 app.use('/utility', utilityRoutes);
+app.use('/test', testRoutes);
 
 /**
  * Setting API routes to be used as express middleware

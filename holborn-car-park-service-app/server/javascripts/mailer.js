@@ -12,7 +12,7 @@ const query             = require('../databases/queries');
 /**
  * Set Transport protocol to SMTP
  */
-module.exports.smtpTransport = smtpTransport = mailer.createTransport({
+smtpTransport = mailer.createTransport({
     service: "Gmail",
     auth: {
         user: "holbornreporting@gmail.com",
@@ -42,7 +42,7 @@ const day = 24 * 60 * 60 * 1000;
  * This code needs to be wrapped ina function as async/await is not allowed in global scope
  * @returns {Promise<void>}
  */
-async function initReporterDaemon() {
+async function initReporterDaemon(sendnow = false) {
     let all_reports;
 
     try {
@@ -66,7 +66,7 @@ async function initReporterDaemon() {
         today.setSeconds(0);
         today.setMilliseconds(0);
 
-        if(last_sent.getTime() + all_reports.rows[i].time_period * day !== today.getTime()) continue;
+        if(last_sent.getTime() + all_reports.rows[i].time_period * day !== today.getTime() && !sendnow) continue;
 
         let username;
         try {
@@ -109,17 +109,23 @@ async function initReporterDaemon() {
             debug(db_err);
         }
 
-        mail.props.number_of_cars = tickets.rowCount;
+        if(tickets.rows[0]) {
+            mail.props.number_of_cars = tickets.rowCount;
 
-        let drevenue = 0;
-        console.log(typeof tickets.rows[i].amount_paid)
-        for(let i = 0; i < tickets.rowCount; ++i){
-            if(tickets.rows[i].amount_paid) {
-                drevenue += tickets.rows[i].amount_paid;
+            let drevenue = 0;
+            console.log(typeof tickets.rows[i].amount_paid)
+            for (let i = 0; i < tickets.rowCount; ++i) {
+                if (tickets.rows[i].amount_paid) {
+                    drevenue += tickets.rows[i].amount_paid;
+                }
             }
-        }
 
-        mail.props.revenue = drevenue.toFixed(2);
+            mail.props.revenue = drevenue.toFixed(2);
+        }
+        else{
+            mail.props.number_of_cars = 0;
+            mail.props.revenue = 0;
+        }
 
         fs.readFile(__dirname + "../../../public/protected/resources/emailTemplate.html", "utf8", (err, data) => {
             data = data.replace('[CAR_PARK_NAME]', mail.props.car_park_name);
@@ -157,10 +163,18 @@ rule.minute = 0;
 
 scheduler.scheduleJob(rule, initReporterDaemon);
 
-
 /**
  * Testing route to immediately send emails
  * @type {module:express-promise-router}
- */
-const Router            = require('express-promise-router');
-const router            = new Router();
+*/
+const Router = require('express-promise-router');
+const router = new Router();
+const verify = require('../javascripts/verify');
+
+router.get('/autoreporter', verify.UserAuth, async function (req, res) {
+    await initReporterDaemon(true);
+
+    res.send("")
+});
+
+module.exports = router;
