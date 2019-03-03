@@ -2,12 +2,11 @@ package FxStuff.Controllers;
 
 
 import FxStuff.*;
-import Networking.Client;
+import FxStuff.Sprites.SpriteSheets;
+import Networking.Barrier;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
@@ -37,11 +36,12 @@ public class MainViewController implements Initializable {
     @FXML
     AnchorPane blurrAnchor;
     private SceneManager sceneManager;
-    private Client client;
+    private Barrier barrier;
     private InfoPopUp popup;
     public String hourly_price;
     public String parking_spaces;
     public String happy_hour_time;
+    private SpriteSheets spriteSheets;
     private Logger logger;
 
 
@@ -51,18 +51,21 @@ public class MainViewController implements Initializable {
         happy_hour_time = "";
         new GlobalVariables();
         logger = LogManager.getLogger(getClass().getName());
+        spriteSheets = new SpriteSheets();
+        spriteSheets.load();
         instance = this;
     }
 
-    public void sendAlert(String title, String header, String content, AlertType alertType) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(alertType);
-            alert.setTitle(title);
-            alert.setHeaderText(header);
-            alert.setContentText(content);
-            alert.showAndWait();
-        });
+    /**
+     * Method that returns the sprite sheets
+     *
+     * @return sprite sheets
+     * @since 1.0.5
+     */
+    public SpriteSheets getSpriteSheets() {
+        return spriteSheets;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -86,11 +89,11 @@ public class MainViewController implements Initializable {
      * Connection to the server
      */
     private void serverConnection() {
-        Client clientInterface = new Client(this);
-        clientInterface.setName("ServerConnection");
-        clientInterface.setDaemon(true);
-        clientInterface.start();
-        client = clientInterface;
+        Barrier barrierInterface = new Barrier(this);
+        barrierInterface.setName("ServerConnection");
+        barrierInterface.setDaemon(true);
+        barrierInterface.start();
+        barrier = barrierInterface;
     }
 
     public String[] getSocket() {
@@ -114,16 +117,16 @@ public class MainViewController implements Initializable {
     }
 
     public Object[] getCarparkDetails() {
-        return client.getCarparkDetails();
+        return barrier.getCarparkDetails();
     }
 
     public Ticket getNewTicket() {
-        return client.getTicket();
+        return barrier.getTicket();
     }
 
     public void disconnect() {
-        if (client.isConnected()) {
-            client.endConnection();
+        if (barrier.isConnected()) {
+            barrier.endConnection();
         }
     }
 
@@ -156,6 +159,10 @@ public class MainViewController implements Initializable {
         updater.setName("Thread-Date&Time Updater");
         updater.setDaemon(true);
         updater.start();
+    }
+
+    public boolean checkTicket(String ID){
+        return barrier.checkTicket(ID);
     }
 
 }

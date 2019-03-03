@@ -27,6 +27,7 @@ public class LandingOutPageController implements Initializable {
 
     @FXML
     public void check() {
+        mainCont.getSceneManager().changeTo(Scenes.TICKET_CHECK);
         System.out.println("Scan ticket");
     }
 }

@@ -30,6 +30,5 @@ public class MainWindow extends Application {
     @Override
     public void stop(){
         MainViewController.getInstance().disconnect();
-        //Add method to close the sockets
     }
 }
