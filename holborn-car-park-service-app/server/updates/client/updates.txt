@@ -1,0 +1,14 @@
+;aiu;
+
+[Update 1.0.1]
+Name = Holborn Car Park Client
+ProductVersion = 1.0.1.0
+URL = https://holborncarpark.com/updates/client/exe
+Size = 27827911
+MD5 = 336f21070c50d312913b4c28688eeeb8
+ServerFileName = Holborn Car Park Client.exe
+Flags = SilentInstall|NoCache
+RegistryKey = HKUD\Software\Holborn\Holborn Car Park Client\Version
+Version = 1.0.1.0
+Description = Added auto-update feature
+Feature = A big update obviously. IT WORKS!!!
