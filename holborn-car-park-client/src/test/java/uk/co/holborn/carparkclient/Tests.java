@@ -14,7 +14,7 @@ public class Tests extends ApplicationTest {
     public void start(Stage stage) throws IOException {
 //        stage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
 //        if(scene == null) {
-//            FXMLLoader loader =new FXMLLoader(getClass().getResource("/fxml/main_view.fxml"));
+//            FXMLLoader loader =new FXMLLoader(getClass().getResource("/views/main_view.views"));
 //            root = loader.load();
 //            mc = loader.getController();
 //            scene = new Scene(root,1280, 768);

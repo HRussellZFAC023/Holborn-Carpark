@@ -27,7 +27,7 @@ public class MainWindow extends Application {
      * The start methods prepares the UI to be shown
      *
      * @param primaryStage the stage that will be shown
-     * @throws Exception exception on loading the fxml file
+     * @throws Exception exception on loading the views file
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -40,7 +40,7 @@ public class MainWindow extends Application {
             }
         });
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/views/main_view.fxml"));
         primaryStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         primaryStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/client_icon.png")));
         primaryStage.setFullScreen(true);

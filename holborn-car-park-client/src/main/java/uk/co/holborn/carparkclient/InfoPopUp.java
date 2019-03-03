@@ -36,7 +36,7 @@ public class InfoPopUp {
         this.mainAnchor = mainAnchor;
         alreadyOn = false;
         if (root == null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/info_popup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info_popup.fxml"));
             try {
                 infoPopUpController = new InfoPopUpController();
                 loader.setController(infoPopUpController);

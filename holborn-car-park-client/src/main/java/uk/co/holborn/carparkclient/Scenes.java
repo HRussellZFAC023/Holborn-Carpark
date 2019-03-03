@@ -22,7 +22,7 @@ public enum Scenes {
     /**
      * Landing scene
      */
-    LANDING("/fxml/landing_page.fxml", new LandingPageController()) {
+    LANDING("/views/landing_page.fxml", new LandingPageController()) {
         @Override
         void onSceneEnter() {
         }
@@ -30,7 +30,7 @@ public enum Scenes {
     /**
      * Ticket check scene
      */
-    TICKET_CHECK("/fxml/check.fxml", new CheckController()) {
+    TICKET_CHECK("/views/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setTicketMode();
@@ -39,7 +39,7 @@ public enum Scenes {
     /**
      * Smart card check scene
      */
-    SMARTCARD_CHECK("/fxml/check.fxml", new CheckController()) {
+    SMARTCARD_CHECK("/views/check.fxml", new CheckController()) {
         @Override
         void onSceneEnter() {
             ((CheckController) controller).setSmartcardMode();
@@ -48,7 +48,7 @@ public enum Scenes {
     /**
      * Payment methods scene
      */
-    PAYMENT_METHODS("/fxml/payment_methods.fxml", new PaymentMethodsController()) {
+    PAYMENT_METHODS("/views/payment_methods.fxml", new PaymentMethodsController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsController) controller).setup();
@@ -57,7 +57,7 @@ public enum Scenes {
     /**
      * Cash payment scene
      */
-    PAYMENT_METHODS_CASH("/fxml/payment_methods_cash.fxml", new PaymentMethodsCashController()) {
+    PAYMENT_METHODS_CASH("/views/payment_methods_cash.fxml", new PaymentMethodsCashController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsCashController) controller).setup();
@@ -66,7 +66,7 @@ public enum Scenes {
     /**
      * Classic card payment scene
      */
-    PAYMENT_METHODS_CLASSIC_CARD("/fxml/payment_methods_classic_card.fxml", new PaymentMethodsClassicCardController()) {
+    PAYMENT_METHODS_CLASSIC_CARD("/views/payment_methods_classic_card.fxml", new PaymentMethodsClassicCardController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsClassicCardController) controller).setup();
@@ -75,7 +75,7 @@ public enum Scenes {
     /**
      * Contactless payment
      */
-    PAYMENT_METHODS_CONTACTLESS("/fxml/payment_methods_contactless.fxml", new PaymentMethodsContactlessController()) {
+    PAYMENT_METHODS_CONTACTLESS("/views/payment_methods_contactless.fxml", new PaymentMethodsContactlessController()) {
         @Override
         void onSceneEnter() {
             ((PaymentMethodsContactlessController) controller).setup();
@@ -84,7 +84,7 @@ public enum Scenes {
     /**
      * Finish screen payment
      */
-    FINISH("/fxml/finish.fxml", new FinishController()) {
+    FINISH("/views/finish.fxml", new FinishController()) {
         @Override
         void onSceneEnter() {
             ((FinishController) controller).setup();
@@ -99,7 +99,7 @@ public enum Scenes {
      * The constructor takes as a parameter the location of the FXML file
      * found in the resources folder and a new  instance of a controller
      *
-     * @param fxmlLocation the location of the fxml file
+     * @param fxmlLocation the location of the views file
      * @param controller   the instance of the controller to be attached
      */
     Scenes(String fxmlLocation, Object controller) {

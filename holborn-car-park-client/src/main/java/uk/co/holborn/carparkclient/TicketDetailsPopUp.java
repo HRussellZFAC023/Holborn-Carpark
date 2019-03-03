@@ -38,7 +38,7 @@ public class TicketDetailsPopUp {
         this.blurrAnchor = blurrAnchor;
         alreadyOn = false;
         if (root == null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ticket_details_popup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/ticket_details_popup.fxml"));
             try {
                 tc = new TicketDetailsPopUpController();
                 loader.setController(tc);
