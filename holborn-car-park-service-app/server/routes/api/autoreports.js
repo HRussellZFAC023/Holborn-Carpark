@@ -81,9 +81,10 @@ router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 /**
  * Create an autoreport
  */
-router.post('/', verify.UserAuth, async function (req, res) {
+router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let ar_id = UUID();
-    const params = [ar_id, req.body.time_period, req.body.last_sent, req.body.user_id];
+    let c_id = req.path.replace(/\//g, '');
+    const params = [ar_id, req.body.time_period, req.body.last_sent, req.body.user_id, c_id];
 
     try{
         await carpark_db.query(query.api.autoreports.create, params);
@@ -102,18 +103,19 @@ router.post('/', verify.UserAuth, async function (req, res) {
  * @param user_id      uuid
  */
 router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
-    let t_id = req.path.replace(/\//g, '');
+    let ar_id = req.path.replace(/\//g, '');
 
     if(typeof req.body.time_period === 'undefined' &&
        typeof req.body.user_id     === 'undefined' &&
-       typeof req.body.last_sent     === 'undefined')
+       typeof req.body.last_sent   === 'undefined' &&
+       typeof req.body.carpark_id  === 'undefined')
     {
         return res.status(500).json(json_resp.error.invalid_autoreport_update);
     }
 
     if (typeof req.body.time_period !== 'undefined') {
         try{
-            await carpark_db.query(query.api.autoreports.update.time_period, [t_id, req.body.time_period]);
+            await carpark_db.query(query.api.autoreports.update.time_period, [ar_id, req.body.time_period]);
         }
         catch (db_err) {
             debug(db_err);
@@ -123,7 +125,7 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 
     if (typeof req.body.user_id !== 'undefined') {
         try{
-            await carpark_db.query(query.api.autoreports.update.user_id, [t_id, req.body.user_id]);
+            await carpark_db.query(query.api.autoreports.update.user_id, [ar_id, req.body.user_id]);
         }
         catch(db_err) {
             debug(db_err);
@@ -133,7 +135,17 @@ router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 
     if (typeof req.body.last_sent !== 'undefined') {
         try{
-            await carpark_db.query(query.api.autoreports.update.last_sent, [t_id, req.body.last_sent]);
+            await carpark_db.query(query.api.autoreports.update.last_sent, [ar_id, req.body.last_sent]);
+        }
+        catch(db_err) {
+            debug(db_err);
+            return res.status(500).json(json_resp.error.internal);
+        }
+    }
+
+    if (typeof req.body.carpark_id !== 'undefined') {
+        try{
+            await carpark_db.query(query.api.autoreports.update.carpark_id, [ar_id, req.body.carpark_id]);
         }
         catch(db_err) {
             debug(db_err);

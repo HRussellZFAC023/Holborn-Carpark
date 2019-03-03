@@ -104,7 +104,8 @@ module.exports = {
             params: {
                 time_period:  'integer',
                 last_sent:    'Date.now()',
-                user_id:      'uuid'
+                user_id:      'uuid',
+                carpark_id:   'uuid'
             }
         }
     },

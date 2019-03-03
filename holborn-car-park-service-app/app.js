@@ -8,6 +8,10 @@ const pgSession     = require('connect-pg-simple')(cl_sessions);
 const user_db       = require('./server/databases/auth_db_conn');
 const G             = require('./server/javascripts/global');
 
+/**
+ * Init mailer - automatically checks and sends reports
+ */
+require('./server/javascripts/mailer')
 
 debug(G.env);
 

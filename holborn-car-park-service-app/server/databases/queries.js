@@ -22,11 +22,12 @@ exports.api = {
         get_all:    `SELECT * FROM autoreports`,
         delete_all: `DELETE   FROM autoreports`,
         get_one:    `SELECT * FROM autoreports WHERE  _id = $1`,
-        create:     `INSERT   INTO autoreports VALUES ($1, $2, to_timestamp($3 / 1000.0), $4)`,
+        create:     `INSERT   INTO autoreports VALUES ($1, $2, to_timestamp($3 / 1000.0), $4, $5)`,
         update: {
             time_period:   `UPDATE autoreports SET time_period  = $2   WHERE _id = $1`,
             last_sent:     `UPDATE autoreports SET last_sent    = to_timestamp($2 / 1000.0)   WHERE _id = $1`,
-            user_id:       `UPDATE autoreports SET user_id      = $2   WHERE _id = $1`
+            user_id:       `UPDATE autoreports SET user_id      = $2   WHERE _id = $1`,
+            carpark_id:    `UPDATE autoreports SET carpark_id   = $2   WHERE _id = $1`
         },
         delete_one: `DELETE   FROM autoreports WHERE _id = $1`
     },
