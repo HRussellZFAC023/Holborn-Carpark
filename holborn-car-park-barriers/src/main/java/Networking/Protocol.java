@@ -5,6 +5,9 @@ import java.util.Scanner;
 
 public class Protocol {
 
+    //TODO  On checking the smartcard you’ll give me the smartcard ID and I’ll give you a code only and say if you’re allowed to open the barrier or not
+    //TODO On exit you give me the ticked code and I say again if you are allowed to open the gate or not
+
     public boolean getType(Scanner scan) {
         String line;
         //Wait for an input

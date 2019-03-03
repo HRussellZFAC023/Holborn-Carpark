@@ -56,7 +56,7 @@ public class MultiServerThread extends Thread {
                     break;
                 case("Update"):
                     System.out.println("Recieved update request");
-                    //Needs to get the info here
+                    //TODO Get carpark info
                     Object[] infoStuff = new Object[]{"Some",2.50,"05:30 ", "06:30 "};
                     print.println((new Gson()).toJson(infoStuff));
                     System.out.println("Sent update request.");
