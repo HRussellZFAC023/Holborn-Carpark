@@ -23,7 +23,7 @@ exports.carpark_details_modified = async function (_id, callback) {
     }
 
     let avail_places = db_res.rows[0].parking_places - count;
-    if(avail_places < 0) avail_places = 0;
+    if (avail_places < 0) avail_places = 0;
 
     return callback(avail_places, db_res.rows[0].hour_rate, db_res.rows[0].happy_hour);
 };
@@ -37,13 +37,29 @@ exports.fetch_smartcard_details = async function (_id, carpark_id, callback) {
     }
     if (db_res.rows[0]) {
         await this.fetch_ticket_details(db_res.rows[0].ticket_id, carpark_id, function (code, details, ticket) {
-            if (code === 200) ticket.discount = db_res.rows[0].discount;
-            return callback(code, details, ticket)
-        });
+                if (code === 200) {
+                    if (db_res.rows[0].discount_start !== null && db_res.rows[0].discount_end !== null) {
+                        let currentHour = new Date(Date.now()).getHours();
+                        debug(currentHour);
+                        if (db_res.rows[0].discount_start <= currentHour && db_res.rows[0].discount_end >= currentHour) {
+                            ticket.discount = db_res.rows[0].discount;
+
+                        }else{
+                            ticket.discount = 0;
+                        }
+                    } else {
+                        ticket.discount = db_res.rows[0].discount;
+                    }
+                    return callback(code, details, ticket)
+
+                }
+            }
+        );
     } else {
         return callback(404, "Smart card could not be found: " + _id, null)
     }
-};
+}
+;
 exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     const params = [_id, carpark_id];
     let db_res;
@@ -107,22 +123,22 @@ exports.authorise = function (socket, carparkid_cb) {
         });
     });
 };
-exports.smartcard_exit = async function(io, s_id, c_id, cb) {
+exports.smartcard_exit = async function (io, s_id, c_id, cb) {
     const params = [s_id];
     let db_res;
     try {
         db_res = await carpark_db.query(queries.api.smartcards.get_one, params);
     } catch (db_err) {
         debug(db_err);
-       return cb(500, `Error on server when checking for smartcard`);
+        return cb(500, `Error on server when checking for smartcard`);
     }
     if (db_res.rows[0]) {
         if (db_res.rows[0]._carpark_id !== c_id) return cb(406, `Carpark id on smart card doesn't correspond with the carpark`);
-        this.ticket_exit(io,db_res.rows[0].ticket_id,c_id, function(code, msg){
+        this.ticket_exit(io, db_res.rows[0].ticket_id, c_id, function (code, msg) {
             return cb(code, msg);
         });
-    }else{
-        return  cb(404, `Could not find`);
+    } else {
+        return cb(404, `Could not find`);
     }
 };
 
@@ -145,7 +161,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
         db_res = await carpark_db.query(queries.api.smartcards.get_one, params);
     } catch (db_err) {
         debug(db_err);
-       return  cb(500, `Error on server when checking for smartcard`);
+        return cb(500, `Error on server when checking for smartcard`);
     }
     // debug(db_res);
     if (db_res.rows[0]) {
@@ -158,7 +174,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
          */
         if (db_res.rows[0].ticket_id === null) {
             this.request_ticket(io, c_id, function (code, ticket) {
-                if(code == 200) {
+                if (code == 200) {
                     const params = [s_id, ticket._id];
                     try {
                         carpark_db.query(queries.api.smartcards.update.ticket_id, params);
@@ -167,7 +183,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
                         return cb(500, `Error on server when attaching ticket`);
                     }
                     return cb(200, `New ticket attached`);
-                }else{
+                } else {
                     return cb(code, ticket)
                 }
             });
@@ -183,7 +199,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
                 local_db_res = await carpark_db.query(queries.api.tickets.get_one, params);
             } catch (db_err) {
                 debug(db_err);
-               return  cb(500, `Error on getting the ticket`);
+                return cb(500, `Error on getting the ticket`);
             }
             if (!local_db_res.rows[0]) {
                 /**
@@ -196,7 +212,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
                             carpark_db.query(queries.api.smartcards.update.ticket_id, params);
                         } catch (db_err) {
                             debug(db_err);
-                           return cb(500, `Error on server when attaching ticket`);
+                            return cb(500, `Error on server when attaching ticket`);
                         }
                         return cb(200, `New ticket attached`);
                     } else {
@@ -205,39 +221,39 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
                 });
 
             }
-                /**
-                 * If the ticket is invalid and paid, we generate one and attach it
-                 */
-                if (local_db_res.rows[0].valid !== true && local_db_res.rows[0].paid === true) {
-                    this.request_ticket(io, c_id, function (code, ticket) {
-                        if (code == 200) {
-                            const params = [s_id, ticket._id];
-                            try {
-                                carpark_db.query(queries.api.smartcards.update.ticket_id, params);
-                            } catch (db_err) {
-                                debug(db_err);
-                                cb(500, 'Error on replacing ticket');
-                            }
-                           return  cb(200, "Ticket invalid and paid. Attached a new ticket!");
-                        } else {
-                           return  cb(code, ticket)
+            /**
+             * If the ticket is invalid and paid, we generate one and attach it
+             */
+            if (local_db_res.rows[0].valid !== true && local_db_res.rows[0].paid === true) {
+                this.request_ticket(io, c_id, function (code, ticket) {
+                    if (code == 200) {
+                        const params = [s_id, ticket._id];
+                        try {
+                            carpark_db.query(queries.api.smartcards.update.ticket_id, params);
+                        } catch (db_err) {
+                            debug(db_err);
+                            cb(500, 'Error on replacing ticket');
                         }
-                    });
-                    /**
-                     * Else we update it with a new date in
-                     */
-                } else if (local_db_res.rows[0].valid === true && local_db_res.rows[0].paid === false) {
-                    const params = [local_db_res.rows[0]._id, Date.now()];
-                    try {
-                        carpark_db.query(queries.api.tickets.update.date_in, params);
-                    } catch (db_err) {
-                        debug(db_err);
-                        return cb(500, `Error on server when updating date for the ticket`);
+                        return cb(200, "Ticket invalid and paid. Attached a new ticket!");
+                    } else {
+                        return cb(code, ticket)
                     }
-                    return cb(200, 'Updated ticket with new date');
-                }else{
-                    return  cb(406, `Ticket cannot be valid and paid at the same time when entering the car park`);
+                });
+                /**
+                 * Else we update it with a new date in
+                 */
+            } else if (local_db_res.rows[0].valid === true && local_db_res.rows[0].paid === false) {
+                const params = [local_db_res.rows[0]._id, Date.now()];
+                try {
+                    carpark_db.query(queries.api.tickets.update.date_in, params);
+                } catch (db_err) {
+                    debug(db_err);
+                    return cb(500, `Error on server when updating date for the ticket`);
                 }
+                return cb(200, 'Updated ticket with new date');
+            } else {
+                return cb(406, `Ticket cannot be valid and paid at the same time when entering the car park`);
+            }
 
         }
     } else {
@@ -250,9 +266,9 @@ exports.ticket_exit = async function (io, t_id, c_id, cb) {
     try {
         db_res1 = await carpark_db.query(queries.sockets.ticket_details, p1);
     } catch (db_err) {
-         return cb(500,'Error on the server')
+        return cb(500, 'Error on the server')
     }
-    if (!db_res1.rows[0])return cb(404, null);
+    if (!db_res1.rows[0]) return cb(404, null);
     if (db_res1.rows[0].valid !== true) return cb(406, 'Not valid'); //not valid
     if (db_res1.rows[0].paid !== true) return cb(403, 'Not paid'); // not paid
 
