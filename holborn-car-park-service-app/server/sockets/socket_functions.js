@@ -72,12 +72,16 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     if (db_res.rowCount === 0) {
         return callback(404, "Ticket not found: " + _id, null);
     }
-    // if (!db_res.rows[0].valid) {
-    //     return callback(406, "Ticket is invalid: " + _id, null);
-    // }
-    // if (db_res.rows[0].paid) {
-    //     return callback(406, "Ticket is already paid: " + _id, null);
-    // }
+    const params1 = [carpark_id];
+    let db_res1;
+    try {
+        db_res1 = await carpark_db.query(queries.api.carparks.get_one, params1);
+    } catch (db_err) {
+        return callback(500, db_err.message, null);
+    }
+    if (db_res1.rowCount === 0) {
+        return callback(404, "Carpark does not exist: " + carpark_id, null);
+    }
 
     const ticket = {
         _id: db_res.rows[0]._id,
@@ -98,7 +102,17 @@ exports.fetch_ticket_details = async function (_id, carpark_id, callback) {
     ticket.duration = minutes.toFixed(0);
     ticket.date_out = date.toISOString();
     ticket.duration_paying_for = Math.ceil(duration.asHours()).toFixed(0);
-    ticket.price = (db_res.rows[0].hour_rate * Math.ceil(duration.asHours())).toFixed(2);
+    if(db_res1.rows[0].happy_hour!== null){
+        let ticketEnterDate = new Date(ticket.date_in);
+        let happyHourStartTime = new Date(db_res1.rows[0].happy_hour_start_time);
+        debug(ticketEnterDate);
+        debug(happyHourStartTime);
+        debug(ticketEnterDate >= happyHourStartTime)
+        if(db_res1.rows[0].happy_hour=== true && ticketEnterDate >= happyHourStartTime) ticket.price = 0;
+        else{
+            ticket.price = (db_res.rows[0].hour_rate * Math.ceil(duration.asHours())).toFixed(2);
+        }
+    }
     // console.log("minutes:" + ticket.duration);
     // console.log("rounded hours to half:" + Math.ceil(duration.asHours()));
     // console.log("rounded hours to half:" + Math.ceil(duration.asHours())*60);
