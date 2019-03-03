@@ -106,7 +106,7 @@ public class Alerter {
         try {
             if (isMac()) Runtime.getRuntime().exec("open " + currentRootDirectoryPath);
             if (isUnix()) Runtime.getRuntime().exec("xdg-open " + currentRootDirectoryPath);
-            if (isWindows()) Runtime.getRuntime().exec("explorer.exe " + currentRootDirectoryPath);
+            if (isWindows()) Runtime.getRuntime().exec("explorer.exe \"" + currentRootDirectoryPath + "\"");
         } catch (IOException e) {
             LogManager.getLogger(Alerter.class.getName()).error(e.getMessage());
         }
@@ -114,6 +114,7 @@ public class Alerter {
 
     /**
      * Method that says whether or not the current platform is Windows
+     *
      * @return true or false
      */
     private static boolean isWindows() {
@@ -121,8 +122,10 @@ public class Alerter {
         return (OS.contains("win"));
 
     }
+
     /**
      * Method that says whether or not the current platform is MacOS
+     *
      * @return true or false
      */
     private static boolean isMac() {
@@ -133,6 +136,7 @@ public class Alerter {
 
     /**
      * Method that says whether or not the current platform is Unix based system
+     *
      * @return true or false
      */
     private static boolean isUnix() {
