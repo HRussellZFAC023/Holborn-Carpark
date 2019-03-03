@@ -161,8 +161,8 @@ public class MainViewController implements Initializable {
         updater.start();
     }
 
-    public boolean checkTicket(String ID){
-        return barrier.checkTicket(ID);
+    public boolean checkTicket(String ID, boolean smartcard){
+        return (smartcard? barrier.validateSmartcard(ID) : barrier.checkTicket(ID));
     }
 
 }

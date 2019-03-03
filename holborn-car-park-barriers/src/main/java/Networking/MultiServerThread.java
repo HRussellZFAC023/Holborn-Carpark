@@ -80,6 +80,7 @@ public class MultiServerThread extends Thread {
             getPrint().println("Halt");//Send the command "Halt" to the barrier
         } catch (Exception e) {
             System.out.println("Unable to halt connection to client.");
+            e.printStackTrace();
         }
         handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the barrier
     }//Method for terminating the connection between the barrier and the client

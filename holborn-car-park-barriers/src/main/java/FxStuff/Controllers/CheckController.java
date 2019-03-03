@@ -6,7 +6,6 @@
 package FxStuff.Controllers;
 
 import FxStuff.Animator;
-import FxStuff.Scenes;
 import FxStuff.Sprites.Sprite;
 import FxStuff.Sprites.Sprites;
 import com.google.gson.Gson;
@@ -37,10 +36,7 @@ import java.util.ResourceBundle;
  */
 public class CheckController implements Initializable {
 
-    private String VALID_MESSAGE;
     private String INVALID_MESSAGE;
-    private String DOESNT_EXIST;
-    private String SOCKET_EMIT;
     private String INFO;
 
     @FXML
@@ -63,20 +59,18 @@ public class CheckController implements Initializable {
     Button backButton;
     private final Logger logger;
     private final MainViewController mc;
-    private final Gson gson;
     private Sprite sprite;
     private boolean isTicketFromSmartCard;
 
     /**
-     * The constructor initialises the logger and gets the necessary
-     * variables from the main view controller
+     * The constructor initialises the logger and sets a reference to the maincontroller
+     * so that it can e used to check tickets
      *
      * @since 1.0.0
      */
     public CheckController(MainViewController mainCont) {
         logger = LogManager.getLogger(getClass().getName());
         this.mc = mainCont;
-        gson = new Gson();
     }
 
 
@@ -88,7 +82,7 @@ public class CheckController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        sprite = new Sprite(ticket_image, mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
+        sprite = new Sprite(ticket_image, mc.getSpriteSheets().getSpriteSettings((isTicketFromSmartCard ? Sprites.SMARTCARD_CHECK : Sprites.TICKET_INSERT)));
         ticket_image.setCache(true);
         ticket_image.setCacheHint(CacheHint.SPEED);
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,8 +90,8 @@ public class CheckController implements Initializable {
                 setMessage("Please wait...");
                 animateTicketUIHide();
                 validationUI(true);
-                if (mc.checkTicket(newValue)) {
-                    animateImageValidate(true);
+                if (mc.checkTicket(newValue, isTicketFromSmartCard)) {
+                    Platform.runLater(() -> animateImageValidate(true));
                     try {
                         Thread.sleep(2000);
                     } catch
@@ -129,18 +123,16 @@ public class CheckController implements Initializable {
     }
 
     /**
-     * Prepares the check mode for  tickets
+     * Prepares the check mode for tickets or smartcards
      *
+     * @param isTicketFromSmartCard Whether teh ticket is from a smartcard or not
      * @since 1.0.2
      */
-    public void setTicketMode() {
-        sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings(Sprites.TICKET_INSERT));
-        INFO = "Please insert your ticket";
-        SOCKET_EMIT = "fetch-ticket";
-        VALID_MESSAGE = "Your ticket is valid!";
-        INVALID_MESSAGE = "The ticket is invalid! Please seek assistance from a member of staff.";
-        DOESNT_EXIST = "Your ticket could not be found! Please seek assistance from a member of staff.";
-        isTicketFromSmartCard = false;
+    public void setTicketMode(boolean isTicketFromSmartCard) {
+        sprite.setSpriteSettings(mc.getSpriteSheets().getSpriteSettings((isTicketFromSmartCard ? Sprites.SMARTCARD_CHECK : Sprites.TICKET_INSERT)));
+        INFO = "Please insert your " + (isTicketFromSmartCard?"smartcard":"ticket");
+        INVALID_MESSAGE = "The " + (isTicketFromSmartCard?"smartcard":"ticket") +" is invalid! Please seek assistance from a member of staff.";
+        this.isTicketFromSmartCard = isTicketFromSmartCard;
         setup();
     }
 

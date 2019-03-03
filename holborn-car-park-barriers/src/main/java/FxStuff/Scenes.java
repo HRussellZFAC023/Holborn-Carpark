@@ -38,7 +38,16 @@ public enum Scenes {
     TICKET_CHECK("/fxml/check.fxml", new CheckController(MainViewController.getInstance())) {
         @Override
         void onSceneEnter() {
-            ((CheckController) controller).setTicketMode();
+            ((CheckController) controller).setTicketMode(false);
+        }
+    },
+    /**
+     * Ticket check scene
+     */
+    SMARTCARD_CHECK("/fxml/check.fxml", new CheckController(MainViewController.getInstance())) {
+        @Override
+        void onSceneEnter() {
+            ((CheckController) controller).setTicketMode(true);
         }
     },
     /**

@@ -211,8 +211,8 @@ public class Barrier extends Thread {
         try {
             //Send the closing command to the server
             getPrinter().println("Halt");
-            //Close the socket
-            socket.close();
+            /*//Close the socket
+            socket.close();*/
             connected = false;//Set connected to false
         } catch (IOException e) {
             System.out.println("Error whilst closing socket connection.");
