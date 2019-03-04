@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -8,7 +10,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane layoutX="160.0" layoutY="47.0" prefHeight="308.0" prefWidth="281.0">
+      <GridPane layoutX="160.0" layoutY="47.0" prefHeight="308.0" prefWidth="281.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="160.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="47.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -17,7 +19,12 @@
             <RowConstraints maxHeight="266.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="infoLabel" alignment="TOP_CENTER" prefHeight="16.0" prefWidth="281.0" text="Printing Ticket" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Label fx:id="infoLabel" alignment="TOP_CENTER" prefHeight="16.0" prefWidth="281.0" styleClass="scene_top_title" text="Printing Ticket" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ImageView fitHeight="151.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@../img/get_ticket.png" />
+               </image>
+            </ImageView>
          </children>
       </GridPane>
    </children>

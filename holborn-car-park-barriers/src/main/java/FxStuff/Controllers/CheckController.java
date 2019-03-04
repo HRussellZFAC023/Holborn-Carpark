@@ -86,6 +86,7 @@ public class CheckController implements Initializable {
         ticket_image.setCacheHint(CacheHint.SPEED);
         checkTicketField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() >= 36) {
+                newValue = newValue.toLowerCase().substring(0,36);
                 setMessage("Please wait...");
                 animateTicketUIHide();
                 validationUI(true);

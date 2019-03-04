@@ -62,11 +62,11 @@ public class Protocol {
      * @return true if the inputted ID was valid, false otherwise.
      * @since 1.0.0
      */
-    public boolean checkTicket(String ID, Scanner scan, PrintWriter out) throws NoConnectionError {
+    public boolean checkTicket(String ID, Scanner scan, PrintWriter out, boolean readAgain) throws NoConnectionError {
         String answer;
         try {
             //Request that the client validate the inputted ticket
-            out.println("Check:" + ID);
+            if(!readAgain)out.println("Check:" + ID);
             //Wait for an answer from the server
             while ((answer = scan.nextLine()) == null) {
                 sleep(1);
@@ -75,7 +75,7 @@ public class Protocol {
             throw new NoConnectionError("No connection to the server.");
         }
         if (answer.equalsIgnoreCase("ListenUp.")){
-            return checkTicket(ID, scan, out);
+            return checkTicket(ID, scan, out, false);
         }
         return Boolean.parseBoolean(answer);
     }//Checks if the input ID from the barrier is a valid ticket to leave the carpark
@@ -90,11 +90,11 @@ public class Protocol {
      * @return true if the inputted ID was valid, false otherwise.
      * @since 1.0.0
      */
-    public boolean validateSmartCard(String ID, Scanner scan, PrintWriter out) throws NoConnectionError {
+    public boolean validateSmartCard(String ID, Scanner scan, PrintWriter out, boolean readAgain) throws NoConnectionError {
         String answer;
         try {
             //Request that the client validate the inputted smartcard
-            out.println("Valid:" + ID);
+            if(!readAgain)out.println("Valid:" + ID);
             //Wait for an answer from the server
             while ((answer = scan.nextLine()) == null) {
                 sleep(1);
@@ -103,7 +103,7 @@ public class Protocol {
             throw new NoConnectionError("No connection to the server.");
         }
         if (answer.equalsIgnoreCase("ListenUp.")){
-            return checkTicket(ID, scan, out);
+            return validateSmartCard(ID, scan, out, false);
         }
         return Boolean.parseBoolean(answer);//Return if the smartcard is valid or not
     }//Gets the validity of the inputted smartcard ID

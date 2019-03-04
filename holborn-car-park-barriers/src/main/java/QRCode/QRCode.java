@@ -117,6 +117,12 @@ public class QRCode extends Canvas {
         return storeQR();
     }
 
+    /**
+     * Stores the QR code into a file to be accesd by the PDF writer
+     *
+     * @return The location of the QR code
+     * @since 1.0.0
+     */
     private String storeQR(){
         int pos = 0;
         String location = "Tickets/QR/QR" + pos + ".png";
@@ -1243,6 +1249,7 @@ public class QRCode extends Canvas {
             }
         } catch (Exception e) {
             System.out.println("Unable to read version sizes, cannot create QRCode.");
+            e.printStackTrace();
             return 0;
         }
         return 0;

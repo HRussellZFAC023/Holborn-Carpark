@@ -1,5 +1,6 @@
 package FxStuff.Controllers;
 
+import FxStuff.Scenes;
 import FxStuff.Ticket;
 import QRCode.QRCode;
 import com.itextpdf.text.*;
@@ -49,27 +50,46 @@ public class TicketPrintingController implements Initializable {
             if (newTicket == null) {
                 System.out.println("Failed to get ticket");
             } else {
-                Platform.runLater(() ->printTicket(newTicket.get_id()));
-                System.out.println("Ticket: " + newTicket.toString());
+                Platform.runLater(() -> {
+                    printTicket(newTicket.get_id());
+                    System.out.println("Ticket: " + newTicket.toString());
+
+                });
+            }
+            while (!mainCont.getSceneManager().finAnim()) {
+                try {
+                    Thread.sleep(5);
+                } catch (Exception e) {
+                }
+            }
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
             }
             mainCont.getSceneManager().goBack();
         });
-        //TODO PDF thingy
         waitPrint.setName("WaitForPrintThread");
         waitPrint.setDaemon(true);
         waitPrint.start();
     }
 
+    /**
+     * This method creates a QR code and places it into a PDF then stores it.
+     *
+     * @param ID The tickets ID
+     * @since 1.0.0
+     */
     private void printTicket(String ID) {
         Document ticket = new Document();
         try {
             QRCode qrGen = new QRCode();
-            String location = qrGen.generate(ID, 3, 10);
+            String location = qrGen.generate(ID, 3, 5);
             Path path = Paths.get(location);
             int pos = 0;
-            while(new File(location).exists()){
+            location = "Tickets/Ticket/Ticket" + pos + ".png";
+            while (new File(location).exists()) {
                 pos++;
-                location = "Tickets/Ticket/Tickets/QR" + pos + ".png";
+                location = "Tickets/Ticket/Ticket" + pos + ".png";
             }
             PdfWriter.getInstance(ticket, new FileOutputStream("Tickets/Ticket/Ticket" + pos + ".pdf"));
             ticket.open();

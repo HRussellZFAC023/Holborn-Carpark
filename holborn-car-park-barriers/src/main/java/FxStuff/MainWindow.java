@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +38,9 @@ public class MainWindow extends Application {
         });
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         mainStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
-        mainStage.setFullScreen(true);
+        mainStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/barrier_icon.png")));
+        //mainStage.setFullScreen(true);
+        mainStage.setFullScreen(false);
         mainStage.setFullScreenExitHint("");
         Scene scene = new Scene(root, 1280, 768);
         new ThemeProvider(scene, Themes.LIGHT);

@@ -1,13 +1,17 @@
 package FxStuff.Controllers;
 
+import FxStuff.GlobalVariables;
 import FxStuff.Scenes;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+
 
 /**
  * Landing_out page provides the default "home screen" for the in barrier app. Providing paths
@@ -17,6 +21,10 @@ import java.util.ResourceBundle;
  * @version 1.0.3
  */
 public class LandingOutPageController implements Initializable {
+
+    @FXML
+    private
+    Label welcome;
 
     private MainViewController mainCont;
 
@@ -39,6 +47,7 @@ public class LandingOutPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Logger logger = LogManager.getLogger(getClass().getName());
+        welcome.setText(GlobalVariables.LANDING_PAGE_WELCOME);
     }
 
     /**

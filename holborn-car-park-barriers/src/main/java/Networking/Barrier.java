@@ -174,7 +174,7 @@ public class Barrier extends Thread {
             if (socket.isClosed()) {
                 throw new NoConnectionError("Not connected.");
             }
-            valid = new Protocol().checkTicket(ID.toLowerCase(), getScanner(), getPrinter());
+            valid = new Protocol().checkTicket(ID, getScanner(), getPrinter(), false);
         } catch (IOException e) {
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
@@ -203,7 +203,7 @@ public class Barrier extends Thread {
                 throw new NoConnectionError("Not connected.");
             }
             //Validate the smartcard using the protocol
-            valid = new Protocol().validateSmartCard(ID.toLowerCase(), getScanner(), getPrinter());
+            valid = new Protocol().validateSmartCard(ID, getScanner(), getPrinter(), false);
         } catch (IOException e) {
             //e.printStackTrace();
         } catch (NoConnectionError nce) {

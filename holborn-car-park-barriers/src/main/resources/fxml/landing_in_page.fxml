@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1252.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columnConstraints>
@@ -22,7 +22,7 @@
                 <RowConstraints maxHeight="716.0" minHeight="10.0" prefHeight="585.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="1043.0" text="Welcome !" textAlignment="CENTER" textFill="#5e5e5e" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label fx:id="welcome" alignment="CENTER" contentDisplay="CENTER" prefHeight="64.0" prefWidth="1043.0" styleClass="scene_top_title" text="Welcome !" textAlignment="CENTER" textFill="#5e5e5e" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     <font>
                         <Font name="Avenir Roman" size="37.0" />
                     </font>
@@ -84,12 +84,12 @@
                                                 <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="88.5860595703125" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="parking_spaces" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="parking_spaces" styleClass="landing_page_info_container_value" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                     <font>
                                                         <Font name="Avenir Book" size="32.0" />
                                                     </font>
                                                 </Label>
-                                                <Label text="Available parking spaces" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <Label styleClass="landing_page_info_container_label" text="Available parking spaces" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                     <font>
                                                         <Font name="Avenir Book" size="16.0" />
                                                     </font>
@@ -121,12 +121,12 @@
                                                 <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="92.40292358398438" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="price" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="price" styleClass="landing_page_info_container_value" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                     <font>
                                                         <Font name="Avenir Book" size="32.0" />
                                                     </font>
                                                 </Label>
-                                                <Label text="Hourly price" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <Label styleClass="landing_page_info_container_label" text="Hourly price" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                     <font>
                                                         <Font name="Avenir Book" size="16.0" />
                                                     </font>
@@ -158,12 +158,12 @@
                                                 <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="86.6226806640625" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label fx:id="happy_hour" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <Label fx:id="happy_hour" styleClass="landing_page_info_container_value" text="-" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                                     <font>
                                                         <Font name="Avenir Book" size="32.0" />
                                                     </font>
                                                 </Label>
-                                                <Label text="Happy hour" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <Label styleClass="landing_page_info_container_label" text="Happy hour" textFill="#6b6b6b" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                                                     <font>
                                                         <Font name="Avenir Book" size="16.0" />
                                                     </font>

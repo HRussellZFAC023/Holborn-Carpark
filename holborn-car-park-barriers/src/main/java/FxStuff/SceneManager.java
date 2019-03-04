@@ -157,4 +157,13 @@ public class SceneManager {
     public void clearSceneQueue() {
         sceneStack.clear();
     }
+
+    /**
+     * Returns whether the animation is finished
+     *
+     * @return whether the animation is finished
+     */
+    public boolean finAnim(){
+        return animationFinished;
+    }
 }

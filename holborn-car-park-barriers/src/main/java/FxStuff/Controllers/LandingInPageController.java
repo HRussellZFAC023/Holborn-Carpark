@@ -138,5 +138,6 @@ public class LandingInPageController implements Initializable {
     @FXML
     public void begin() {
         mainCont.getSceneManager().changeTo(Scenes.PRINT_TICKET);
+        update(mainCont.getCarparkDetails());
     }
 }
