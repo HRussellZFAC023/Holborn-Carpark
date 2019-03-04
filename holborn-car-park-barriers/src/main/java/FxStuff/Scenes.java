@@ -58,6 +58,15 @@ public enum Scenes {
         void onSceneEnter() {
             ((TicketPrintingController)controller).getTicket();
         }
+    },
+    /**
+     * Finish screen payment
+     */
+    FINISH("/fxml/finish.fxml", new FinishController()) {
+        @Override
+        void onSceneEnter() {
+            ((FinishController) controller).setup();
+        }
     };
 
     Object controller;

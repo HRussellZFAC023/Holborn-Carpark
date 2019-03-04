@@ -6,9 +6,9 @@
 package FxStuff.Controllers;
 
 import FxStuff.Animator;
+import FxStuff.Scenes;
 import FxStuff.Sprites.Sprite;
 import FxStuff.Sprites.Sprites;
-import com.google.gson.Gson;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -57,7 +57,6 @@ public class CheckController implements Initializable {
     @FXML
     private
     Button backButton;
-    private final Logger logger;
     private final MainViewController mc;
     private Sprite sprite;
     private boolean isTicketFromSmartCard;
@@ -69,7 +68,7 @@ public class CheckController implements Initializable {
      * @since 1.0.0
      */
     public CheckController(MainViewController mainCont) {
-        logger = LogManager.getLogger(getClass().getName());
+        Logger logger = LogManager.getLogger(getClass().getName());
         this.mc = mainCont;
     }
 
@@ -90,9 +89,9 @@ public class CheckController implements Initializable {
                 setMessage("Please wait...");
                 animateTicketUIHide();
                 validationUI(true);
-                if (mc.checkTicket(newValue, isTicketFromSmartCard)) {
+                if (mc.check(newValue, isTicketFromSmartCard)) {
                     Platform.runLater(() -> animateImageValidate(true));
-                    //mc.getSceneManager().changeTo(Scenes.LEAVE);
+                    mc.getSceneManager().changeTo(Scenes.FINISH);
                     mc.getSceneManager().goBack();
                 } else {
                     setInvalidUI(INVALID_MESSAGE);

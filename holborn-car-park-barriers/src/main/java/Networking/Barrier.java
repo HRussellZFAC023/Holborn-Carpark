@@ -316,7 +316,7 @@ public class Barrier extends Thread {
         logger.info("Authorised!");
         if (GlobalVariables.getBarrierType()) {//If the barrier is an in barrier set it to retrieve the carpark details
             LandingInPageController lc = (LandingInPageController) Scenes.LANDING_IN.getController();
-            Platform.runLater(lc::enableFetching);
+            Platform.runLater(lc::fetchInformation);
         }
         mainCont.disconnectedUI(false);//Allow the UI to be interfaceable
     }

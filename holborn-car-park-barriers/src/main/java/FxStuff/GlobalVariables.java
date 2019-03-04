@@ -183,4 +183,49 @@ public class GlobalVariables {
     public static boolean getBarrierType() {
         return BARRIER_TYPE.equalsIgnoreCase("In");
     }
+
+    /**
+     * Method that gets whether the screen auto-changes between themes
+     *
+     * @return true or false
+     */
+    public static boolean AUTO_NIGHT_TIME(){
+        return AUTO_NIGHT_TIME;
+    }
+
+    /**
+     * Method that gets the start hour of night theme
+     *
+     * @return hour that night theme is started at
+     */
+    public static int NIGHT_TIME_START(){
+        return NIGHT_TIME_START;
+    }
+
+    /**
+     * Method that gets the end hour of night theme
+     *
+     * @return hour that night theme is ended at
+     */
+    public static int NIGHT_TIME_END(){
+        return NIGHT_TIME_END;
+    }
+
+    /**
+     * Method that gets the length of a session
+     *
+     * @return the time that a session lasts.
+     */
+    public static int SESSION_TIMEOUT_S(){
+        return SESSION_TIMEOUT_S;
+    }
+
+    /**
+     * Method that gets the length of time the popup about sessions lasts
+     *
+     * @return the time that the popup lasts lasts.
+     */
+    public static int SESSION_TIMEOUT_POPUP_DURATION_S(){
+        return SESSION_TIMEOUT_POPUP_DURATION_S;
+    }
 }

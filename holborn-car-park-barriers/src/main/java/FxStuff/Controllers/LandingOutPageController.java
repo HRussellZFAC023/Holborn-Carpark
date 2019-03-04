@@ -9,31 +9,59 @@ import org.apache.logging.log4j.Logger;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Landing_out page provides the default "home screen" for the in barrier app. Providing paths
+ * to all the other relevant scenes
+ *
+ * @author Cameron
+ * @version 1.0.3
+ */
 public class LandingOutPageController implements Initializable {
 
     private MainViewController mainCont;
-    Logger logger;
 
-
+    /**
+     * Constructor that passes in teh mainViewController for referencing
+     *
+     * @param mainCont The mainViewController
+     * @since 1.0.0
+     */
     public LandingOutPageController(MainViewController mainCont){
+        Logger logger = LogManager.getLogger(getClass().getName());
         this.mainCont = mainCont;
     }
 
+    /**
+     * Method that prepares the ui
+     *
+     * @since 1.0.0
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        logger = LogManager.getLogger(getClass().getName());
+        Logger logger = LogManager.getLogger(getClass().getName());
     }
 
-
+    /**
+     * Method that changes the scene to the ticket check.
+     * It also starts the session countdown
+     *
+     * @since 1.0.3
+     */
     @FXML
     public void checkTicket() {
         mainCont.getSceneManager().changeTo(Scenes.TICKET_CHECK);
-        System.out.println("Scan ticket");
+        mainCont.startSession();
     }
 
+    /**
+     * Method that changes the scene to the smartcard check.
+     * It also starts the session countdown
+     *
+     * @since 1.0.0
+     */
     @FXML
     public void checkSmartcard() {
         mainCont.getSceneManager().changeTo(Scenes.SMARTCARD_CHECK);
-        System.out.println("Scan smartcard");
+        mainCont.startSession();
     }
 }

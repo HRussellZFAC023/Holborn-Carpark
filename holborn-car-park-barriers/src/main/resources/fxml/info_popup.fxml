@@ -10,39 +10,48 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1252.0" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <children>
-        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="600.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="600.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="600.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="300.0" minHeight="145.0" prefHeight="400.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-         <children>
-                <AnchorPane maxHeight="120.0" maxWidth="500.0" minHeight="120.0" minWidth="400.0" prefHeight="312.0" prefWidth="528.0" styleClass="connection_card" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                    <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="169.0" prefWidth="413.0" styleClass="scene_top_title" text="Session timed out" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true">
-                           <font>
-                              <Font name="Avenir Roman" size="34.0" />
-                           </font>
-                        </Label>
-                        <ProgressIndicator fx:id="indicator" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="120.0" styleClass="connection_progress_indicator">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </ProgressIndicator>
-                     </children>
-                  </HBox>
-                    </children>
-                </AnchorPane>
-         </children>
-        </GridPane>
-    </children>
+<!--
+  ~ Copyright (c) 2019. Ionut-Vlad Alboiu.
+  -->
+
+<AnchorPane prefHeight="768.0" prefWidth="1252.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="600.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="600.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="200.0" prefWidth="600.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES"/>
+            <RowConstraints maxHeight="300.0" minHeight="145.0" prefHeight="400.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <AnchorPane maxHeight="120.0" maxWidth="500.0" minHeight="120.0" minWidth="400.0" prefHeight="312.0"
+                    prefWidth="528.0" styleClass="connection_card" GridPane.columnIndex="1"
+                    GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label fx:id="info" alignment="CENTER" contentDisplay="CENTER"
+                       maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                       prefHeight="169.0" prefWidth="413.0" styleClass="scene_top_title"
+                       text="Session timed out" textAlignment="CENTER" textFill="#6b6a6a" wrapText="true">
+                    <font>
+                        <Font name="Avenir Roman" size="34.0"/>
+                    </font>
+                </Label>
+                <ProgressIndicator fx:id="indicator" maxHeight="1.7976931348623157E308" maxWidth="-Infinity"
+                                   minWidth="-Infinity" prefHeight="120.0" prefWidth="80.0"
+                                   styleClass="connection_progress_indicator">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets right="20.0"/>
+                    </padding>
+                </ProgressIndicator>
+            </HBox>
+        </AnchorPane>
+    </GridPane>
 </AnchorPane>
