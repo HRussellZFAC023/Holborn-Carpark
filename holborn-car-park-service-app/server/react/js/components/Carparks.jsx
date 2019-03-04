@@ -164,7 +164,7 @@ class Carparks extends Component {
                 text: 'Entry will be free for the next 1h.',
                 type: 'warning',
                 showCancelButton: true
-            }).then((input) => {
+            }).then(() => {
                 $.ajax({
                     url: '/api/carparks/' + row._id,
                     type: 'PUT',
@@ -220,7 +220,54 @@ class Carparks extends Component {
                     }
                 });
             });
-        }
+        };
+
+        this.addCarPark = () => {
+            let name = document.getElementById('new-car-park-name').value;
+            let rate = parseFloat(document.getElementById('new-car-park-rate').value);
+            let post = document.getElementById('new-car-park-postcode').value;
+            let spaces = parseInt(document.getElementById('new-car-park-spaces').value);
+
+            console.log(name);
+            console.log(rate);
+            console.log(post);
+            console.log(spaces);
+
+            $.ajax({
+                url: '/api/carparks/',
+                type: 'POST',
+                data: {
+                    name: name,
+                    hour_rate: rate,
+                    postcode: post,
+                    parking_places: spaces,
+                    happy_hour_start: new Date()
+                },
+                success: (resp) => {
+                    let data = {};
+                    data._id = resp._id;
+                    data.name = name;
+                    data.hour_rate = rate;
+                    data.postcode = post;
+                    data.parking_places = spaces;
+                    data.happy_hour = false;
+                    data.happy_hour_start = new Date();
+
+                    let temp = this.beautifyData([data]);
+
+                    let temp_2 = JSON.parse(JSON.stringify(this.state.carparks));
+
+                    temp_2.push(temp[0]);
+
+                    this.setState({
+                        carparks: temp_2
+                    });
+                },
+                error: (xhr, status, err) => {
+                    console.error('', status, err.toString());
+                }
+            });
+        };
     };
 
     /**
@@ -293,7 +340,7 @@ class Carparks extends Component {
                                 </header>
                                 <div className="card-content">
                                     <div className="content">
-                                        <input id="new-car-park-name" className="input is-small" placeholder="Hourly Rate"/>
+                                        <input id="new-car-park-rate" className="input is-small" placeholder="Hourly Rate"/>
                                     </div>
                                 </div>
                             </div>
@@ -309,7 +356,7 @@ class Carparks extends Component {
                                 </header>
                                 <div className="card-content">
                                     <div className="content">
-                                        <input id="new-car-park-name" className="input is-small" placeholder="Postcode"/>
+                                        <input id="new-car-park-postcode" className="input is-small" placeholder="Postcode"/>
                                     </div>
                                 </div>
                             </div>
@@ -325,14 +372,14 @@ class Carparks extends Component {
                                 </header>
                                 <div className="card-content">
                                     <div className="content">
-                                        <input id="new-car-park-name" className="input is-small" placeholder="Maximum Parking Spaces"/>
+                                        <input id="new-car-park-spaces" className="input is-small" placeholder="Maximum Parking Spaces"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="column is-2 has-text-centered">
-                            <button onClick={this.addRule} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Add Car Park</button>
+                            <button onClick={this.addCarPark} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Add Car Park</button>
                         </div>
                     </div>
                 </section>

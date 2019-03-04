@@ -63,7 +63,7 @@ exports.api = {
         get_all:    `SELECT * FROM carparks`,
         delete_all: `DELETE   FROM carparks`,
         get_one:    `SELECT * FROM carparks WHERE  _id = $1`,
-        create:     `INSERT   INTO carparks VALUES ($1, $2, $3, $4, $5, to_timestamp($6 / 1000.0), false)`,
+        create:     `INSERT   INTO carparks VALUES ($1, $2, $3, $4, $5, false, to_timestamp($6 / 1000.0))`,
         update: {
             name:             `UPDATE carparks SET name             = $2 WHERE _id = $1`,
             hour_rate:        `UPDATE carparks SET hour_rate        = $2 WHERE _id = $1`,

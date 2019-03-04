@@ -89,7 +89,7 @@ module.exports = function(io) {
      */
     router.post('/', verify.UserAuth, async function (req, res) {
         let c_id = UUID();
-        const params = [c_id, req.body.name, req.body.hour_rate, req.body.postcode, req.body.parking_places, req.body.happy_hour_start];
+        const params = [c_id, req.body.name, req.body.hour_rate, req.body.postcode, req.body.parking_places, new Date(req.body.happy_hour_start).getTime()];
 
         try{
             await carpark_db.query(query.api.carparks.create, params);
@@ -99,7 +99,7 @@ module.exports = function(io) {
             return res.status(500).json(json_resp.error.internal);
         }
 
-        res.status(200).json(json_resp.success.create);
+        res.status(200).json({resp: json_resp.success.create, _id: c_id});
     });
 
     /**
