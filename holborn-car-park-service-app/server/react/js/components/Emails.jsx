@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
 import swal from 'sweetalert';
+import ReactTable from "react-table";
+import 'react-table/react-table.css'
+import { Scrollbars } from 'react-custom-scrollbars';
+
 
 const $ = require('jquery');
 
@@ -12,6 +16,7 @@ class Emails extends Component {
 
         this.state = {
             carparks:        [],
+            reports:         [],
             selectedCarpark: {name: ''},
             timePeriod: 1,
             ruleUpdateStatus: false
@@ -97,6 +102,16 @@ class Emails extends Component {
      * Whenever the component mounts the list of available car parks should be updated
      */
     componentDidMount() {
+        /**
+         * Used to set the scrolling viewport of the table
+         * @type {number}
+         */
+        this.visibleHeight = window.innerHeight
+            - document.getElementById('nav-bar').scrollHeight
+            - document.getElementById('auto-report-settings').scrollHeight
+            - document.getElementById('auto-report-title').scrollHeight
+            - 50;
+
         $.ajax({
             url: '/api/carparks/',
             type: 'GET',
@@ -110,12 +125,26 @@ class Emails extends Component {
                 console.error('', status, err.toString());
             }
         });
+
+        $.ajax({
+            url: '/api/autoreports/',
+            type: 'GET',
+            success: (data) => {
+                console.log(data)
+                this.setState({
+                    reports: data,
+                });
+            },
+            error: (xhr, status, err) => {
+                console.error('', status, err.toString());
+            }
+        });
     }
 
     render() {
         return(
             <main>
-                <section className="hero is-small is-info gradient">
+                <section id="auto-report-settings" className="hero is-small is-info gradient">
                     <div className="hero-body">
                         <div className="container">
                             <h1 className="title">
@@ -128,7 +157,7 @@ class Emails extends Component {
                     </div>
                 </section>
                 <section>
-                    <div className="columns">
+                    <div id="auto-report-title" className="columns">
                         <div className="column">
                             <div className="card">
                                 <header className="card-header">
@@ -197,6 +226,33 @@ class Emails extends Component {
                             <button onClick={this.addRule} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Add rule</button>
                         </div>
                     </div>
+                </section>
+
+                <section style={{marginTop: "2%"}}>
+                    <Scrollbars
+                        style={{height: this.visibleHeight }}
+                        autoHide
+                        autoHideTimeout={500}
+                    >
+                        <ReactTable
+                            pageSizeOptions={[5, 10, 13, 15, 20, 25, 30, 35]}
+                            defaultPageSize={13}
+                            data={this.state.reports}
+                            columns={[{
+                                Header: 'ID',
+                                accessor: '_id' // String-based value accessors!
+                            }, {
+                                Header: 'Time Period (in days)',
+                                accessor: 'time_period',
+                            }, {
+                                Header: 'Last sent on',
+                                accessor: 'last_sent' // Custom value accessors!
+                            }, {
+                                Header: "Car park", // Custom header components!
+                                accessor: 'carpark_id'
+                            }]}
+                        />
+                    </Scrollbars>
                 </section>
             </main>
         )
