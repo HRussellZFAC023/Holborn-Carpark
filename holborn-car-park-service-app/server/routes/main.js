@@ -62,6 +62,7 @@ router.post('/login', async function loginUser(req, res) {
     if (db_res.rows[0].pwd_hash !== hash.toString('hex'))
         return res.status(403).json(json_resp.error.wrong_password);
 
+    req.session._id         = db_res.rows[0]._id;
     req.session.username    = db_res.rows[0].username;
     req.session.level       = db_res.rows[0].manager_level;
     req.session.active      = db_res.rows[0].active;

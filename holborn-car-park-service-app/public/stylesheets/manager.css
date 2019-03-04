@@ -71,3 +71,11 @@ i {
 .padding-5{
   padding: 5%;
 }
+
+.red-test-only{
+  background-color: #f006;
+}
+
+.red-test-only:not([disabled]):hover {
+  background-color: #ff000080
+}

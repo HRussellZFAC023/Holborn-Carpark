@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import swal from 'sweetalert';
 
 const $ = require('jquery');
 
@@ -12,7 +13,8 @@ class Emails extends Component {
         this.state = {
             carparks:        [],
             selectedCarpark: {name: ''},
-            timePeriod: 30
+            timePeriod: 1,
+            ruleUpdateStatus: false
         };
 
         /**
@@ -31,13 +33,65 @@ class Emails extends Component {
             }
         };
 
-        this.updatePref = () => {
+        this.addRule = () => {
+            $.ajax({
+                url: '/api/autoreports/' + this.state.selectedCarpark._id,
+                type: 'POST',
+                data: {
+                    time_period: this.state.timePeriod,
+                },
+                success: (data) => {
+                    this.setState({
+                        tickets: data,
+                        redraw: true
+                    }, () => {this.setState({redraw: false})});
 
+                    swal({
+                        title: `Success`,
+                        text: `Auto report successfully created! Expect your first e-mail tomorrow at 9 am(earliest).
+                        
+                                Alternatively press the red button to send all emails immediately         
+                                (WARNING: THIS IS A TESTING FEATURE AND IF YOU PRESS IT TOO OFTEN YOUR INBOX WILL FILL WITH SPAM :))`,
+                        icon: `success`,
+                        buttons: {
+                            test: {
+                                text: "TEST ONLY",
+                                className: "red-test-only",
+                                value: 'testing'
+                            },
+                            confirm: true
+                        },
+                        dangerMode: false,
+                    }).then((value) => {
+                        if(value === 'testing'){
+                            $.ajax({
+                                url: '/test/autoreporter',
+                                type: 'GET',
+                                success: (data) => {
+                                    swal("Check your inbox!", {
+                                        icon: "success",
+                                    }).then();
+                                },
+                                error: (xhr, status, err) => {
+                                    console.error('', status, err.toString());
+                                }
+                            });
+                        }
+                    });
+                },
+                error: (xhr, status, err) => {
+                    console.error('', status, err.toString());
+                    swal({
+                        title: `Error`,
+                        text: `Oops! Something went wrong, please try again!`,
+                        icon: `error`,
+                        dangerMode: true,
+                    }).then();
+                }
+            });
         };
 
-        this.previewEmail = () => {
 
-        };
     }
 
     /**
@@ -141,8 +195,7 @@ class Emails extends Component {
                         </div>
 
                         <div className="column is-2 has-text-centered">
-                                <button onClick={this.updatePref} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Update</button>
-                            <button onClick={this.previewEmail} className="button is-fullwidth is-large is-info gradient">Preview</button>
+                            <button onClick={this.addRule} style={{marginBottom: "8%"}} className="button is-fullwidth is-large is-info gradient">Add rule</button>
                         </div>
                     </div>
                 </section>

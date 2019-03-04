@@ -84,7 +84,8 @@ router.delete('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let ar_id = UUID();
     let c_id = req.path.replace(/\//g, '');
-    const params = [ar_id, req.body.time_period, req.body.last_sent, req.body.user_id, c_id];
+
+    const params = [ar_id, req.body.time_period, Date.now(), req.session._id, c_id];
 
     try{
         await carpark_db.query(query.api.autoreports.create, params);
