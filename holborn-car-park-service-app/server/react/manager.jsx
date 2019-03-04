@@ -87,8 +87,10 @@ class DynamicContent extends React.Component {
                 window.localStorage.setItem("scene", "Emails");
                 return <Emails />;
             case "Happy Hour":
+                window.localStorage.setItem("scene", "Happy Hour");
                 return <HappyHour/>
             case "Price":{
+                window.localStorage.setItem("scene", "Price");
                 return <Pricing/>
             }
 
