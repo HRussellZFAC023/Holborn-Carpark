@@ -1,14 +1,28 @@
 ;aiu;
 
-[Update 1.0.1]
+[Release Candidate 1.0.1]
 Name = Holborn Car Park Client
+NoGUICommandLineSwitch = /exenoui /qn
 ProductVersion = 1.0.1.0
-URL = https://holborncarpark.com/updates/client/exe
-Size = 27827911
-MD5 = 336f21070c50d312913b4c28688eeeb8
-ServerFileName = Holborn Car Park Client.exe
-Flags = SilentInstall|NoCache
+URL = https://holborncarpark.com/updates/client/updates/rc_1.0.1'
+Size = 27788890
+ReleaseDate = 04/03/2019
+MD5 = 8501f2525c68dee195a808fa9d0eb4ab
+ServerFileName = Holborn Car Park Client Setup Update 1.0.1.exe
+Flags = SilentInstall|NoCache|Advertises
 RegistryKey = HKUD\Software\Holborn\Holborn Car Park Client\Version
 Version = 1.0.1.0
-Description = Added auto-update feature
-Feature = A big update obviously. IT WORKS!!!
+Description = Essential update
+
+[Release Candidate 1.0.0]
+Name = Holborn Car Park Client
+NoGUICommandLineSwitch = /exenoui /qn
+ProductVersion = 1.0.0.0
+URL = https://holborncarpark.com/updates/client/updates/rc_1.0.0
+Size = 27790388
+ReleaseDate = 03/03/2019
+MD5 = 562cbdaeefadd71d7e9a26ad4df69455
+ServerFileName = Holborn Car Park Client Setup.exe
+Flags = SilentInstall|NoCache|Advertises
+RegistryKey = HKUD\Software\Holborn\Holborn Car Park Client\Version
+Version = 1.0.0.0

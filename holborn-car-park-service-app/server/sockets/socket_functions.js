@@ -266,7 +266,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
                 }
                 return cb(200, 'Updated ticket with new date');
             } else {
-                return cb(406, `Ticket cannot be valid and paid at the same time when entering the car park`);
+                return cb(406, `Ticket cannot be valid and paid at the same time when entering the car park. You little snek u cheatin ?`);
             }
 
         }
