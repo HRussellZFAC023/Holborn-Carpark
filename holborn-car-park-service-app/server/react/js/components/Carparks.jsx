@@ -421,7 +421,7 @@ class Carparks extends Component {
                             },{
                                 Header: "Happy Hour",
                                 accessor: 'happy_hour',
-                                Cell: props => <div className="has-text-centered">{props.value.toString() === 'true' ? 'Active' : ' Not Active'}{console.log(props.value.toString())}</div>
+                                Cell: props => <div className="has-text-centered">{props.value.toString() === 'true' ? 'Active' : ' Not Active'}</div>
                             }, {
                                 Header: "Actions",
                                 accessor: 'actions',
