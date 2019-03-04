@@ -54,20 +54,144 @@ class Tickets extends Component {
             return beauty;
         };
 
-        this.changePaid = () => {
-
+        this.changePaid = (row) => {
+            Swal.fire({
+                title: 'Select new paid status (true/false)',
+                input: 'text',
+                type: 'warning',
+                inputPlaceholder: row.paid
+            }).then((input) => {
+                $.ajax({
+                    url: '/api/tickets/' + row._id,
+                    type: 'PUT',
+                    data: {
+                        paid: input.value
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.tickets));
+                        for(let i = 0; i < data.length; ++i){
+                            if(row._id.toString() === data[i]._id.toString()){
+                                data[i].paid = (input.value === 'true');
+                            }
+                        }
+                        this.setState({
+                            tickets: this.beautifyData(data),
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
+            });
         };
 
-        this.changeValid = () => {
-
+        this.changeValid = (row) => {
+            Swal.fire({
+                title: 'Select new valid status (true/false)',
+                input: 'text',
+                type: 'warning',
+                inputPlaceholder: row.valid
+            }).then((input) => {
+                $.ajax({
+                    url: '/api/tickets/' + row._id,
+                    type: 'PUT',
+                    data: {
+                        valid: input.value
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.tickets));
+                        for(let i = 0; i < data.length; ++i){
+                            if(row._id.toString() === data[i]._id.toString()){
+                                data[i].valid = (input.value === 'true');
+                            }
+                        }
+                        this.setState({
+                            tickets: data,
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
+            });
         };
 
-        this.changeDuration = () => {
+        this.changeDuration = (row) => {
+            Swal.fire({
+                title: 'Select new duration',
+                input: 'text',
+                type: 'warning',
+                inputPlaceholder: row.duration
+            }).then((input) => {
+                if(isNaN(input.value) ){
+                    Swal.fire({
+                        title: 'Not a number',
+                        type: 'error',
+                    }).then();
+                    return;
+                }
 
+                $.ajax({
+                    url: '/api/tickets/' + row._id,
+                    type: 'PUT',
+                    data: {
+                        duration: input.value
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.tickets));
+                        for(let i = 0; i < data.length; ++i){
+                            if(row._id.toString() === data[i]._id.toString()){
+                                data[i].duration = input.value;
+                            }
+                        }
+                        this.setState({
+                            tickets: this.beautifyData(data),
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
+            });
         };
 
-        this.changeAmountPaid = () => {
+        this.changeAmountPaid = (row) => {
+            Swal.fire({
+                title: 'Select new amount paid',
+                input: 'text',
+                type: 'warning',
+                inputPlaceholder: row.amount_paid
+            }).then((input) => {
+                if(isNaN(input.value) ){
+                    Swal.fire({
+                        title: 'Not a number',
+                        type: 'error',
+                    }).then();
+                    return;
+                }
 
+                $.ajax({
+                    url: '/api/tickets/' + row._id,
+                    type: 'PUT',
+                    data: {
+                        amount_paid: input.value
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.tickets));
+                        for(let i = 0; i < data.length; ++i){
+                            if(row._id.toString() === data[i]._id.toString()){
+                                data[i].amount_paid = input.value;
+                            }
+                        }
+                        this.setState({
+                            tickets: this.beautifyData(data),
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
+            });
         };
     }
 
@@ -121,11 +245,10 @@ class Tickets extends Component {
                         style={{height: this.visibleHeight }}
                         autoHide
                         autoHideTimeout={500}
-                        minWidth={50}
                     >
                         <ReactTable
-                            pageSizeOptions={[5, 7, 10, 15, 20, 25, 30, 35]}
-                            defaultPageSize={7}
+                            pageSizeOptions={[4, 5, 10, 15, 20, 25, 30, 35]}
+                            defaultPageSize={4}
                             data={this.beautifyData(this.state.tickets)}
                             columns={[{
                                 Header: 'ID',
@@ -160,10 +283,10 @@ class Tickets extends Component {
                                 accessor: 'actions',
                                 Cell: props =>
                                     <div className="has-text-centered">
-                                        <button onClick={()=>{this.changePaid(props.original)}} id="button-one" className="button is-small gradient has-text-white is-info" style={{marginRight: 5, marginBottom: 5}}>Change Paid</button>
-                                        <button onClick={()=>{this.changeValid(props.original)}} id="button-two" className="button is-small gradient has-text-white is-info">Change Valid</button><br/>
-                                        <button onClick={()=>{this.changeDuration(props.original)}} className="button is-small gradient has-text-white is-info" style={{marginRight: 5, marginBottom: 5}}>Change Duration</button>
-                                        <button onClick={()=>{this.changeAmountPaid(props.original)}} className="button is-small gradient has-text-white is-info">Change Amount</button> <br/>
+                                        <button onClick={()=>{this.changePaid(props.original)}} id="button-one" className="button is-small gradient has-text-white is-info" style={{marginBottom: 5}}>Change Paid</button><br/>
+                                        <button onClick={()=>{this.changeValid(props.original)}} id="button-two" className="button is-small gradient has-text-white is-info" style={{marginBottom: 5}}>Change Valid</button><br/>
+                                        <button onClick={()=>{this.changeDuration(props.original)}} className="button is-small gradient has-text-white is-info" style={{marginBottom: 5}}>Change Duration</button><br/>
+                                        <button onClick={()=>{this.changeAmountPaid(props.original)}} className="button is-small gradient has-text-white is-info" style={{marginBottom: 5}}>Change Amount</button> <br/>
                                     </div>
                             }]}
                         />

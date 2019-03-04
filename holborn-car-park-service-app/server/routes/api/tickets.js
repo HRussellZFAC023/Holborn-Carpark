@@ -139,7 +139,8 @@ module.exports = function (io) {
         if(typeof req.body.date_out === 'undefined' &&
            typeof req.body.paid     === 'undefined' &&
            typeof req.body.valid    === 'undefined' &&
-           typeof req.body.duration === 'undefined')
+           typeof req.body.duration === 'undefined' &&
+           typeof req.body.amount_paid === 'undefined')
         {
             return res.status(500).json(json_resp.error.invalid_ticket_update);
         }
@@ -177,6 +178,16 @@ module.exports = function (io) {
         if (typeof req.body.duration !== 'undefined') {
             try{
                 await carpark_db.query(query.api.carparks.update.duration, [t_id, req.body.duration]);
+            }
+            catch (db_err) {
+                debug(db_err);
+                return res.status(500).json(json_resp.error.internal);
+            }
+        }
+
+        if (typeof req.body.amount_paid !== 'undefined') {
+            try{
+                await carpark_db.query(query.api.carparks.update.amount_paid, [t_id, req.body.amount_paid]);
             }
             catch (db_err) {
                 debug(db_err);
