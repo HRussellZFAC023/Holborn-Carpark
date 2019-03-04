@@ -41,11 +41,6 @@ class Emails extends Component {
                     time_period: this.state.timePeriod,
                 },
                 success: (data) => {
-                    this.setState({
-                        tickets: data,
-                        redraw: true
-                    }, () => {this.setState({redraw: false})});
-
                     swal({
                         title: `Success`,
                         text: `Auto report successfully created! Expect your first e-mail tomorrow at 9 am(earliest).
@@ -91,7 +86,11 @@ class Emails extends Component {
             });
         };
 
-
+        this.timePeriodChange = (e) => {
+            this.setState({
+                timePeriod: e.target.value
+            });
+        };
     }
 
     /**
@@ -181,11 +180,11 @@ class Emails extends Component {
                                     <div className="content">
                                         <p style={{ display: "inline" }}>Every:&nbsp;&nbsp;</p>
                                         <div className="select is-small">
-                                            <select>
-                                                <option>1</option>
-                                                <option>7</option>
-                                                <option>30</option>
-                                                <option>365</option>
+                                            <select onChange={this.timePeriodChange}>
+                                                <option value="1">1</option>
+                                                <option value="7">7</option>
+                                                <option value="30">30</option>
+                                                <option value="365">365</option>
                                             </select>
                                         </div>
                                         <p style={{ display: "inline" }}>&nbsp;&nbsp;days</p>
