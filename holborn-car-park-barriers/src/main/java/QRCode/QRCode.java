@@ -6,7 +6,6 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,56 +14,40 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Generates a QR code from an inputted alphanumeric string converts characters to
+ * capitals and any unknown characters are converted to 0's
+ *
+ * @author Cameron
+ * @version 1.0.0
+ */
 public class QRCode extends Canvas {
 
-    //Modes: 1) Numeric 2) Alphanumeric 3) Byte 4) kanji(Japanese I think?)
-    //Error level: 1) Low 2) Medium 3) Q(? Basically 1 up from med) 4) High
-
-    //Remove Kanji compatibility? Depends on difficulty
-    //Only add the required one to the carpark app though
+    //Modes: 1) Numeric 2) Alphanumeric 3) Byte(Not supported yet) 4) kanji(Not supported yet)
+    //Error level: 1) Low 2) Medium 3) Q(Basically 1 up from med) 4) High
 
     private int version;
 
     private int pixelSize = 2;
     private Color pixelColour = new Color(0, 0, 0, 1);
     private Color unusedPixel = new Color(1, 0, 0, 1);
+    private ClassLoader cl;
 
-    public static void main(String[] args) {
-        QRCode code = new QRCode();
-        code.generate("HELLO WORLD", 2, 2, 6);
-        //new QRCode("HELL", 2, 4);
-
+    /**
+     * Constructor which creates a class loader to read the resources
+     *
+     * @since 1.0.0
+     */
+    public QRCode(){
+        cl = getClass().getClassLoader();
     }
 
-    private void formatFile() {
-        String file = "Inputs/AlphaToInt.txt";
-        try (
-                Scanner scan = new Scanner(new File(file))
-        ) {
-            List<String> lines = new ArrayList<>();
-            while (scan.hasNext()) {
-                lines.add(scan.nextLine());
-            }
-            for (int pos = lines.size(); pos > 0; pos--) {
-                if (lines.get(pos - 1).contentEquals("")) {
-                    lines.remove(pos - 1);
-                }
-            }
-            String[] fileLines = lines.toArray(new String[0]);
-            for (int pos = 0; pos < fileLines.length; pos++) {
-                //fileLines[pos] = fileLines[pos].replace("α[0-9]* = ", "");
-                fileLines[pos] = fileLines[pos].replaceAll("[0-9]* = α", "");
-            }
-            FileWriter writer = new FileWriter(new File(file));
-            for (int pos = 0; pos < fileLines.length; pos++) {
-                writer.write(fileLines[pos] + (pos != fileLines.length - 1 ? System.lineSeparator() : ""));
-            }
-            writer.close();
-        } catch (Exception e) {
-            System.out.println("Error formatting file.");
-        }
-    }
-
+    /**
+     * Method which takes in the qr code array and writes the QR code onto a canvas
+     *
+     * @param qr the generated 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void drawQRCode(Pix[][] qr) {
         int shift = 4 * pixelSize;
         int size = (qr.length * pixelSize) + (shift * 2);
@@ -82,6 +65,7 @@ public class QRCode extends Canvas {
         }
     }
 
+    //TODO remove this
     private void drawGrid(GraphicsContext g, int size) {
         double height = this.getHeight(), width = this.getWidth();
         for (int pos = 0; pos < size; pos++) {
@@ -90,6 +74,16 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Method draws a pixel to the canvas of the desired size
+     *
+     * @param y The Row of the pixel
+     * @param x The Column of the pixel
+     * @param p The Pixel writer
+     * @param pixelColour The colour that the pixel should be draws
+     * @param shift The shift for the spacing round the QR code
+     * @since 1.0.0
+     */
     private void drawPixel(int y, int x, PixelWriter p, Color pixelColour, int shift) {
         for (int i = 0; i < pixelSize; i++) {
             for (int j = 0; j < pixelSize; j++) {
@@ -98,21 +92,31 @@ public class QRCode extends Canvas {
         }
     }
 
-    public QRCode() {
-    }
-
-    public void generate(Object dataToEncode, int mode, int errorLevel, int pixelSize) {
+    /**
+     * The method that takes in the alphanumeric string and converts it to the QR code
+     *
+     * @param dataToEncode The alphanumeric string to convert to a QR code.
+     * @param errorLevel The error level used in the QR code (1-4).
+     * @param pixelSize The number of pixels used int he height and width of the QR code positions.
+     * @since 1.0.0
+     */
+    public void generate(String dataToEncode, int errorLevel, int pixelSize) {
         this.pixelSize = pixelSize;
-        //Need to convert to support objects and casting
-        if (mode > 4) mode = 4;
-        if (mode < 1) mode = 1;
         if (errorLevel > 4) errorLevel = 4;
         if (errorLevel < 1) errorLevel = 1;
-        String message = encode(dataToEncode, mode, errorLevel);
+        String message = encode(dataToEncode, 2, errorLevel);
         Pix[][] QR = makeQR(message, errorLevel);
         drawQRCode(QR);
     }
 
+    /**
+     * Method which takes in the alphanumeric String and converts it to a 2D {@link Pix} array
+     *
+     * @param message The alphanumeric string which is being converted to the QR code
+     * @param errLvl The level of error that the QR code is being generated to.
+     * @return A 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private Pix[][] makeQR(String message, int errLvl) {
         int[] versionStorage = new int[2];
         versionStorage[0] = errLvl;
@@ -128,6 +132,12 @@ public class QRCode extends Canvas {
         return qr;
     }
 
+    /**
+     * Method which adds the version pixels to the QR code
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void addVersion(Pix[][] qr) {
         String version = getVersionInfo();
         int dig = 0;
@@ -144,6 +154,13 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Method which adds the format pixels to the QR code
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param verStor An int array that contains the error correction value and the mask version used
+     * @since 1.0.0
+     */
     private void addFormat(Pix[][] qr, int[] verStor) {
         String formatInfo = getFormatInfo(verStor);
         System.out.println("String used: " + formatInfo);
@@ -164,6 +181,15 @@ public class QRCode extends Canvas {
         qr[7][8] = new Pix(formatInfo.charAt(8) == '1');
     }
 
+    /**
+     * Method which applies the masks and gets the least likely to be misinterpreted QR code
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param unmaskable A 2D boolean array that has which positions can't be masked
+     * @param verCont An int array that contains the error correction value and is used to store/pass out the mask used
+     * @return The 2D {@link Pix} array of the masked QR code
+     * @since 1.0.0
+     */
     private Pix[][] applyMasks(Pix[][] qr, boolean[][] unmaskable, int[] verCont) {
         Pix[][][] maskedQRs = new Pix[8][qr.length][qr[0].length];
         for (int pos = 0; pos < maskedQRs.length; pos++) {
@@ -201,6 +227,13 @@ public class QRCode extends Canvas {
         return maskedQRs[min];*/
     }//Hello world -> 6
 
+    /**
+     * Method which makes a copy of the inputted QR code that can be edited without changing the inputted one
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return The 2D {@link Pix} array copy of the input
+     * @since 1.0.0
+     */
     private Pix[][] copyQR(Pix[][] qr){
         Pix[][] newQR = new Pix[qr.length][qr[0].length];
         for (int y = 0; y < qr.length; y++){
@@ -214,6 +247,13 @@ public class QRCode extends Canvas {
         return newQR;
     }
 
+    /**
+     * Creates the score of the inputted QR code, the score corresponds to the likelyhood of the QR code being misunderstood
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int scoreQR(Pix[][] qr) {
         int[] score = new int[4];
         score[0] = checkRows(qr) + checkColumns(qr);
@@ -228,6 +268,13 @@ public class QRCode extends Canvas {
         return (score[0] + score[1] + score[2] + score[3]);
     }
 
+    /**
+     * Creates the score using ratios of black to white positions
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int checkRatio(Pix[][] qr) {
         int w = 0, b = 0;
         for (int y = 0; y < qr.length - 1; y++) {
@@ -254,6 +301,13 @@ public class QRCode extends Canvas {
         return (Math.min(min, max) * 10);
     }
 
+    /**
+     * Creates the score for the two patterns that are similar to the corner position codes
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int checkPattern(Pix[][] qr) {
         int score = 0;
         for (int y = 0; y < qr.length - 1; y++) {
@@ -265,6 +319,13 @@ public class QRCode extends Canvas {
         return score;
     }
 
+    /**
+     * Finds if the specified area contains the pattern similar to the positional patterns
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return true if teh area contains the pattern, false otherwise
+     * @since 1.0.0
+     */
     private boolean matchPattern(int col, int row, Pix[][] qr, boolean orientation) {
         int pos = 0;
         if ((orientation ? col : row) + 10 >= qr.length) return false;
@@ -294,10 +355,24 @@ public class QRCode extends Canvas {
         return true;
     }
 
+    /**
+     * Checks if the specified Pix is black or white
+     *
+     * @param pix the position being checked
+     * @return true if the position is black, false otherwise
+     * @since 1.0.0
+     */
     private boolean black(Pix pix) {
         return pix.getState();
     }
 
+    /**
+     * Creates the score for areas with 2 by 2 blocks of the same colour
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int checkGroups(Pix[][] qr) {
         int score = 0;
         for (int y = 0; y < qr.length - 1; y++) {
@@ -308,6 +383,15 @@ public class QRCode extends Canvas {
         return score;
     }
 
+    /**
+     * Gets whether the specified area contains the 2 by 2 pattern of the same coloured pixels
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param x the x position of the top left pixel
+     * @param y the y position of the top left pixel
+     * @return whether the area contains a 2by 2 pattern of the same colour
+     * @since 1.0.0
+     */
     private boolean matchBlob(int x, int y, Pix[][] qr) {
         return (
                 (
@@ -325,6 +409,13 @@ public class QRCode extends Canvas {
         );
     }
 
+    /**
+     * Creates the score based on the number of same pixels in a row in each column
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int checkColumns(Pix[][] qr) {
         int score = 0;
         for (int x = 0; x < qr[0].length; x++) {
@@ -348,6 +439,13 @@ public class QRCode extends Canvas {
         return score;
     }
 
+    /**
+     * Creates the score based on the number of same pixels in a row in each row
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return the score generated
+     * @since 1.0.0
+     */
     private int checkRows(Pix[][] qr) {
         int score = 0;
         for (int y = 0; y < qr.length; y++) {
@@ -372,6 +470,15 @@ public class QRCode extends Canvas {
         return score;
     }
 
+    /**
+     * Applies the specified mask to the inputted pixel based on its position
+     *
+     * @param pix the position
+     * @param mask The mask being used on the position
+     * @param row The row that the position is on.
+     * @param column The column that the position is on.
+     * @since 1.0.0
+     */
     private void applyMask(int mask, int row, int column, Pix pix) {
         switch (mask) {
             case (0):
@@ -402,6 +509,13 @@ public class QRCode extends Canvas {
 
     }
 
+    /**
+     * Adds the data to the inputted 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param data The binary data to be placed onto the QR code
+     * @since 1.0.0
+     */
     private void addData(String data, Pix[][] qr) {
         int dig = 0;
         //0 = up, 1 = left
@@ -416,6 +530,14 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Gets the next position to write the data to, changes the value in the inputted int array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param pos The Int position to be edited
+     * @param shift The array that holds the two boolean values that define the place to look for the next piece of data to be placed
+     * @since 1.0.0
+     */
     private void getNextPos(int[] pos, Pix[][] qr, boolean[] shift) {
         //0 = up, 1 = left
         while (qr[pos[1]][pos[0]] != null) {
@@ -457,6 +579,13 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Creates a 2D boolean array thatd efines which positions can and can't be masked
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @return The 2D array that defines which positions can and can't be masked.
+     * @since 1.0.0
+     */
     private boolean[][] createUnMaskables(Pix[][] qr) {
         boolean[][] unMaskables = new boolean[qr.length][qr[0].length];
         for (int x = 0; x < qr.length; x++) {
@@ -467,6 +596,12 @@ public class QRCode extends Canvas {
         return unMaskables;
     }
 
+    /**
+     * Adds temporary positions to the 2D{@link Pix} array to reserve them to be written to later
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void reserveFormatArea(Pix[][] qr) {
         for (int pos = 0; pos < 9; pos++) {
             if (qr[8][pos] == null) qr[8][pos] = new Pix(false);
@@ -494,10 +629,22 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Adds the dark module pixel to the 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void addDarkModule(Pix[][] qr) {
         qr[qr.length - 8][8] = new Pix(true);
     }
 
+    /**
+     * Adds the timing belts to the 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void addTimingBelts(Pix[][] qr) {
         for (int pos = 7; pos < qr[6].length - 7; pos++) {
             qr[6][pos] = new Pix(pos % 2 == 0);
@@ -507,6 +654,12 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Adds the positional patterns to the 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void makeFinders(Pix[][] qr) {
         addFinder(0, 0, qr);
         addFinder(qr[0].length - 7, 0, qr);
@@ -516,6 +669,12 @@ public class QRCode extends Canvas {
         addSpacing(0, qr.length - 8, qr);
     }
 
+    /**
+     * Adds the spacing areas to the 2D{@link Pix} array around the positional patterns
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void addSpacing(int x, int y, Pix[][] qr) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -524,6 +683,14 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Adds the positional pattern to the 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param y the row of the top left position of the positional pattern
+     * @param x the cloumn of the top left position of the positional pattern
+     * @since 1.0.0
+     */
     private void addFinder(int x, int y, Pix[][] qr) {
         for (int pos = 0; pos < 7; pos++) {
             qr[y][x + pos] = new Pix(true);
@@ -549,6 +716,12 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Adds the alignment patterns to the 2D{@link Pix} array
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @since 1.0.0
+     */
     private void addAlignments(Pix[][] qr) {
         int[] positions = getAlignmentCentres();
         for (int position : positions) {
@@ -558,6 +731,14 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Adds the alignment pattern to the 2D{@link Pix} array at the specified position
+     *
+     * @param qr The current 2D {@link Pix} array
+     * @param y the row of the top left position of the positional pattern
+     * @param x the cloumn of the top left position of the positional pattern
+     * @since 1.0.0
+     */
     private void addAlignmentPattern(int x, int y, Pix[][] qr) {
         if ((x == 6 && y == 6) || (x <= 6 && y >= qr.length - 7) || (x >= qr.length - 7 && y <= 6)) {
             return;
@@ -584,18 +765,33 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * gets the width and height of the QR code based on the version used.
+     *
+     * @return the size of the QR code
+     * @since 1.0.0
+     */
     private int getQRSize() {
         return (((version - 1) * 4) + 21);
     }
 
-    private String encode(Object dataIn, int mode, int errLvl) {
+    /**
+     * Encodes the data to a binary string
+     *
+     * @param dataIn The alphanumerical string to encode
+     * @param errLvl The error correction level being used
+     * @param mode the mode that the QR code is using
+     * @return The binary string of the encoded data
+     * @since 1.0.0
+     */
+    private String encode(String dataIn, int mode, int errLvl) {
         System.out.println("In: " + dataIn);
-        version = getVersion((dataIn + "").length(), mode, errLvl);
+        version = getVersion(dataIn.length(), mode, errLvl);
         if (version == 0) return null;
         String lengthBin = getLengthBin(dataIn, mode);
         if (lengthBin == null) return null;
         lengthBin = getModeBin(mode) + lengthBin;
-        String data = encodeData(dataIn, mode);
+        String data = alphanumericEncoding(dataIn.toUpperCase());
         if (data == null) return null;
         int[] ecLine = getECLine(errLvl);
         int reqBits = ecLine[0] * 8;
@@ -609,6 +805,13 @@ public class QRCode extends Canvas {
         return convertToBinary(messageInterleave) + remainderBits(version);
     }
 
+    /**
+     * COnverts the inputted Integer list into a binary string
+     *
+     * @param message The list of integer values to be translated
+     * @return The binary String
+     * @since 1.0.0
+     */
     private String convertToBinary(List<Integer> message) {
         StringBuilder binaryMessage = new StringBuilder();
         for (int num : message) {
@@ -617,6 +820,13 @@ public class QRCode extends Canvas {
         return binaryMessage.toString();
     }
 
+    /**
+     * Interleaves the data in the block into a list
+     *
+     * @param block the data block to be interleaved
+     * @return The interleaved list of values from the inputted block
+     * @since 1.0.0
+     */
     private List<Integer> interleave(int[][][] block) {
         List<Integer> vals = new ArrayList<>();
         int loopTo = block[0][0].length;
@@ -635,6 +845,15 @@ public class QRCode extends Canvas {
         return vals;
     }
 
+    /**
+     * Fills the error block based off of the message
+     *
+     * @param block the data block to be filled with the error data
+     * @param message The block with the message in
+     * @param numEcs The number of error correction words for the version being used
+     * @return The filled error block
+     * @since 1.0.0
+     */
     private int[][][] fillErrorBlock(int[][][] block, int[][][] message, int numEcs) {
         for (int x = 0; x < block.length; x++) {
             for (int y = 0; y < block[x].length; y++) {
@@ -644,6 +863,14 @@ public class QRCode extends Canvas {
         return block;
     }
 
+    /**
+     * Fills the message block
+     *
+     * @param block the data block to be filled with the error data
+     * @param message The block with the message in
+     * @return The filled message block
+     * @since 1.0.0
+     */
     private int[][][] fillMessageBlock(int[][][] block, int[] message) {
         int pos = 0;
         for (int x = 0; x < block.length; x++) {
@@ -656,6 +883,13 @@ public class QRCode extends Canvas {
         return block;
     }
 
+    /**
+     * Creates an empty block based off of the error correction values
+     *
+     * @param ecLine The defenitions of the block based off of the error correction values being used
+     * @return The empty block of the correct size
+     * @since 1.0.0
+     */
     private int[][][] generateBlock(int[] ecLine) {
         int[][][] block = new int[(ecLine[4] != 0 ? 2 : 1)][0][0];
         for (int pos = 1; pos < block.length + 1; pos++) {
@@ -664,10 +898,18 @@ public class QRCode extends Canvas {
         return block;
     }
 
+    /**
+     * Creates the error correction values for the inputted values
+     *
+     * @param vals The values in the section of the block for which teh error correction words are being generated
+     * @param codewords The number of words required in the output
+     * @return The int array with the error correction numbers in
+     * @since 1.0.0
+     */
     private int[] getErrorCorrectionCodewords(int[] vals, int codewords) {
         int[] poly = getPoly(codewords);
         int[] startExp = new int[]{vals.length + codewords};
-        int[] alpInt = getAlpIntTable("Inputs/AlphaToInt.txt", true), intAlp = getAlpIntTable("Inputs/IntToAlpha.txt", false);
+        int[] alpInt = getAlpIntTable("QRInputs/AlphaToInt.txt", true), intAlp = getAlpIntTable("QRInputs/IntToAlpha.txt", false);
         int alpMult = intAlp[vals[0]];
         int[] prev = Arrays.copyOf(poly, poly.length);
         for (int pos = 0; pos < poly.length; pos++) {
@@ -683,6 +925,16 @@ public class QRCode extends Canvas {
         return prev;
     }
 
+    /**
+     * Adds the polynomial together using alpha values
+     *
+     * @param mult The first value of the previous equation
+     * @param poly The defenitions for the multiplication polynomial
+     * @param alpInt The map for the alpha to integer values
+     * @param intAlp The map for the integer to alpha values
+     * @return The integer defenition of the new polynomial line
+     * @since 1.0.0
+     */
     private int[] alphaAdd(int mult, int[] poly, int[] alpInt, int[] intAlp) {
         int alpMult = intAlp[mult];
         for (int pos = 0; pos < poly.length; pos++) {
@@ -691,6 +943,14 @@ public class QRCode extends Canvas {
         return poly;
     }
 
+    /**
+     * Xors the two inputted polynoials
+     *
+     * @param first The first polynomial
+     * @param second The second polynomial
+     * @return the integer defenition of the polynomial line
+     * @since 1.0.0
+     */
     private int[] xor(int[] first, int[] second, int[] startExp) {
         if (second.length < first.length) {
             second = Arrays.copyOf(second, first.length);
@@ -714,6 +974,13 @@ public class QRCode extends Canvas {
         return newEq;
     }
 
+    /**
+     * Translates the inputted string into 8 bit integer arrays
+     *
+     * @param data The binary input string
+     * @return The integer 8 bit equivalent of the inputted string
+     * @since 1.0.0
+     */
     private int[] splitData(String data) {
         int[] vals = new int[(data.length() / 8)];
         for (int pos = 0; pos < vals.length; pos++) {
@@ -722,6 +989,14 @@ public class QRCode extends Canvas {
         return vals;
     }
 
+    /**
+     * Pads the data to the required length
+     *
+     * @param data The binary input string
+     * @param reqBits The required number of bits to pad the binary string to
+     * @return The padded data
+     * @since 1.0.0
+     */
     private String padData(StringBuilder data, int reqBits) {
         if (data.length() < reqBits - 4) {//Probably where the error is
             data.append("0000");
@@ -743,43 +1018,13 @@ public class QRCode extends Canvas {
         return data.toString();
     }
 
-    private String encodeData(Object data, int mode) {
-        String result = "";
-        switch (mode) {
-            case (1):
-                result = numericEncode((long) data);
-                break;
-            case (2):
-                result = alphanumericEncoding(((String) data).toUpperCase());
-                break;
-            case (3):
-                result = null;
-                break;
-            case (4):
-                result = null;
-                break;
-        }
-        return result;
-    }
-
-    private String numericEncode(long num) {
-        int length = (num + "").length();
-        int size = ((length % 3 == 0) ? (length / 3) : ((length / 3) + 1));
-        String[] nums = new String[size];
-        String number = num + "";
-        for (int pos = 0; pos < size; pos++) {
-            nums[pos] = number.substring(pos * 3, Math.min((pos + 1) * 3, length));
-        }
-        for (int pos = 0; pos < nums.length; pos++) {
-            nums[pos] = Integer.toBinaryString(Integer.parseInt(nums[pos]));
-        }
-        StringBuilder result = new StringBuilder();
-        for (String str : nums) {
-            result.append(str);
-        }
-        return result.toString();
-    }
-
+    /**
+     * Gets the numeric equivalent of the inputter character
+     *
+     * @param let The character being encoded
+     * @return The numerical equivalent of the int
+     * @since 1.0.0
+     */
     private int getVal(char let) {
         int val = 0;
         if (let >= 48 && let <= 57) {
@@ -810,6 +1055,13 @@ public class QRCode extends Canvas {
         return val;
     }
 
+    /**
+     * Encodes the inputted string into a binary string equivalent
+     *
+     * @param input The alphanumeric data to encode
+     * @return The binary string equivalent of the data to encode
+     * @since 1.0.0
+     */
     private String alphanumericEncoding(String input) {
         int length = input.length();
         int size = (length % 2 == 0) ? (length / 2) : ((length / 2) + 1);
@@ -832,8 +1084,15 @@ public class QRCode extends Canvas {
         return result.toString();
     }
 
-    private String getLengthBin(Object num, int mode) {
-        String lengthBin = Long.toBinaryString((num + "").length());
+    /**
+     * Returns the binary code that corresponds to the
+     *
+     * @param data the data to be encoded
+     * @return The encodeing mode
+     * @since 1.0.0
+     */
+    private String getLengthBin(String data, int mode) {
+        String lengthBin = Long.toBinaryString(data.length());
         int lengthRequired;
         if (version < 10) {
             switch (mode) {
@@ -890,6 +1149,14 @@ public class QRCode extends Canvas {
         return padToFromLeft(lengthBin, lengthRequired);
     }
 
+    /**
+     * Pads inputted binary string with zero's to the required length from the left
+     *
+     * @param string the data to encode
+     * @param length The length to pad to
+     * @return The padded binary string
+     * @since 1.0.0
+     */
     private String padToFromLeft(String string, int length) {
         StringBuilder stringBuilder = new StringBuilder(string);
         while (stringBuilder.length() < length) {
@@ -899,6 +1166,13 @@ public class QRCode extends Canvas {
         return string;
     }
 
+    /**
+     * Gets the binary code for the mode being used
+     *
+     * @param mode The mode being used
+     * @return The binary code equivalent of the mode
+     * @since 1.0.0
+     */
     private String getModeBin(int mode) {
         switch (mode) {
             case (1):
@@ -914,9 +1188,18 @@ public class QRCode extends Canvas {
         }
     }
 
+    /**
+     * Gets the QR code version to be used based off of the defenitions in the CharLevels file
+     *
+     * @param mode The mode being used
+     * @param length Length of the data to encode
+     * @param errLvl The error correction level being used
+     * @return The version that needs to be used
+     * @since 1.0.0
+     */
     private int getVersion(int length, int mode, int errLvl) {
         try {
-            Scanner scan = new Scanner(new File("Inputs/CharLevels.txt"));
+            Scanner scan = new Scanner(new File(cl.getResource("QRInputs/CharLevels.txt").getFile()));
             while (scan.hasNext()) {
                 int version = scan.nextInt();
                 scan.nextLine();
@@ -940,6 +1223,13 @@ public class QRCode extends Canvas {
         return 0;
     }
 
+    /**
+     * Formats the read line
+     *
+     * @param line The line to format
+     * @return The formatted line
+     * @since 1.0.0
+     */
     private String formatLine(String line) {
         Pattern errLvlLet = Pattern.compile("[LMQH ]");
         Matcher matcher = errLvlLet.matcher(line);
@@ -947,9 +1237,16 @@ public class QRCode extends Canvas {
         return line.replaceAll("\t", ",");
     }
 
+    /**
+     * Gets the polynomial defenition from the polynomials file for the codeword length
+     *
+     * @param codewords The number of codewords required
+     * @return The polygon defenition
+     * @since 1.0.0
+     */
     private int[] getPoly(int codewords) {
         int[] polyDef = new int[0];
-        try (Scanner scan = new Scanner(new File("Inputs/PolynomialTable.txt"))) {
+        try (Scanner scan = new Scanner(new File(cl.getResource("QRInputs/PolynomialTable.txt").getFile()))) {
             for (int pos = 0; pos < codewords - 7; pos++) {
                 scan.nextLine();
             }
@@ -962,6 +1259,13 @@ public class QRCode extends Canvas {
         return polyDef;
     }
 
+    /**
+     * Gets the error correction definition line and formats it into an int array
+     *
+     * @param errLvl The error correction level being used
+     * @return The error correction defenitions
+     * @since 1.0.0
+     */
     private int[] getECLine(int errLvl) {
         int[] ecNums = new int[0];
         try {
@@ -972,6 +1276,13 @@ public class QRCode extends Canvas {
         return ecNums;
     }
 
+    /**
+     * Converts the inputted string array into the int equivalents and converts to an int array
+     *
+     * @param line the line of String numbers to be converted
+     * @return The int equivalents in an array
+     * @since 1.0.0
+     */
     private int[] convertToInt(String[] line) {
         int[] ints = new int[line.length];
         for (int pos = 0; pos < line.length; pos++) {
@@ -980,8 +1291,15 @@ public class QRCode extends Canvas {
         return ints;
     }
 
+    /**
+     * Gets the error correction line form the error correction defenitions text file
+     *
+     * @param errLvl The error correction level being used
+     * @return The error correction defenitions
+     * @since 1.0.0
+     */
     private String getLine(int errLvl) throws IOException {
-        Scanner scan = new Scanner(new File("Inputs/ErrorCorrection.txt"));
+        Scanner scan = new Scanner(new File(cl.getResource("QRInputs/ErrorCorrection.txt").getFile()));
         while (Integer.parseInt(scan.nextLine()) < version) {
             for (int pos = 0; pos < 4; pos++) {
                 scan.nextLine();
@@ -993,10 +1311,18 @@ public class QRCode extends Canvas {
         return formatLine(scan.nextLine()).substring(1);
     }
 
+    /**
+     * Gets the alpha integer map
+     *
+     * @param file The file to access for the defenitions
+     * @param alpToInt whether the file to be read is the alpha to integer map or otherwise
+     * @return the map retrieved
+     * @since 1.0.0
+     */
     private int[] getAlpIntTable(String file, boolean alpToInt) {
         int[] alpInt = new int[256];
         if (alpToInt) alpInt[0] = 0;
-        try (Scanner scan = new Scanner(new File(file))) {
+        try (Scanner scan = new Scanner(new File(cl.getResource(file).getFile()))) {
             for (int pos = (alpToInt ? 0 : 1); pos < 256; pos++) {
                 alpInt[pos] = scan.nextInt();
             }
@@ -1006,10 +1332,16 @@ public class QRCode extends Canvas {
         return alpInt;
     }
 
+    /**
+     * Gets the positions of the positional patterns in the QR code
+     *
+     * @return The positional pattern positions
+     * @since 1.0.0
+     */
     private int[] getAlignmentCentres() {
         int[] centreLocations = new int[0];
         if (version != 1) {
-            try (Scanner scan = new Scanner(new File("Inputs/AlignmentPatternLocations.txt"))) {
+            try (Scanner scan = new Scanner(new File(cl.getResource("QRInputs/AlignmentPatternLocations.txt").getFile()))) {
                 for (int pos = 0; pos < version - 1; pos++) {
                     scan.nextLine();
                 }
@@ -1022,9 +1354,16 @@ public class QRCode extends Canvas {
         return centreLocations;
     }
 
+    /**
+     * Gets the format info from the format info file
+     *
+     * @param verStor The int with the version information
+     * @return The format information
+     * @since 1.0.0
+     */
     private String getFormatInfo(int[] verStor) {
         String bitString = "";
-        try (Scanner scan = new Scanner(new File("Inputs/FormatInfo.txt"))) {
+        try (Scanner scan = new Scanner(new File(cl.getResource("QRInputs/FormatInfo.txt").getFile()))) {
             for (int pos = 1; pos < verStor[0]; pos++) {
                 scan.nextLine();
                 for (int matVer = 0; matVer < 8; matVer++) {
@@ -1042,9 +1381,15 @@ public class QRCode extends Canvas {
         return bitString;
     }
 
+    /**
+     * Gets the version info from the format info file
+     *
+     * @return The version information
+     * @since 1.0.0
+     */
     private String getVersionInfo() {
         String bitString = "";
-        try (Scanner scan = new Scanner(new File("Inputs/VersionInfo.txt"))) {
+        try (Scanner scan = new Scanner(new File(cl.getResource("QRInputs/VersionInfo.txt").getFile()))) {
             for (int pos = 0; pos < version - 7; pos++) {
                 scan.nextLine();
 
@@ -1056,9 +1401,16 @@ public class QRCode extends Canvas {
         return bitString;
     }
 
+    /**
+     * Gets the required number of remainder bits for the Qr code being used
+     *
+     * @param version The QR code version being used
+     * @return The string with the bits to append to the data
+     * @since 1.0.0
+     */
     private String remainderBits(int version) {
         int rem = 0;
-        try (Scanner scan = new Scanner(new File("Inputs/RemainderBits.txt"))) {
+        try (Scanner scan = new Scanner(new File(cl.getResource("QRInputs/RemainderBits.txt").getFile()))) {
             for (int pos = 0; pos < version - 1; pos++) {
                 scan.nextLine();
             }

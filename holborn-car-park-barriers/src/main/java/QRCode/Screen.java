@@ -64,7 +64,7 @@ public class Screen extends Application {
 
         Button generateButton = new Button("Generate");
         generateButton.setOnAction(event ->
-                code.generate(inputArea.getText(), 2, errLvlBox.getValue(), pixelSize.getValue())
+                code.generate(inputArea.getText(), errLvlBox.getValue(), pixelSize.getValue())
         );
         gp.add(generateButton,0,1);
 
