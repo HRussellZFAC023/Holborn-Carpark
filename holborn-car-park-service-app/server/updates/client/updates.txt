@@ -4,7 +4,7 @@
 Name = Holborn Car Park Client
 NoGUICommandLineSwitch = /exenoui /qn
 ProductVersion = 1.0.1.0
-URL = https://holborncarpark.com/updates/client/updates/rc_1.0.1'
+URL = https://holborncarpark.com/updates/client/updates/rc_1.0.1
 Size = 27788890
 ReleaseDate = 04/03/2019
 MD5 = 8501f2525c68dee195a808fa9d0eb4ab

@@ -100,7 +100,8 @@ public class CheckController implements Initializable {
                 setMessage("Please wait...");
                 animateTicketUIHide();
                 validationUI(true);
-                socket.emit(SOCKET_EMIT, newValue.substring(0, 36), (Ack) objects -> {
+                String req = newValue.substring(0, 36).toLowerCase();
+                socket.emit(SOCKET_EMIT, req, (Ack) objects -> {
                     Object err = objects[0];
                     Object description = objects[1];
                     logger.info(err + " " + description);
