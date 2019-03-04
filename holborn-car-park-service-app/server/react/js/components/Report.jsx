@@ -254,7 +254,7 @@ class Report extends Component {
                          * Conditionally render the report section
                          */
                         this.state.tickets.length === 0
-                        ? (<div className="has-text-centered">No ticket data for selected period</div>)
+                        ? (<div className="has-text-centered">No ticket data for selected period or car park (Make sure you are on Egham Car Park as it is the only one with tickets)</div>)
                         : <ReportSection
                                 startDate={this.state.startDate}
                                 endDate={this.state.endDate}
