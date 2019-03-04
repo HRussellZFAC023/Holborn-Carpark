@@ -8,6 +8,7 @@ import FxStuff.Scenes;
 import FxStuff.Ticket;
 import com.google.gson.Gson;
 import javafx.application.Platform;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -97,7 +98,7 @@ public class Barrier extends Thread {
     public void connect() {
         //TODO Ask Vlad about the logger use here
         InfoPopUp popup = mainCont.getPopup();//Get a reference to the info popup so that it can be manipulated
-        Logger logger = mainCont.getLogger();//Get the logger so that it can be written to
+        Logger logger = LogManager.getLogger(getClass().getName());
         popup.show("Connecting...");//Set the popup to show the connecting message
         mainCont.disconnectedUI(true);//Set the UI to be uneditable
         String[] socketDefinitions = mainCont.getSocket();//Get the socket definitions from the globals class
@@ -278,7 +279,7 @@ public class Barrier extends Thread {
      */
     private void reconnect(InfoPopUp popup) {
         popup.show("Reconnecting...");//Set the message on the popup to be reconnecting
-        Logger logger = mainCont.getLogger();
+        Logger logger = LogManager.getLogger(getClass().getName());
         String[] socketDefinitions = mainCont.getSocket();//Get the socket definitions from the globals class
         String hostname = socketDefinitions[0];//Set the hostname to the first definition
         int portNumber = Integer.parseInt(socketDefinitions[1]);//Set the port to the second definition

@@ -153,7 +153,7 @@ public class MainViewController implements Initializable {
                 if ((System.currentTimeMillis()) - sessionStartTime >= session_timeout_ms) {
                     popup.show("Session timed out", false);
                     sceneAnchor.setDisable(true);
-                    sceneManager.changeTo(Scenes.FINISH);
+                    sceneManager.changeTo(GlobalVariables.getBarrierType()?Scenes.LANDING_IN:Scenes.LANDING_OUT);
                     try {
                         Thread.sleep(session_timeout_popup_ms);
                     } catch (InterruptedException ignored) {

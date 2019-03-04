@@ -92,7 +92,6 @@ public class CheckController implements Initializable {
                 if (mc.check(newValue, isTicketFromSmartCard)) {
                     Platform.runLater(() -> animateImageValidate(true));
                     mc.getSceneManager().changeTo(Scenes.FINISH);
-                    mc.getSceneManager().goBack();
                 } else {
                     setInvalidUI(INVALID_MESSAGE);
                 }

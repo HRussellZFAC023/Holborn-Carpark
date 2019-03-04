@@ -49,7 +49,8 @@ public class TicketPrintingController implements Initializable {
                 System.out.println("Ticket: " + newTicket.toString());
             }
             mainCont.getSceneManager().goBack();
-        });//Code needs to be replaced with waiting for the ticket to be printed
+        });
+        //TODO PDF thingy
         waitPrint.setName("WaitForPrintThread");
         waitPrint.setDaemon(true);
         waitPrint.start();
