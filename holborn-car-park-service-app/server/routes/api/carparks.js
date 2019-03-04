@@ -132,6 +132,7 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).json(json_resp.error.internal);
             }
+            socket_functions.emit_update(io, c_id);
         }
 
         if (typeof req.body.hour_rate !== 'undefined') {
@@ -164,6 +165,7 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).json(json_resp.error.internal);
             }
+            socket_functions.emit_update(io, c_id);
         }
 
         if (typeof req.body.happy_hour_start !== 'undefined') {
@@ -174,6 +176,7 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).json(json_resp.error.internal);
             }
+            socket_functions.emit_update(io, c_id);
         }
 
         if (typeof req.body.happy_hour !== 'undefined') {
@@ -184,6 +187,7 @@ module.exports = function(io) {
                 debug(db_err);
                 return res.status(500).json(json_resp.error.internal);
             }
+            socket_functions.emit_update(io, c_id);
         }
 
         return res.status(200).json(json_resp.success.update);
