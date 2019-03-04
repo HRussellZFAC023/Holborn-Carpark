@@ -26,7 +26,7 @@ public class GlobalVariables {
     static String MAIN_WINDOW_NAME = "";
     public static String LANDING_PAGE_WELCOME = "";
     public static String CAR_PARK_ID = "";
-    public static String WEBSERVICE_SOCKET = "";
+    public static String WEBSERVICE_SOCKET = "https://holborncarpark.com";
     public static int SESSION_TIMEOUT_S = 300;
     public static int SESSION_TIMEOUT_POPUP_DURATION_S = 3;
     public static int TRANSACTION_FINISHED_DELAY_S = 10;
@@ -62,7 +62,7 @@ public class GlobalVariables {
                 output = new FileOutputStream(confFile);
                 appProp.setProperty("car_park_name", "");
                 appProp.setProperty("car_park_id", "");
-                appProp.setProperty("webservice", "http://DOMAIN:PORT");
+                appProp.setProperty("webservice", "https://holborncarpark.com");
                 appProp.setProperty("session_timeout_seconds", "300");
                 appProp.setProperty("session_timeout_popup_duration", "3");
                 appProp.setProperty("auto_night_time", "true");
@@ -77,7 +77,7 @@ public class GlobalVariables {
                 Alerter.showUnableToStartAlertAndOpenRunningDirectory(
                         "Configuration file created!",
                         "Before starting the application, please update the configuration" +
-                                " file with the received information from your administrator. (Configuration file: \" + configName + \")\""
+                                " file with the received information from your administrator. (Configuration file: \""+ configName + "\")\""
                 );
 
             }
