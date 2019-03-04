@@ -1,5 +1,8 @@
 package Networking;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * A custom error that is thrown to start the barrier trying to reconnect to the client.
  *
@@ -18,5 +21,7 @@ public class NoConnectionError extends Exception {
     //TODO Ask Vlad if this needs to write into the logger?
     public NoConnectionError(String errorMessage) {
         super(errorMessage);
+        Logger logger = LogManager.getLogger(getClass().getName());
+        logger.error(errorMessage);
     }
 }

@@ -60,8 +60,8 @@ public class Barrier extends Thread {
 
     /**
      * Method that listens to teh communications from the server for commands to run:
-     *      1) Halt: Initiates the termination of the connection to the socket.
-     *      2) Update: Makes the socket request an update of the carpark details from the client.
+     * 1) Halt: Initiates the termination of the connection to the socket.
+     * 2) Update: Makes the socket request an update of the carpark details from the client.
      *
      * @since 1.0.0
      */
@@ -134,17 +134,24 @@ public class Barrier extends Thread {
         handling = true;//Set the concurrency boolean to true so that no other methods use it
         Ticket ticket = null;//Create a variable to store the ticket in and set it to null
         try {
+            if (socket.isClosed()) {
+                throw new NoConnectionError("Not connected.");
+            }
             PrintWriter out = getPrinter();//Get the input and output streams
             Scanner scan = getScanner();
             //Get the string version of the ticket object
             String tickString = new Protocol().requestTicket(scan, out);
             //Convert the string to a ticket
-            ticket = new Gson().fromJson(tickString, Ticket.class);
+            if (tickString != null) {
+                ticket = new Gson().fromJson(tickString, Ticket.class);
+            } else {
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NoConnectionError nc) {
-            disconnected();//Reconnect if connection is lost
             handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the client
+            disconnected();//Reconnect if connection is lost
             ticket = getTicket();//Re-attempt to get a ticket after connection is resumed
         }
         handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the client
@@ -164,10 +171,14 @@ public class Barrier extends Thread {
         boolean valid = false;//Set the validity of the ticket to false
         try {
             //Validate the ticket using the protocol
+            if (socket.isClosed()) {
+                throw new NoConnectionError("Not connected.");
+            }
             valid = new Protocol().checkTicket(ID, getScanner(), getPrinter());
         } catch (IOException e) {
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
+            handling = false;
             disconnected();//Attempt to reconnect to the client
             //e.printStackTrace();
             valid = checkTicket(ID);//Retry validating the ticket
@@ -188,11 +199,15 @@ public class Barrier extends Thread {
         handling = true;//Set the concurrency boolean to true so that no other methods use it
         boolean valid = false;//Set the validity of the ticket to false
         try {
+            if (socket.isClosed()) {
+                throw new NoConnectionError("Not connected.");
+            }
             //Validate the smartcard using the protocol
             valid = new Protocol().validateSmartCard(ID, getScanner(), getPrinter());
         } catch (IOException e) {
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
+            handling = false;
             disconnected();//Attempt to reconnect to the client
             //e.printStackTrace();
             valid = validateSmartcard(ID);//Retry validating the smartcard
@@ -303,7 +318,7 @@ public class Barrier extends Thread {
     /**
      * Method to reconnect ot the client.
      *
-     * @param popup The popup on the UI so that messages can be conveyed to the user.
+     * @param popup  The popup on the UI so that messages can be conveyed to the user.
      * @param logger The logger to make a note of all the processes and make debugging easier in the vent of a problem
      * @since 1.0.0
      */
@@ -333,19 +348,25 @@ public class Barrier extends Thread {
         handling = true;//Set the concurrency boolean to true so that no other methods use it
         String[] details;//Create the String array to store the information
         try {
+            if (socket.isClosed()) {
+                throw new NoConnectionError("Not connected.");
+            }
             PrintWriter out = getPrinter();//Get the input and output streams
             Scanner scan = getScanner();
             //Get the string version of the Object array
             String detailsString = new Protocol().update(scan, out);
             //Convert the string to the Object array
             details = detailsString.split("&");
+            if (details.length != 3) {
+                details = new String[]{"Unavaliable", "Unavaliable", "Unavaliable"};
+            }
         } catch (IOException e) {
             //return a default set of values
-            details = new String[]{"Unavailable", "99.99","Unavailable"};
+            details = new String[]{"Unavailable", "£99.99", "Unavailable"};
             //e.printStackTrace();
         } catch (NoConnectionError nce) {
-            disconnected();//Attempt to reconnect
             handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the client
+            disconnected();//Attempt to reconnect
             details = getCarparkDetails();//Reattempt to get the carpark details
         }
         handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the client

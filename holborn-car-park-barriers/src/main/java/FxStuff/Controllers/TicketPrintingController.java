@@ -56,6 +56,10 @@ public class TicketPrintingController implements Initializable {
         waitPrint.start();
     }
 
+    private void printTicket(){
+
+    }
+
     /**
      * This method runs a thread to wait for a ticket to be received and printed before switching scenes
      *

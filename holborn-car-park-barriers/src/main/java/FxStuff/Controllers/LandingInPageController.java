@@ -82,8 +82,8 @@ public class LandingInPageController implements Initializable {
     private void update(String[] data) {
         Platform.runLater(() -> {
             System.out.println("Updating");
-            updateTextParkingSpaces(data[0] + "");
-            updateTextPrice("£" + data[1]);
+            updateTextParkingSpaces(data[0]);
+            updateTextPrice(data[1]);
             updateHappyHour(data[2]);
         });
     }
