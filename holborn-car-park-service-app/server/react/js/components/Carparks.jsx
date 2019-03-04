@@ -190,6 +190,37 @@ class Carparks extends Component {
                 });
             });
         };
+
+        this.stopHappyHour = (row) => {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Entry will be no longer be free.',
+                type: 'warning',
+                showCancelButton: true
+            }).then((input) => {
+                $.ajax({
+                    url: '/api/carparks/' + row._id,
+                    type: 'PUT',
+                    data: {
+                        happy_hour: false
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.carparks));
+                        for(let i = 0; i < data.length; ++i){
+                            if(row._id.toString() === data[i]._id.toString()){
+                                data[i].happy_hour = 'false';
+                            }
+                        }
+                        this.setState({
+                            carparks: data,
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
+            });
+        }
     };
 
     /**
@@ -339,7 +370,7 @@ class Carparks extends Component {
                             },{
                                 Header: "Happy Hour",
                                 accessor: 'happy_hour',
-                                Cell: props => <div className="has-text-centered">{props.value.toString() === 'true' ? 'Active' : ' Not Active'}</div>
+                                Cell: props => <div className="has-text-centered">{props.value.toString() === 'true' ? 'Active' : ' Not Active'}{console.log(props.value.toString())}</div>
                             }, {
                                 Header: "Actions",
                                 accessor: 'actions',
@@ -349,7 +380,7 @@ class Carparks extends Component {
                                         <button onClick={()=>{this.changeRate(props.original)}} id="button-two" className="button is-small gradient has-text-white is-info">Change Rate</button><br/>
                                         <button onClick={()=>{this.changePostcode(props.original)}} className="button is-small gradient has-text-white is-info" style={{marginRight: 5, marginBottom: 5}}>Change Post</button>
                                         <button onClick={()=>{this.changeSpaces(props.original)}} className="button is-small gradient has-text-white is-info">Change Space</button> <br/>
-                                        <button onClick={()=>{this.startHappyHour(props.original)}} className="button is-small gradient has-text-white is-info">Start Happy Hour</button>
+                                        <button onClick={()=>{props.original.happy_hour.toString() === 'true' ? this.stopHappyHour(props.original) : this.startHappyHour(props.original)}} className="button is-small gradient has-text-white is-info">{props.original.happy_hour.toString() === 'true' ? 'Stop' : 'Start'} Happy Hour</button>
                                     </div>
                             }]}
                         />
