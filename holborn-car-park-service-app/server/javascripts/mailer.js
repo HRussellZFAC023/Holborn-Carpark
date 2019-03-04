@@ -113,7 +113,6 @@ async function initReporterDaemon(sendnow = false) {
             mail.props.number_of_cars = tickets.rowCount;
 
             let drevenue = 0;
-            console.log(typeof tickets.rows[i].amount_paid)
             for (let i = 0; i < tickets.rowCount; ++i) {
                 if (tickets.rows[i].amount_paid) {
                     drevenue += tickets.rows[i].amount_paid;
