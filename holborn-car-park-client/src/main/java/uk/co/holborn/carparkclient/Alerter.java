@@ -68,18 +68,19 @@ public class Alerter {
      * @param content the information displayed
      */
     public static void showUnableToStartAlertAndOpenRunningDirectory(String header, String content) {
-        ButtonType showLocation = new ButtonType("Show Location", ButtonBar.ButtonData.LEFT);
+//        ButtonType showLocation = new ButtonType("Show Location", ButtonBar.ButtonData.LEFT);
         ButtonType close = new ButtonType("Close", ButtonBar.ButtonData.CANCEL_CLOSE);
         Alert alert = getAlert("Unable to start!", header, content, Alert.AlertType.ERROR);
         alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll(showLocation, close);
+        alert.getButtonTypes().add( close);
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == showLocation) {
-            openRunningDirectory();
-            System.exit(-1);
-        } else {
-            System.exit(-1);
-        }
+//        if (result.isPresent() && result.get() == showLocation) {
+//            openRunningDirectory();
+//            System.exit(-1);
+//        } else {
+//            System.exit(-1);
+//        }
+        System.exit(-1);
     }
 
     /**
