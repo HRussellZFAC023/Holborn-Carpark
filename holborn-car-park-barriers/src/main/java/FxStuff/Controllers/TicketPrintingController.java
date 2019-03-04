@@ -1,11 +1,19 @@
 package FxStuff.Controllers;
 
 import FxStuff.Ticket;
+import QRCode.QRCode;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 /**
@@ -24,7 +32,7 @@ public class TicketPrintingController implements Initializable {
      * @param mainCont The mainViewController
      * @since 1.0.0
      */
-    public TicketPrintingController(MainViewController mainCont){
+    public TicketPrintingController(MainViewController mainCont) {
         Logger logger = LogManager.getLogger(getClass().getName());
         this.mainCont = mainCont;
     }
@@ -35,17 +43,13 @@ public class TicketPrintingController implements Initializable {
      *
      * @since 1.0.0
      */
-    private void goBackAfterPrinting(){
-        Thread waitPrint = new Thread(()-> {
+    private void goBackAfterPrinting() {
+        Thread waitPrint = new Thread(() -> {
             Ticket newTicket = mainCont.getNewTicket();
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {
-
-            }
-            if(newTicket == null){
+            if (newTicket == null) {
                 System.out.println("Failed to get ticket");
-            }else{
+            } else {
+                Platform.runLater(() ->printTicket(newTicket.get_id()));
                 System.out.println("Ticket: " + newTicket.toString());
             }
             mainCont.getSceneManager().goBack();
@@ -56,8 +60,30 @@ public class TicketPrintingController implements Initializable {
         waitPrint.start();
     }
 
-    private void printTicket(){
+    private void printTicket(String ID) {
+        Document ticket = new Document();
+        try {
+            QRCode qrGen = new QRCode();
+            String location = qrGen.generate(ID, 3, 10);
+            Path path = Paths.get(location);
+            int pos = 0;
+            while(new File(location).exists()){
+                pos++;
+                location = "Tickets/Ticket/Tickets/QR" + pos + ".png";
+            }
+            PdfWriter.getInstance(ticket, new FileOutputStream("Tickets/Ticket/Ticket" + pos + ".pdf"));
+            ticket.open();
 
+            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+            Chunk chunk = new Chunk(ID, font);
+            Image img = Image.getInstance(path.toAbsolutePath().toString());
+            ticket.add(img);
+
+            ticket.add(chunk);
+            ticket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -65,7 +91,7 @@ public class TicketPrintingController implements Initializable {
      *
      * @since 1.0.0
      */
-    public void getTicket(){
+    public void getTicket() {
         goBackAfterPrinting();
     }
 

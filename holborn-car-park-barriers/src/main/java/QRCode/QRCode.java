@@ -1,12 +1,19 @@
 package QRCode;
 
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +62,7 @@ public class QRCode extends Canvas {
         this.setWidth(size);
         GraphicsContext g = getGraphicsContext2D();
         g.clearRect(0, 0, this.getWidth(), this.getHeight());
-        drawGrid(g, size);
+        //drawGrid(g, size);
         PixelWriter p = g.getPixelWriter();
         for (int y = 0; y < qr.length; y++) {
             for (int x = 0; x < qr[y].length; x++) {
@@ -100,13 +107,31 @@ public class QRCode extends Canvas {
      * @param pixelSize The number of pixels used int he height and width of the QR code positions.
      * @since 1.0.0
      */
-    public void generate(String dataToEncode, int errorLevel, int pixelSize) {
+    public String generate(String dataToEncode, int errorLevel, int pixelSize) {
         this.pixelSize = pixelSize;
         if (errorLevel > 4) errorLevel = 4;
         if (errorLevel < 1) errorLevel = 1;
         String message = encode(dataToEncode, 2, errorLevel);
         Pix[][] QR = makeQR(message, errorLevel);
         drawQRCode(QR);
+        return storeQR();
+    }
+
+    private String storeQR(){
+        int pos = 0;
+        String location = "Tickets/QR/QR" + pos + ".png";
+        while(new File(location).exists()){
+            pos++;
+            location = "Tickets/QR/QR" + pos + ".png";
+        }
+        File file = new File(location);
+        WritableImage image = this.snapshot(new SnapshotParameters(), null);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+        } catch (Exception s) {
+            s.printStackTrace();
+        }
+        return ("Tickets/QR/QR" + pos + ".png");
     }
 
     /**
@@ -163,7 +188,7 @@ public class QRCode extends Canvas {
      */
     private void addFormat(Pix[][] qr, int[] verStor) {
         String formatInfo = getFormatInfo(verStor);
-        System.out.println("String used: " + formatInfo);
+        //System.out.println("String used: " + formatInfo);
         for (int pos = 0; pos < 6; pos++) {//Top left bottom format
             qr[8][pos] = new Pix(formatInfo.charAt(pos) == '1');
         }
@@ -239,7 +264,7 @@ public class QRCode extends Canvas {
         for (int y = 0; y < qr.length; y++){
             for (int x = 0; x < qr[y].length; x++){
                 if(qr[y][x] == null){
-                    System.out.println("Null at (" + y + ", " + x + ")");
+                    //System.out.println("Null at (" + y + ", " + x + ")");
                     newQR[y][x] = new Pix(false);
                 }else newQR[y][x] = new Pix(qr[y][x].getState());
             }
@@ -260,11 +285,11 @@ public class QRCode extends Canvas {
         score[1] = checkGroups(qr);
         score[2] = checkPattern(qr);
         score[3] = checkRatio(qr);
-        System.out.println("0: " + score[0]);
-        System.out.println("1: " + score[1]);
-        System.out.println("2: " + score[2]);
-        System.out.println("3: " + score[3]);
-        System.out.println("Total: " + (score[0] + score[1] + score[2] + score[3]));
+        //System.out.println("0: " + score[0]);
+        //System.out.println("1: " + score[1]);
+        //System.out.println("2: " + score[2]);
+        //System.out.println("3: " + score[3]);
+        //System.out.println("Total: " + (score[0] + score[1] + score[2] + score[3]));
         return (score[0] + score[1] + score[2] + score[3]);
     }
 
@@ -449,7 +474,7 @@ public class QRCode extends Canvas {
     private int checkRows(Pix[][] qr) {
         int score = 0;
         for (int y = 0; y < qr.length; y++) {
-            System.out.println("Total at row(" + (y-1) + "): " + score);
+            //System.out.println("Total at row(" + (y-1) + "): " + score);
             boolean last = qr[y][0].getState();
             int total = 1;
             for (int x = 1; x < qr[y].length; x++) {
@@ -785,7 +810,7 @@ public class QRCode extends Canvas {
      * @since 1.0.0
      */
     private String encode(String dataIn, int mode, int errLvl) {
-        System.out.println("In: " + dataIn);
+        //System.out.println("In: " + dataIn);
         version = getVersion(dataIn.length(), mode, errLvl);
         if (version == 0) return null;
         String lengthBin = getLengthBin(dataIn, mode);
