@@ -4,7 +4,6 @@ import ReactTable from "react-table";
 import 'react-table/react-table.css'
 import { Scrollbars } from 'react-custom-scrollbars';
 
-
 const $ = require('jquery');
 
 /**
@@ -57,7 +56,7 @@ class Emails extends Component {
 
                     let temp_2 = JSON.parse(JSON.stringify(this.state.reports));
 
-                    temp_2.push(temp[0])
+                    temp_2.push(temp[0]);
 
                     this.setState({
                         reports: temp_2
@@ -149,7 +148,7 @@ class Emails extends Component {
                     let data = JSON.parse(JSON.stringify(this.state.reports));
                     for(let i = 0; i < data.length; ++i){
                         if(id === data[i]._id){
-                            data.splice(id, 1);
+                            data.splice(i, 1);
                         }
                     }
                     this.setState({
