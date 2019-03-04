@@ -7,7 +7,7 @@
 <properties>
     <entry key="car_park_id">110ec58a-a0f2-4ac4-8393-c866d813b8d1</entry>
     <entry key="car_park_name">Egham Car Park</entry>
-    <entry key="webservice">https://holborncarpark.com</entry>
+    <entry key="webservice">http://localhost</entry>
     <entry key="finish_screen_delay">5000</entry>
     <entry key="session_timeout_seconds">300</entry>
     <entry key="session_timeout_popup_duration">3</entry>

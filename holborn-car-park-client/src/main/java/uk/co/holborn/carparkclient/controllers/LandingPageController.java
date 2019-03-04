@@ -85,7 +85,7 @@ public class LandingPageController implements Initializable {
         updateTextParkingSpaces(objects[0] + "");
         updateTextPrice("£" + objects[1]);
         updateHappyHour(((objects[2]).equals(true) ? "Now" : "Unavailable"));
-
+        mc.updatedInfoPane();
     }
 
     /**

@@ -20,6 +20,7 @@ import org.apache.logging.log4j.Logger;
 import uk.co.holborn.carparkclient.*;
 import uk.co.holborn.carparkclient.Networking.Server;
 
+import java.io.PrintWriter;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -55,9 +56,9 @@ public class MainViewController implements Initializable {
     private Socket socket;
     private InfoPopUp popup;
     public Ticket ticket;
-    String hourly_price;
-    String parking_spaces;
-    String happy_hour;
+    public String hourly_price;
+    public String parking_spaces;
+    public String happy_hour;
     private final Logger logger;
     public boolean happyHour = false;
     private Long sessionStartTime;
@@ -146,7 +147,7 @@ public class MainViewController implements Initializable {
             disconnectedUI(true);
         });
         socket.on(Socket.EVENT_DISCONNECT, args_dc -> {
-            logger.warn("Disconnected");
+            logger.error("Disconnected");
             disconnectedUI(true);
             sceneManager.changeTo(Scenes.LANDING);
             popup.show("Disconnected");
@@ -329,12 +330,12 @@ public class MainViewController implements Initializable {
 
     /**
      * Sends ticket generation request to  the server. Once a response has been received,
-     * the method {@link #receivedTicket(Object[])} will be called with corresponding info
+     * the method {@link #receivedTicket(Object[], PrintWriter)}} will be called with corresponding info
      *
      * @since 1.0.6
      */
-    public void requestTicket() {
-        socket.emit("request-ticket", (Ack) this::receivedTicket);
+    public void requestTicket(PrintWriter prin) {
+        socket.emit("request-ticket", (Ack) objects -> receivedTicket(objects, prin));
     }
 
     /**
@@ -344,8 +345,9 @@ public class MainViewController implements Initializable {
      *                (index 0 contains the error code,
      *                index 1 contains either the ticket or info message)
      */
-    public void receivedTicket(Object[] objects) {
-        System.out.println(objects[0]);
+    public void receivedTicket(Object[] objects, PrintWriter print) {
+        System.out.println(objects[1]);
+        print.println((objects[1]));
     }
 
     /**
@@ -354,13 +356,13 @@ public class MainViewController implements Initializable {
      *
      * @param ticketID the ticket id to check
      */
-    public void requestTicketValidity(String ticketID) {
+    public void requestTicketValidity(String ticketID, PrintWriter print) {
         socket.emit("ticket-exit", ticketID, (Ack) objects -> {
             logger.info("Ticket exit request: " + ticketID + " Response:  " + objects[0] + " " + objects[1]);
             if (objects[0].equals(200)) {
-                receivedRequestResponse(true);
+                receivedRequestResponse(true,print);
             } else {
-                receivedRequestResponse(false);
+                receivedRequestResponse(false,print);
             }
         });
     }
@@ -371,13 +373,13 @@ public class MainViewController implements Initializable {
      *
      * @param smartcardID the smart ardID id to check
      */
-    public void requestSmartcardValidity(String smartcardID) {
+    public void requestSmartcardValidity(String smartcardID, PrintWriter print) {
         socket.emit("smartcard-exit", smartcardID, (Ack) objects -> {
             logger.info("Smartcard exit request: " + smartcardID + " Response:  " + objects[0] + " " + objects[1]);
             if (objects[0].equals(200)) {
-                receivedRequestResponse(true);
+                receivedRequestResponse(true,print);
             } else {
-                receivedRequestResponse(false);
+                receivedRequestResponse(false,print);
             }
         });
     }
@@ -387,20 +389,25 @@ public class MainViewController implements Initializable {
      *
      * @param smartcardId the smart card id ot check
      */
-    public void checkSmartcard(String smartcardId) {
+    public void checkSmartcard(String smartcardId,PrintWriter print) {
         socket.emit("smartcard-enter", smartcardId, (Ack) objects -> {
             logger.info("Smartcard enter request: " + smartcardId + " Response:  " + objects[0] + " " + objects[1]);
             if (objects[0].equals(200)) {
-                receivedRequestResponse(true);
+                receivedRequestResponse(true,  print);
             } else {
-                receivedRequestResponse(false);
+                receivedRequestResponse(false, print);
             }
         });
     }
 
-    public void receivedRequestResponse(boolean allowed) {
+    public void updatedInfoPane(){
+        server.update();
+        System.out.println("updatedddddd");
+    }
+    public void receivedRequestResponse(boolean allowed, PrintWriter print) {
         System.out.println(allowed);
-
+        if(allowed) print.println("True");
+        else print.println("False");
     }
 
 }

@@ -19,7 +19,6 @@ public class NoConnectionError extends Exception {
      * @param errorMessage The error message that is displayed.
      * @since 1.0.0
      */
-    //TODO Ask Vlad if this needs to write into the logger?
     public NoConnectionError(String errorMessage) {
         super(errorMessage);
     }

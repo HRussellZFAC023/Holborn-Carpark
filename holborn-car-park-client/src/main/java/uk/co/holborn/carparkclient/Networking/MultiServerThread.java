@@ -5,13 +5,14 @@
 package uk.co.holborn.carparkclient.Networking;
 
 import com.google.gson.Gson;
-import uk.co.holborn.carparkclient.Ticket;
+import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,6 +27,7 @@ public class MultiServerThread extends Thread {
     private Socket socket;//Current socket being used for communication
     private boolean handling = false;//Boolean to stop concurrency issues
     private boolean inputBarrier;//Boolean for storing the type of barrier connected to the thread
+    private MainViewController mc;
 
     //TODO Change sout's to logger interaction
     //TODO Change stack trace outputs to logger interaction
@@ -40,6 +42,7 @@ public class MultiServerThread extends Thread {
         super("BarrierComThread");//Name the thread and run the higher methods
         System.out.println("Socket made on port: " + socket.getPort());
         this.socket = socket;//Sets the socket
+        mc = MainViewController.getInstance();
     }//Constructor for thread, names thread and sets the socket being used
 
     /**
@@ -119,23 +122,20 @@ public class MultiServerThread extends Thread {
         String line;
         //While the command "Halt" has not been given
         while (!checkStop(line = waitAnswer(scan))) {
+            if(line == null) line = "";
             waitForPriority();//Wait for priority to communicate with the barrier
             handling = true;//Set the concurrency boolean to true so that no other methods use it
             System.out.println("Recieved: " + line);
             print.println("ListenUp.");//Send a command to free the input stream for a command
             switch (line) {//Go to the appropriate method
                 case ("Get")://Generate and send a ticket to the barrier
-                    //TODO Retrieve ticket
-                    Ticket ticket = new Ticket();//Needs to generate ticket here
-                    //Convert the ticket to a string and send it to the barriers
-                    print.println((new Gson()).toJson(ticket));
+                    mc.requestTicket(print);
                     break;
                 case ("Update")://Retireve the carpark details and send them to the barrier
                     System.out.println("Recieved update request");
-                    //TODO Get carpark info
-                    String infoStuff = "Some&2.50&Unavaliable";
+                    String infoStuff = mc.parking_spaces + "&" + mc.hourly_price + "&" + mc.happy_hour;
                     print.println(infoStuff);
-                    System.out.println("Sent update request.");
+                    System.out.println("Sent update.");
                     break;
                 default://If the wrong command was sent send null back
                     System.out.println("Error in input request");
@@ -148,8 +148,8 @@ public class MultiServerThread extends Thread {
 
     /**
      * Method for handling the interactions between the client and an 'output' barrier:
-     *      1) Check: The inputted ticket ID is checked for validity with the database.
-     *      2) Valid: The inputted smartcard ID is checked for validity with the database.
+     * 1) Check: The inputted ticket ID is checked for validity with the database.
+     * 2) Valid: The inputted smartcard ID is checked for validity with the database.
      *
      * @param scan  The Scanner object connected to the barriers output stream.
      * @param print The PrintWriter object connected to the barriers input stream
@@ -168,25 +168,12 @@ public class MultiServerThread extends Thread {
                 case ("Check:"):
                     print.println("ListenUp.");
                     //Set the barrier to a state where it will receive data.
-                    //TODO Check the ticket with the database
-                    //TODO change if statement to work with DB input
-                    if (data.contentEquals("True")) {
-                        print.println("True");//Send true back to the barrier
-                        //Maybe return something to let the database know the car has left
-                    } else {
-                        print.println("False");//Send false to the barrier
-                    }
+                     mc.requestTicketValidity(data,print);
                     break;
                 case ("Valid:"):
                     print.println("ListenUp.");
                     //Set the barrier to a state where it will receive data.
-                    //TODO Check with the database
-                    //TODO change if statement to work with DB input
-                    if (data.contentEquals("True")) {
-                        print.println("True");//Send true back to the barrier
-                    } else {
-                        print.println("False");//Send false to the barrier
-                    }
+                    mc.requestSmartcardValidity(data,print);
                     break;
                 default://If the wrong command was sent send null back
                     System.out.println("Error in input request");
@@ -207,11 +194,16 @@ public class MultiServerThread extends Thread {
      */
     private String waitAnswer(Scanner scan) {
         String input;
-        //Loop whilst the input is null
-        while ((input = scan.nextLine()) == null) {
-            sleep(5);//Wait up to 5 milliseconds
+        try {
+            //Loop whilst the input is null
+            while ((input = scan.nextLine()) == null) {
+                sleep(5);//Wait up to 5 milliseconds
+            }
+            return input;//Return the command
+        } catch (NoSuchElementException ignore) {
+
         }
-        return input;//Return the command
+        return null;
     }//Method to wait till there is a string to read
 
     /**
@@ -222,11 +214,14 @@ public class MultiServerThread extends Thread {
      * @since 1.0.0
      */
     private boolean checkStop(String line) throws IOException {
-        if (line.contentEquals("Halt")) {//If the command received is "Halt"
-            System.out.println("Stopping socket with port: " + socket.getPort());
-            shutdown();//Run the disconnection method to halt the listening method on the barrier.
-            socket.close();//Close the socket
-            return true;
+        try {
+            if (line.contentEquals("Halt")) {//If the command received is "Halt"
+                System.out.println("Stopping socket with port: " + socket.getPort());
+                shutdown();//Run the disconnection method to halt the listening method on the barrier.
+                socket.close();//Close the socket
+                return true;
+            }
+        } catch (NullPointerException ignored) {
         }
         return false;
     }//Checks whether the received command is for terminating the connection
