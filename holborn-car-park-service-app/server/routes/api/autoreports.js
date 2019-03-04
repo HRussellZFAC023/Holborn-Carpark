@@ -95,7 +95,7 @@ router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
         return res.status(500).json(json_resp.error.internal);
     }
 
-    res.status(200).send(json_resp.success.create);
+    res.status(200).send({resp: json_resp.success.create, _id: ar_id, user_id: req.session._id});
 });
 
 /**
@@ -105,8 +105,6 @@ router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
  */
 router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let ar_id = req.path.replace(/\//g, '');
-
-    console.log(req.body)
 
     if(typeof req.body.time_period === 'undefined' &&
        typeof req.body.user_id     === 'undefined' &&

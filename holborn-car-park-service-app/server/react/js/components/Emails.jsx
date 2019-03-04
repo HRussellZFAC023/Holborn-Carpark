@@ -45,7 +45,24 @@ class Emails extends Component {
                 data: {
                     time_period: this.state.timePeriod,
                 },
-                success: (data) => {
+                success: (resp) => {
+                    let data = {};
+                    data._id = resp._id;
+                    data.carpark_id = this.state.selectedCarpark._id;
+                    data.last_sent = new Date();
+                    data.time_period = this.state.timePeriod;
+                    data.user_id = resp.user_id;
+
+                    let temp = this.beautifyData([data]);
+
+                    let temp_2 = JSON.parse(JSON.stringify(this.state.reports));
+
+                    temp_2.push(temp[0])
+
+                    this.setState({
+                        reports: temp_2
+                    });
+
                     Swal.fire({
                         title: 'Success',
                         html: 'Auto report successfully created! Expect your first e-mail tomorrow at 9 am(earliest).<br/><br/>Alternatively press the red button to send all emails immediately<br/>(WARNING: THIS IS A TESTING FEATURE AND IF YOU PRESS IT TOO OFTEN YOUR INBOX WILL FILL WITH SPAM :))',
@@ -58,7 +75,7 @@ class Emails extends Component {
                             $.ajax({
                                 url: '/test/autoreporter',
                                 type: 'GET',
-                                success: (data) => {
+                                success: () => {
                                     Swal.fire({
                                         title: 'Check your inbox!',
                                         type: 'success'
