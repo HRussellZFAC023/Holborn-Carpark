@@ -1,0 +1,218 @@
+/*
+ * Copyright (c) 2019. Ionut-Vlad Alboiu.
+ */
+
+/**
+Start ui configuration for both themes
+ */
+.background_card{
+    -fx-background-color: #25252a;
+    -fx-background-radius: 0;
+    -fx-border-width: none;
+    -fx-border-radius: 0;
+
+}
+.top_bar{
+    -fx-background-color:  linear-gradient(to right top, #25252a, #333337, #434245, #525253, #626262);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.67), 60, 0.0, 0, -10);
+}
+.button_card{
+    -fx-background-color: #3e4044;
+    -fx-background-radius: 10;
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #e1e1e1;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.77), 1, 0, 0, 0);
+}
+.button_card:pressed{
+    -fx-background-color: #343639;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}
+
+
+.button_action_round{
+    -fx-background-color: #5c5e62;
+    -fx-text-fill: #e6e6e6;
+    -fx-font: 32px "Avenir Light";
+    -fx-background-radius: 30;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
+}
+.button_action_round:pressed {
+    -fx-background-color: #4469d2;
+    -fx-text-fill: #f7f7f7;
+    -fx-font: 32px "Avenir Light";
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 10, 0, 0, 1);
+}
+.button_back{
+    -fx-background-color: #383838;
+    -fx-text-fill: white;
+    -fx-font: 32px "Avenir Light";
+    -fx-background-radius: 14;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 5, 0, 0, 4);
+}
+.button_back:pressed{
+    -fx-background-color: #292929;
+    -fx-text-fill: white;
+    -fx-font: 32px "Avenir Light";
+    -fx-background-radius: 14;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.44), 1, 0, 0, 1);
+}
+.button_close{
+    -fx-background-color: #ff4050;
+    -fx-text-fill: white;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 60;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    /*-fx-effect: dropshadow(two-pass-box, #979797, 5, 0, 0, 4);*/
+}
+.button_close:pressed{
+    -fx-background-color: #bd3140;
+    -fx-text-fill: white;
+    -fx-font: 20px "Avenir Light";
+    -fx-background-radius: 60;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    /*-fx-effect: dropshadow(two-pass-box, #979797, 1, 0, 0, 1);*/
+}
+.custom_text_field{
+    -fx-background-color: #3e4044;
+    -fx-background-radius: 30;
+    -fx-border-width: 2;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}
+
+.scene_top_title{
+    -fx-font: 34 "Avenir Book";
+    -fx-text-fill: #fbf8f8;
+}
+.connection_progress_indicator {
+    -fx-progress-color: #5c66f2;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 50, 0.0, 0, 10);
+}
+.landing_page_info_card{
+    -fx-background-color: #3e4044;
+    -fx-background-radius: 10;
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #959595;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.58), 5, 0, 0, 0);
+}
+.landing_page_info_container {
+    -fx-background-color:  linear-gradient(to right top, #25252a, #333337, #434245, #525253, #626262);
+    /*-fx-background-radius: 10;*/
+    /*-fx-border-width: 2;*/
+    -fx-background-radius: 10;
+    /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+}
+.landing_page_info_container_label {
+    -fx-font: 16px "Avenir Heavy";
+    -fx-text-fill: #dddddd;
+}
+.landing_page_info_container_value {
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #d0d0d0;
+}
+.connection_card{
+    -fx-background-color: #3e4044;
+    -fx-background-radius: 30;
+    -fx-border-radius: 20;
+    -fx-border-width: 0;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.39), 100, 0, 0, 30);
+}
+.ticket_detail_card{
+    -fx-background-color: #3e4044;
+    -fx-background-radius: 30;
+    -fx-border-radius: 0;
+    /*-fx-border-width: 14;*/
+    /*-fx-border-color: linear-gradient(to bottom right, #6a88ce, #7283c2, #818bf2, #9882f7, #9841f8);*/
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 100, 0, 0, 10);
+}
+
+.ticket_detail_info_label{
+    -fx-font: bold 24 "Avenir Next";
+    -fx-text-fill: #f2f2f2;
+}
+.ticket_detail_info_label_value{
+    -fx-font-family: "Avenir Book";
+    -fx-font-size: 24;
+    -fx-text-fill: #bebebe;
+}
+.ticket_detail_info_label_bigger{
+    -fx-font: 40 "Avenir Next";
+    -fx-text-fill: #ffffff;
+}
+.themeModeButton{
+    -fx-border-radius: 20px;
+    -fx-background-color: #fffef2;
+    -fx-text-fill: #3e4044;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 2);
+}
+.themeModeButton:pressed{
+    -fx-border-radius: 20px;
+    -fx-background-color: #cfcec4;
+    -fx-text-fill: #3e4044;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.32), 10, 0, 0, 1);
+}
+.logoMain{
+    -fx-font: 33 "Avenir Book";
+    -fx-text-fill: white;
+}
+
+.logoMainTicket{
+    -fx-font: 49 "Avenir Book";
+    -fx-text-fill: #ffffff;
+}
+.toggle_card{
+    -fx-background-color: #4d4d4d;
+    -fx-background-radius: 10;
+    -fx-font: 32px "Avenir Light";
+    -fx-text-fill: #e1e1e1;
+    -fx-border-width: 0;
+    -fx-border-radius: 0;
+    -fx-border-color: #4E4C4D;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.77), 1, 0, 0, 0);
+}
+
+.toggle_card:pressed{
+    -fx-background-color: #353535;
+    -fx-background-radius: 10;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}
+.toggle_card:selected:disabled{
+    -fx-background-color:linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-width: 0;
+    -fx-border-radius: 10;
+    -fx-opacity: 1.0;
+    /*-fx-border-color: linear-gradient(to right, #3677dc, #4470e9, #5c66f2, #7957f7, #9841f8);*/
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.72), 1, 0, 0, 0);
+}

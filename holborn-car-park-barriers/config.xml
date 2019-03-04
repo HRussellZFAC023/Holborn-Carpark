@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="app_name">Holborn Car Park System</entry>
-    <!--Not needed, can be retrieved from the client if needed-->
-    <entry key="car_park_id">110ec58a-a0f2-4ac4-8393-c866d813b8d1</entry>
-    <!--Not needed, can be retrieved from the client if needed-->
-    <entry key="car_park_name">Egham Car Park</entry>
-    <!--Not needed, can be retrieved from the client if needed-->
-    <entry key="webservice">127.0.0.1:4444</entry>
-    <!--Needs to be changed to fit the client, maybe check the database? Ask Vlad or Nanyo-->
-    <!--<entry key="barrier_type">In</entry>-->
-    <entry key="barrier_type">Out</entry>
-    <!--Better way to do this?-->
-    <entry key="finish_screen_delay">5000</entry>
-    <!--Not needed?-->
-    <entry key="session_timeout_seconds">180</entry>
-    <!--Not needed?-->
-    <entry key="session_timeout_popup_duration">3</entry>
-    <!--Not needed-->
+<entry key="session_timeout_popup_duration">3</entry>
+<entry key="night_time_start">19</entry>
+<entry key="car_park_id">110ec58a-a0f2-4ac4-8393-c866d813b8d1</entry>
+<entry key="barrier_type">In</entry>
+<entry key="car_park_name">Egham Car Park</entry>
+<entry key="webservice">127.0.0.1:4444</entry>
+<entry key="session_timeout_seconds">300</entry>
+<entry key="night_time_end">7</entry>
+<entry key="auto_night_time">true</entry>
+<entry key="transaction_finished_delay">10</entry>
 </properties>

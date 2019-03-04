@@ -97,11 +97,11 @@ public class MainViewController implements Initializable {
     }
 
     public String[] getSocket() {
-        return GlobalVariables.webservice_socket.split(":");
+        return GlobalVariables.SOCKET_ADDRESS.split(":");
     }
 
     public String getBarrier_type() {
-        return GlobalVariables.barrier_type;
+        return GlobalVariables.BARRIER_TYPE;
     }
 
     public SceneManager getSceneManager() {
