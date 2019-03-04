@@ -228,10 +228,14 @@ class Carparks extends Component {
             let post = document.getElementById('new-car-park-postcode').value;
             let spaces = parseInt(document.getElementById('new-car-park-spaces').value);
 
-            console.log(name);
-            console.log(rate);
-            console.log(post);
-            console.log(spaces);
+            if(!name || isNaN(rate) || !post || isNaN(spaces)){
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Please check your input fields again!',
+                    type: 'error'
+                }).then();
+                return;
+            }
 
             $.ajax({
                 url: '/api/carparks/',
