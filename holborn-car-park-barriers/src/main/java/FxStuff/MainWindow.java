@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+import java.io.FileWriter;
+
 /**
  * Creates the main application stage/window
  *
@@ -36,11 +39,12 @@ public class MainWindow extends Application {
                 log.error(throwable.getStackTrace()[i]);
             }
         });
+        createStorage();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         mainStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         mainStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/barrier_icon.png")));
-        //mainStage.setFullScreen(true);
-        mainStage.setFullScreen(false);
+        mainStage.setFullScreen(true);
+        //mainStage.setFullScreen(false);
         mainStage.setFullScreenExitHint("");
         Scene scene = new Scene(root, 1280, 768);
         new ThemeProvider(scene, Themes.LIGHT);
@@ -51,10 +55,32 @@ public class MainWindow extends Application {
     }
 
     /**
+     * A method to create the storage folders if they do not exist
+     *
+     */
+    private void createStorage() {
+        String fileLocation = "Tickets";
+        File file = new File(fileLocation);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        fileLocation = "Tickets/QR";
+        file = new File(fileLocation);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        fileLocation = "Tickets/Ticket";
+        file = new File(fileLocation);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+    }
+
+    /**
      * This method gets called when the application stops, disconnects the sockets
      */
     @Override
-    public void stop(){
+    public void stop() {
         log.info("-----------Application end------------");
         MainViewController.getInstance().disconnect();
     }
