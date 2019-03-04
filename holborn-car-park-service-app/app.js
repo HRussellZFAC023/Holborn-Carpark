@@ -40,7 +40,6 @@ const ticketsRoute     = require('./server/routes/api/tickets')(io);
 const smartcardsRoute  = require('./server/routes/api/smartcards')(io);
 const usersRoute       = require('./server/routes/api/users');
 const autoreportsRoute = require('./server/routes/api/autoreports');
-const usersRoute = require('./server/routes/api/users');
 
 /**
  * Setting express middleware to be used
