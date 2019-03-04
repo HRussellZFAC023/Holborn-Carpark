@@ -168,7 +168,7 @@ module.exports = function(io) {
 
         if (typeof req.body.happy_hour_start !== 'undefined') {
             try{
-                await carpark_db.query(query.api.carparks.update.happy_hour_start, [c_id, req.body.happy_hour_start]);
+                await carpark_db.query(query.api.carparks.update.happy_hour_start, [c_id, new Date(req.body.happy_hour_start).getTime()]);
             }
             catch (db_err) {
                 debug(db_err);

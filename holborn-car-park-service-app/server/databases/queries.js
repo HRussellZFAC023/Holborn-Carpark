@@ -70,8 +70,8 @@ exports.api = {
             postcode:         `UPDATE carparks SET postcode         = $2 WHERE _id = $1`,
             parking_places:   `UPDATE carparks SET parking_places   = $2 WHERE _id = $1`,
             duration:         `UPDATE carparks SET duration         = $2 WHERE _id = $1`,
-            happy_hour:       `UPDATE carparks SER happy_hour       = $2 WHERE _id = $1`,
-            happy_hour_start: `UPDATE carparks SER happy_hour_start = $2 WHERE _id = $1`
+            happy_hour:       `UPDATE carparks SET happy_hour       = $2 WHERE _id = $1`,
+            happy_hour_start: `UPDATE carparks SET happy_hour_start_time = to_timestamp($2 / 1000.0) WHERE _id = $1`
         },
         delete_one: `DELETE   FROM carparks WHERE _id = $1`
     },
