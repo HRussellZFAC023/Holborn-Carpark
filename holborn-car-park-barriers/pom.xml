@@ -29,7 +29,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>uk.co.holborn.carparkclient.MainAppLauncher</mainClass>
+                    <mainClass>FxStuff.ScreenLauncher</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -48,7 +48,7 @@
                                 <!-- add Main-Class to manifest file -->
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>uk.co.holborn.carparkclient.MainAppLauncher</mainClass>
+                                    <mainClass>FxStuff.ScreenLauncher</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
