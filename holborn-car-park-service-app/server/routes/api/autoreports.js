@@ -106,6 +106,8 @@ router.post('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
 router.put('/' + G.uuid_regex, verify.UserAuth, async function (req, res) {
     let ar_id = req.path.replace(/\//g, '');
 
+    console.log(req.body)
+
     if(typeof req.body.time_period === 'undefined' &&
        typeof req.body.user_id     === 'undefined' &&
        typeof req.body.last_sent   === 'undefined' &&

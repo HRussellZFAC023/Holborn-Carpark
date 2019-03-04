@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -46,30 +46,22 @@ class Emails extends Component {
                     time_period: this.state.timePeriod,
                 },
                 success: (data) => {
-                    swal({
-                        title: `Success`,
-                        text: `Auto report successfully created! Expect your first e-mail tomorrow at 9 am(earliest).
-                        
-                                Alternatively press the red button to send all emails immediately         
-                                (WARNING: THIS IS A TESTING FEATURE AND IF YOU PRESS IT TOO OFTEN YOUR INBOX WILL FILL WITH SPAM :))`,
-                        icon: `success`,
-                        buttons: {
-                            test: {
-                                text: "TEST ONLY",
-                                className: "red-test-only",
-                                value: 'testing'
-                            },
-                            confirm: true
-                        },
-                        dangerMode: false,
-                    }).then((value) => {
-                        if(value === 'testing'){
+                    Swal.fire({
+                        title: 'Success',
+                        html: 'Auto report successfully created! Expect your first e-mail tomorrow at 9 am(earliest).<br/><br/>Alternatively press the red button to send all emails immediately<br/>(WARNING: THIS IS A TESTING FEATURE AND IF YOU PRESS IT TOO OFTEN YOUR INBOX WILL FILL WITH SPAM :))',
+                        type: 'success',
+                        showCancelButton: true,
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'TEST ONLY'
+                    }).then((result) => {
+                        if(!result.value){
                             $.ajax({
                                 url: '/test/autoreporter',
                                 type: 'GET',
                                 success: (data) => {
-                                    swal("Check your inbox!", {
-                                        icon: "success",
+                                    Swal.fire({
+                                        title: 'Check your inbox!',
+                                        type: 'success'
                                     }).then();
                                 },
                                 error: (xhr, status, err) => {
@@ -81,11 +73,10 @@ class Emails extends Component {
                 },
                 error: (xhr, status, err) => {
                     console.error('', status, err.toString());
-                    swal({
-                        title: `Error`,
-                        text: `Oops! Something went wrong, please try again!`,
-                        icon: `error`,
-                        dangerMode: true,
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Oops! Something went wrong, please try again!',
+                        type: 'error'
                     }).then();
                 }
             });
@@ -94,6 +85,104 @@ class Emails extends Component {
         this.timePeriodChange = (e) => {
             this.setState({
                 timePeriod: e.target.value
+            });
+        };
+
+        /**
+         * Function that returns a nice human readable date
+         * @param date
+         * @returns {string}
+         */
+        this.formatDate = (date) => {
+            let monthNames = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+
+            let day = date.getDate();
+            let monthIndex = date.getMonth();
+            let year = date.getFullYear();
+
+            return day + ' ' + monthNames[monthIndex] + ' ' + year;
+        };
+
+        this.beautifyData = (data) => {
+            let beauty = JSON.parse(JSON.stringify(data));
+
+            for(let i = 0; i < data.length; ++i){
+                beauty[i]._id_b = data[i]._id.substring(0, data[i]._id.indexOf('-'));
+                beauty[i].last_sent = this.formatDate(new Date(data[i].last_sent));
+                for(let j = 0; j < this.state.carparks.length; ++j) {
+                    if(this.state.carparks[j]._id === data[i].carpark_id) {
+                        beauty[i].carpark_name = this.state.carparks[j].name;
+                    }
+                }
+            }
+
+            return beauty;
+        };
+
+        this.deleteReport = (id) => {
+            $.ajax({
+                url: '/api/autoreports/' + id,
+                type: 'DELETE',
+                success: () => {
+                    let data = JSON.parse(JSON.stringify(this.state.reports));
+                    for(let i = 0; i < data.length; ++i){
+                        if(id === data[i]._id){
+                            data.splice(id, 1);
+                        }
+                    }
+                    this.setState({
+                        reports: data,
+                    });
+                },
+                error: (xhr, status, err) => {
+                    console.error('', status, err.toString());
+                }
+            });
+        };
+
+        this.changePeriod = (id) => {
+            let new_period = 1;
+
+            Swal.fire({
+                title: 'Select time period',
+                input: 'text',
+                type: 'warning',
+            }).then((input) => {
+                if(isNaN(input.value)){
+                    Swal.fire({
+                        title: 'Not a number',
+                        type: 'error',
+                    }).then();
+                    return;
+                }
+                new_period = input.value;
+
+                $.ajax({
+                    url: '/api/autoreports/' + id,
+                    type: 'PUT',
+                    data: {
+                        time_period: parseInt(new_period)
+                    },
+                    success: () => {
+                        let data = JSON.parse(JSON.stringify(this.state.reports));
+                        for(let i = 0; i < data.length; ++i){
+                            if(id.toString() === data[i]._id.toString()){
+                                data[i].time_period = new_period;
+                            }
+                        }
+                        this.setState({
+                            reports: data,
+                        });
+                    },
+                    error: (xhr, status, err) => {
+                        console.error('', status, err.toString());
+                    }
+                });
             });
         };
     }
@@ -130,7 +219,6 @@ class Emails extends Component {
             url: '/api/autoreports/',
             type: 'GET',
             success: (data) => {
-                console.log(data)
                 this.setState({
                     reports: data,
                 });
@@ -235,21 +323,33 @@ class Emails extends Component {
                         autoHideTimeout={500}
                     >
                         <ReactTable
-                            pageSizeOptions={[5, 10, 13, 15, 20, 25, 30, 35]}
-                            defaultPageSize={13}
-                            data={this.state.reports}
+                            pageSizeOptions={[5, 10, 12, 15, 20, 25, 30, 35]}
+                            defaultPageSize={12}
+                            data={this.beautifyData(this.state.reports)}
                             columns={[{
                                 Header: 'ID',
-                                accessor: '_id' // String-based value accessors!
+                                accessor: '_id_b',
+                                Cell: props => <div className="has-text-centered">{props.value}</div>
                             }, {
                                 Header: 'Time Period (in days)',
                                 accessor: 'time_period',
+                                Cell: props => <div className="has-text-centered">{props.value}</div>
                             }, {
                                 Header: 'Last sent on',
-                                accessor: 'last_sent' // Custom value accessors!
+                                accessor: 'last_sent',
+                                Cell: props => <div className="has-text-centered">{props.value}</div>
                             }, {
-                                Header: "Car park", // Custom header components!
-                                accessor: 'carpark_id'
+                                Header: "Car park",
+                                accessor: 'carpark_name',
+                                Cell: props => <div className="has-text-centered">{props.value}</div>
+                            }, {
+                                Header: "Actions",
+                                accessor: 'actions',
+                                Cell: props =>
+                                    <div className="has-text-centered">
+                                        <button onClick={()=>{this.changePeriod(props.original._id)}} className="button is-small gradient has-text-white is-info" style={{marginRight: 5}}>Change Period</button>
+                                        <button onClick={()=>{this.deleteReport(props.original._id)}} className="button is-small gradient has-text-white is-info">Delete</button>
+                                    </div>
                             }]}
                         />
                     </Scrollbars>
