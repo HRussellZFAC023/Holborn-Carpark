@@ -6,7 +6,7 @@
 <entry key="car_park_id">110ec58a-a0f2-4ac4-8393-c866d813b8d1</entry>
 <entry key="barrier_type">In</entry>
 <entry key="car_park_name">Egham Car Park</entry>
-<entry key="webservice">10.2.98.200:4444</entry>
+<entry key="webservice">127.0.0.1:4444</entry>
 <entry key="session_timeout_seconds">300</entry>
 <entry key="night_time_end">7</entry>
 <entry key="auto_night_time">true</entry>

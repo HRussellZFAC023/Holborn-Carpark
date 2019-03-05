@@ -46,6 +46,9 @@ public class Protocol {
             while ((request = scan.nextLine()) == null) {
                 sleep(1);
             }
+            if(request.equalsIgnoreCase("ListenUp.")){
+                request = scan.nextLine();
+            }
             return request;
         } catch (Exception e) {//Throw a no connection error to cause the barrier to try and re-connect to the client
             throw new NoConnectionError("No connection to the server.");

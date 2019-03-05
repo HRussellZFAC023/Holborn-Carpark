@@ -43,8 +43,8 @@ public class MainWindow extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main_view.fxml"));
         mainStage.setTitle(GlobalVariables.MAIN_WINDOW_NAME);
         mainStage.getIcons().add(new Image(MainWindow.class.getResourceAsStream("/barrier_icon.png")));
-        mainStage.setFullScreen(true);
-        //mainStage.setFullScreen(false);
+        //mainStage.setFullScreen(true);
+        mainStage.setFullScreen(false);
         mainStage.setFullScreenExitHint("");
         Scene scene = new Scene(root, 1280, 768);
         new ThemeProvider(scene, Themes.LIGHT);
