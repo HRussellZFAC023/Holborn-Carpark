@@ -154,6 +154,7 @@ exports.smartcard_exit = async function (io, s_id, c_id, cb) {
     } else {
         return cb(404, `Could not find`);
     }
+    this.emit_update(io,c_id);
 };
 
 /**
@@ -273,6 +274,7 @@ exports.smartcard_enter = async function (io, s_id, c_id, cb) {
     } else {
         return cb(404, `Smart card could not be found`);
     }
+    this.emit_update(io,c_id);
 };
 exports.ticket_exit = async function (io, t_id, c_id, cb) {
     const p1 = [t_id, c_id];
@@ -286,15 +288,16 @@ exports.ticket_exit = async function (io, t_id, c_id, cb) {
     if (db_res1.rows[0].valid !== true) return cb(406, 'Not valid'); //not valid
     if (db_res1.rows[0].paid !== true) return cb(403, 'Not paid'); // not paid
 
-    const params = [t_id, c_id];
+    const params = [t_id, false];
     let db_res;
     try {
-        db_res = await carpark_db.query(queries.api.tickets.validate, params);
+        db_res = await carpark_db.query(queries.api.tickets.update.valid, params);
     } catch (db_err) {
         debug(db_err);
         return cb(500, "Error on validating");
     }
     cb(200, db_res.rows[0]);
+    this.emit_update(io,c_id);
 
 };
 exports.request_ticket = async function (io, c_id, cb) {
@@ -318,7 +321,7 @@ exports.request_ticket = async function (io, c_id, cb) {
         debug(db_err);
     }
     cb(200, db_res.rows[0]);
-
+    this.emit_update(io,c_id);
 
 };
 exports.emit_update = function (io, _id) {
