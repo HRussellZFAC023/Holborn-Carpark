@@ -86,10 +86,10 @@ public class TicketPrintingController implements Initializable {
             String location = qrGen.generate(ID, 3, 5);
             Path path = Paths.get(location);
             int pos = 0;
-            location = "Tickets/Ticket/Ticket" + pos + ".png";
+            location = "Tickets/Ticket/Ticket" + pos + ".pdf";
             while (new File(location).exists()) {
                 pos++;
-                location = "Tickets/Ticket/Ticket" + pos + ".png";
+                location = "Tickets/Ticket/Ticket" + pos + ".pdf";
             }
             PdfWriter.getInstance(ticket, new FileOutputStream("Tickets/Ticket/Ticket" + pos + ".pdf"));
             ticket.open();
