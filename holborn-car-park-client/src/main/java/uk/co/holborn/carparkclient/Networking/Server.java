@@ -64,8 +64,15 @@ public class Server extends Thread {
      * @since 1.0.0
      */
     public void update() {
+        List<MultiServerThread> conRemove = new ArrayList<>();
         for (MultiServerThread con : connections) {//Loop through all the connected barriers
+            try{
             con.update();//Set the barrier to request the carpark details off of the server
+        }catch(NoConnectionError ignore){
+                conRemove.add(con);
+            }}
+        for (MultiServerThread con: conRemove){
+            connections.remove(con);
         }
     }//Makes all the connected barriers update the carpark info
 

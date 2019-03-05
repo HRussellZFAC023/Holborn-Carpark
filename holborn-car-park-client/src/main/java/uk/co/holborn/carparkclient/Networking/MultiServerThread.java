@@ -4,7 +4,6 @@
 
 package uk.co.holborn.carparkclient.Networking;
 
-import com.google.gson.Gson;
 import uk.co.holborn.carparkclient.controllers.MainViewController;
 
 import java.io.BufferedReader;
@@ -96,14 +95,14 @@ public class MultiServerThread extends Thread {
      *
      * @since 1.0.0
      */
-    public void update() {
+    public void update() throws NoConnectionError{
         if (inputBarrier) {//If the barrier is an input barrier(only input barriers need the information)
             waitForPriority();//Wait for priority to communicate with the barrier
             handling = true;//Set the concurrency boolean to true so that no other methods use it
             try {
                 getPrint().println("Update");//Send the command "Update" to the barrier
             } catch (Exception e) {
-                System.out.println("Unable to update client.");
+                throw new NoConnectionError("No connection.");
             }
             handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the barrier
         }
@@ -122,8 +121,8 @@ public class MultiServerThread extends Thread {
         String line;
         //While the command "Halt" has not been given
         while (!checkStop(line = waitAnswer(scan))) {
-            if(line == null) line = "";
             waitForPriority();//Wait for priority to communicate with the barrier
+            if (line == null) line = " ";
             handling = true;//Set the concurrency boolean to true so that no other methods use it
             System.out.println("Recieved: " + line);
             print.println("ListenUp.");//Send a command to free the input stream for a command
@@ -139,11 +138,12 @@ public class MultiServerThread extends Thread {
                     break;
                 default://If the wrong command was sent send null back
                     System.out.println("Error in input request");
-                    print.println((new Gson()).toJson(null));
+                    print.println();
                     break;
             }
             handling = false;//Set the concurrency boolean to false allowing other processes to communicate with the barrier
         }
+
     }//The code run to interact with an 'in' barrier
 
     /**
@@ -168,12 +168,12 @@ public class MultiServerThread extends Thread {
                 case ("Check:"):
                     print.println("ListenUp.");
                     //Set the barrier to a state where it will receive data.
-                     mc.requestTicketValidity(data,print);
+                    mc.requestTicketValidity(data, print);
                     break;
                 case ("Valid:"):
                     print.println("ListenUp.");
                     //Set the barrier to a state where it will receive data.
-                    mc.requestSmartcardValidity(data,print);
+                    mc.requestSmartcardValidity(data, print);
                     break;
                 default://If the wrong command was sent send null back
                     System.out.println("Error in input request");
@@ -221,7 +221,11 @@ public class MultiServerThread extends Thread {
                 socket.close();//Close the socket
                 return true;
             }
-        } catch (NullPointerException ignored) {
+        } catch (Exception e) {
+            if(!socket.isClosed()){
+                socket.close();
+            }
+            return true;
         }
         return false;
     }//Checks whether the received command is for terminating the connection
