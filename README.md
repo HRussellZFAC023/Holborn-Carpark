@@ -1,3 +1,5 @@
+Note - ro run the server (you may need admin privileges) do:`"$ npm start` while within the server directory
+
 Website
 --------
 www.holborncarpark.com
