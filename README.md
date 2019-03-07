@@ -1,4 +1,4 @@
-Note - ro run the server (you may need admin privileges) do:`$ npm start` while within the server directory
+Note - to run the server (you may need admin privileges) do:`$ npm start` while within the server directory
 
 Website
 --------
