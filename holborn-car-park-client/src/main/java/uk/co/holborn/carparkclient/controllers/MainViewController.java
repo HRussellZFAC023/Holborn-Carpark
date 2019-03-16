@@ -402,7 +402,6 @@ public class MainViewController implements Initializable {
 
     public void updatedInfoPane(){
         server.update();
-        System.out.println("updatedddddd");
     }
     public void receivedRequestResponse(boolean allowed, PrintWriter print) {
         System.out.println(allowed);

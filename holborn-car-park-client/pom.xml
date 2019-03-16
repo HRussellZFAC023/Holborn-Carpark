@@ -9,7 +9,7 @@
 
     <groupId>uk.co.holborn.carparkclient</groupId>
     <artifactId>holborn-car-park-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
 

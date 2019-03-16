@@ -20,7 +20,7 @@ class Carparks extends Component {
             let beauty = JSON.parse(JSON.stringify(data));
 
             for(let i = 0; i < data.length; ++i){
-                beauty[i]._id_b = data[i]._id.substring(0, data[i]._id.indexOf('-'));
+                beauty[i]._id_b = data[i]._id;
             }
 
             return beauty;

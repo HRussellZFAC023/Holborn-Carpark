@@ -34,7 +34,6 @@ class Tickets extends Component {
             let day = date.getDate();
             let monthIndex = date.getMonth();
             let year = date.getFullYear();
-
             return day + ' ' + monthNames[monthIndex] + ' ' + year;
         };
 
@@ -42,7 +41,7 @@ class Tickets extends Component {
             let beauty = JSON.parse(JSON.stringify(data));
 
             for(let i = 0; i < data.length; ++i){
-                beauty[i]._id_b = data[i]._id.substring(0, data[i]._id.indexOf('-'));
+                beauty[i]._id_b = data[i]._id;
                 beauty[i].date_in = this.formatDate(new Date(data[i].date_in));
                 beauty[i].date_out = this.formatDate(new Date(data[i].date_out));
                 beauty[i].paid = !beauty[i].paid ? 'No' : 'Yes';
